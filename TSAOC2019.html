@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!--
+Copyright 2020 T. Angioletti
+
+Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software and associated documentation 
+files (the "Software"), to deal in the Software without 
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom 
+the Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall 
+be included in all copies or substantial portions of the 
+Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<html>
+  <head>
+    <title>Advent of Code 2019 -- Tom's Solutions</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-rows: 2em 1em 1fr 1em;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        background-color: #0f0f23;
+        color: #cccccc;
+      }
+      header {
+        grid-row: 1/2;
+      }
+      nav {
+        grid-row: 2/3;
+      }
+      footer {
+        grid-row: end;
+      }
+      .tab {
+        background-color: gray;
+        color: white;
+        float: left;
+        border: none;
+        outline: 1px solid white;
+        cursor: pointer;
+      }
+      article {
+        display: none;
+        padding: 5px;
+        outline: 1px solid white;
+      }
+    </style>
+  </head>
+  <body onload="showArt('about')">
+    <header>Tom's Solutions for the Advent of Code 2019</header>
+    <nav>
+      <button class="tab" id="b_about" onclick="showArt('about')">About</button>
+      <button class="tab" id="b_d1p1" onclick="showArt('d1p1')">D1P1</button>
+      <button class="tab" id="b_d1p2" onclick="showArt('d1p2')">D1P2</button>
+      <button class="tab" id="b_dbg" onclick="showArt('dbg')">DEBUG</button>
+    </nav>
+    <footer>
+      (c) 2020 T. Angioletti, except for problem descriptions and input data.
+    </footer>
+    <article id="a_about">
+      Tom's Solutions for the Advent of Code 2019 <br />
+      TSAOC2019 v0.2.0<br />
+      This is a simple program for solving the Advent of Code (AOC) 2019. <br />
+      Link to AOC:
+      <a href="https://adventofcode.com/2019">https://adventofcode.com/2019</a>
+      <br />
+      Problem descriptions and input data are copied from that web site.
+    </article>
+    <article id="a_dbg">
+      <button onclick="dbclear()">Clear</button>
+      <button onclick="dbtest()">Test</button>
+      <hr />
+      DEBUG AREA
+      <div id="dblog"></div>
+    </article>
+    <article id="a_d1p1">
+      <div>
+        <pre>
+--- Day 1: The Tyranny of the Rocket Equation --- 
+...
+Fuel required to launch a given module is based on its mass. 
+Specifically, to find the fuel required for a module, take its 
+mass, divide by three, round down, and subtract 2.
+
+For example:
+
+    -For a mass of 12, divide by 3 and round down to get 4, 
+    then subtract 2 to get 2.
+    -For a mass of 14, dividing by 3 and rounding down still 
+    yields 4, so the fuel required is also 2.
+    -For a mass of 1969, the fuel required is 654.
+    -For a mass of 100756, the fuel required is 33583.
+
+The Fuel Counter-Upper needs to know the total fuel requirement. 
+To find it, individually calculate the fuel needed for the mass 
+of each module (your puzzle input), then add together all the 
+fuel values.
+...
+        </pre>
+      </div>
+      <div>
+        <label for="in">INPUT</label><br />
+        <textarea id="in" name="in" rows="20">
+92903
+97793
+95910
+104540
+122569
+60424
+145155
+90081
+81893
+140366
+77358
+122977
+114868
+135274
+80770
+104328
+87475
+135948
+128585
+71353
+93571
+69870
+137262
+142606
+95397
+62517
+87269
+73336
+118502
+82894
+125097
+102311
+134164
+119828
+116181
+99303
+88937
+63418
+145060
+91014
+136031
+106000
+105084
+139280
+99775
+94626
+99081
+119824
+58232
+54759
+93633
+142621
+63718
+106439
+62425
+119965
+73033
+130019
+93223
+118848
+122769
+130704
+63418
+87205
+137230
+147960
+51051
+65279
+82183
+57705
+102519
+144031
+94413
+98485
+130646
+111400
+100503
+95963
+143785
+97857
+146611
+67684
+79662
+147350
+60427
+118683
+128729
+65014
+55844
+120846
+117969
+134494
+127003
+139614
+95021
+124970
+100680
+91622
+106898
+79702
+        </textarea>
+        <br />
+        <button onclick="doit()">Do It</button>
+        <br />
+        <textarea id="out">output</textarea>
+      </div>
+    </article>
+    <article id="a_d1p2">
+      <pre>
+--- Part Two ---
+
+During the second Go / No Go poll, the Elf in charge of the 
+Rocket Equation Double-Checker stops the launch sequence. 
+Apparently, you forgot to include additional fuel for the fuel 
+you just added.
+
+Fuel itself requires fuel just like a module - take its mass, 
+divide by three, round down, and subtract 2. However, that 
+fuel also requires fuel, and that fuel requires fuel, and so on. 
+Any mass that would require negative fuel should instead be 
+treated as if it requires zero fuel; the remaining mass, if any, 
+is instead handled by wishing really hard, which has no mass and 
+is outside the scope of this calculation.
+
+So, for each module mass, calculate its fuel and add it to the 
+total. Then, treat the fuel amount you just calculated as the 
+input mass and repeat the process, continuing until a fuel 
+requirement is zero or negative. For example:
+
+    A module of mass 14 requires 2 fuel. This fuel requires no 
+    further fuel (2 divided by 3 and rounded down is 0, which would 
+    call for a negative fuel), so the total fuel required is still 
+    just 2.
+
+    At first, a module of mass 1969 requires 654 fuel. Then, this 
+    fuel requires 216 more fuel (654 / 3 - 2). 216 then requires 70
+    more fuel, which requires 21 fuel, which requires 5 fuel, which 
+    requires no further fuel. So, the total fuel required for a 
+    module of mass 1969 is 654 + 216 + 70 + 21 + 5 = 966.
+
+    The fuel required by a module of mass 100756 and its fuel is: 
+    33583 + 11192 + 3728 + 1240 + 411 + 135 + 43 + 12 + 2 = 50346.
+
+What is the sum of the fuel requirements for all of the modules on 
+your spacecraft when also taking into account the mass of the added 
+fuel? (Calculate the fuel requirements for each module separately, 
+then add them all up at the end.)
+      </pre>
+    </article>
+
+    <script>
+      "use strict";
+      // @ts-check
+      //UTILITY AND UNIT TEST SECTION//////
+      function gi(id) {
+        return document.getElementById(id);
+      }
+      function log(t) {
+        gi("dblog").innerHTML += "<br/>" + t;
+      }
+      function dbclear() {
+        gi("dblog").innerHTML = "";
+      }
+      function dbtest() {
+        let p = 0; //number of passed tests.
+        let f = "Failed test ids:";
+        fuelreq(12) == 2 ? p++ : (f += " d1p1-1");
+        fuelreq(14) == 2 ? p++ : (f += " d1p1-2");
+        fuelreq(1969) == 654 ? p++ : (f += " d1p1-3");
+        fuelreq(100756) == 33583 ? p++ : (f += " d1p1-4");
+        log(`${p} tests passed. ${f}.`);
+      }
+      //ARTICLE DISPLAY CONTROL SECTION///////
+      var currentBaseId = "d1p1";
+      function showArt(baseId) {
+        //Turn off current article and button.
+        gi("a_" + currentBaseId).style.display = "none";
+        gi("b_" + currentBaseId).style.backgroundColor = "gray";
+        //Turn on new article and button.
+        gi("a_" + baseId).style.display = "block";
+        gi("b_" + baseId).style.backgroundColor = "#0f0f23";
+        currentBaseId = baseId;
+      }
+      //DAY 1 PART 1 SECTION////////
+      function fuelreq(mass) {
+        // take its mass, divide by three, round down, and subtract 2.
+        return Math.floor(mass / 3) - 2;
+      }
+      function doit() {
+        //gi("out").textContent
+        let a = gi("in").value;
+        let b = a.split(/\r?\n/);
+        let t = 0;
+        for (let x of b) {
+          let n = Number.parseFloat(x);
+          if (Number.isNaN(n)) n = 0;
+          t += fuelreq(n);
+        }
+        gi("out").value = t;
+      }
+    </script>
+  </body>
+</html>
