@@ -24,7 +24,6 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 OTHER DEALINGS IN THE SOFTWARE.
 -->
-
 <html>
   <head>
     <title>Advent of Code 2019 -- Tom's Solutions</title>
@@ -67,6 +66,8 @@ OTHER DEALINGS IN THE SOFTWARE.
       <button class="tab" id="b_about" onclick="showArt('about')">About</button>
       <button class="tab" id="b_d1p1" onclick="showArt('d1p1')">D1P1</button>
       <button class="tab" id="b_d1p2" onclick="showArt('d1p2')">D1P2</button>
+      <button class="tab" id="b_d2p1" onclick="showArt('d2p1')">D2P1</button>
+      <button class="tab" id="b_d2p2" onclick="showArt('d2p2')">D2P2</button>
       <button class="tab" id="b_dbg" onclick="showArt('dbg')">DEBUG</button>
     </nav>
     <footer>
@@ -114,8 +115,8 @@ fuel values.
         </pre>
       </div>
       <div>
-        <label for="in">INPUT</label><br />
-        <textarea id="in" name="in" rows="20">
+        <label for="d1p1_in">INPUT</label><br />
+        <textarea id="d1p1_in" name="in" rows="20">
 92903
 97793
 95910
@@ -218,9 +219,9 @@ fuel values.
 79702
         </textarea>
         <br />
-        <button onclick="doit()">Do It</button>
+        <button onclick="d1p1_doit()">Do It</button>
         <br />
-        <textarea id="out">output</textarea>
+        <textarea id="d1p1_out">output</textarea>
       </div>
     </article>
     <article id="a_d1p2">
@@ -264,6 +265,292 @@ your spacecraft when also taking into account the mass of the added
 fuel? (Calculate the fuel requirements for each module separately, 
 then add them all up at the end.)
       </pre>
+      <div>
+        <label for="d1p2_in">INPUT</label><br />
+        <textarea id="d1p2_in" name="in" rows="20">
+92903
+97793
+95910
+104540
+122569
+60424
+145155
+90081
+81893
+140366
+77358
+122977
+114868
+135274
+80770
+104328
+87475
+135948
+128585
+71353
+93571
+69870
+137262
+142606
+95397
+62517
+87269
+73336
+118502
+82894
+125097
+102311
+134164
+119828
+116181
+99303
+88937
+63418
+145060
+91014
+136031
+106000
+105084
+139280
+99775
+94626
+99081
+119824
+58232
+54759
+93633
+142621
+63718
+106439
+62425
+119965
+73033
+130019
+93223
+118848
+122769
+130704
+63418
+87205
+137230
+147960
+51051
+65279
+82183
+57705
+102519
+144031
+94413
+98485
+130646
+111400
+100503
+95963
+143785
+97857
+146611
+67684
+79662
+147350
+60427
+118683
+128729
+65014
+55844
+120846
+117969
+134494
+127003
+139614
+95021
+124970
+100680
+91622
+106898
+79702
+        </textarea>
+        <br />
+        <button onclick="d1p2_doit()">Do It</button>
+        <br />
+        <textarea id="d1p2_out">output</textarea>
+      </div>
+    </article>
+    <article id="a_d2p1">
+      <pre>
+--- Day 2: 1202 Program Alarm ---
+
+On the way to your gravity assist around the Moon, your ship 
+computer beeps angrily about a "1202 program alarm". On the radio, 
+an Elf is already explaining how to handle the situation: "Don't 
+worry, that's perfectly norma--" The ship computer bursts into 
+flames.
+
+You notify the Elves that the computer's magic smoke seems to 
+have escaped. "That computer ran Intcode programs like the gravity 
+assist program it was working on; surely there are enough spare 
+parts up there to build a new Intcode computer!"
+
+An Intcode program is a list of integers separated by commas 
+(like 1,0,0,3,99). To run one, start by looking at the first integer 
+(called position 0). Here, you will find an opcode - either 1, 2, 
+or 99. The opcode indicates what to do; for example, 99 means that 
+the program is finished and should immediately halt. Encountering an 
+unknown opcode means something went wrong.
+
+Opcode 1 adds together numbers read from two positions and stores the 
+result in a third position. The three integers immediately after the 
+opcode tell you these three positions - the first two indicate the 
+positions from which you should read the input values, and the third 
+indicates the position at which the output should be stored.
+
+For example, if your Intcode computer encounters 1,10,20,30, it should 
+read the values at positions 10 and 20, add those values, and then 
+overwrite the value at position 30 with their sum.
+
+Opcode 2 works exactly like opcode 1, except it multiplies the two 
+inputs instead of adding them. Again, the three integers after the 
+opcode indicate where the inputs and outputs are, not their values.
+
+Once you're done processing an opcode, move to the next one by stepping 
+forward 4 positions.
+
+For example, suppose you have the following program:
+
+1,9,10,3,2,3,11,0,99,30,40,50
+
+For the purposes of illustration, here is the same program split into 
+multiple lines:
+
+1,9,10,3,
+2,3,11,0,
+99,
+30,40,50
+
+The first four integers, 1,9,10,3, are at positions 0, 1, 2, and 3. 
+Together, they represent the first opcode (1, addition), the positions 
+of the two inputs (9 and 10), and the position of the output (3). To 
+handle this opcode, you first need to get the values at the input 
+positions: position 9 contains 30, and position 10 contains 40. Add 
+these numbers together to get 70. Then, store this value at the output 
+position; here, the output position (3) is at position 3, so it overwrites 
+itself. Afterward, the program looks like this:
+
+1,9,10,70,
+2,3,11,0,
+99,
+30,40,50
+
+Step forward 4 positions to reach the next opcode, 2. This opcode works 
+just like the previous, but it multiplies instead of adding. The inputs 
+are at positions 3 and 11; these positions contain 70 and 50 respectively. 
+Multiplying these produces 3500; this is stored at position 0:
+
+3500,9,10,70,
+2,3,11,0,
+99,
+30,40,50
+
+Stepping forward 4 more positions arrives at opcode 99, halting the 
+program.
+
+Here are the initial and final states of a few more small programs:
+
+  1,0,0,0,99 becomes 2,0,0,0,99 (1 + 1 = 2).
+  2,3,0,3,99 becomes 2,3,0,6,99 (3 * 2 = 6).
+  2,4,4,5,99,0 becomes 2,4,4,5,99,9801 (99 * 99 = 9801).
+  1,1,1,4,99,5,6,0,99 becomes 30,1,1,4,2,5,6,0,99.
+
+Once you have a working computer, the first step is to restore the 
+gravity assist program (your puzzle input) to the "1202 program alarm" 
+state it had just before the last computer caught fire. To do this, 
+before running the program, replace position 1 with the value 12 and 
+replace position 2 with the value 2. What value is left at position 0 
+after the program halts?
+      </pre>
+      <div>
+        <label for="d2p1_in">INPUT</label><br />
+        <textarea id="d2p1_in" name="d2p1_in" rows="20">
+          1,12,2,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,10,19,1,6,19,23,2,23,6,27,2,6,27,31,2,13,31,35,1,10,35,39,2,39,13,43,1,43,13,47,1,6,47,51,1,10,51,55,2,55,6,59,1,5,59,63,2,9,63,67,1,6,67,71,2,9,71,75,1,6,75,79,2,79,13,83,1,83,10,87,1,13,87,91,1,91,10,95,2,9,95,99,1,5,99,103,2,10,103,107,1,107,2,111,1,111,5,0,99,2,14,0,0
+        </textarea>
+        <br />
+        <button onclick="d2p1_doit()">Do It</button>
+        <br />
+        <div id="d2p1_processing">(PROCESSING INTERNALS)</div>
+        <textarea id="d2p1_out">output</textarea>
+      </div>
+    </article>
+    <article id="a_d2p2">
+      <pre>
+--- Part Two ---
+
+"Good, the new computer seems to be working correctly! Keep it nearby
+during this mission - you'll probably use it again. Real Intcode
+computers support many more features than your new one, but we'll
+let you know what they are as you need them."
+
+"However, your current priority should be to complete your gravity
+assist around the Moon. For this mission to succeed, we should settle
+on some terminology for the parts you've already built."
+
+Intcode programs are given as a list of integers; these values are
+used as the initial state for the computer's memory. When you run an
+Intcode program, make sure to start by initializing memory to the
+program's values. A position in memory is called an address (for
+example, the first value in memory is at "address 0").
+
+Opcodes (like 1, 2, or 99) mark the beginning of an instruction. The
+values used immediately after an opcode, if any, are called the
+instruction's parameters. For example, in the instruction 1,2,3,4,
+1 is the opcode; 2, 3, and 4 are the parameters. The instruction
+99 contains only an opcode and has no parameters.
+
+The address of the current instruction is called the instruction pointer;
+it starts at 0. After an instruction finishes, the instruction pointer
+increases by the number of values in the instruction; until you add
+more instructions to the computer, this is always 4 (1 opcode + 3
+parameters) for the add and multiply instructions. (The halt
+instruction would increase the instruction pointer by 1, but it halts
+the program instead.)
+
+"With terminology out of the way, we're ready to proceed. To complete the
+gravity assist, you need to determine what pair of inputs produces the
+output 19690720."
+
+The inputs should still be provided to the program by replacing the values
+at addresses 1 and 2, just like before. In this program, the value placed
+in address 1 is called the noun, and the value placed in address 2 is
+called the verb. Each of the two input values will be between 0 and 99,
+inclusive.
+
+Once the program has halted, its output is available at address 0, also just
+like before. Each time you try a pair of inputs, make sure you first reset
+the computer's memory to the values in the program (your puzzle input) - in
+other words, don't reuse memory from a previous attempt.
+
+Find the input noun and verb that cause the program to produce the output 
+19690720. What is 100 * noun + verb? (For example, if noun=12 and verb=2, 
+the answer would be 1202.)
+  </pre
+      >
+      <div>
+        -----INPUT-----<br />
+        <label for="d2p2_in">PROGRAM</label><br />
+        <textarea id="d2p2_in" name="d2p2_in" rows="10" cols="60">
+1,12,2,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,10,19,1,6,19,23,2,23,6,27,2,6,27,31,2,13,31,35,1,10,35,39,2,39,13,43,1,43,13,47,1,6,47,51,1,10,51,55,2,55,6,59,1,5,59,63,2,9,63,67,1,6,67,71,2,9,71,75,1,6,75,79,2,79,13,83,1,83,10,87,1,13,87,91,1,91,10,95,2,9,95,99,1,5,99,103,2,10,103,107,1,107,2,111,1,111,5,0,99,2,14,0,0
+    </textarea
+        ><br />
+        <label for="d2p2_noun">NOUN:</label>
+        <input type="text" id="d2p2_noun" name="d2p2_noun" />
+        <label for="d2p2_verb">VERB:</label>
+        <input type="text" id="d2p2_verb" name="d2p2_verb" />
+        <br />
+        <button onclick="d2p2_doit()">Do It</button>
+        <br />
+        -----OUTPUT-----
+        <br />
+        <div id="d2p2_out">output appears here</div>
+        <div id="d2p2_result">result appears here</div>
+      </div>
     </article>
 
     <script>
@@ -282,10 +569,26 @@ then add them all up at the end.)
       function dbtest() {
         let p = 0; //number of passed tests.
         let f = "Failed test ids:";
-        fuelreq(12) == 2 ? p++ : (f += " d1p1-1");
-        fuelreq(14) == 2 ? p++ : (f += " d1p1-2");
-        fuelreq(1969) == 654 ? p++ : (f += " d1p1-3");
-        fuelreq(100756) == 33583 ? p++ : (f += " d1p1-4");
+
+        d1p1_fuelreq(12) == 2 ? p++ : (f += " d1p1-1");
+        d1p1_fuelreq(14) == 2 ? p++ : (f += " d1p1-2");
+        d1p1_fuelreq(1969) == 654 ? p++ : (f += " d1p1-3");
+        d1p1_fuelreq(100756) == 33583 ? p++ : (f += " d1p1-4");
+
+        //d1p2_fuelreq(12) == 2 ? p++ : (f += " d1p2-1");
+        d1p2_fuelreq(14) == 2 ? p++ : (f += " d1p2-2");
+        d1p2_fuelreq(1969) == 966 ? p++ : (f += " d1p2-3");
+        d1p2_fuelreq(100756) == 50346 ? p++ : (f += " d1p2-4");
+
+        "2,0,0,0,99" == d2p1_process("1,0,0,0,99") ? p++ : (f += " d2p1-1");
+        "2,3,0,6,99" == d2p1_process("2,3,0,3,99") ? p++ : (f += " d2p1-2");
+        "2,4,4,5,99,9801" == d2p1_process("2,4,4,5,99,0")
+          ? p++
+          : (f += " d2p1-3");
+        "30,1,1,4,2,5,6,0,99" == d2p1_process("1,1,1,4,99,5,6,0,99")
+          ? p++
+          : (f += " d2p1-4");
+
         log(`${p} tests passed. ${f}.`);
       }
       //ARTICLE DISPLAY CONTROL SECTION///////
@@ -300,21 +603,119 @@ then add them all up at the end.)
         currentBaseId = baseId;
       }
       //DAY 1 PART 1 SECTION////////
-      function fuelreq(mass) {
+      function d1p1_fuelreq(mass) {
         // take its mass, divide by three, round down, and subtract 2.
         return Math.floor(mass / 3) - 2;
       }
-      function doit() {
-        //gi("out").textContent
-        let a = gi("in").value;
+      function d1p1_doit() {
+        let a = gi("d1p1_in").value;
         let b = a.split(/\r?\n/);
         let t = 0;
         for (let x of b) {
           let n = Number.parseFloat(x);
           if (Number.isNaN(n)) n = 0;
-          t += fuelreq(n);
+          t += d1p1_fuelreq(n);
         }
-        gi("out").value = t;
+        gi("d1p1_out").value = t;
+      }
+      //DAY 1 PART 2 SECTION////////
+      function d1p2_fuelreq(mass) {
+        let f = Math.max(0, d1p1_fuelreq(mass));
+        let ff = f;
+        while (ff > 0) {
+          ff = Math.max(0, d1p1_fuelreq(ff));
+          f += ff;
+          //log("f=" + f + " ff=" + ff);
+        }
+        return f;
+      }
+      function d1p2_doit() {
+        //gi("out").textContent
+        let a = gi("d1p2_in").value;
+        let b = a.split(/\r?\n/);
+        let t = 0;
+        for (let x of b) {
+          let n = Number.parseFloat(x);
+          if (Number.isNaN(n)) n = 0;
+          t += d1p2_fuelreq(n);
+        }
+        gi("d1p2_out").value = t;
+      }
+      //DAY 2 PART 1 SECTION////////
+      function d2p1_process(ms) {
+        //log("d2p1_process");
+        //log("ms=" + ms);
+        let ma = ms.split(",");
+        ma.forEach(function (e, i, a) {
+          a[i] = parseInt(e);
+        });
+        let pc = 0;
+        while (true) {
+          //log("pc=" + pc);
+          let op = ma[pc];
+          let arg1 = ma[pc + 1];
+          let arg2 = ma[pc + 2];
+          let arg3 = ma[pc + 3];
+          //log("op=" + op + " arg1=" + arg1 + " arg2=" + arg2 + " arg3=" + arg3);
+          if (op == 99) {
+            break;
+          } else if (op == 1) {
+            ma[arg3] = ma[arg1] + ma[arg2];
+          } else if (op == 2) {
+            ma[arg3] = ma[arg1] * ma[arg2];
+          }
+          pc += 4;
+        }
+        //log("ma=" + ma.toString());
+        return ma.toString();
+      }
+      function d2p1_doit() {
+        gi("d2p1_out").value = d2p1_process(gi("d2p1_in").value);
+        //correct answer: 5434663
+      }
+      //DAY 2 PART 2 SECTION////////
+      var d2p1_memory = [];
+      var d2p1_pc = 0;
+      function d2p1_getcmd() {
+        let x = {};
+        x.op = d2p1_memory[d2p1_pc];
+        x.arg1 = d2p1_memory[d2p1_pc + 1];
+        x.arg2 = d2p1_memory[d2p1_pc + 2];
+        x.arg3 = d2p1_memory[d2p1_pc + 3];
+        d2p1_pc += 4;
+        return x;
+      }
+      function d2p2_process(ms) {
+        //log("d2p1_process");
+        //log("ms=" + ms);
+        let ma = ms.split(",");
+        ma.forEach(function (e, i, a) {
+          a[i] = parseInt(e);
+        });
+        let pc = 0;
+        while (true) {
+          //log("pc=" + pc);
+          let op = ma[pc];
+          let arg1 = ma[pc + 1];
+          let arg2 = ma[pc + 2];
+          let arg3 = ma[pc + 3];
+          //log("op=" + op + " arg1=" + arg1 + " arg2=" + arg2 + " arg3=" + arg3);
+          if (op == 99) {
+            break;
+          } else if (op == 1) {
+            ma[arg3] = ma[arg1] + ma[arg2];
+          } else if (op == 2) {
+            ma[arg3] = ma[arg1] * ma[arg2];
+          }
+          pc += 4;
+        }
+        //log("ma=" + ma.toString());
+        return ma.toString();
+      }
+
+      function d2p2_doit() {
+        gi("d2p2_out").innerHTML = d2p1_process(gi("d2p2_in").value);
+        //correct answer: 5434663
       }
     </script>
   </body>
