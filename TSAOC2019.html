@@ -549,7 +549,8 @@ the answer would be 1202.)
         -----OUTPUT-----
         <br />
         <div id="d2p2_out">output appears here</div>
-        <div id="d2p2_result">result appears here</div>
+        <br />
+        <div id="d2p2_answer">result appears here</div>
       </div>
     </article>
 
@@ -685,21 +686,13 @@ the answer would be 1202.)
         d2p1_pc += 4;
         return x;
       }
-      function d2p2_process(ms) {
-        //log("d2p1_process");
-        //log("ms=" + ms);
-        let ma = ms.split(",");
-        ma.forEach(function (e, i, a) {
-          a[i] = parseInt(e);
-        });
+      function d2p2_process(ma) {
         let pc = 0;
         while (true) {
-          //log("pc=" + pc);
           let op = ma[pc];
           let arg1 = ma[pc + 1];
           let arg2 = ma[pc + 2];
           let arg3 = ma[pc + 3];
-          //log("op=" + op + " arg1=" + arg1 + " arg2=" + arg2 + " arg3=" + arg3);
           if (op == 99) {
             break;
           } else if (op == 1) {
@@ -709,12 +702,19 @@ the answer would be 1202.)
           }
           pc += 4;
         }
-        //log("ma=" + ma.toString());
-        return ma.toString();
+        return ma[0];
       }
 
       function d2p2_doit() {
-        gi("d2p2_out").innerHTML = d2p1_process(gi("d2p2_in").value);
+        let ma = gi("d2p2_in").value.split(",");
+        ma.forEach(function (e, i, a) {
+          a[i] = parseInt(e);
+        });
+        log("noun=" + gi("d2p2_noun").value);
+        ma[1] = parseInt(gi("d2p2_noun").value);
+        ma[2] = parseInt(gi("d2p2_verb").value);
+
+        gi("d2p2_answer").innerHTML = d2p2_process(ma);
         //correct answer: 5434663
       }
     </script>
