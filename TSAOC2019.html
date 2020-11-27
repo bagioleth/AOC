@@ -60,9 +60,9 @@ OTHER DEALINGS IN THE SOFTWARE.
       }
     </style>
   </head>
-  <body onload="showArt('about')">
+  <body>
     <header>Tom's Solutions for the Advent of Code 2019</header>
-    <nav>
+    <nav id="nav-button-tabs">
       <button class="tab" id="b_about" onclick="showArt('about')">About</button>
       <button class="tab" id="b_d1p1" onclick="showArt('d1p1')">D1P1</button>
       <button class="tab" id="b_d1p2" onclick="showArt('d1p2')">D1P2</button>
@@ -74,9 +74,9 @@ OTHER DEALINGS IN THE SOFTWARE.
     <footer>
       (c) 2020 T. Angioletti, except for problem descriptions and input data.
     </footer>
-    <article id="a_about">
+    <article id="a_About">
       Tom's Solutions for the Advent of Code 2019 <br />
-      TSAOC2019 v0.3.0<br />
+      TSAOC2019 v0.4.0<br />
       This is a simple program for solving the Advent of Code (AOC) 2019. <br />
       Link to AOC:
       <a href="https://adventofcode.com/2019">https://adventofcode.com/2019</a>
@@ -85,9 +85,11 @@ OTHER DEALINGS IN THE SOFTWARE.
       <hr />
       RELEASE NOTES<br />
       v0.2.0 Initial release. <br />
-      v0.3.0 Fixed text format for problem descriptions. v0.4.0 Day 3 problems.
+      v0.3.0 Fixed text format for problem descriptions. <br />
+      v0.4.0 Day 3 problems. <br />
+      Added auto nav button creation.
     </article>
-    <article id="a_dbg">
+    <article id="a_Debug">
       <button onclick="dbclear()">Clear</button>
       <button onclick="dbtest()">Test</button>
       <hr />
@@ -807,7 +809,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         log(`${p} tests passed. ${f}.`);
       }
       //ARTICLE DISPLAY CONTROL SECTION///////
-      var currentBaseId = "d1p1";
+      var currentBaseId = "About";
       function showArt(baseId) {
         //Turn off current article and button.
         gi("a_" + currentBaseId).style.display = "none";
@@ -817,6 +819,18 @@ OTHER DEALINGS IN THE SOFTWARE.
         gi("b_" + baseId).style.backgroundColor = "#0f0f23";
         currentBaseId = baseId;
       }
+      //Auto-create the nav button-tabs, one for each "a_*" element.
+      function makeNavButton(id) {
+        return `<button class="tab" id="b_${id}" onclick="showArt('${id}')">${id}</button>`;
+      }
+      window.addEventListener("load", function () {
+        let s = "";
+        document
+          .querySelectorAll('[id^="a_"]')
+          .forEach((a) => (s += makeNavButton(a.id.substr(2))));
+        gi("nav-button-tabs").innerHTML = s;
+        showArt("About");
+      });
       //DAY 1 PART 1 SECTION////////
       function d1p1_fuelreq(mass) {
         // take its mass, divide by three, round down, and subtract 2.
