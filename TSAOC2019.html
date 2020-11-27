@@ -62,32 +62,31 @@ OTHER DEALINGS IN THE SOFTWARE.
   </head>
   <body>
     <header>Tom's Solutions for the Advent of Code 2019</header>
-    <nav id="nav-button-tabs">
-      <button class="tab" id="b_about" onclick="showArt('about')">About</button>
-      <button class="tab" id="b_d1p1" onclick="showArt('d1p1')">D1P1</button>
-      <button class="tab" id="b_d1p2" onclick="showArt('d1p2')">D1P2</button>
-      <button class="tab" id="b_d2p1" onclick="showArt('d2p1')">D2P1</button>
-      <button class="tab" id="b_d2p2" onclick="showArt('d2p2')">D2P2</button>
-      <button class="tab" id="b_d3p1" onclick="showArt('d3p1')">D3P1</button>
-      <button class="tab" id="b_dbg" onclick="showArt('dbg')">DEBUG</button>
-    </nav>
+    <nav id="nav-button-tabs"></nav>
     <footer>
       (c) 2020 T. Angioletti, except for problem descriptions and input data.
     </footer>
     <article id="a_About">
       Tom's Solutions for the Advent of Code 2019 <br />
       TSAOC2019 v0.4.0<br />
-      This is a simple program for solving the Advent of Code (AOC) 2019. <br />
+      This is a simple program for solving the Advent of Code (AOC) 2019. My
+      main objective is educational: I am learning modern web programming. I
+      implemented the program as a single file containing CSS, HTML, and
+      JavaScript. This obviously would not be a good choice for multi-person
+      projects; And tho this is not industry best practice, it has a certain
+      perverse elegance and, I think, made refactoring, version control, and
+      code reuse simpler. I am extremely thankful for editor folding.<br />
       Link to AOC:
       <a href="https://adventofcode.com/2019">https://adventofcode.com/2019</a>
       <br />
-      Problem descriptions and input data are copied from that web site.
+      Problem descriptions and input and test data are copied from that web
+      site.
       <hr />
       RELEASE NOTES<br />
       v0.2.0 Initial release. <br />
       v0.3.0 Fixed text format for problem descriptions. <br />
-      v0.4.0 Day 3 problems. <br />
-      Added auto nav button creation.
+      v0.4.0 Day 3 problems. Added auto nav button creation. Added regions for
+      VSCodium folding.
     </article>
     <article id="a_Debug">
       <button onclick="dbclear()">Clear</button>
@@ -773,7 +772,7 @@ OTHER DEALINGS IN THE SOFTWARE.
     <script>
       "use strict";
       // @ts-check
-      //UTILITY AND UNIT TEST SECTION//////
+      //#region UTILITY AND UNIT TEST SECTION
       function gi(id) {
         return document.getElementById(id);
       }
@@ -808,7 +807,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 
         log(`${p} tests passed. ${f}.`);
       }
-      //ARTICLE DISPLAY CONTROL SECTION///////
+      //#endregion
+      //#region ARTICLE DISPLAY CONTROL SECTION
       var currentBaseId = "About";
       function showArt(baseId) {
         //Turn off current article and button.
@@ -831,7 +831,8 @@ OTHER DEALINGS IN THE SOFTWARE.
         gi("nav-button-tabs").innerHTML = s;
         showArt("About");
       });
-      //DAY 1 PART 1 SECTION////////
+      //#endregion
+      //#region DAY 1 PART 1 SECTION
       function d1p1_fuelreq(mass) {
         // take its mass, divide by three, round down, and subtract 2.
         return Math.floor(mass / 3) - 2;
@@ -847,7 +848,8 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         gi("d1p1_out").value = t;
       }
-      //DAY 1 PART 2 SECTION////////
+      //#endregion
+      //#region DAY 1 PART 2 SECTION
       function d1p2_fuelreq(mass) {
         let f = Math.max(0, d1p1_fuelreq(mass));
         let ff = f;
@@ -870,7 +872,8 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         gi("d1p2_out").value = t;
       }
-      //DAY 2 PART 1 SECTION////////
+      //#endregion
+      //#region DAY 2 PART 1 SECTION
       function d2p1_process(ms) {
         //log("d2p1_process");
         //log("ms=" + ms);
@@ -902,7 +905,8 @@ OTHER DEALINGS IN THE SOFTWARE.
         gi("d2p1_out").value = d2p1_process(gi("d2p1_in").value);
         //correct answer: 5434663
       }
-      //DAY 2 PART 2 SECTION////////
+      //#endregion
+      //#region DAY 2 PART 2 SECTION
       var d2p1_memory = [];
       var d2p1_pc = 0;
       function d2p1_getcmd() {
@@ -932,7 +936,6 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         return ma[0];
       }
-
       function d2p2_doit() {
         let ma = gi("d2p2_in").value.split(",");
         ma.forEach(function (e, i, a) {
@@ -945,6 +948,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         gi("d2p2_answer").innerHTML = d2p2_process(ma);
         //correct answer: 5434663
       }
+      //#endregion
     </script>
   </body>
 </html>
