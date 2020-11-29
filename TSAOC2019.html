@@ -68,7 +68,7 @@ OTHER DEALINGS IN THE SOFTWARE.
     </footer>
     <article id="a_About">
       Tom's Solutions for the Advent of Code 2019 <br />
-      TSAOC2019 v0.4.0<br />
+      TSAOC2019 v0.5.0<br />
       This is a simple program for solving the Advent of Code (AOC) 2019. My
       main objective is educational: I am learning modern web programming. I
       implemented the program as a single file containing CSS, HTML, and
@@ -76,6 +76,10 @@ OTHER DEALINGS IN THE SOFTWARE.
       projects. Tho this is not industry best practice, it has a certain
       perverse elegance and, I think, made refactoring, version control, and
       code reuse simpler. I am extremely thankful for editor folding.<br />
+      Link to GitHub repository:
+      <a href="https://github.com/tomangioletti/AOC"
+        >https://github.com/tomangioletti/AOC</a
+      ><br />
       Link to AOC:
       <a href="https://adventofcode.com/2019">https://adventofcode.com/2019</a>
       <br />
@@ -86,12 +90,17 @@ OTHER DEALINGS IN THE SOFTWARE.
       v0.2.0 Initial release. <br />
       v0.3.0 Fixed text format for problem descriptions. <br />
       v0.4.0 Day 3 problems. Added auto nav button creation. Added regions for
-      VSCodium folding.
+      VSCodium folding.<br />
+      v0.5.0 Day 4 problems.
       <hr />
       LEARNING REFERENCES<br />
       <a href="http://www.mew.org/~kazu/proj/visual-git-guide/index-en.html"
-        >Visual Git Reference</a
-      >
+        >Visual Git Reference </a
+      ><br />
+      <a href="https://git-scm.com/book/en/v2">Pro Git Book</a><br />
+      <a href="https://developer.mozilla.org/en-US/docs/Web/javascript"
+        >MDN JavaScript reference</a
+      ><br />
     </article>
     <article id="a_Debug">
       <button onclick="dbclear()">Clear</button>
@@ -859,7 +868,103 @@ OTHER DEALINGS IN THE SOFTWARE.
         <div id="o_d3p2"></div>
       </div>
     </article>
+    <article id="a_d4p1">
+      <h2>--- Day 4: Secure Container ---</h2>
+      <p>
+        You arrive at the Venus fuel depot only to discover it's protected by a
+        password. The Elves had written the password on a sticky note, but
+        someone
+        <span
+          title="Look on the bright side - isn't it more secure if nobody knows the password?"
+          >threw it out</span
+        >.
+      </p>
+      <p>However, they do remember a few key facts about the password:</p>
+      <ul>
+        <li>It is a six-digit number.</li>
+        <li>The value is within the range given in your puzzle input.</li>
+        <li>
+          Two adjacent digits are the same (like <code>22</code> in
+          <code>1<em>22</em>345</code>).
+        </li>
+        <li>
+          Going from left to right, the digits <em>never decrease</em>; they
+          only ever increase or stay the same (like <code>111123</code> or
+          <code>135679</code>).
+        </li>
+      </ul>
+      <p>Other than the range rule, the following are true:</p>
+      <ul>
+        <li>
+          <code>111111</code> meets these criteria (double <code>11</code>,
+          never decreases).
+        </li>
+        <li>
+          <code>2234<em>50</em></code> does not meet these criteria (decreasing
+          pair of digits <code>50</code>).
+        </li>
+        <li><code>123789</code> does not meet these criteria (no double).</li>
+      </ul>
+      <p>
+        <em>How many different passwords</em> within the range given in your
+        puzzle input meet these criteria?
+      </p>
 
+      <p>Your puzzle input is <code>171309-643603</code>.</p>
+      The correct answer is 1625.
+      <hr />
+      <div>
+        <button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="solveCurrentProblem()">Solve</button>
+        <br /><br />-----INPUT-----<br />
+        <textarea id="i_d4p1" rows="10" cols="60"></textarea><br />
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d4p1"></div>
+      </div>
+    </article>
+    <article id="a_d4p2">
+      <h2>--- Part Two ---</h2>
+      <p>
+        An Elf just remembered one more important detail: the two adjacent
+        matching digits
+        <em>are not part of a larger group of matching digits</em>.
+      </p>
+      <p>
+        Given this additional criterion, but still ignoring the range rule, the
+        following are now true:
+      </p>
+      <ul>
+        <li>
+          <code>112233</code> meets these criteria because the digits never
+          decrease and all repeated digits are exactly two digits long.
+        </li>
+        <li>
+          <code>123<em>444</em></code> no longer meets the criteria (the
+          repeated <code>44</code> is part of a larger group of
+          <code>444</code>).
+        </li>
+        <li>
+          <code>111122</code> meets the criteria (even though <code>1</code> is
+          repeated more than twice, it still contains a double <code>22</code>).
+        </li>
+      </ul>
+      <p>
+        <em>How many different passwords</em> within the range given in your
+        puzzle input meet all of the criteria?
+      </p>
+      The correct answer is 1111.
+      <hr />
+      <div>
+        <button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="solveCurrentProblem()">Solve</button>
+        <br /><br />-----INPUT-----<br />
+        <textarea id="i_d4p2" rows="10" cols="60"></textarea><br />
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d4p2"></div>
+      </div>
+    </article>
     <script>
       "use strict";
       // @ts-check
@@ -973,7 +1078,15 @@ OTHER DEALINGS IN THE SOFTWARE.
           ? p++
           : (f += " d3p1-34(solution)");
 
-        log(`${p} tests passed. ${f}.`);
+        let ut = { p: p, f: f };
+
+        Object.getOwnPropertyNames(problems).forEach((prb) =>
+          problems[prb].unitTest(ut)
+        );
+
+        log(`${ut.p} tests passed. ${ut.f}.`);
+
+        // log(`NEW:${ut.p} tests passed. ${ut.f}.`);
       }
       //#endregion
       //#region ARTICLE AND DATA DISPLAY CONTROL SECTION
@@ -986,6 +1099,9 @@ OTHER DEALINGS IN THE SOFTWARE.
       function loadCurrentInputData() {
         clearCurrentData();
         gi("i_" + currentBaseId).value = givenInputData[currentBaseId];
+      }
+      function solveCurrentProblem() {
+        problems[currentBaseId].solve();
       }
       function showArt(baseId) {
         //Turn off current article and button.
@@ -1144,6 +1260,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         addLine(start_x, start_y, vector, wire) {
           //NOTE: Don't add the starting point.
+          vector = vector.trim();
           let direction = vector.substr(0, 1);
           let distance = parseInt(vector.substr(1));
           let dx = 0;
@@ -1267,6 +1384,200 @@ OTHER DEALINGS IN THE SOFTWARE.
 
         //6916 is the not the correct answer; it is too low.  7388 is correct.
       }
+      //#endregion
+      //#region DAY 4 PART 1 SECTION
+      let problems = {};
+
+      givenInputData.d4p1 = "171309-643603";
+      problems.d4p1 = {
+        solve: function () {
+          let u = gi("i_d4p1").value;
+          // log("u=" + u);
+          if (!u.includes("-")) {
+            gi("o_d4p1").innerHTML = "INVALID RANGE";
+            return;
+          }
+
+          let { min, max } = this.parseRange(u);
+          // log("min=" + min);
+          // log("max=" + max);
+          let ans = new Array();
+          for (let x = min; x <= max; x++) {
+            if (this.meetsCriteria(x, min, max)) ans.push(x);
+          }
+          gi(
+            "o_d4p1"
+          ).innerHTML = `There are ${ans.length} possible passwords.`;
+        },
+        unitTest: function (ut) {
+          // log("d4p1 unittest");
+          const s = " T-d4p1.";
+          // let p = 0; //number of passed tests.
+          // let f = "Failed test ids:";
+
+          let x = this.parseRange("1-2");
+          x.min == 1 ? ut.p++ : (ut.f += s + "1");
+          x.max == 2 ? ut.p++ : (ut.f += s + "2");
+          x = this.parseRange(" 3 - 4 ");
+          x.min == 3 ? ut.p++ : (ut.f += s + "3");
+          x.max == 4 ? ut.p++ : (ut.f += s + "4");
+
+          this.isSixDigits(123456) ? ut.p++ : (ut.f += s + "5");
+          !this.isSixDigits(1234567) ? ut.p++ : (ut.f += s + "6");
+          !this.isSixDigits(12345) ? ut.p++ : (ut.f += s + "7");
+          !this.isSixDigits(1) ? ut.p++ : (ut.f += s + "8");
+
+          this.isBetween(2, 1, 3) ? ut.p++ : (ut.f += s + "ib1");
+          !this.isBetween(2, 4, 6) ? ut.p++ : (ut.f += s + "ib2");
+          !this.isBetween(7, 1, 3) ? ut.p++ : (ut.f += s + "ib3");
+
+          this.hasTwoSameAdjacentDigits(223) ? ut.p++ : (ut.f += s + "sa1");
+          !this.hasTwoSameAdjacentDigits(123123) ? ut.p++ : (ut.f += s + "sa2");
+          this.hasTwoSameAdjacentDigits(234566) ? ut.p++ : (ut.f += s + "sa3");
+          this.hasTwoSameAdjacentDigits(20036) ? ut.p++ : (ut.f += s + "sa4");
+          this.hasTwoSameAdjacentDigits(298989933)
+            ? ut.p++
+            : (ut.f += s + "sa5");
+
+          this.digitsNeverDecrease(223) ? ut.p++ : (ut.f += s + "di1");
+          this.digitsNeverDecrease(2) ? ut.p++ : (ut.f += s + "di2");
+          this.digitsNeverDecrease(333) ? ut.p++ : (ut.f += s + "di3");
+          !this.digitsNeverDecrease(776) ? ut.p++ : (ut.f += s + "di4");
+          this.digitsNeverDecrease(1234567) ? ut.p++ : (ut.f += s + "di5");
+          this.digitsNeverDecrease(123456) ? ut.p++ : (ut.f += s + "di6");
+          !this.digitsNeverDecrease(654321) ? ut.p++ : (ut.f += s + "di7");
+
+          let min = 0;
+          let max = 999999;
+          this.meetsCriteria(111111, min, max) ? ut.p++ : (ut.f += s + "mc1");
+          !this.meetsCriteria(223450, min, max) ? ut.p++ : (ut.f += s + "mc2");
+          !this.meetsCriteria(123789, min, max) ? ut.p++ : (ut.f += s + "mc3");
+
+          // log(`UT: ${ut.p} tests passed. ${ut.f}.`);
+          // return ut;
+        },
+        parseRange: function (s) {
+          let a = s.split("-");
+          let r = {};
+          r.min = a[0].trim();
+          r.max = a[1].trim();
+          return r;
+        },
+        isSixDigits: function (n) {
+          let s = "" + n;
+          return s.length == 6;
+        },
+        isBetween: function (n, min, max) {
+          return n <= max && n >= min;
+        },
+        hasTwoSameAdjacentDigits: function (n) {
+          let s = "" + n;
+          if (s.includes("00")) return true;
+          if (s.includes("11")) return true;
+          if (s.includes("22")) return true;
+          if (s.includes("33")) return true;
+          if (s.includes("44")) return true;
+          if (s.includes("55")) return true;
+          if (s.includes("66")) return true;
+          if (s.includes("77")) return true;
+          if (s.includes("88")) return true;
+          if (s.includes("99")) return true;
+          return false;
+        },
+        digitsNeverDecrease: function (n) {
+          let a = Array.from("" + n);
+          let d = parseInt(a[0]);
+          for (let i = 1; i < a.length; i++) {
+            if (parseInt(a[i]) < d) return false;
+            d = parseInt(a[i]);
+          }
+          return true;
+        },
+        meetsCriteria: function (n, min, max) {
+          return (
+            this.isSixDigits(n) &&
+            this.isBetween(n, min, max) &&
+            this.hasTwoSameAdjacentDigits(n) &&
+            this.digitsNeverDecrease(n)
+          );
+        },
+      };
+
+      //#endregion
+      //#region DAY 4 PART 1 SECTION
+      givenInputData.d4p2 = givenInputData.d4p1;
+      problems.d4p2 = {
+        solve: function () {
+          let u = gi("i_d4p2").value;
+          if (!u.includes("-")) {
+            gi("o_d4p2").innerHTML = "INVALID RANGE";
+            return;
+          }
+
+          let { min, max } = problems.d4p1.parseRange(u);
+          let ans = new Array();
+          for (let x = min; x <= max; x++) {
+            if (
+              problems.d4p1.meetsCriteria(x, min, max) &&
+              this.hasTwoSameAdjacentDigitsOnly(x)
+            )
+              ans.push(x);
+          }
+          gi(
+            "o_d4p2"
+          ).innerHTML = `There are ${ans.length} possible passwords.`;
+        },
+        unitTest: function (ut) {
+          // log("d4p1 unittest");
+          const s = " T-d4p2.";
+          this.longestRun("1", "121121113") == 3 ? ut.p++ : (ut.f += s + "lr1");
+          this.longestRun("1", "20034533") == 0 ? ut.p++ : (ut.f += s + "lr2");
+          this.longestRun("2", "121121113") == 1 ? ut.p++ : (ut.f += s + "lr3");
+          this.longestRun("5", "123456") == 1 ? ut.p++ : (ut.f += s + "lr4");
+          this.longestRun("9", "999999") == 6 ? ut.p++ : (ut.f += s + "lr5");
+
+          this.hasTwoSameAdjacentDigitsOnly("199111")
+            ? ut.p++
+            : (ut.f += s + "so1");
+          this.hasTwoSameAdjacentDigitsOnly("112233")
+            ? ut.p++
+            : (ut.f += s + "so2");
+          !this.hasTwoSameAdjacentDigitsOnly("123444")
+            ? ut.p++
+            : (ut.f += s + "so3");
+          this.hasTwoSameAdjacentDigitsOnly("111122")
+            ? ut.p++
+            : (ut.f += s + "so4");
+          !this.hasTwoSameAdjacentDigitsOnly("999999")
+            ? ut.p++
+            : (ut.f += s + "so5");
+        },
+        longestRun(d, n) {
+          let a = Array.from(n);
+          let lr = 0;
+          let r = 0;
+          for (let i = 0; i < a.length; i++) {
+            r = a[i] == d ? r + 1 : 0;
+            if (r > lr) lr = r;
+          }
+          return lr;
+        },
+        hasTwoSameAdjacentDigitsOnly: function (n) {
+          let s = "" + n;
+          if (this.longestRun("0", s) == 2) return true;
+          if (this.longestRun("1", s) == 2) return true;
+          if (this.longestRun("2", s) == 2) return true;
+          if (this.longestRun("3", s) == 2) return true;
+          if (this.longestRun("4", s) == 2) return true;
+          if (this.longestRun("5", s) == 2) return true;
+          if (this.longestRun("6", s) == 2) return true;
+          if (this.longestRun("7", s) == 2) return true;
+          if (this.longestRun("8", s) == 2) return true;
+          if (this.longestRun("9", s) == 2) return true;
+          return false;
+        },
+      };
+      //#endregion
     </script>
   </body>
 </html>
