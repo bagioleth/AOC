@@ -61,12 +61,9 @@ See article below, where id="a_About", for program description.
         outline: 1px solid white;
       }
       .ta {
-        _width: 200px;
         height: 50px;
-        _border: 3px solid rgb(190, 15, 15);
         background-color: rgb(221, 188, 144);
         color: black;
-        contenteditable: true;
       }
     </style>
   </head>
@@ -98,10 +95,17 @@ See article below, where id="a_About", for program description.
       <hr />
       RELEASE NOTES<br />
       <ul>
-        v0.2.0 Initial release. v0.3.0 Fixed text format for problem
-        descriptions. v0.4.0 Day 3 problems. Added auto nav button creation.
-        Added regions for VSCodium folding. v0.5.0 Day 4 problems. v0.6.0
-        Refactoring based on learned HTML/CSS/JavaScript and AOC knowlege.
+        <li>v0.2.0 Initial release.</li>
+        <li>v0.3.0 Fixed text format for problem descriptions.</li>
+        <li>
+          v0.4.0 Day 3 problems. Added auto nav button creation. Added regions
+          for VSCodium folding.
+        </li>
+        <li>v0.5.0 Day 4 problems.</li>
+        <li>
+          v0.6.0 Refactoring based on learned HTML/CSS/JavaScript and AOC
+          knowlege.
+        </li>
       </ul>
       <hr />
       LEARNING REFERENCES<br />
@@ -929,7 +933,9 @@ See article below, where id="a_About", for program description.
       <div>
         <div class="processing_buttons"></div>
         <br /><br />-----INPUT-----<br />
-        <textarea id="i_d4p1" rows="10" cols="60"></textarea><br />
+        <div id="i_d4p1" class="ta" contenteditable="true">
+          Put input data here.
+        </div>
         <br /><br />-----OUTPUT-----<br />
         <div id="o_d4p1"></div>
       </div>
@@ -972,10 +978,11 @@ See article below, where id="a_About", for program description.
       <div>
         <div class="processing_buttons"></div>
         <br /><br />-----INPUT-----<br />
-        <textarea id="i_d4p2" rows="10" cols="60"></textarea><br />
+        <div id="i_d4p2" class="ta" contenteditable="true">
+          Put input data here.
+        </div>
         <br /><br />-----OUTPUT-----<br />
         <div id="o_d4p2"></div>
-        <div class="ta">this is a test 1</div>
       </div>
     </article>
     <script>
@@ -1105,13 +1112,13 @@ See article below, where id="a_About", for program description.
       //#region ARTICLE AND DATA DISPLAY CONTROL SECTION
       let currentBaseId = "About";
       function clearCurrentData() {
-        gi("i_" + currentBaseId).value = "";
+        gi("i_" + currentBaseId).innerHTML = "";
         gi("o_" + currentBaseId).innerHTML =
           "Load Input data then press Solve button for result appears here.";
       }
       function loadCurrentInputData() {
         clearCurrentData();
-        gi("i_" + currentBaseId).value = givenInputData[currentBaseId];
+        gi("i_" + currentBaseId).innerHTML = givenInputData[currentBaseId];
       }
       function solveCurrentProblem() {
         problems[currentBaseId].solve();
@@ -1411,7 +1418,7 @@ See article below, where id="a_About", for program description.
       givenInputData.d4p1 = "171309-643603";
       problems.d4p1 = {
         solve: function () {
-          let u = gi("i_d4p1").value;
+          let u = gi("i_d4p1").textContent;
           // log("u=" + u);
           if (!u.includes("-")) {
             gi("o_d4p1").innerHTML = "INVALID RANGE";
@@ -1528,7 +1535,7 @@ See article below, where id="a_About", for program description.
       givenInputData.d4p2 = givenInputData.d4p1;
       problems.d4p2 = {
         solve: function () {
-          let u = gi("i_d4p2").value;
+          let u = gi("i_d4p2").textContent;
           if (!u.includes("-")) {
             gi("o_d4p2").innerHTML = "INVALID RANGE";
             return;
