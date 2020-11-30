@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--
+Copyright 2020 T. Angioletti
+
+Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software and associated documentation 
+files (the "Software"), to deal in the Software without 
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom 
+the Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall 
+be included in all copies or substantial portions of the 
+Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE.
+
+See article below, where id="a_About", for program description.
+-->
+<html>
+  <head>
+    <title>Advent of Code 2020 -- Tom's Solutions</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-rows: 2em 1em 1fr 1em;
+        grid-template-columns: 1fr;
+        gap: 2px;
+        background-color: #0f0f23;
+        color: #cccccc;
+      }
+      header {
+        grid-row: 1/2;
+      }
+      nav {
+        grid-row: 2/3;
+      }
+      footer {
+        grid-row: end;
+      }
+      .tab {
+        background-color: gray;
+        color: white;
+        float: left;
+        border: none;
+        outline: 1px solid white;
+        cursor: pointer;
+      }
+      article {
+        display: none;
+        padding: 5px;
+        outline: 1px solid white;
+      }
+      .ita {
+        height: 90px;
+        border: 3px solid rgb(14, 177, 115);
+        background-color: rgb(200, 170, 130);
+        color: black;
+      }
+      .ota {
+        height: 50px;
+        border: 3px solid rgb(52, 111, 160);
+        background-color: rgb(200, 170, 130);
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Tom's Solutions for the Advent of Code 2020</header>
+    <nav id="nav-button-tabs"></nav>
+    <footer>
+      (c) 2020 T. Angioletti, except for problem descriptions and input data.
+    </footer>
+    <article id="a_About">
+      Tom's Solutions for the Advent of Code 2020 <br />
+      TSAOC2020 v0.1.0<br /><br />
+      This is a simple program for solving the Advent of Code (AOC) 2020. My
+      main objective is educational: I am learning modern web programming. I
+      implemented the program as a single file containing CSS, HTML, and
+      JavaScript. This obviously would not be a good choice for multi-person
+      projects. Tho this is not industry best practice, it has a certain
+      perverse elegance and, I think, made refactoring, version control, and
+      code reuse simpler. I am extremely thankful for editor folding.<br /><br />
+      Link to GitHub repository:
+      <a href="https://github.com/tomangioletti/AOC"
+        >https://github.com/tomangioletti/AOC</a
+      ><br />
+      Link to AOC:
+      <a href="https://adventofcode.com/2020">https://adventofcode.com/2020</a>
+      (Problem descriptions and input and test data are copied from that web
+      site.)
+      <hr />
+      RELEASE NOTES<br />
+      <ul>
+        <li>20201129: v0.1.0 Initial release.</li>
+      </ul>
+      <hr />
+      LEARNING REFERENCES<br />
+      <a href="http://www.mew.org/~kazu/proj/visual-git-guide/index-en.html"
+        >Visual Git Reference </a
+      ><br />
+      <a href="https://git-scm.com/book/en/v2">Pro Git Book</a><br />
+      <a href="https://developer.mozilla.org/en-US/docs/Web/javascript"
+        >MDN JavaScript reference</a
+      ><br />
+    </article>
+    <article id="a_Debug">
+      <button onclick="dbclear()">Clear</button>
+      <button onclick="dbtest()">Test</button>
+      <hr />
+      DEBUG AREA
+      <div id="dblog"></div>
+    </article>
+    <article id="a_d1p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">TBD</div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <div id="i_d1p1" class="ita" contenteditable="true">
+          Put input data here.
+        </div>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d1p1" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <script>
+      "use strict";
+      // @ts-check
+      //#region UTILITY AND UNIT TEST /////////////////////////////////
+      function gi(id) {
+        return document.getElementById(id);
+      }
+      function log(t) {
+        gi("dblog").innerHTML += "<br/>" + t;
+      }
+      function dbclear() {
+        gi("dblog").innerHTML = "";
+      }
+      function dbtest() {
+        let ut = { p: 0, f: "Failed test ids:" };
+
+        //Run unitTest function for all problems.
+        Object.getOwnPropertyNames(problems).forEach((prb) =>
+          problems[prb].unitTest(ut)
+        );
+
+        log(`${ut.p} tests passed. ${ut.f}.`);
+      }
+      //#endregion
+      //#region DISPLAY CONTROL/////////////////////////////////
+      let currentBaseId = "About";
+      function readInput() {
+        return gi("i_" + currentBaseId).textContent;
+      }
+      function writeInput(x) {
+        gi("i_" + currentBaseId).innerHTML = x;
+      }
+      function writeOutput(x) {
+        gi("o_" + currentBaseId).innerHTML = x;
+      }
+      function clearCurrentData() {
+        writeInput("");
+        writeOutput(
+          "Load Input data then press Solve button for result appears here."
+        );
+      }
+      function loadCurrentInputData() {
+        clearCurrentData();
+        writeInput(problems[currentBaseId].givenInputData);
+      }
+      function solveCurrentProblem() {
+        problems[currentBaseId].solve();
+      }
+      function showArticle(baseId) {
+        //Turn off current article and button.
+        gi("a_" + currentBaseId).style.display = "none";
+        gi("b_" + currentBaseId).style.backgroundColor = "gray";
+        //Turn on new article and button.
+        gi("a_" + baseId).style.display = "block";
+        gi("b_" + baseId).style.backgroundColor = "#0f0f23";
+        currentBaseId = baseId;
+      }
+      //Auto-create the nav button-tabs, one for each "a_*" element.
+      function makeNavButton(id) {
+        return `<button class="tab" id="b_${id}" onclick="showArticle('${id}')">${id}</button>`;
+      }
+      function makeProcessingButtons() {
+        return `<button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="solveCurrentProblem()">Solve</button>`;
+      }
+      window.addEventListener("load", function () {
+        let s = "";
+        document
+          .querySelectorAll('[id^="a_"]')
+          .forEach((a) => (s += makeNavButton(a.id.substr(2))));
+        gi("nav-button-tabs").innerHTML = s;
+        document
+          .querySelectorAll(".processing_buttons")
+          .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        showArticle("About");
+      });
+      //#endregion
+
+      //#region SOLUTIONS ///////////////////////////////////////////
+      let problems = {};
+
+      //#region DAY 1 PART 1 ///////////////////////////////////////
+      problems.d1p1 = {
+        givenInputData: "TBD",
+        solve: function () {
+          let u = readInput();
+          writeOutput("TBD");
+        },
+        unitTest: function (ut) {
+          const s = " T-d1p1.";
+          1 == 1 ? ut.p++ : (ut.f += s + "lg1");
+        },
+      };
+      //#endregion
+      //#endregion
+    </script>
+  </body>
+</html>
