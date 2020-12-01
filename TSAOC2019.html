@@ -23,6 +23,8 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 OTHER DEALINGS IN THE SOFTWARE.
+
+See article below, where id="a_About", for program description.
 -->
 <html>
   <head>
@@ -58,31 +60,64 @@ OTHER DEALINGS IN THE SOFTWARE.
         padding: 5px;
         outline: 1px solid white;
       }
+      .ta {
+        height: 50px;
+        background-color: rgb(221, 188, 144);
+        color: black;
+      }
     </style>
   </head>
-  <body onload="showArt('about')">
+  <body>
     <header>Tom's Solutions for the Advent of Code 2019</header>
-    <nav>
-      <button class="tab" id="b_about" onclick="showArt('about')">About</button>
-      <button class="tab" id="b_d1p1" onclick="showArt('d1p1')">D1P1</button>
-      <button class="tab" id="b_d1p2" onclick="showArt('d1p2')">D1P2</button>
-      <button class="tab" id="b_d2p1" onclick="showArt('d2p1')">D2P1</button>
-      <button class="tab" id="b_d2p2" onclick="showArt('d2p2')">D2P2</button>
-      <button class="tab" id="b_dbg" onclick="showArt('dbg')">DEBUG</button>
-    </nav>
+    <nav id="nav-button-tabs"></nav>
     <footer>
       (c) 2020 T. Angioletti, except for problem descriptions and input data.
     </footer>
-    <article id="a_about">
+    <article id="a_About">
       Tom's Solutions for the Advent of Code 2019 <br />
-      TSAOC2019 v0.2.0<br />
-      This is a simple program for solving the Advent of Code (AOC) 2019. <br />
+      TSAOC2019 v0.6.0<br />
+      This is a simple program for solving the Advent of Code (AOC) 2019. My
+      main objective is educational: I am learning modern web programming. I
+      implemented the program as a single file containing CSS, HTML, and
+      JavaScript. This obviously would not be a good choice for multi-person
+      projects. Tho this is not industry best practice, it has a certain
+      perverse elegance and, I think, made refactoring, version control, and
+      code reuse simpler. I am extremely thankful for editor folding.<br />
+      Link to GitHub repository:
+      <a href="https://github.com/tomangioletti/AOC"
+        >https://github.com/tomangioletti/AOC</a
+      ><br />
       Link to AOC:
       <a href="https://adventofcode.com/2019">https://adventofcode.com/2019</a>
       <br />
-      Problem descriptions and input data are copied from that web site.
+      Problem descriptions and input and test data are copied from that web
+      site.
+      <hr />
+      RELEASE NOTES<br />
+      <ul>
+        <li>v0.2.0 Initial release.</li>
+        <li>v0.3.0 Fixed text format for problem descriptions.</li>
+        <li>
+          v0.4.0 Day 3 problems. Added auto nav button creation. Added regions
+          for VSCodium folding.
+        </li>
+        <li>v0.5.0 Day 4 problems.</li>
+        <li>
+          v0.6.0 Refactoring based on learned HTML/CSS/JavaScript and AOC
+          knowlege.
+        </li>
+      </ul>
+      <hr />
+      LEARNING REFERENCES<br />
+      <a href="http://www.mew.org/~kazu/proj/visual-git-guide/index-en.html"
+        >Visual Git Reference </a
+      ><br />
+      <a href="https://git-scm.com/book/en/v2">Pro Git Book</a><br />
+      <a href="https://developer.mozilla.org/en-US/docs/Web/javascript"
+        >MDN JavaScript reference</a
+      ><br />
     </article>
-    <article id="a_dbg">
+    <article id="a_Debug">
       <button onclick="dbclear()">Clear</button>
       <button onclick="dbtest()">Test</button>
       <hr />
@@ -91,28 +126,65 @@ OTHER DEALINGS IN THE SOFTWARE.
     </article>
     <article id="a_d1p1">
       <div>
-        <pre>
---- Day 1: The Tyranny of the Rocket Equation --- 
-...
-Fuel required to launch a given module is based on its mass. 
-Specifically, to find the fuel required for a module, take its 
-mass, divide by three, round down, and subtract 2.
-
-For example:
-
-    -For a mass of 12, divide by 3 and round down to get 4, 
-    then subtract 2 to get 2.
-    -For a mass of 14, dividing by 3 and rounding down still 
-    yields 4, so the fuel required is also 2.
-    -For a mass of 1969, the fuel required is 654.
-    -For a mass of 100756, the fuel required is 33583.
-
-The Fuel Counter-Upper needs to know the total fuel requirement. 
-To find it, individually calculate the fuel needed for the mass 
-of each module (your puzzle input), then add together all the 
-fuel values.
-...
-        </pre>
+        <h2>--- Day 1: The Tyranny of the Rocket Equation ---</h2>
+        <p>
+          Santa has become stranded at the edge of the Solar System while
+          delivering presents to other planets! To accurately calculate his
+          position in space, safely align his warp drive, and return to Earth in
+          time to save Christmas, he needs you to bring him
+          <span title="If only you had time to grab an astrolabe."
+            >measurements</span
+          >
+          from <em class="star">fifty stars</em>.
+        </p>
+        <p>
+          Collect stars by solving puzzles. Two puzzles will be made available
+          on each day in the Advent calendar; the second puzzle is unlocked when
+          you complete the first. Each puzzle grants
+          <em class="star">one star</em>. Good luck!
+        </p>
+        <p>
+          The Elves quickly load you into a spacecraft and prepare to launch.
+        </p>
+        <p>
+          At the first Go / No Go poll, every Elf is Go until the Fuel
+          Counter-Upper. They haven't determined the amount of fuel required
+          yet.
+        </p>
+        <p>
+          Fuel required to launch a given <em>module</em> is based on its
+          <em>mass</em>. Specifically, to find the fuel required for a module,
+          take its mass, divide by three, round down, and subtract 2.
+        </p>
+        <p>For example:</p>
+        <ul>
+          <li>
+            For a mass of <code>12</code>, divide by 3 and round down to get
+            <code>4</code>, then subtract 2 to get <code>2</code>.
+          </li>
+          <li>
+            For a mass of <code>14</code>, dividing by 3 and rounding down still
+            yields <code>4</code>, so the fuel required is also <code>2</code>.
+          </li>
+          <li>
+            For a mass of <code>1969</code>, the fuel required is
+            <code>654</code>.
+          </li>
+          <li>
+            For a mass of <code>100756</code>, the fuel required is
+            <code>33583</code>.
+          </li>
+        </ul>
+        <p>
+          The Fuel Counter-Upper needs to know the total fuel requirement. To
+          find it, individually calculate the fuel needed for the mass of each
+          module (your puzzle input), then add together all the fuel values.
+        </p>
+        <p>
+          <em>What is the sum of the fuel requirements</em> for all of the
+          modules on your spacecraft?
+        </p>
+        <hr />
       </div>
       <div>
         <label for="d1p1_in">INPUT</label><br />
@@ -225,46 +297,58 @@ fuel values.
       </div>
     </article>
     <article id="a_d1p2">
-      <pre>
---- Part Two ---
-
-During the second Go / No Go poll, the Elf in charge of the 
-Rocket Equation Double-Checker stops the launch sequence. 
-Apparently, you forgot to include additional fuel for the fuel 
-you just added.
-
-Fuel itself requires fuel just like a module - take its mass, 
-divide by three, round down, and subtract 2. However, that 
-fuel also requires fuel, and that fuel requires fuel, and so on. 
-Any mass that would require negative fuel should instead be 
-treated as if it requires zero fuel; the remaining mass, if any, 
-is instead handled by wishing really hard, which has no mass and 
-is outside the scope of this calculation.
-
-So, for each module mass, calculate its fuel and add it to the 
-total. Then, treat the fuel amount you just calculated as the 
-input mass and repeat the process, continuing until a fuel 
-requirement is zero or negative. For example:
-
-    A module of mass 14 requires 2 fuel. This fuel requires no 
-    further fuel (2 divided by 3 and rounded down is 0, which would 
-    call for a negative fuel), so the total fuel required is still 
-    just 2.
-
-    At first, a module of mass 1969 requires 654 fuel. Then, this 
-    fuel requires 216 more fuel (654 / 3 - 2). 216 then requires 70
-    more fuel, which requires 21 fuel, which requires 5 fuel, which 
-    requires no further fuel. So, the total fuel required for a 
-    module of mass 1969 is 654 + 216 + 70 + 21 + 5 = 966.
-
-    The fuel required by a module of mass 100756 and its fuel is: 
-    33583 + 11192 + 3728 + 1240 + 411 + 135 + 43 + 12 + 2 = 50346.
-
-What is the sum of the fuel requirements for all of the modules on 
-your spacecraft when also taking into account the mass of the added 
-fuel? (Calculate the fuel requirements for each module separately, 
-then add them all up at the end.)
-      </pre>
+      <h2 id="part2">--- Part Two ---</h2>
+      <p>
+        During the second Go / No Go poll, the Elf in charge of the Rocket
+        Equation Double-Checker stops the launch sequence. Apparently, you
+        forgot to include additional fuel for the fuel you just added.
+      </p>
+      <p>
+        Fuel itself requires fuel just like a module - take its mass, divide by
+        three, round down, and subtract 2. However, that fuel
+        <em>also</em> requires fuel, and <em>that</em> fuel requires fuel, and
+        so on. Any mass that would require <em>negative fuel</em> should instead
+        be treated as if it requires <em>zero fuel</em>; the remaining mass, if
+        any, is instead handled by <em>wishing really hard</em>, which has no
+        mass and is outside the scope of this calculation.
+      </p>
+      <p>
+        So, for each module mass, calculate its fuel and add it to the total.
+        Then, treat the fuel amount you just calculated as the input mass and
+        repeat the process, continuing until a fuel requirement is zero or
+        negative. For example:
+      </p>
+      <ul>
+        <li>
+          A module of mass <code>14</code> requires <code>2</code> fuel. This
+          fuel requires no further fuel (2 divided by 3 and rounded down is
+          <code>0</code>, which would call for a negative fuel), so the total
+          fuel required is still just <code>2</code>.
+        </li>
+        <li>
+          At first, a module of mass <code>1969</code> requires
+          <code>654</code> fuel. Then, this fuel requires <code>216</code> more
+          fuel (<code>654 / 3 - 2</code>). <code>216</code> then requires
+          <code>70</code> more fuel, which requires <code>21</code> fuel, which
+          requires <code>5</code> fuel, which requires no further fuel. So, the
+          total fuel required for a module of mass <code>1969</code> is
+          <code>654 + 216 + 70 + 21 + 5 = 966</code>.
+        </li>
+        <li>
+          The fuel required by a module of mass <code>100756</code> and its fuel
+          is:
+          <code
+            >33583 + 11192 + 3728 + 1240 + 411 + 135 + 43 + 12 + 2 = 50346</code
+          >.
+        </li>
+      </ul>
+      <p>
+        <em>What is the sum of the fuel requirements</em> for all of the modules
+        on your spacecraft when also taking into account the mass of the added
+        fuel? (Calculate the fuel requirements for each module separately, then
+        add them all up at the end.)
+      </p>
+      <hr />
       <div>
         <label for="d1p2_in">INPUT</label><br />
         <textarea id="d1p2_in" name="in" rows="20">
@@ -376,97 +460,148 @@ then add them all up at the end.)
       </div>
     </article>
     <article id="a_d2p1">
-      <pre>
---- Day 2: 1202 Program Alarm ---
+      <h2>--- Day 2: 1202 Program Alarm ---</h2>
+      <p>
+        On the way to your
+        <a href="https://en.wikipedia.org/wiki/Gravity_assist"
+          >gravity assist</a
+        >
+        around the Moon, your ship computer beeps angrily about a "<a
+          href="https://www.hq.nasa.gov/alsj/a11/a11.landing.html#1023832"
+          >1202 program alarm</a
+        >". On the radio, an Elf is already explaining how to handle the
+        situation: "Don't worry, that's perfectly norma--" The ship computer
+        <a href="https://en.wikipedia.org/wiki/Halt_and_Catch_Fire"
+          >bursts into flames</a
+        >.
+      </p>
+      <p>
+        You notify the Elves that the computer's
+        <a href="https://en.wikipedia.org/wiki/Magic_smoke">magic smoke</a>
+        seems to have
+        <span
+          title="Looks like SOMEONE forgot to change the switch to 'more magic'."
+          >escaped</span
+        >. "That computer ran <em>Intcode</em> programs like the gravity assist
+        program it was working on; surely there are enough spare parts up there
+        to build a new Intcode computer!"
+      </p>
+      <p>
+        An Intcode program is a list of
+        <a href="https://en.wikipedia.org/wiki/Integer">integers</a> separated
+        by commas (like <code>1,0,0,3,99</code>). To run one, start by looking
+        at the first integer (called position <code>0</code>). Here, you will
+        find an <em>opcode</em> - either <code>1</code>, <code>2</code>, or
+        <code>99</code>. The opcode indicates what to do; for example,
+        <code>99</code> means that the program is finished and should
+        immediately halt. Encountering an unknown opcode means something went
+        wrong.
+      </p>
+      <p>
+        Opcode <code>1</code> <em>adds</em> together numbers read from two
+        positions and stores the result in a third position. The three integers
+        <em>immediately after</em> the opcode tell you these three positions -
+        the first two indicate the <em>positions</em> from which you should read
+        the input values, and the third indicates the <em>position</em> at which
+        the output should be stored.
+      </p>
+      <p>
+        For example, if your Intcode computer encounters
+        <code>1,10,20,30</code>, it should read the values at positions
+        <code>10</code> and <code>20</code>, add those values, and then
+        overwrite the value at position <code>30</code> with their sum.
+      </p>
+      <p>
+        Opcode <code>2</code> works exactly like opcode <code>1</code>, except
+        it <em>multiplies</em> the two inputs instead of adding them. Again, the
+        three integers after the opcode indicate <em>where</em> the inputs and
+        outputs are, not their values.
+      </p>
+      <p>
+        Once you're done processing an opcode, <em>move to the next one</em> by
+        stepping forward <code>4</code> positions.
+      </p>
+      <p>For example, suppose you have the following program:</p>
+      <pre><code>1,9,10,3,2,3,11,0,99,30,40,50</code></pre>
+      <p>
+        For the purposes of illustration, here is the same program split into
+        multiple lines:
+      </p>
+      <pre><code>
+      1,9,10,3,
+      2,3,11,0,
+      99,
+      30,40,50
+      </code></pre>
+      <p>
+        The first four integers, <code>1,9,10,3</code>, are at positions
+        <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code>.
+        Together, they represent the first opcode (<code>1</code>, addition),
+        the positions of the two inputs (<code>9</code> and <code>10</code>),
+        and the position of the output (<code>3</code>). To handle this opcode,
+        you first need to get the values at the input positions: position
+        <code>9</code> contains <code>30</code>, and position
+        <code>10</code> contains <code>40</code>. <em>Add</em> these numbers
+        together to get <code>70</code>. Then, store this value at the output
+        position; here, the output position (<code>3</code>) is
+        <em>at</em> position <code>3</code>, so it overwrites itself. Afterward,
+        the program looks like this:
+      </p>
+      <pre><code>
+      1,9,10,<em>70</em>,
+      2,3,11,0,
+      99,
+      30,40,50
+      </code></pre>
+      <p>
+        Step forward <code>4</code> positions to reach the next opcode,
+        <code>2</code>. This opcode works just like the previous, but it
+        multiplies instead of adding. The inputs are at positions
+        <code>3</code> and <code>11</code>; these positions contain
+        <code>70</code> and <code>50</code> respectively. Multiplying these
+        produces <code>3500</code>; this is stored at position <code>0</code>:
+      </p>
+      <pre><code>
+      <em>3500</em>,9,10,70,
+      2,3,11,0,
+      99,
+      30,40,50
+      </code></pre>
+      <p>
+        Stepping forward <code>4</code> more positions arrives at opcode
+        <code>99</code>, halting the program.
+      </p>
+      <p>Here are the initial and final states of a few more small programs:</p>
+      <ul>
+        <li>
+          <code>1,0,0,0,99</code> becomes
+          <code><em>2</em>,0,0,0,99</code> (<code>1 + 1 = 2</code>).
+        </li>
+        <li>
+          <code>2,3,0,3,99</code> becomes
+          <code>2,3,0,<em>6</em>,99</code> (<code>3 * 2 = 6</code>).
+        </li>
+        <li>
+          <code>2,4,4,5,99,0</code> becomes
+          <code>2,4,4,5,99,<em>9801</em></code> (<code>99 * 99 = 9801</code>).
+        </li>
+        <li>
+          <code>1,1,1,4,99,5,6,0,99</code> becomes
+          <code><em>30</em>,1,1,4,<em>2</em>,5,6,0,99</code>.
+        </li>
+      </ul>
+      <p>
+        Once you have a working computer, the first step is to restore the
+        gravity assist program (your puzzle input) to the "1202 program alarm"
+        state it had just before the last computer caught fire. To do this,
+        <em>before running the program</em>, replace position
+        <code>1</code> with the value <code>12</code> and replace position
+        <code>2</code> with the value <code>2</code>.
+        <em>What value is left at position <code>0</code></em> after the program
+        halts?
+      </p>
+      <hr />
 
-On the way to your gravity assist around the Moon, your ship 
-computer beeps angrily about a "1202 program alarm". On the radio, 
-an Elf is already explaining how to handle the situation: "Don't 
-worry, that's perfectly norma--" The ship computer bursts into 
-flames.
-
-You notify the Elves that the computer's magic smoke seems to 
-have escaped. "That computer ran Intcode programs like the gravity 
-assist program it was working on; surely there are enough spare 
-parts up there to build a new Intcode computer!"
-
-An Intcode program is a list of integers separated by commas 
-(like 1,0,0,3,99). To run one, start by looking at the first integer 
-(called position 0). Here, you will find an opcode - either 1, 2, 
-or 99. The opcode indicates what to do; for example, 99 means that 
-the program is finished and should immediately halt. Encountering an 
-unknown opcode means something went wrong.
-
-Opcode 1 adds together numbers read from two positions and stores the 
-result in a third position. The three integers immediately after the 
-opcode tell you these three positions - the first two indicate the 
-positions from which you should read the input values, and the third 
-indicates the position at which the output should be stored.
-
-For example, if your Intcode computer encounters 1,10,20,30, it should 
-read the values at positions 10 and 20, add those values, and then 
-overwrite the value at position 30 with their sum.
-
-Opcode 2 works exactly like opcode 1, except it multiplies the two 
-inputs instead of adding them. Again, the three integers after the 
-opcode indicate where the inputs and outputs are, not their values.
-
-Once you're done processing an opcode, move to the next one by stepping 
-forward 4 positions.
-
-For example, suppose you have the following program:
-
-1,9,10,3,2,3,11,0,99,30,40,50
-
-For the purposes of illustration, here is the same program split into 
-multiple lines:
-
-1,9,10,3,
-2,3,11,0,
-99,
-30,40,50
-
-The first four integers, 1,9,10,3, are at positions 0, 1, 2, and 3. 
-Together, they represent the first opcode (1, addition), the positions 
-of the two inputs (9 and 10), and the position of the output (3). To 
-handle this opcode, you first need to get the values at the input 
-positions: position 9 contains 30, and position 10 contains 40. Add 
-these numbers together to get 70. Then, store this value at the output 
-position; here, the output position (3) is at position 3, so it overwrites 
-itself. Afterward, the program looks like this:
-
-1,9,10,70,
-2,3,11,0,
-99,
-30,40,50
-
-Step forward 4 positions to reach the next opcode, 2. This opcode works 
-just like the previous, but it multiplies instead of adding. The inputs 
-are at positions 3 and 11; these positions contain 70 and 50 respectively. 
-Multiplying these produces 3500; this is stored at position 0:
-
-3500,9,10,70,
-2,3,11,0,
-99,
-30,40,50
-
-Stepping forward 4 more positions arrives at opcode 99, halting the 
-program.
-
-Here are the initial and final states of a few more small programs:
-
-  1,0,0,0,99 becomes 2,0,0,0,99 (1 + 1 = 2).
-  2,3,0,3,99 becomes 2,3,0,6,99 (3 * 2 = 6).
-  2,4,4,5,99,0 becomes 2,4,4,5,99,9801 (99 * 99 = 9801).
-  1,1,1,4,99,5,6,0,99 becomes 30,1,1,4,2,5,6,0,99.
-
-Once you have a working computer, the first step is to restore the 
-gravity assist program (your puzzle input) to the "1202 program alarm" 
-state it had just before the last computer caught fire. To do this, 
-before running the program, replace position 1 with the value 12 and 
-replace position 2 with the value 2. What value is left at position 0 
-after the program halts?
-      </pre>
       <div>
         <label for="d2p1_in">INPUT</label><br />
         <textarea id="d2p1_in" name="d2p1_in" rows="20">
@@ -480,58 +615,79 @@ after the program halts?
       </div>
     </article>
     <article id="a_d2p2">
-      <pre>
---- Part Two ---
-
-"Good, the new computer seems to be working correctly! Keep it nearby
-during this mission - you'll probably use it again. Real Intcode
-computers support many more features than your new one, but we'll
-let you know what they are as you need them."
-
-"However, your current priority should be to complete your gravity
-assist around the Moon. For this mission to succeed, we should settle
-on some terminology for the parts you've already built."
-
-Intcode programs are given as a list of integers; these values are
-used as the initial state for the computer's memory. When you run an
-Intcode program, make sure to start by initializing memory to the
-program's values. A position in memory is called an address (for
-example, the first value in memory is at "address 0").
-
-Opcodes (like 1, 2, or 99) mark the beginning of an instruction. The
-values used immediately after an opcode, if any, are called the
-instruction's parameters. For example, in the instruction 1,2,3,4,
-1 is the opcode; 2, 3, and 4 are the parameters. The instruction
-99 contains only an opcode and has no parameters.
-
-The address of the current instruction is called the instruction pointer;
-it starts at 0. After an instruction finishes, the instruction pointer
-increases by the number of values in the instruction; until you add
-more instructions to the computer, this is always 4 (1 opcode + 3
-parameters) for the add and multiply instructions. (The halt
-instruction would increase the instruction pointer by 1, but it halts
-the program instead.)
-
-"With terminology out of the way, we're ready to proceed. To complete the
-gravity assist, you need to determine what pair of inputs produces the
-output 19690720."
-
-The inputs should still be provided to the program by replacing the values
-at addresses 1 and 2, just like before. In this program, the value placed
-in address 1 is called the noun, and the value placed in address 2 is
-called the verb. Each of the two input values will be between 0 and 99,
-inclusive.
-
-Once the program has halted, its output is available at address 0, also just
-like before. Each time you try a pair of inputs, make sure you first reset
-the computer's memory to the values in the program (your puzzle input) - in
-other words, don't reuse memory from a previous attempt.
-
-Find the input noun and verb that cause the program to produce the output 
-19690720. What is 100 * noun + verb? (For example, if noun=12 and verb=2, 
-the answer would be 1202.)
-  </pre
-      >
+      <h2>--- Part Two ---</h2>
+      <p>
+        "Good, the new computer seems to be working correctly!
+        <em>Keep it nearby</em> during this mission - you'll probably use it
+        again. Real Intcode computers support many more features than your new
+        one, but we'll let you know what they are as you need them."
+      </p>
+      <p>
+        "However, your current priority should be to complete your gravity
+        assist around the Moon. For this mission to succeed, we should settle on
+        some terminology for the parts you've already built."
+      </p>
+      <p>
+        Intcode programs are given as a list of integers; these values are used
+        as the initial state for the computer's <em>memory</em>. When you run an
+        Intcode program, make sure to start by initializing memory to the
+        program's values. A position in memory is called an
+        <em>address</em> (for example, the first value in memory is at "address
+        0").
+      </p>
+      <p>
+        Opcodes (like <code>1</code>, <code>2</code>, or <code>99</code>) mark
+        the beginning of an <em>instruction</em>. The values used immediately
+        after an opcode, if any, are called the instruction's
+        <em>parameters</em>. For example, in the instruction
+        <code>1,2,3,4</code>, <code>1</code> is the opcode; <code>2</code>,
+        <code>3</code>, and <code>4</code> are the parameters. The instruction
+        <code>99</code> contains only an opcode and has no parameters.
+      </p>
+      <p>
+        The address of the current instruction is called the
+        <em>instruction pointer</em>; it starts at <code>0</code>. After an
+        instruction finishes, the instruction pointer increases by
+        <em>the number of values in the instruction</em>; until you add more
+        instructions to the computer, this is always <code>4</code> (<code
+          >1</code
+        >
+        opcode + <code>3</code> parameters) for the add and multiply
+        instructions. (The halt instruction would increase the instruction
+        pointer by <code>1</code>, but it halts the program instead.)
+      </p>
+      <p>
+        "With terminology out of the way, we're ready to proceed. To complete
+        the gravity assist, you need to
+        <em
+          >determine what pair of inputs produces the output
+          <code>19690720</code></em
+        >."
+      </p>
+      <p>
+        The inputs should still be provided to the program by replacing the
+        values at addresses <code>1</code> and <code>2</code>, just like before.
+        In this program, the value placed in address <code>1</code> is called
+        the <em>noun</em>, and the value placed in address <code>2</code> is
+        called the <em>verb</em>. Each of the two input values will be between
+        <code>0</code> and <code>99</code>, inclusive.
+      </p>
+      <p>
+        Once the program has halted, its output is available at address
+        <code>0</code>, also just like before. Each time you try a pair of
+        inputs, make sure you first
+        <em>reset the computer's memory to the values in the program</em> (your
+        puzzle input) - in other words, don't reuse memory from a previous
+        attempt.
+      </p>
+      <p>
+        Find the input <em>noun</em> and <em>verb</em> that cause the program to
+        produce the output <code>19690720</code>.
+        <em>What is <code>100 * noun + verb</code>?</em> (For example, if
+        <code>noun=12</code> and <code>verb=2</code>, the answer would be
+        <code>1202</code>.)
+      </p>
+      <hr />
       <div>
         -----INPUT-----<br />
         <label for="d2p2_in">PROGRAM</label><br />
@@ -543,21 +699,296 @@ the answer would be 1202.)
         <input type="text" id="d2p2_noun" name="d2p2_noun" />
         <label for="d2p2_verb">VERB:</label>
         <input type="text" id="d2p2_verb" name="d2p2_verb" />
+        (try 45, 59)
         <br />
         <button onclick="d2p2_doit()">Do It</button>
         <br />
         -----OUTPUT-----
         <br />
-        <div id="d2p2_out">output appears here</div>
-        <br />
+
         <div id="d2p2_answer">result appears here</div>
       </div>
     </article>
+    <article id="a_d3p1">
+      <h2>--- Day 3: Crossed Wires ---</h2>
+      <p>
+        The gravity assist was successful, and you're well on your way to the
+        Venus refuelling station. During the rush back on Earth, the fuel
+        management system wasn't completely installed, so that's next on the
+        priority list.
+      </p>
+      <p>
+        Opening the front panel reveals a jumble of wires. Specifically,
+        <em>two wires</em> are connected to a central port and extend outward on
+        a grid. You trace the path each wire takes as it leaves the central
+        port, one wire per line of text (your puzzle input).
+      </p>
+      <p>
+        The wires
+        <span title="A jumble of twisty little wires, all alike."
+          >twist and turn</span
+        >, but the two wires occasionally cross paths. To fix the circuit, you
+        need to
+        <em>find the intersection point closest to the central port</em>.
+        Because the wires are on a grid, use the
+        <a href="https://en.wikipedia.org/wiki/Taxicab_geometry"
+          >Manhattan distance</a
+        >
+        for this measurement. While the wires do technically cross right at the
+        central port where they both start, this point does not count, nor does
+        a wire count as crossing with itself.
+      </p>
+      <p>
+        For example, if the first wire's path is <code>R8,U5,L5,D3</code>, then
+        starting from the central port (<code>o</code>), it goes right
+        <code>8</code>, up <code>5</code>, left <code>5</code>, and finally down
+        <code>3</code>:
+      </p>
+      <pre><code>
+...........
+...........
+...........
+....+----+.
+....|....|.
+....|....|.
+....|....|.
+.........|.
+.o-------+.
+...........
+</code></pre>
+      <p>
+        Then, if the second wire's path is <code>U7,R6,D4,L4</code>, it goes up
+        <code>7</code>, right <code>6</code>, down <code>4</code>, and left
+        <code>4</code>:
+      </p>
+      <pre><code>
+...........
+.+-----+...
+.|.....|...
+.|..+--X-+.
+.|..|..|.|.
+.|.-<em>X</em>--+.|.
+.|..|....|.
+.|.......|.
+.o-------+.
+...........
+</code></pre>
+      <p>
+        These wires cross at two locations (marked <code>X</code>), but the
+        lower-left one is closer to the central port: its distance is
+        <code>3 + 3 = 6</code>.
+      </p>
+      <p>Here are a few more examples:</p>
+      <ul>
+        <li>
+          <code
+            >R75,D30,R83,U83,L12,D49,R71,U7,L72<br />U62,R66,U55,R34,D71,R55,D58,R83</code
+          >
+          = distance <code>159</code>
+        </li>
+        <li>
+          <code
+            >R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51<br />U98,R91,D20,R16,D67,R40,U7,R15,U6,R7</code
+          >
+          = distance <code>135</code>
+        </li>
+      </ul>
+      <p>
+        <em>What is the Manhattan distance</em> from the central port to the
+        closest intersection?
+      </p>
+      <hr />
+      <div>
+        <button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="d3p1_solve()">Solve</button>
+        <br /><br />-----INPUT-----<br />
+        <textarea id="i_d3p1" rows="10" cols="60"></textarea><br />
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d3p1"></div>
+      </div>
+    </article>
+    <article id="a_d3p2">
+      <h2>--- Part Two ---</h2>
+      <p>
+        It turns out that this circuit is very timing-sensitive; you actually
+        need to <em>minimize the signal delay</em>.
+      </p>
+      <p>
+        To do this, calculate the <em>number of steps</em> each wire takes to
+        reach each intersection; choose the intersection where the
+        <em>sum of both wires' steps</em> is lowest. If a wire visits a position
+        on the grid multiple times, use the steps value from the
+        <em>first</em> time it visits that position when calculating the total
+        value of a specific intersection.
+      </p>
+      <p>
+        The number of steps a wire takes is the total number of grid squares the
+        wire has entered to get to that location, including the intersection
+        being considered. Again consider the example from above:
+      </p>
+      <pre><code>...........
+.+-----+...
+.|.....|...
+.|..+--X-+.
+.|..|..|.|.
+.|.-X--+.|.
+.|..|....|.
+.|.......|.
+.o-------+.
+...........
+</code></pre>
+      <p>
+        In the above example, the intersection closest to the central port is
+        reached after <code>8+5+5+2 = <em>20</em></code> steps by the first wire
+        and <code>7+6+4+3 = <em>20</em></code> steps by the second wire for a
+        total of <code>20+20 = <em>40</em></code> steps.
+      </p>
+      <p>
+        However, the top-right intersection is better: the first wire takes only
+        <code>8+5+2 = <em>15</em></code> and the second wire takes only
+        <code>7+6+2 = <em>15</em></code
+        >, a total of <code>15+15 = <em>30</em></code> steps.
+      </p>
+      <p>Here are the best steps for the extra examples from above:</p>
+      <ul>
+        <li>
+          <code
+            >R75,D30,R83,U83,L12,D49,R71,U7,L72<br />U62,R66,U55,R34,D71,R55,D58,R83</code
+          >
+          = <code>610</code> steps
+        </li>
+        <li>
+          <code
+            >R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51<br />U98,R91,D20,R16,D67,R40,U7,R15,U6,R7</code
+          >
+          = <code>410</code> steps
+        </li>
+      </ul>
+      <p>
+        <em
+          >What is the fewest combined steps the wires must take to reach an
+          intersection?</em
+        >
+      </p>
 
+      <hr />
+      <div>
+        <button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="d3p2_solve()">Solve</button>
+        <br /><br />-----INPUT-----<br />
+        <textarea id="i_d3p2" rows="10" cols="60"></textarea><br />
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d3p2"></div>
+      </div>
+    </article>
+    <article id="a_d4p1">
+      <div class="problem_description">
+        <h2>--- Day 4: Secure Container ---</h2>
+        <p>
+          You arrive at the Venus fuel depot only to discover it's protected by
+          a password. The Elves had written the password on a sticky note, but
+          someone
+          <span
+            title="Look on the bright side - isn't it more secure if nobody knows the password?"
+            >threw it out</span
+          >.
+        </p>
+        <p>However, they do remember a few key facts about the password:</p>
+        <ul>
+          <li>It is a six-digit number.</li>
+          <li>The value is within the range given in your puzzle input.</li>
+          <li>
+            Two adjacent digits are the same (like <code>22</code> in
+            <code>1<em>22</em>345</code>).
+          </li>
+          <li>
+            Going from left to right, the digits <em>never decrease</em>; they
+            only ever increase or stay the same (like <code>111123</code> or
+            <code>135679</code>).
+          </li>
+        </ul>
+        <p>Other than the range rule, the following are true:</p>
+        <ul>
+          <li>
+            <code>111111</code> meets these criteria (double <code>11</code>,
+            never decreases).
+          </li>
+          <li>
+            <code>2234<em>50</em></code> does not meet these criteria
+            (decreasing pair of digits <code>50</code>).
+          </li>
+          <li><code>123789</code> does not meet these criteria (no double).</li>
+        </ul>
+        <p>
+          <em>How many different passwords</em> within the range given in your
+          puzzle input meet these criteria?
+        </p>
+
+        <p>Your puzzle input is <code>171309-643603</code>.</p>
+        The correct answer is 1625.
+        <hr />
+      </div>
+      <div>
+        <div class="processing_buttons"></div>
+        <br /><br />-----INPUT-----<br />
+        <div id="i_d4p1" class="ta" contenteditable="true">
+          Put input data here.
+        </div>
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d4p1"></div>
+      </div>
+    </article>
+    <article id="a_d4p2">
+      <div class="problem_description">
+        <h2>--- Part Two ---</h2>
+        <p>
+          An Elf just remembered one more important detail: the two adjacent
+          matching digits
+          <em>are not part of a larger group of matching digits</em>.
+        </p>
+        <p>
+          Given this additional criterion, but still ignoring the range rule,
+          the following are now true:
+        </p>
+        <ul>
+          <li>
+            <code>112233</code> meets these criteria because the digits never
+            decrease and all repeated digits are exactly two digits long.
+          </li>
+          <li>
+            <code>123<em>444</em></code> no longer meets the criteria (the
+            repeated <code>44</code> is part of a larger group of
+            <code>444</code>).
+          </li>
+          <li>
+            <code>111122</code> meets the criteria (even though
+            <code>1</code> is repeated more than twice, it still contains a
+            double <code>22</code>).
+          </li>
+        </ul>
+        <p>
+          <em>How many different passwords</em> within the range given in your
+          puzzle input meet all of the criteria?
+        </p>
+        The correct answer is 1111.
+        <hr />
+      </div>
+      <div>
+        <div class="processing_buttons"></div>
+        <br /><br />-----INPUT-----<br />
+        <div id="i_d4p2" class="ta" contenteditable="true">
+          Put input data here.
+        </div>
+        <br /><br />-----OUTPUT-----<br />
+        <div id="o_d4p2"></div>
+      </div>
+    </article>
     <script>
       "use strict";
       // @ts-check
-      //UTILITY AND UNIT TEST SECTION//////
+      //#region UTILITY AND UNIT TEST SECTION
       function gi(id) {
         return document.getElementById(id);
       }
@@ -590,10 +1021,108 @@ the answer would be 1202.)
           ? p++
           : (f += " d2p1-4");
 
-        log(`${p} tests passed. ${f}.`);
+        // d3p1_md({ x: 0, y: 0 }) == 0 ? p++ : (f += " d3p1-1.1");
+        // d3p1_md({ x: 1, y: 1 }) == 2 ? p++ : (f += " d3p1-1.2");
+        // d3p1_md({ x: 1, y: 1 }, { x: 0, y: 0 }) == 2 ? p++ : (f += " d3p1-2");
+        // d3p1_md({ x: 1, y: 1 }, { x: 1, y: 1 }) == 0 ? p++ : (f += " d3p1-3");
+        // d3p1_md({ x: -1, y: -1 }, { x: 10, y: 0 }) == 12
+        //   ? p++
+        //   : (f += " d3p1-4");
+        // d3p1_md({ x: -1, y: 1 }) == 2 ? p++ : (f += " d3p1-5");
+        // d3p1_md({ x: 1, y: -1 }) == 2 ? p++ : (f += " d3p1-6");
+        // d3p1_md({ x: -1, y: -1 }) == 2 ? p++ : (f += " d3p1-7");
+        let g = new d3p1_Grid();
+        g.key(0, 0) == "0,0" ? p++ : (f += " d3p1-8");
+        g.get(0, 0) === undefined ? p++ : (f += " d3p1-9");
+        g.addPoint(0, 0, "A");
+        g.get(0, 0) !== undefined ? p++ : (f += " d3p1-10");
+        g.get(0, 0).wires === "A" ? p++ : (f += " d3p1-11");
+        g.get(0, 0).md == 0 ? p++ : (f += " d3p1-12.1");
+        g.get(0, 0).x == 0 ? p++ : (f += " d3p1-12.2");
+        g.get(0, 0).y == 0 ? p++ : (f += " d3p1-12.3");
+        g.addPoint(2, 3, "A");
+        g.get(2, 3).wires === "A" ? p++ : (f += " d3p1-13");
+        g.get(2, 3).md == 5 ? p++ : (f += " d3p1-14.1");
+        g.get(2, 3).x == 2 ? p++ : (f += " d3p1-14.2");
+        g.get(2, 3).y == 3 ? p++ : (f += " d3p1-14.3");
+        g.addPoint(2, 3, "B");
+        g.get(2, 3).wires === "AB" ? p++ : (f += " d3p1-15");
+        let arr = g.getAll();
+        arr.length == 2 ? p++ : (f += " d3p1-16");
+        arr[0].md == 0 ? p++ : (f += " d3p1-17");
+        arr[1].md == 5 ? p++ : (f += " d3p1-18");
+        arr = g.getAll(null, (a, b) => a.md - b.md);
+        arr[0].md == 0 ? p++ : (f += " d3p1-19.1");
+        arr = g.getAll(
+          (e) => e.md > 4,
+          (a, b) => a.md - b.md
+        );
+        arr[0].md == 5 ? p++ : (f += " d3p1-19.2");
+        arr = g.getAll((e) => e.md < 4);
+        arr[0].md == 0 ? p++ : (f += " d3p1-19.3");
+
+        g = new d3p1_Grid();
+        g.addWire("R8,U5,L5,D3", "A");
+        g.get(0, 0).wires === "A" ? p++ : (f += " d3p1-20");
+        g.get(4, 0).wires === "A" ? p++ : (f += " d3p1-21");
+        g.get(8, 0).wires === "A" ? p++ : (f += " d3p1-22");
+        g.get(8, 1).wires === "A" ? p++ : (f += " d3p1-23");
+        g.get(4, 5).wires === "A" ? p++ : (f += " d3p1-24");
+        g.get(3, 2).wires === "A" ? p++ : (f += " d3p1-25");
+        g.addWire("U7,R6,D4,L4", "B");
+        g.get(0, 0).wires === "AB" ? p++ : (f += " d3p1-26");
+        g.get(0, 7).wires === "B" ? p++ : (f += " d3p1-27");
+        g.get(6, 5).wires === "AB" ? p++ : (f += " d3p1-28");
+        g.get(3, 3).wires === "AB" ? p++ : (f += " d3p1-29");
+        arr = g.getAll(
+          (e) => e.wires == "AB" && !(e.x == 0 && e.y == 0),
+          (a, b) => a.md - b.md
+        );
+        arr[0].md == 6 ? p++ : (f += " d3p1-30");
+        g.closestIntersectionDistance("AB") == 6 ? p++ : (f += " d3p1-31");
+
+        g = new d3p1_Grid();
+        g.addWire("R75,D30,R83,U83,L12,D49,R71,U7,L72", "A");
+        g.addWire("U62,R66,U55,R34,D71,R55,D58,R83", "B");
+        g.closestIntersectionDistance("AB") == 159 ? p++ : (f += " d3p1-32");
+        g = new d3p1_Grid();
+        g.addWire("R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51", "A");
+        g.addWire("U98,R91,D20,R16,D67,R40,U7,R15,U6,R7", "B");
+        g.closestIntersectionDistance("AB") == 135 ? p++ : (f += " d3p1-33");
+
+        let indata = givenInputData.d3p1.split(/\r?\n/);
+        g = new d3p1_Grid();
+        g.addWire(indata[0], "A");
+        g.addWire(indata[1], "B");
+        g.closestIntersectionDistance("AB") == 721
+          ? p++
+          : (f += " d3p1-34(solution)");
+
+        let ut = { p: p, f: f };
+
+        Object.getOwnPropertyNames(problems).forEach((prb) =>
+          problems[prb].unitTest(ut)
+        );
+
+        log(`${ut.p} tests passed. ${ut.f}.`);
+
+        // log(`NEW:${ut.p} tests passed. ${ut.f}.`);
       }
-      //ARTICLE DISPLAY CONTROL SECTION///////
-      var currentBaseId = "d1p1";
+      //#endregion
+      //#region ARTICLE AND DATA DISPLAY CONTROL SECTION
+      let currentBaseId = "About";
+      function clearCurrentData() {
+        gi("i_" + currentBaseId).innerHTML = "";
+        gi("o_" + currentBaseId).innerHTML =
+          "Load Input data then press Solve button for result appears here.";
+      }
+      function loadCurrentInputData() {
+        clearCurrentData();
+        gi("i_" + currentBaseId).innerHTML = givenInputData[currentBaseId];
+      }
+      function solveCurrentProblem() {
+        problems[currentBaseId].solve();
+      }
       function showArt(baseId) {
         //Turn off current article and button.
         gi("a_" + currentBaseId).style.display = "none";
@@ -603,7 +1132,30 @@ the answer would be 1202.)
         gi("b_" + baseId).style.backgroundColor = "#0f0f23";
         currentBaseId = baseId;
       }
-      //DAY 1 PART 1 SECTION////////
+      //Auto-create the nav button-tabs, one for each "a_*" element.
+      function makeNavButton(id) {
+        return `<button class="tab" id="b_${id}" onclick="showArt('${id}')">${id}</button>`;
+      }
+      function makeProcessingButtons() {
+        return `<button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="solveCurrentProblem()">Solve</button>`;
+      }
+      window.addEventListener("load", function () {
+        let s = "";
+        document
+          .querySelectorAll('[id^="a_"]')
+          .forEach((a) => (s += makeNavButton(a.id.substr(2))));
+        gi("nav-button-tabs").innerHTML = s;
+        document
+          .querySelectorAll(".processing_buttons")
+          .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        showArt("About");
+      });
+      //#endregion
+      //#region COMPLETED SOLUTIONS//////////
+      let givenInputData = {};
+      //#region DAY 1 PART 1 SECTION
       function d1p1_fuelreq(mass) {
         // take its mass, divide by three, round down, and subtract 2.
         return Math.floor(mass / 3) - 2;
@@ -619,7 +1171,8 @@ the answer would be 1202.)
         }
         gi("d1p1_out").value = t;
       }
-      //DAY 1 PART 2 SECTION////////
+      //#endregion
+      //#region DAY 1 PART 2 SECTION
       function d1p2_fuelreq(mass) {
         let f = Math.max(0, d1p1_fuelreq(mass));
         let ff = f;
@@ -642,7 +1195,8 @@ the answer would be 1202.)
         }
         gi("d1p2_out").value = t;
       }
-      //DAY 2 PART 1 SECTION////////
+      //#endregion
+      //#region DAY 2 PART 1 SECTION
       function d2p1_process(ms) {
         //log("d2p1_process");
         //log("ms=" + ms);
@@ -674,18 +1228,8 @@ the answer would be 1202.)
         gi("d2p1_out").value = d2p1_process(gi("d2p1_in").value);
         //correct answer: 5434663
       }
-      //DAY 2 PART 2 SECTION////////
-      var d2p1_memory = [];
-      var d2p1_pc = 0;
-      function d2p1_getcmd() {
-        let x = {};
-        x.op = d2p1_memory[d2p1_pc];
-        x.arg1 = d2p1_memory[d2p1_pc + 1];
-        x.arg2 = d2p1_memory[d2p1_pc + 2];
-        x.arg3 = d2p1_memory[d2p1_pc + 3];
-        d2p1_pc += 4;
-        return x;
-      }
+      //#endregion
+      //#region DAY 2 PART 2 SECTION
       function d2p2_process(ma) {
         let pc = 0;
         while (true) {
@@ -704,7 +1248,6 @@ the answer would be 1202.)
         }
         return ma[0];
       }
-
       function d2p2_doit() {
         let ma = gi("d2p2_in").value.split(",");
         ma.forEach(function (e, i, a) {
@@ -717,6 +1260,352 @@ the answer would be 1202.)
         gi("d2p2_answer").innerHTML = d2p2_process(ma);
         //correct answer: 5434663
       }
+      //#endregion
+      //#region DAY 3 PART 1 SECTION
+      // prettier-ignore
+      givenInputData.d3p1 =
+      `R1009,D117,L888,D799,L611,U766,L832,U859,L892,D79,R645,U191,L681,D787,R447,D429,L988,U536,L486,D832,R221,D619,R268,D545,L706,U234,L528,D453,R493,D24,L688,U658,L74,D281,R910,D849,L5,U16,R935,D399,L417,U609,R22,D782,L432,D83,L357,D982,L902,U294,L338,U102,R342,D621,R106,U979,L238,U158,R930,D948,L700,D808,R445,U897,R980,U227,L466,D416,R244,U396,R576,U157,R548,U795,R709,U550,R137,U212,L977,U786,L423,D792,R391,D974,R390,U771,R270,D409,L917,D9,R412,D699,L170,D276,L912,U710,R814,U656,R4,D800,R596,U970,L194,U315,L845,D490,L303,U514,L675,D737,L880,D86,L253,D525,R861,D5,R424,D113,L764,D900,R485,D421,R125,U684,R53,U96,L871,U260,R456,U378,L448,D450,L903,D482,R750,U961,R264,D501,R605,D367,R550,U642,R228,U164,L343,U868,R595,D318,R452,U845,L571,D281,R49,D889,L481,U963,R182,U358,R454,U267,L790,D252,R455,D188,L73,U256,L835,D816,R503,U895,L259,U418,R642,U818,L187,U355,R772,U466,R21,U91,R707,D349,L200,U305,R931,D982,L334,D416,L247,D935,L326,U449,L398,D914,R602,U10,R762,D944,L639,D141,L457,U579,L198,U527,R750,U167,R816,D753,R850,D281,L712,D583,L172,D254,L544,D456,R966,U839,R673,D479,R730,D912,R992,D969,R766,U205,R477,D719,R172,D735,R998,D687,R698,D407,R172,U945,R199,U348,L256,D876,R580,U770,L483,D437,R353,D214,R619,U541,R234,D962,R842,U639,R520,D354,L279,D15,R42,U138,L321,D376,L628,D893,L670,D574,L339,U298,L321,D120,L370,U408,L333,D353,L263,D79,R535,D487,R113,D638,R623,D59,L508,D866,R315,U166,L534,U927,L401,D626,L19,D994,L778,D317,L936,U207,L768,U948,R452,U165,R864,D283,L874
+      L995,D93,L293,U447,L793,D605,R497,D155,L542,D570,R113,D779,L510,U367,L71,D980,R237,U290,L983,U49,R745,U182,L922,D174,L189,D629,R315,D203,R533,U72,L981,D848,L616,U654,R445,D864,R526,D668,L678,U378,L740,D840,L202,D429,R136,D998,L116,D554,L893,U759,R617,U942,R999,U582,L220,U447,R895,D13,R217,U743,L865,U950,R91,D381,R662,D518,L798,D637,L213,D93,L231,D185,R704,U581,L268,U773,R405,U862,R796,U73,L891,U553,L952,U450,R778,D868,R329,D669,L182,U378,L933,D83,R574,U807,R785,D278,R139,D362,R8,U546,R651,U241,L462,D309,L261,D307,L85,U701,L913,U271,R814,U723,L777,D256,R417,U814,L461,U652,R198,D747,R914,U520,R806,U956,L771,D229,R984,U685,R663,D812,R650,U214,R839,U574,L10,U66,R644,D371,L917,D819,L73,D236,R277,U611,R390,U723,L129,D496,L552,D451,R584,U105,L805,U165,R179,D372,L405,D702,R14,U332,L893,D419,R342,D146,R907,D672,L316,U257,L903,U919,L942,U771,R879,U624,L280,U150,L320,U220,R590,D242,R744,U291,R562,U418,L898,U66,L564,U495,R837,D555,L739,D780,R409,D122,L426,D857,R937,D600,R428,D592,R727,U917,R256,D680,L422,U630,L14,U240,R617,D664,L961,D554,L302,U925,L376,D187,L700,D31,L762,U397,L554,D217,R679,D683,R680,D572,R54,D164,L940,D523,R140,U52,L506,D638,R331,D415,R389,D884,R410,D62,R691,U665,R889,U864,L663,D690,R487,U811,L190,U780,L758,U267,R155,D344,L133,D137,R93,D229,L729,U878,L889,D603,R288,U890,R251,U531,L249,D995,R863,D257,R655,D311,R874,U356,L833,U151,L741,U246,R694,D899,L48,U915,L900,U757,L861,U402,R971,U537,R460,D844,R54,U956,L151,U74,R892,U248,R677,D881,R99,D931,R427`;
+      class d3p1_Grid {
+        constructor() {
+          this.points = new Map();
+        }
+        key(x, y) {
+          return `${x},${y}`;
+        }
+        get(x, y) {
+          return this.points.get(this.key(x, y));
+        }
+        addPoint(x, y, wire) {
+          // log("Adding point x=" + x + " y=" + y);
+          let v = this.get(x, y);
+          if (v === undefined) {
+            v = { x: x, y: y, md: Math.abs(x) + Math.abs(y), wires: "" };
+            this.points.set(this.key(x, y), v);
+          }
+          v.wires += wire;
+        }
+        addLine(start_x, start_y, vector, wire) {
+          //NOTE: Don't add the starting point.
+          vector = vector.trim();
+          let direction = vector.substr(0, 1);
+          let distance = parseInt(vector.substr(1));
+          let dx = 0;
+          let dy = 0;
+          if (direction === "L") dx = -1;
+          else if (direction === "R") dx = 1;
+          else if (direction === "U") dy = 1;
+          else if (direction === "D") dy = -1;
+          let current_x = start_x;
+          let current_y = start_y;
+          for (let i = 1; i <= distance; i++) {
+            current_x += dx;
+            current_y += dy;
+            this.addPoint(current_x, current_y, wire);
+          }
+          return { x: current_x, y: current_y };
+        }
+        addWire(path, wire) {
+          this.addPoint(0, 0, wire);
+          let line_end = { x: 0, y: 0 };
+          let pa = path.split(",");
+          // log("pa[0]=" + pa[0]);
+          // log("pa[1]=" + pa[1]);
+          // log("pa[2]=" + pa[2]);
+          for (let i = 0; i < pa.length; i++) {
+            // {x,y}=addLine(x,y,pa[i],wire);
+            line_end = this.addLine(line_end.x, line_end.y, pa[i], wire);
+          }
+        }
+        getAll(filter_fn = null, sort_fn = null) {
+          let arr = Array.from(this.points.values());
+          if (filter_fn) arr = arr.filter(filter_fn);
+          if (sort_fn) arr.sort(sort_fn);
+          return arr;
+        }
+        closestIntersectionDistance(wires) {
+          let arr = this.getAll(
+            (e) => e.wires == wires && !(e.x == 0 && e.y == 0),
+            (a, b) => a.md - b.md
+          );
+          return arr[0].md;
+        }
+      }
+
+      function d3p1_solve() {
+        let indata = gi("i_d3p1").value.split(/\r?\n/);
+        log("indata[0]=" + indata[0]);
+        log("indata[1]=" + indata[1]);
+        if (indata.length != 2) {
+          gi("o_d3p1").innerHTML =
+            "There need to be exactly two wires for this problem.";
+          return;
+        }
+        let g = new d3p1_Grid();
+        g.addWire(indata[0], "A");
+        g.addWire(indata[1], "B");
+        gi("o_d3p1").innerHTML =
+          "Closest wire intersection distance = " +
+          g.closestIntersectionDistance("AB");
+      }
+      //#endregion
+      //#region DAY 3 PART 2 SECTION
+      givenInputData.d3p2 = givenInputData.d3p1;
+      function makeWirePoints(path) {
+        // log("path=" + path);
+        let points = {};
+        let pa = path.split(",");
+        // log("pa.length=" + pa.length);
+        let step = 0;
+        let x = 0;
+        let y = 0;
+        for (let i = 0; i < pa.length; i++) {
+          // log("pa[i]=" + pa[i]);
+          let vector = pa[i].trim();
+          let direction = vector.substr(0, 1);
+          let distance = parseInt(vector.substr(1));
+          let dx = 0;
+          let dy = 0;
+          if (direction === "L") dx = -1;
+          else if (direction === "R") dx = 1;
+          else if (direction === "U") dy = 1;
+          else if (direction === "D") dy = -1;
+          for (let j = 1; j <= distance; j++) {
+            x += dx;
+            y += dy;
+            // log("x=" + x + " y=" + y + " direction=" + direction);
+            step++;
+            let key = `${x}_${y}`;
+            if (!points.hasOwnProperty(key)) {
+              points[key] = step;
+            }
+          }
+        }
+        return points;
+      }
+      function d3p2_solve() {
+        let indata = gi("i_d3p2").value.split(/\r?\n/);
+        if (indata.length != 2) {
+          gi("o_d3p2").innerHTML =
+            "There need to be exactly two wires for this problem.";
+          return;
+        }
+        log("indata[0]=" + indata[0]);
+        log("indata[1]=" + indata[1]);
+        let A_points = makeWirePoints(indata[0]);
+        let B_points = makeWirePoints(indata[1]);
+        let minSteps = -1;
+        for (const prop in A_points) {
+          if (A_points.hasOwnProperty(prop)) {
+            if (B_points.hasOwnProperty(prop)) {
+              let cs = A_points[prop] + B_points[prop];
+              if (minSteps == -1 || cs < minSteps) minSteps = cs;
+            }
+          }
+        }
+
+        gi("o_d3p2").innerHTML =
+          minSteps == -1
+            ? "WIRES DO NOT INTERSECT"
+            : "Closest wire intersection step distance = " + minSteps;
+
+        //6916 is the not the correct answer; it is too low.  7388 is correct.
+      }
+      //#endregion
+      //#region DAY 4 PART 1 SECTION
+      let problems = {};
+
+      givenInputData.d4p1 = "171309-643603";
+      problems.d4p1 = {
+        solve: function () {
+          let u = gi("i_d4p1").textContent;
+          // log("u=" + u);
+          if (!u.includes("-")) {
+            gi("o_d4p1").innerHTML = "INVALID RANGE";
+            return;
+          }
+
+          let { min, max } = this.parseRange(u);
+          // log("min=" + min);
+          // log("max=" + max);
+          let ans = new Array();
+          for (let x = min; x <= max; x++) {
+            if (this.meetsCriteria(x, min, max)) ans.push(x);
+          }
+          gi(
+            "o_d4p1"
+          ).innerHTML = `There are ${ans.length} possible passwords.`;
+        },
+        unitTest: function (ut) {
+          // log("d4p1 unittest");
+          const s = " T-d4p1.";
+          // let p = 0; //number of passed tests.
+          // let f = "Failed test ids:";
+
+          let x = this.parseRange("1-2");
+          x.min == 1 ? ut.p++ : (ut.f += s + "1");
+          x.max == 2 ? ut.p++ : (ut.f += s + "2");
+          x = this.parseRange(" 3 - 4 ");
+          x.min == 3 ? ut.p++ : (ut.f += s + "3");
+          x.max == 4 ? ut.p++ : (ut.f += s + "4");
+
+          this.isSixDigits(123456) ? ut.p++ : (ut.f += s + "5");
+          !this.isSixDigits(1234567) ? ut.p++ : (ut.f += s + "6");
+          !this.isSixDigits(12345) ? ut.p++ : (ut.f += s + "7");
+          !this.isSixDigits(1) ? ut.p++ : (ut.f += s + "8");
+
+          this.isBetween(2, 1, 3) ? ut.p++ : (ut.f += s + "ib1");
+          !this.isBetween(2, 4, 6) ? ut.p++ : (ut.f += s + "ib2");
+          !this.isBetween(7, 1, 3) ? ut.p++ : (ut.f += s + "ib3");
+
+          this.hasTwoSameAdjacentDigits(223) ? ut.p++ : (ut.f += s + "sa1");
+          !this.hasTwoSameAdjacentDigits(123123) ? ut.p++ : (ut.f += s + "sa2");
+          this.hasTwoSameAdjacentDigits(234566) ? ut.p++ : (ut.f += s + "sa3");
+          this.hasTwoSameAdjacentDigits(20036) ? ut.p++ : (ut.f += s + "sa4");
+          this.hasTwoSameAdjacentDigits(298989933)
+            ? ut.p++
+            : (ut.f += s + "sa5");
+
+          this.digitsNeverDecrease(223) ? ut.p++ : (ut.f += s + "di1");
+          this.digitsNeverDecrease(2) ? ut.p++ : (ut.f += s + "di2");
+          this.digitsNeverDecrease(333) ? ut.p++ : (ut.f += s + "di3");
+          !this.digitsNeverDecrease(776) ? ut.p++ : (ut.f += s + "di4");
+          this.digitsNeverDecrease(1234567) ? ut.p++ : (ut.f += s + "di5");
+          this.digitsNeverDecrease(123456) ? ut.p++ : (ut.f += s + "di6");
+          !this.digitsNeverDecrease(654321) ? ut.p++ : (ut.f += s + "di7");
+
+          let min = 0;
+          let max = 999999;
+          this.meetsCriteria(111111, min, max) ? ut.p++ : (ut.f += s + "mc1");
+          !this.meetsCriteria(223450, min, max) ? ut.p++ : (ut.f += s + "mc2");
+          !this.meetsCriteria(123789, min, max) ? ut.p++ : (ut.f += s + "mc3");
+
+          // log(`UT: ${ut.p} tests passed. ${ut.f}.`);
+          // return ut;
+        },
+        parseRange: function (s) {
+          let a = s.split("-");
+          let r = {};
+          r.min = a[0].trim();
+          r.max = a[1].trim();
+          return r;
+        },
+        isSixDigits: function (n) {
+          let s = "" + n;
+          return s.length == 6;
+        },
+        isBetween: function (n, min, max) {
+          return n <= max && n >= min;
+        },
+        hasTwoSameAdjacentDigits: function (n) {
+          let s = "" + n;
+          if (s.includes("00")) return true;
+          if (s.includes("11")) return true;
+          if (s.includes("22")) return true;
+          if (s.includes("33")) return true;
+          if (s.includes("44")) return true;
+          if (s.includes("55")) return true;
+          if (s.includes("66")) return true;
+          if (s.includes("77")) return true;
+          if (s.includes("88")) return true;
+          if (s.includes("99")) return true;
+          return false;
+        },
+        digitsNeverDecrease: function (n) {
+          let a = Array.from("" + n);
+          let d = parseInt(a[0]);
+          for (let i = 1; i < a.length; i++) {
+            if (parseInt(a[i]) < d) return false;
+            d = parseInt(a[i]);
+          }
+          return true;
+        },
+        meetsCriteria: function (n, min, max) {
+          return (
+            this.isSixDigits(n) &&
+            this.isBetween(n, min, max) &&
+            this.hasTwoSameAdjacentDigits(n) &&
+            this.digitsNeverDecrease(n)
+          );
+        },
+      };
+
+      //#endregion
+      //#region DAY 4 PART 2 SECTION
+      givenInputData.d4p2 = givenInputData.d4p1;
+      problems.d4p2 = {
+        solve: function () {
+          let u = gi("i_d4p2").textContent;
+          if (!u.includes("-")) {
+            gi("o_d4p2").innerHTML = "INVALID RANGE";
+            return;
+          }
+
+          let { min, max } = problems.d4p1.parseRange(u);
+          let ans = new Array();
+          for (let x = min; x <= max; x++) {
+            if (
+              problems.d4p1.meetsCriteria(x, min, max) &&
+              this.hasTwoSameAdjacentDigitsOnly(x)
+            )
+              ans.push(x);
+          }
+          gi(
+            "o_d4p2"
+          ).innerHTML = `There are ${ans.length} possible passwords.`;
+        },
+        unitTest: function (ut) {
+          // log("d4p1 unittest");
+          const s = " T-d4p2.";
+          this.longestRun("1", "121121113") == 3 ? ut.p++ : (ut.f += s + "lr1");
+          this.longestRun("1", "20034533") == 0 ? ut.p++ : (ut.f += s + "lr2");
+          this.longestRun("2", "121121113") == 1 ? ut.p++ : (ut.f += s + "lr3");
+          this.longestRun("5", "123456") == 1 ? ut.p++ : (ut.f += s + "lr4");
+          this.longestRun("9", "999999") == 6 ? ut.p++ : (ut.f += s + "lr5");
+
+          this.hasTwoSameAdjacentDigitsOnly("199111")
+            ? ut.p++
+            : (ut.f += s + "so1");
+          this.hasTwoSameAdjacentDigitsOnly("112233")
+            ? ut.p++
+            : (ut.f += s + "so2");
+          !this.hasTwoSameAdjacentDigitsOnly("123444")
+            ? ut.p++
+            : (ut.f += s + "so3");
+          this.hasTwoSameAdjacentDigitsOnly("111122")
+            ? ut.p++
+            : (ut.f += s + "so4");
+          !this.hasTwoSameAdjacentDigitsOnly("999999")
+            ? ut.p++
+            : (ut.f += s + "so5");
+        },
+        longestRun(d, n) {
+          let a = Array.from(n);
+          let lr = 0;
+          let r = 0;
+          for (let i = 0; i < a.length; i++) {
+            r = a[i] == d ? r + 1 : 0;
+            if (r > lr) lr = r;
+          }
+          return lr;
+        },
+        hasTwoSameAdjacentDigitsOnly: function (n) {
+          let s = "" + n;
+          if (this.longestRun("0", s) == 2) return true;
+          if (this.longestRun("1", s) == 2) return true;
+          if (this.longestRun("2", s) == 2) return true;
+          if (this.longestRun("3", s) == 2) return true;
+          if (this.longestRun("4", s) == 2) return true;
+          if (this.longestRun("5", s) == 2) return true;
+          if (this.longestRun("6", s) == 2) return true;
+          if (this.longestRun("7", s) == 2) return true;
+          if (this.longestRun("8", s) == 2) return true;
+          if (this.longestRun("9", s) == 2) return true;
+          return false;
+        },
+      };
+      //#endregion
+      //#endregion
     </script>
   </body>
 </html>
