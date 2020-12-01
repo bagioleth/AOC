@@ -9,7 +9,7 @@ leftBound = 0
 currentXPos = 0
 currentYPos = 0
 
-#finds the bounds of the array
+#finds the bounds of the array for wire 1
 for x in f.readline().split(","):
     if(x[0] == 'D'):
         currentYPos += int(x[1:])
@@ -34,6 +34,7 @@ for x in f.readline().split(","):
 currentXPos = 0
 currentYPos = 0
 
+#finds the bounds of the array for wire 2
 for x in f.readline().split(","):
     if(x[0] == 'D'):
         currentYPos += int(x[1:])
@@ -65,6 +66,7 @@ print("Right Bound: ", rightBound)
 f.close()
 f = open("Day3Input.txt", "r")
 
+#creates array big enough to represents both wires
 circuitBoard = [[0] * (rightBound - leftBound) for _ in range(0, (lowerBound - upperBound))]
 
 originXPos = -1 * leftBound - 1
@@ -73,7 +75,7 @@ originYPos = -1 * upperBound - 1
 print("numRows: ", len(circuitBoard))
 print("numCols: ", len(circuitBoard[0]))
 
-
+#sets coordinates to origin
 currentXPos = originXPos
 currentYPos = originYPos
 
