@@ -1,4 +1,4 @@
-
+import time
 
 f1 = open("Day1Input.txt", "r")
 f2 = open("Day1Input.txt", "r")
@@ -10,7 +10,7 @@ for l in f1:
     inputs.append(int(l))
 
 #print(inputs)
-
+startTime = time.time()
 for n1 in inputs:
     for n2 in inputs:
         if(n1 + n2 == 2020):
@@ -18,12 +18,14 @@ for n1 in inputs:
             print("number 1: " + str(n1))
             print("number 2: " + str(n2))
             print("product: " + str(n1 * n2))
+            print("time: " + str((time.time() - startTime) * 1000))
             isSolved = True
             break
     if(isSolved):
         break
 
 isSolved = False
+startTime = time.time()
 for n1 in inputs:
     for n2 in inputs:
         for n3 in inputs:
@@ -33,6 +35,7 @@ for n1 in inputs:
                 print("number 2: " + str(n2))
                 print("number 3: " + str(n3))
                 print("product: " + str(n1 * n2 * n3))
+                print("time: " + str((time.time() - startTime) * 1000))
                 isSolved = True
                 break
         if(isSolved):
