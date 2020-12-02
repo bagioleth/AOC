@@ -1,3 +1,4 @@
+import time
 
 f = open("Day2Input.txt", "r")
 
@@ -8,6 +9,7 @@ counter = 0
 character = ''
 password = ""
 
+startTime = time.time()
 for l in f:
     minimum = int(l.split("-")[0])
     maximum = int(l.split("-")[1].split(" ")[0])
@@ -24,6 +26,7 @@ for l in f:
     counter = 0
 
 print("Part 1: " + str(numValid))
+print("time: " + str((time.time() - startTime) * 1000))
 
 f = open("Day2Input.txt", "r")
 
@@ -33,6 +36,7 @@ indexTwo = 0
 character = ''
 password = ""
 
+startTime = time.time()
 for l in f:
     indexOne = int(l.split("-")[0]) - 1
     indexTwo = int(l.split("-")[1].split(" ")[0]) - 1
@@ -44,3 +48,4 @@ for l in f:
 
 
 print("Part 2: " + str(numValid))
+print("time: " + str((time.time() - startTime) * 1000))
