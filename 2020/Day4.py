@@ -1,4 +1,5 @@
 import re
+import time
 
 
 f = open("Day4Input.txt", "r")
@@ -15,6 +16,7 @@ hasPID = False
 hapCID = False
 value = ""
 
+startTime = time.time()
 for l in f:
     l = l.strip()
     if (l == ""):
@@ -50,18 +52,14 @@ for l in f:
         hasCID = True
 
 
-#last passport
-if(hasBYR and hasIYR and hasEYR and hasHGT and hasHCL and hasECL and hasPID):
-    #print("Valid")
-    numValid += 1
 
 print("Num Passports: " + str(numPassports))
 print("Part 1: " + str(numValid))
+print("time: " + str((time.time() - startTime) * 1000))
 
 f = open("Day4Input.txt", "r")
 
 numValid = 0
-numPassports = 0
 hasBYR = False
 hasIYR = False
 hasEYR = False
@@ -72,6 +70,7 @@ hasPID = False
 hapCID = False
 value = ""
 
+startTime = time.time()
 for l in f:
     l = l.strip()
     if (l == ""):
@@ -79,7 +78,6 @@ for l in f:
         if(hasBYR and hasIYR and hasEYR and hasHGT and hasHCL and hasECL and hasPID):
             #print("Valid")
             numValid += 1
-        numPassports += 1
         hasBYR = False
         hasIYR = False           
         hasEYR = False
@@ -136,9 +134,5 @@ for l in f:
         hasCID = True
 
 
-#last passport
-if(hasBYR and hasIYR and hasEYR and hasHGT and hasHCL and hasECL and hasPID):
-    #print("Valid")
-    numValid += 1
-
 print("Part 2: " + str(numValid))
+print("time: " + str((time.time() - startTime) * 1000))
