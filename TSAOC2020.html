@@ -65,6 +65,7 @@ See article below, where id="a_About", for program description.
         border: 3px solid rgb(14, 177, 115);
         background-color: rgb(200, 170, 130);
         color: black;
+        overflow: scroll;
       }
       .ota {
         height: 50px;
@@ -97,7 +98,8 @@ See article below, where id="a_About", for program description.
       Link to AOC:
       <a href="https://adventofcode.com/2020">https://adventofcode.com/2020</a>
       (Problem descriptions and input and test data are copied from that web
-      site.)
+      site.)<br />
+      Private Leader Board Code: 955752-e46ea5dd
       <hr />
       RELEASE NOTES<br />
       <ul>
@@ -159,7 +161,8 @@ See article below, where id="a_About", for program description.
           multiply those two numbers together.
         </p>
         <p>For example, suppose your expense report contained the following:</p>
-        <pre><code>1721
+        <pre><code>
+        1721
         979
         366
         299
@@ -179,21 +182,679 @@ See article below, where id="a_About", for program description.
             >Find the two entries that sum to <code>2020</code>; what do you get
             if you multiply them together?</em
           >
+          The correct answer is 355875.
         </p>
       </div>
       <hr />
       <div>
         <div class="processing_buttons"></div>
         <br />-----INPUT-----<br />
-        <div id="i_d1p1" class="ita" contenteditable="true">
+        <pre id="i_d1p1" class="ita" contenteditable="true">
           Put input data here.
-        </div>
+        </pre>
         <br />-----OUTPUT-----<br />
         <div id="o_d1p1" class="ota">
           Results appear here after pressing the Solve button.
         </div>
       </div>
     </article>
+    <article id="a_d1p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Part Two ---</h2>
+        <p>
+          The Elves in accounting are thankful for your help; one of them even
+          offers you a starfish coin they had left over from a past vacation.
+          They offer you a second one if you can find <em>three</em> numbers in
+          your expense report that meet the same criteria.
+        </p>
+        <p>
+          Using the above example again, the three entries that sum to
+          <code>2020</code> are <code>979</code>, <code>366</code>, and
+          <code>675</code>. Multiplying them together produces the answer,
+          <code><em>241861950</em></code
+          >.
+        </p>
+        <p>
+          In your expense report,
+          <em
+            >what is the product of the three entries that sum to
+            <code>2020</code>?</em
+          >
+          (The correct answer is 140379120.)
+        </p>
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d1p2" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d1p2" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d2p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Day 2: Password Philosophy ---</h2>
+        <p>
+          Your flight departs in a few days from the coastal airport; the
+          easiest way down to the coast from here is via
+          <a href="https://en.wikipedia.org/wiki/Toboggan" target="_blank"
+            >toboggan</a
+          >.
+        </p>
+        <p>
+          The shopkeeper at the North Pole Toboggan Rental Shop is having a bad
+          day. "Something's wrong with our computers; we can't log in!" You ask
+          if you can take a look.
+        </p>
+        <p>
+          Their password database seems to be a little corrupted: some of the
+          passwords wouldn't have been allowed by the
+          <span
+            title="To ensure your safety, your password must be the following string..."
+            >Official Toboggan Corporate Policy</span
+          >
+          that was in effect when they were chosen.
+        </p>
+        <p>
+          To try to debug the problem, they have created a list (your puzzle
+          input) of <em>passwords</em> (according to the corrupted database) and
+          <em>the corporate policy when that password was set</em>.
+        </p>
+        <p>For example, suppose you have the following list:</p>
+        <pre><code>1-3 a: abcde
+        1-3 b: cdefg
+        2-9 c: ccccccccc
+        </code></pre>
+        <p>
+          Each line gives the password policy and then the password. The
+          password policy indicates the lowest and highest number of times a
+          given letter must appear for the password to be valid. For example,
+          <code>1-3 a</code> means that the password must contain
+          <code>a</code> at least <code>1</code> time and at most
+          <code>3</code> times.
+        </p>
+        <p>
+          In the above example, <code><em>2</em></code> passwords are valid. The
+          middle password, <code>cdefg</code>, is not; it contains no instances
+          of <code>b</code>, but needs at least <code>1</code>. The first and
+          third passwords are valid: they contain one <code>a</code> or nine
+          <code>c</code>, both within the limits of their respective policies.
+        </p>
+        <p>
+          <em>How many passwords are valid</em> according to their policies?
+          (The correct answer is 483.)
+        </p>
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d2p1" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d2p1" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d2p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Part Two ---</h2>
+        <p>
+          While it appears you validated the passwords correctly, they don't
+          seem to be what the Official Toboggan Corporate Authentication System
+          is expecting.
+        </p>
+        <p>
+          The shopkeeper suddenly realizes that he just accidentally explained
+          the password policy rules from his old job at the sled rental place
+          down the street! The Official Toboggan Corporate Policy actually works
+          a little differently.
+        </p>
+        <p>
+          Each policy actually describes two <em>positions in the password</em>,
+          where <code>1</code> means the first character, <code>2</code> means
+          the second character, and so on. (Be careful; Toboggan Corporate
+          Policies have no concept of "index zero"!)
+          <em>Exactly one of these positions</em> must contain the given letter.
+          Other occurrences of the letter are irrelevant for the purposes of
+          policy enforcement.
+        </p>
+        <p>Given the same example list from above:</p>
+        <ul>
+          <li>
+            <code>1-3 a: <em>a</em>b<em>c</em>de</code> is <em>valid</em>:
+            position <code>1</code> contains <code>a</code> and position
+            <code>3</code> does not.
+          </li>
+          <li>
+            <code>1-3 b: <em>c</em>d<em>e</em>fg</code> is <em>invalid</em>:
+            neither position <code>1</code> nor position <code>3</code> contains
+            <code>b</code>.
+          </li>
+          <li>
+            <code>2-9 c: c<em>c</em>cccccc<em>c</em></code> is <em>invalid</em>:
+            both position <code>2</code> and position <code>9</code> contain
+            <code>c</code>.
+          </li>
+        </ul>
+        <p>
+          <em>How many passwords are valid</em> according to the new
+          interpretation of the policies?
+        </p>
+        (The correct answer is 482.)
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d2p2" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d2p2" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d3p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Day 3: Toboggan Trajectory ---</h2>
+        <p>
+          With the toboggan login problems resolved, you set off toward the
+          airport. While travel by toboggan might be easy, it's certainly not
+          safe: there's
+          <span
+            title="It looks like the toboggan steering system even runs on Intcode! Good thing you don't have to modify it."
+            >very minimal steering</span
+          >
+          and the area is covered in trees. You'll need to see which angles will
+          take you near the fewest trees.
+        </p>
+        <p>
+          Due to the local geology, trees in this area only grow on exact
+          integer coordinates in a grid. You make a map (your puzzle input) of
+          the open squares (<code>.</code>) and trees (<code>#</code>) you can
+          see. For example:
+        </p>
+        <pre><code>
+        ..##.......
+        #...#...#..
+        .#....#..#.
+        ..#.#...#.#
+        .#...##..#.
+        ..#.##.....
+        .#.#.#....#
+        .#........#
+        #.##...#...
+        #...##....#
+        .#..#...#.#
+        </code></pre>
+        <p>
+          These aren't the only trees, though; due to something you read about
+          once involving arboreal genetics and biome stability, the same pattern
+          repeats to the right many times:
+        </p>
+        <pre><code>
+        <em>..##.......</em>..##.........##.........##.........##.........##.......  ---&gt;
+        <em>#...#...#..</em>#...#...#..#...#...#..#...#...#..#...#...#..#...#...#..
+        <em>.#....#..#.</em>.#....#..#..#....#..#..#....#..#..#....#..#..#....#..#.
+        <em>..#.#...#.#</em>..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#
+        <em>.#...##..#.</em>.#...##..#..#...##..#..#...##..#..#...##..#..#...##..#.
+        <em>..#.##.....</em>..#.##.......#.##.......#.##.......#.##.......#.##.....  ---&gt;
+        <em>.#.#.#....#</em>.#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#
+        <em>.#........#</em>.#........#.#........#.#........#.#........#.#........#
+        <em>#.##...#...</em>#.##...#...#.##...#...#.##...#...#.##...#...#.##...#...
+        <em>#...##....#</em>#...##....##...##....##...##....##...##....##...##....#
+        <em>.#..#...#.#</em>.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#  ---&gt;
+        </code></pre>
+        <p>
+          You start on the open square (<code>.</code>) in the top-left corner
+          and need to reach the bottom (below the bottom-most row on your map).
+        </p>
+        <p>
+          The toboggan can only follow a few specific slopes (you opted for a
+          cheaper model that prefers rational numbers); start by
+          <em>counting all the trees</em> you would encounter for the slope
+          <em>right 3, down 1</em>:
+        </p>
+        <p>
+          From your starting position at the top-left, check the position that
+          is right 3 and down 1. Then, check the position that is right 3 and
+          down 1 from there, and so on until you go past the bottom of the map.
+        </p>
+        <p>
+          The locations you'd check in the above example are marked here with
+          <code><em>O</em></code> where there was an open square and
+          <code><em>X</em></code> where there was a tree:
+        </p>
+        <pre><code>
+        ..##.........##.........##.........##.........##.........##.......  ---&gt;
+        #..<em>O</em>#...#..#...#...#..#...#...#..#...#...#..#...#...#..#...#...#..
+        .#....<em>X</em>..#..#....#..#..#....#..#..#....#..#..#....#..#..#....#..#.
+        ..#.#...#<em>O</em>#..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#
+        .#...##..#..<em>X</em>...##..#..#...##..#..#...##..#..#...##..#..#...##..#.
+        ..#.##.......#.<em>X</em>#.......#.##.......#.##.......#.##.......#.##.....  ---&gt;
+        .#.#.#....#.#.#.#.<em>O</em>..#.#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#
+        .#........#.#........<em>X</em>.#........#.#........#.#........#.#........#
+        #.##...#...#.##...#...#.<em>X</em>#...#...#.##...#...#.##...#...#.##...#...
+        #...##....##...##....##...#<em>X</em>....##...##....##...##....##...##....#
+        .#..#...#.#.#..#...#.#.#..#...<em>X</em>.#.#..#...#.#.#..#...#.#.#..#...#.#  ---&gt;
+        </code></pre>
+        <p>
+          In this example, traversing the map using this slope would cause you
+          to encounter <code><em>7</em></code> trees.
+        </p>
+        <p>
+          Starting at the top-left corner of your map and following a slope of
+          right 3 and down 1, <em>how many trees would you encounter?</em>
+        </p>
+        The correct answer is 228.
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d3p1" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d3p1" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d3p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Part Two ---</h2>
+        <p>
+          Time to check the rest of the slopes - you need to minimize the
+          probability of a sudden arboreal stop, after all.
+        </p>
+        <p>
+          Determine the number of trees you would encounter if, for each of the
+          following slopes, you start at the top-left corner and traverse the
+          map all the way to the bottom:
+        </p>
+        <ul>
+          <li>Right 1, down 1.</li>
+          <li>Right 3, down 1. (This is the slope you already checked.)</li>
+          <li>Right 5, down 1.</li>
+          <li>Right 7, down 1.</li>
+          <li>Right 1, down 2.</li>
+        </ul>
+        <p>
+          In the above example, these slopes would find <code>2</code>,
+          <code>7</code>, <code>3</code>, <code>4</code>, and
+          <code>2</code> tree(s) respectively; multiplied together, these
+          produce the answer <code><em>336</em></code
+          >.
+        </p>
+        <p>
+          <em
+            >What do you get if you multiply together the number of trees
+            encountered on each of the listed slopes?</em
+          >
+        </p>
+        The correct answer is 6818112000.
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d3p2" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d3p2" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d4p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2>--- Day 4: Passport Processing ---</h2>
+        <p>
+          You arrive at the airport only to realize that you grabbed your North
+          Pole Credentials instead of your passport. While these documents are
+          extremely similar, North Pole Credentials aren't issued by a country
+          and therefore aren't actually valid documentation for travel in most
+          of the world.
+        </p>
+        <p>
+          It seems like you're not the only one having problems, though; a very
+          long line has formed for the automatic passport scanners, and the
+          delay could upset your travel itinerary.
+        </p>
+        <p>
+          Due to some questionable network security, you realize you might be
+          able to solve both of these problems at the same time.
+        </p>
+        <p>
+          The automatic passport scanners are slow because they're having
+          trouble <em>detecting which passports have all required fields</em>.
+          The expected fields are as follows:
+        </p>
+        <ul>
+          <li><code>byr</code> (Birth Year)</li>
+          <li><code>iyr</code> (Issue Year)</li>
+          <li><code>eyr</code> (Expiration Year)</li>
+          <li><code>hgt</code> (Height)</li>
+          <li><code>hcl</code> (Hair Color)</li>
+          <li><code>ecl</code> (Eye Color)</li>
+          <li><code>pid</code> (Passport ID)</li>
+          <li><code>cid</code> (Country ID)</li>
+        </ul>
+        <p>
+          Passport data is validated in batch files (your puzzle input). Each
+          passport is represented as a sequence of <code>key:value</code> pairs
+          separated by spaces or newlines. Passports are separated by blank
+          lines.
+        </p>
+        <p>Here is an example batch file containing four passports:</p>
+        <pre><code>
+ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+byr:1937 iyr:2017 cid:147 hgt:183cm
+
+iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+hcl:#cfa07d byr:1929
+
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:brn pid:760753108 byr:1931
+hgt:179cm
+
+hcl:#cfa07d eyr:2025 pid:166559648
+iyr:2011 ecl:brn hgt:59in
+</code></pre>
+        <p>
+          The first passport is <em>valid</em> - all eight fields are present.
+          The second passport is <em>invalid</em> - it is missing
+          <code>hgt</code> (the Height field).
+        </p>
+        <p>
+          The third passport is interesting; the <em>only missing field</em> is
+          <code>cid</code>, so it looks like data from North Pole Credentials,
+          not a passport at all! Surely, nobody would mind if you made the
+          system temporarily ignore missing <code>cid</code> fields. Treat this
+          "passport" as <em>valid</em>.
+        </p>
+        <p>
+          The fourth passport is missing two fields, <code>cid</code> and
+          <code>byr</code>. Missing <code>cid</code> is fine, but missing any
+          other field is not, so this passport is <em>invalid</em>.
+        </p>
+        <p>
+          According to the above rules, your improved system would report
+          <code><em>2</em></code> valid passports.
+        </p>
+        <p>
+          Count the number of <em>valid</em> passports - those that have all
+          required fields. Treat <code>cid</code> as optional.
+          <em>In your batch file, how many passports are valid?</em> (The
+          correct answer is 200.)
+        </p>
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <br />-----INPUT-----<br />
+        <pre id="i_d4p1" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_d4p1" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>
+      </div>
+    </article>
+    <article id="a_d4p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        <h2 id="part2">--- Part Two ---</h2>
+        <p>
+          The line is moving more quickly now, but you overhear airport security
+          talking about how passports with invalid data are getting through.
+          Better add some data validation, quick!
+        </p>
+        <p>
+          You can continue to ignore the <code>cid</code> field, but each other
+          field has <span title="GLORY TO ARSTOTZKA">strict rules</span> about
+          what values are valid for automatic validation:
+        </p>
+        <ul>
+          <li>
+            <code>byr</code> (Birth Year) - four digits; at least
+            <code>1920</code> and at most <code>2002</code>.
+          </li>
+          <li>
+            <code>iyr</code> (Issue Year) - four digits; at least
+            <code>2010</code> and at most <code>2020</code>.
+          </li>
+          <li>
+            <code>eyr</code> (Expiration Year) - four digits; at least
+            <code>2020</code> and at most <code>2030</code>.
+          </li>
+          <li>
+            <code>hgt</code> (Height) - a number followed by either
+            <code>cm</code> or <code>in</code>:
+            <ul>
+              <li>
+                If <code>cm</code>, the number must be at least
+                <code>150</code> and at most <code>193</code>.
+              </li>
+              <li>
+                If <code>in</code>, the number must be at least
+                <code>59</code> and at most <code>76</code>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <code>hcl</code> (Hair Color) - a <code>#</code> followed by exactly
+            six characters <code>0</code>-<code>9</code> or
+            <code>a</code>-<code>f</code>.
+          </li>
+          <li>
+            <code>ecl</code> (Eye Color) - exactly one of: <code>amb</code>
+            <code>blu</code> <code>brn</code> <code>gry</code> <code>grn</code>
+            <code>hzl</code> <code>oth</code>.
+          </li>
+          <li>
+            <code>pid</code> (Passport ID) - a nine-digit number, including
+            leading zeroes.
+          </li>
+          <li><code>cid</code> (Country ID) - ignored, missing or not.</li>
+        </ul>
+        <p>
+          Your job is to count the passports where all required fields are both
+          <em>present</em> and <em>valid</em> according to the above rules. Here
+          are some example values:
+        </p>
+        <pre><code>byr valid:   2002
+byr invalid: 2003
+
+hgt valid:   60in
+hgt valid:   190cm
+hgt invalid: 190in
+hgt invalid: 190
+
+hcl valid:   #123abc
+hcl invalid: #123abz
+hcl invalid: 123abc
+
+ecl valid:   brn
+ecl invalid: wat
+
+pid valid:   000000001
+pid invalid: 0123456789
+</code></pre>
+        <p>Here are some invalid passports:</p>
+        <pre><code>eyr:1972 cid:100
+hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+
+iyr:2019
+hcl:#602927 eyr:1967 hgt:170cm
+ecl:grn pid:012533040 byr:1946
+
+hcl:dab227 iyr:2012
+ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
+
+hgt:59cm ecl:zzz
+eyr:2038 hcl:74454a iyr:2023
+pid:3556412378 byr:2007
+</code></pre>
+        <p>Here are some valid passports:</p>
+        <pre><code>pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+hcl:#623a2f
+
+eyr:2029 ecl:blu cid:129 byr:1989
+iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm
+
+hcl:#888785
+hgt:164cm byr:2001 iyr:2015 cid:88
+pid:545766238 ecl:hzl
+eyr:2022
+
+iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
+</code></pre>
+        <p>
+          Count the number of <em>valid</em> passports - those that have all
+          required fields <em>and valid values</em>. Continue to treat
+          <code>cid</code> as optional.
+          <em>In your batch file, how many passports are valid?</em> (The
+          correct answer is 116 according to the AOC site. I don't know why my
+          code calcs 117.)
+        </p>
+      </div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d5p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        --- Day 5: Binary Boarding ---
+        <br />You board your plane only to discover a new problem: you dropped
+        your boarding pass! You aren't sure which seat is yours, and all of the
+        flight attendants are busy with the flood of people that suddenly made
+        it through passport control.
+
+        <br />You write a quick program to use your phone's camera to scan all
+        of the nearby boarding passes (your puzzle input); perhaps you can find
+        your seat through process of elimination.
+
+        <br />Instead of zones or groups, this airline uses binary space
+        partitioning to seat people. A seat might be specified like FBFBBFFRLR,
+        where F means "front", B means "back", L means "left", and R means
+        "right".
+
+        <br />The first 7 characters will either be F or B; these specify
+        exactly one of the 128 rows on the plane (numbered 0 through 127). Each
+        letter tells you which half of a region the given seat is in. Start with
+        the whole list of rows; the first letter indicates whether the seat is
+        in the front (0 through 63) or the back (64 through 127). The next
+        letter indicates which half of that region the seat is in, and so on
+        until you're left with exactly one row.
+
+        <br />For example, consider just the first seven characters of
+        FBFBBFFRLR:
+
+        <br />Start by considering the whole range, rows 0 through 127. <br />F
+        means to take the lower half, keeping rows 0 through 63. <br />B means
+        to take the upper half, keeping rows 32 through 63. <br />F means to
+        take the lower half, keeping rows 32 through 47. <br />B means to take
+        the upper half, keeping rows 40 through 47. <br />B keeps rows 44
+        through 47. <br />F keeps rows 44 through 45. <br />The final F keeps
+        the lower of the two, row 44. The last three characters will be either L
+        or R; these specify exactly one of the 8 columns of seats on the plane
+        (numbered 0 through 7). The same process as above proceeds again, this
+        time with only three steps. L means to keep the lower half, while R
+        means to keep the upper half.
+
+        <br />For example, consider just the last 3 characters of FBFBBFFRLR:
+
+        <br />Start by considering the whole range, columns 0 through 7. R means
+        to take the upper half, keeping columns 4 through 7. L means to take the
+        lower half, keeping columns 4 through 5. The final R keeps the upper of
+        the two, column 5. So, decoding FBFBBFFRLR reveals that it is the seat
+        at row 44, column 5.
+
+        <br />Every seat also has a unique seat ID: multiply the row by 8, then
+        add the column. In this example, the seat has ID 44 * 8 + 5 = 357.
+
+        <br />Here are some other boarding passes:
+
+        <br />BFFFBBFRRR: row 70, column 7, seat ID 567. <br />FFFBBBFRRR: row
+        14, column 7, seat ID 119. <br />BBFFBBFRLL: row 102, column 4, seat ID
+        820. <br />As a sanity check, look through your list of boarding passes.
+        What is the highest seat ID on a boarding pass?
+      </div>
+      <hr />
+      (The correct answer is 953.)
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d5p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description">
+        --- Part Two ---
+        <br />Ding! The "fasten seat belt" signs have turned on. Time to find
+        your seat.
+
+        <br />It's a completely full flight, so your seat should be the only
+        missing boarding pass in your list. However, there's a catch: some of
+        the seats at the very front and back of the plane don't exist on this
+        aircraft, so they'll be missing from your list as well.
+
+        <br />Your seat wasn't at the very front or back, though; the seats with
+        IDs +1 and -1 from yours will be in your list.
+
+        <br />What is the ID of your seat?
+      </div>
+      <hr />
+      (The correct answer is 615.)
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d6p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description"></div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d6p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description"></div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+
     <script>
       "use strict";
       // @ts-check
@@ -208,7 +869,51 @@ See article below, where id="a_About", for program description.
         gi("dblog").innerHTML = "";
       }
       function dbtest() {
-        let ut = { p: 0, f: "Failed test ids:" };
+        let ut = {
+          p: 0,
+          f: "Failed test ids:",
+          test: function (name, test) {
+            if (test) this.p++;
+            else this.f += " " + name;
+          },
+        };
+
+        let a1 = [1, 2, 3, 4];
+        let a2 = ["1", "2", "3", "4"];
+
+        arraysEqual(a1, [1, 2, 3, 4]) ? ut.p++ : (ut.f += " dbt1");
+        arraysEqual(a1, stringToIntArrayNewline("1\n2\n3\n4"))
+          ? ut.p++
+          : (ut.f += " dbt2");
+        arraysEqual(a1, stringToIntArrayNewline(" 1\n 2\n 3 \n4\n "))
+          ? ut.p++
+          : (ut.f += " dbt3");
+        arraysEqual(a1, stringToIntArrayNewline("\n\r1\n\r2\r\n3\n4"))
+          ? ut.p++
+          : (ut.f += " dbt4");
+        // arraysEqual(a1, stringToIntArrayNewline("1\r2\r 3\n4"))
+        //   ? ut.p++
+        //   : (ut.f += " dbt5");
+        arraysEqual(a1, stringToIntArrayComma("1,2,3,4"))
+          ? ut.p++
+          : (ut.f += " dbt6");
+        arraysEqual(a1, stringToIntArrayComma(" 1, 2, 3, 4"))
+          ? ut.p++
+          : (ut.f += " dbt7");
+        arraysEqual(a1, stringToIntArrayComma("1,  2 , 3   ,4   "))
+          ? ut.p++
+          : (ut.f += " dbt8");
+        arraysEqual(a2, stringToStringArrayNewline("1\n2\n3\n4"))
+          ? ut.p++
+          : (ut.f += " dbt9");
+
+        isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib1");
+        isBetween(1, 1, 3) ? ut.p++ : (ut.f += " ib2");
+        isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib3");
+        !isBetween(3, 1, 2) ? ut.p++ : (ut.f += " ib4");
+        !isBetween(-1, 1, 2) ? ut.p++ : (ut.f += " ib5");
+        ut.test("ib6", isBetween(7, 1, 12));
+        ut.test("ib7", !isBetween(7, 8, 12));
 
         //Run unitTest function for all problems.
         Object.getOwnPropertyNames(problems).forEach((prb) =>
@@ -216,6 +921,33 @@ See article below, where id="a_About", for program description.
         );
 
         log(`${ut.p} tests passed. ${ut.f}.`);
+      }
+      function isBetween(x, min, max) {
+        return x >= min && x <= max;
+      }
+      function arraysEqual(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b);
+      }
+      function stringToIntArrayNewline(x) {
+        let a = x.trim().split(/\r?\n/);
+        a.forEach(function (e, i, a) {
+          a[i] = parseInt(e.trim());
+        });
+        return a;
+      }
+      function stringToStringArrayNewline(x) {
+        let a = x.trim().split(/\r?\n/);
+        a.forEach(function (e, i, a) {
+          a[i] = e.trim();
+        });
+        return a;
+      }
+      function stringToIntArrayComma(x) {
+        let a = x.trim().split(",");
+        a.forEach(function (e, i, a) {
+          a[i] = parseInt(e.trim());
+        });
+        return a;
       }
       //#endregion
       //#region DISPLAY CONTROL/////////////////////////////////
@@ -257,8 +989,28 @@ See article below, where id="a_About", for program description.
       }
       function makeProcessingButtons() {
         return `<button onclick="clearCurrentData()">Clear Data</button>
-        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
-        <button onclick="solveCurrentProblem()">Solve</button>`;
+                          <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+                          <button onclick="solveCurrentProblem()">Solve</button>`;
+      }
+      function makeIoArea(id) {
+        return `        <br />-----INPUT-----<br />
+        <pre id="i_${id}" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_${id}" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>`;
+      }
+      function findParentArticleBaseId(elem) {
+        while (elem != null) {
+          if (elem.id && elem.id[0] == "a" && elem.id[1] == "_") {
+            return elem.id.substr(2);
+          } else {
+            elem = elem.parentNode;
+          }
+        }
+        return "xxxx";
       }
       window.addEventListener("load", function () {
         let s = "";
@@ -269,27 +1021,4008 @@ See article below, where id="a_About", for program description.
         document
           .querySelectorAll(".processing_buttons")
           .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        document
+          .querySelectorAll(".io")
+          .forEach(
+            (div) => (div.innerHTML = makeIoArea(findParentArticleBaseId(div)))
+          );
         showArticle("About");
       });
       //#endregion
 
-      //#region SOLUTIONS ///////////////////////////////////////////
       let problems = {};
 
-      //#region DAY 1 PART 1 ///////////////////////////////////////
       problems.d1p1 = {
-        givenInputData: "TBD",
+        givenInputData: `1768
+                  1847
+                  1905
+                  1713
+                  1826
+                  1846
+                  1824
+                  1976
+                  1687
+                  1867
+                  1665
+                  1606
+                  1946
+                  1886
+                  1858
+                  346
+                  1739
+                  1752
+                  1700
+                  1922
+                  1865
+                  1609
+                  1617
+                  1932
+                  1346
+                  1213
+                  1933
+                  834
+                  1598
+                  1191
+                  1979
+                  1756
+                  1216
+                  1820
+                  1792
+                  1537
+                  1341
+                  1390
+                  1709
+                  1458
+                  1808
+                  1885
+                  1679
+                  1977
+                  1869
+                  1614
+                  1938
+                  1622
+                  1868
+                  1844
+                  1969
+                  1822
+                  1510
+                  1994
+                  1337
+                  1883
+                  1519
+                  1766
+                  1554
+                  1825
+                  1828
+                  1972
+                  1380
+                  1878
+                  1345
+                  1469
+                  1794
+                  1898
+                  1805
+                  1911
+                  1913
+                  1910
+                  1318
+                  1862
+                  1921
+                  1753
+                  1823
+                  1896
+                  1316
+                  1381
+                  1430
+                  1962
+                  1958
+                  1702
+                  1923
+                  1993
+                  1789
+                  2002
+                  1788
+                  1970
+                  1955
+                  1887
+                  1870
+                  225
+                  1696
+                  1975
+                  699
+                  294
+                  1605
+                  1500
+                  1777
+                  1750
+                  1857
+                  1540
+                  1329
+                  1974
+                  1947
+                  1516
+                  1925
+                  1945
+                  350
+                  1669
+                  1775
+                  1536
+                  1871
+                  1917
+                  1249
+                  1971
+                  2009
+                  1585
+                  1986
+                  1701
+                  1832
+                  1754
+                  1195
+                  1697
+                  1941
+                  1919
+                  2006
+                  1667
+                  1816
+                  1765
+                  1631
+                  2003
+                  1861
+                  1000
+                  1791
+                  1786
+                  1843
+                  1939
+                  1951
+                  269
+                  1790
+                  1895
+                  1355
+                  1833
+                  1466
+                  1998
+                  1806
+                  1881
+                  1234
+                  1856
+                  1619
+                  1727
+                  1874
+                  1877
+                  195
+                  1783
+                  1797
+                  2010
+                  1764
+                  1863
+                  1852
+                  1841
+                  1892
+                  1562
+                  1650
+                  1942
+                  1695
+                  1730
+                  1965
+                  1632
+                  1981
+                  1900
+                  1991
+                  1884
+                  1278
+                  1062
+                  1394
+                  1999
+                  2000
+                  1827
+                  1873
+                  1926
+                  1434
+                  1802
+                  1579
+                  1879
+                  1671
+                  1549
+                  1875
+                  1838
+                  1338
+                  1864
+                  1718
+                  1800
+                  1928
+                  1749
+                  1990
+                  1705`,
         solve: function () {
-          let u = readInput();
-          writeOutput("TBD");
+          let a = stringToIntArrayNewline(readInput());
+          writeOutput("The answer is:" + this.docalc(a));
         },
         unitTest: function (ut) {
           const s = " T-d1p1.";
-          1 == 1 ? ut.p++ : (ut.f += s + "lg1");
+          this.docalc([1721, 979, 366, 299, 675, 1456]) == 514579
+            ? ut.p++
+            : (ut.f += s + "td1");
+        },
+        docalc: function (arr) {
+          for (let i = 0; i < arr.length; i++) {
+            for (let j = i; j < arr.length; j++) {
+              if (arr[i] + arr[j] == 2020) return arr[i] * arr[j];
+            }
+          }
+          return -1;
         },
       };
-      //#endregion
-      //#endregion
+
+      problems.d1p2 = {
+        givenInputData: problems.d1p1.givenInputData,
+        solve: function () {
+          let u = readInput();
+          let a = u.split(/\r?\n/);
+          a.forEach(function (e, i, a) {
+            a[i] = parseInt(e.trim());
+          });
+          writeOutput("The answer is:" + this.docalc(a));
+        },
+        unitTest: function (ut) {
+          const s = " T-d1p1.";
+          this.docalc([1721, 979, 366, 299, 675, 1456]) == 241861950
+            ? ut.p++
+            : (ut.f += s + "td2");
+        },
+        docalc: function (arr) {
+          for (let i = 0; i < arr.length; i++) {
+            for (let j = i; j < arr.length; j++) {
+              for (let k = j; k < arr.length; k++) {
+                if (arr[i] + arr[j] + arr[k] == 2020)
+                  return arr[i] * arr[j] * +arr[k];
+              }
+            }
+          }
+          return -1;
+        },
+      };
+
+      problems.d2p1 = {
+        givenInputData: `3-4 j: tjjj
+                  7-10 h: nhhhhhgghphhh
+                  7-13 j: tpscbbstbdjsjbtcpj
+                  4-13 l: ckllmqzlvcsxpplqg
+                  3-11 n: nnrhnnnnnnnwsdnnnm
+                  5-6 d: ddddddb
+                  7-10 z: szfwzrbzzz
+                  1-10 w: wwwwwcwwwrpnwzwxww
+                  5-6 w: cgwppfwlwrwtnw
+                  12-13 m: bmmthmmhmmmbmmmmm
+                  1-4 b: gbbj
+                  10-14 k: kkkkkkkkkfkkkzk
+                  1-3 n: nndn
+                  3-4 w: wwpf
+                  15-16 q: qqqqqqqqqqqqrqqqq
+                  3-4 w: wwcg
+                  10-12 r: rrrrrrrrrcrrrr
+                  10-11 v: fvlvrvcxvvp
+                  4-11 l: qdklwltggdcqn
+                  2-4 p: ppskptpp
+                  3-8 r: rjrrgrrk
+                  5-9 g: mgglggggrggggggxkggw
+                  9-16 n: njnnnnsnrnnnnnnhnnnn
+                  4-5 v: fgjvvxtqdmtqhnd
+                  2-11 r: rrfbltcxmqm
+                  4-7 q: hdkqfsq
+                  2-4 s: smshsswsztsmgssssss
+                  8-9 m: mmmmmmmlwm
+                  2-9 x: xxxxxxxxpxxxxxx
+                  3-4 d: zdgddd
+                  16-18 q: qqqqqqqqqqqqqqqbqj
+                  2-12 s: ssssmssssssssss
+                  8-9 q: dnztqqjqq
+                  1-3 d: ddddddddd
+                  2-10 h: hhhhhnhhvhhbhhhhhh
+                  8-11 l: wpjmvxqlmqllprw
+                  3-14 w: wwwwwwhwwwwwwpwwwwwf
+                  2-3 m: dlggmnlr
+                  1-6 b: bbbbblbbbbb
+                  1-10 c: ccbhdccdhltc
+                  2-11 g: cgrggfsgggggj
+                  10-15 t: ksnnwcqxcpzsvtcvtwm
+                  6-7 s: ssssssps
+                  17-18 j: wpjjjjjjjmjjjjcjjj
+                  7-8 m: cmqmmmlz
+                  3-4 m: mqmm
+                  3-10 h: dfhkkztbmhvcjvh
+                  7-16 x: rqwfvspqcxmpxnwxbd
+                  2-4 b: wfbbbfnj
+                  1-3 j: jjjj
+                  7-8 m: mmmmmmtw
+                  14-15 p: kpppwppppppppdppqp
+                  7-19 d: dddqrdkcgxxxdddddrdc
+                  1-6 l: cnlgtlc
+                  2-6 f: nfffffvfffqfrf
+                  11-15 s: sssssswsscsqbjdss
+                  6-14 s: sssfsssmsssssbsrnsh
+                  6-7 c: fcnppcc
+                  4-14 n: rshnnldbsnwvnwnnqnwn
+                  2-4 c: lcccrghcqwvc
+                  9-15 b: bgvjbclttvbqprb
+                  5-10 l: hlllqldgllnpttxqllrl
+                  8-18 h: hbhjknpnhvhpsbvsrdmh
+                  5-9 d: dddddddddd
+                  6-7 x: xxxxxxqd
+                  6-17 x: xntqxxxxxxxxxnwqnn
+                  10-19 f: fffjfffzfflhnfrsffq
+                  5-8 b: bbjfzdbhbb
+                  2-3 j: jljl
+                  16-17 s: swvsvsszsshssksssrn
+                  3-8 t: vtmhjrbx
+                  7-11 p: kpppppppppppppp
+                  3-4 j: wjjjk
+                  9-10 b: lbbpbbbbvb
+                  4-9 l: jrlbmrthlbjlmpgf
+                  5-7 g: vggggbwxgslgj
+                  11-17 f: gfmjfffdzfmvffpqff
+                  6-11 t: nbbbttmhbtwt
+                  6-7 p: jpprgnspppf
+                  6-7 w: wwwwwjwq
+                  8-11 g: zggggggchglqgggg
+                  15-16 x: xcxxxxbbxxxxxxxb
+                  2-16 d: xmnpfhvqnxcqdrgcw
+                  8-9 d: fdskddfwlddb
+                  3-9 x: xxxxxxxxs
+                  2-6 p: pppppbppps
+                  3-6 t: bjtptj
+                  18-19 w: qwwwwwwwwwwwwwwwwwww
+                  6-15 n: nkfndnxwzfjsvhnp
+                  3-4 v: lnvv
+                  7-13 v: mvvvvvbbvvvvmvv
+                  4-6 d: ddddds
+                  4-8 b: ftpbnfbsblvbvhlhtlb
+                  3-4 g: fnkf
+                  1-4 x: xxxw
+                  1-8 r: rrrbxnsrqrrrrqrr
+                  13-14 z: zzzzcvzzzzzzzzzz
+                  4-9 x: zhtvxfbzxdvkn
+                  1-9 d: zdddddddddd
+                  10-12 g: lhhddwgnjjwz
+                  6-12 p: ptpwlppsrzphlppqpd
+                  11-16 f: pfnxnbsfbsfdbzrx
+                  11-14 r: mccfwbcpbhrrlnvn
+                  10-14 w: wnwwwswtwwkwnw
+                  14-17 k: kkkkkkkkkkkwkwkkk
+                  7-9 g: kgkjktghg
+                  1-4 x: mxpxbjxxtvmw
+                  2-6 z: zzsswzr
+                  2-8 g: mcktgkkgqmcn
+                  8-19 n: znjnwhhnnwfdnhncwjdw
+                  3-4 k: pkgljmkdfhsxhpvwc
+                  7-13 m: mkpmmmqnmkmjrmcmm
+                  2-3 w: wvwcwxr
+                  19-20 q: qqqqqqqqqqqdqqqqqqmq
+                  5-6 r: rkqcrhs
+                  4-6 b: bbbbbq
+                  3-11 d: ddgddddddddd
+                  15-20 m: mmmmxmmbmrmmmfmmmmmm
+                  3-4 q: qhwq
+                  15-16 n: plzwngnnvzcnwknn
+                  4-11 l: ghlswpdrqvlsfj
+                  3-13 m: xdmvpmhktsmfm
+                  4-7 b: bbbbbbbbb
+                  4-10 w: mwwwgmgtwnwpbnw
+                  7-9 l: llllllpvlll
+                  3-11 z: zzdzzzzzzzzz
+                  3-4 h: hpnkhtz
+                  18-19 b: bbbbbbbbbbbbbbbbbbdb
+                  5-11 q: tqqqqbcqqqqdhq
+                  4-8 g: sgtgglgpgwjjj
+                  10-12 d: ddddddtkdcdr
+                  7-8 h: hhmhhhhh
+                  2-9 h: hrhvhhxhxghghh
+                  5-6 x: vxxxrh
+                  3-5 n: cgnfn
+                  17-18 z: bzzzzxtzcxzjvzzlzbn
+                  10-13 f: nfxwjfffffpfvffbvff
+                  1-3 p: pxpppp
+                  1-3 g: gqgbg
+                  9-10 v: vhfpwvvbvvfvvv
+                  3-7 r: rrsjrffrvwrrrr
+                  3-10 g: qlrrgglblwpjqccmw
+                  13-14 x: xxxxxxxxxxqxxx
+                  4-12 h: xrbkrnxjghkp
+                  13-14 s: xhsssswkssrsls
+                  6-8 r: rrrpgrrgrzr
+                  12-15 m: cmmmmmmmmmmmpmx
+                  2-8 l: wccfwrxl
+                  1-13 f: ffdfpdffffffffff
+                  10-12 d: dxdddddddddj
+                  9-18 b: ltnbbbmrfqbbbfbbgnd
+                  2-4 k: kbkklk
+                  7-8 n: nqmdncklnqnftjpvrcj
+                  6-7 s: ssssszshsss
+                  5-8 t: tttttsttttt
+                  11-19 k: hkvrktkkkkthrkvkkkkf
+                  3-5 x: qrxxbx
+                  11-12 d: ddddddddddzgd
+                  7-18 d: ndszddkddsdbdcqdddp
+                  7-8 t: ttttttttt
+                  2-4 s: gsksqskhjb
+                  9-13 d: dlqxsdddjdddg
+                  2-6 n: fgndtf
+                  6-11 s: sssssssnbsvss
+                  4-10 p: kjtpbjwpmb
+                  12-13 s: wssssssplsstscsszsds
+                  2-4 h: jthg
+                  1-2 z: zzzszhzzrvqz
+                  8-9 j: jjjjbjjncjj
+                  3-11 q: qvlqqqqqqqfqqqqqqqq
+                  8-15 w: pfqmwwwwqsccwgllm
+                  1-4 q: nqqhq
+                  7-16 k: kkkbktkkkjzhlkkkf
+                  4-11 s: kzjssthfsbtndfsd
+                  1-13 g: gbggljgggggggngggk
+                  1-9 q: qqqxlqvsmqg
+                  17-18 g: ggggggggggggggggfgg
+                  6-8 n: nnnnfsnrzksn
+                  2-4 k: zkhk
+                  10-12 n: gnfnnkknnnmnp
+                  1-3 j: jxnxw
+                  5-6 n: nbnknsjkmnh
+                  3-4 f: mkhf
+                  11-14 f: ptnpgkfzgzgxpk
+                  3-4 g: gwdj
+                  2-4 h: hhkh
+                  4-5 b: fvbzqx
+                  1-4 x: fxxp
+                  4-13 c: cccckcmtcccdccrcccc
+                  1-7 r: rrrrrrnrr
+                  9-12 g: rdhzhbspgxgccmmggg
+                  4-6 f: smfndrpscf
+                  2-6 j: jjjjjjj
+                  4-5 d: dddnzdd
+                  2-5 b: rbwgd
+                  4-6 s: sssssss
+                  3-6 d: dvnmjd
+                  10-14 x: xxxxxxxxxsxxxxx
+                  3-5 t: swttxctxf
+                  3-20 m: pxmlmzwzmjmnmnmcmmmr
+                  3-4 l: gdll
+                  9-13 h: kmhhhnznshhhhhsmhfx
+                  6-9 d: ghdlqfdmthdsjdcjht
+                  9-10 j: jdbqjjjjjjdjj
+                  4-7 q: qqvhbnqzxt
+                  5-18 b: mblpnblwlxjbxhqcmbl
+                  6-9 j: hjcwsvdgq
+                  9-16 t: kbtdksjcmmqpngdm
+                  6-9 z: zzzzzzzzzgzzzkzz
+                  18-19 x: xxfrxrgbbxpxxxxxxxqx
+                  4-5 b: nhbbz
+                  9-11 w: whwwwwhwwhwwww
+                  2-3 w: whww
+                  3-4 s: bsfsdgs
+                  5-7 k: kkkkhkwk
+                  5-9 f: ffxfffffqf
+                  4-5 z: bzzzggzjr
+                  14-17 n: nhjnxnnwxwvxnnlnv
+                  6-7 p: xpsklmg
+                  1-6 b: rbvblrkcblbbbb
+                  3-10 k: kkxkkkkkkck
+                  2-7 x: wxxdxgxtxqxxqxxxxx
+                  3-6 k: kwkfkznkkkq
+                  10-14 k: klqkksvskjkzmkkk
+                  2-6 p: wprgppgppszh
+                  4-5 b: bbbgbk
+                  8-16 b: kblbbbpvmjpbbfhhgbb
+                  6-7 g: hgdglzg
+                  3-7 g: lcgtgvl
+                  1-4 s: cssxs
+                  11-14 m: mhdpbnxqtpvfck
+                  11-20 b: bbbbbbbbkbnbbbwrbbbb
+                  1-3 l: lpcthzrgmmplrlxnbnw
+                  2-4 l: lbls
+                  11-12 h: thhhwhhhhhbf
+                  1-8 h: hhnlnhrc
+                  2-3 r: frpl
+                  8-12 p: ppppppkppnfpnspp
+                  6-14 f: fffffffcgrffffffk
+                  11-13 n: knnkrnkhvnvhsnhjmfb
+                  1-3 m: jmhjkk
+                  3-10 g: ggggggggggggggggggg
+                  6-8 m: mmhmmrtzrbgs
+                  14-15 c: nnvzfcvcrqcxbcw
+                  1-5 j: jjjjz
+                  1-15 r: rzjdmjjlfrbrmrrwlrr
+                  4-11 j: jjzfjjljnjjjjpj
+                  2-3 h: hhdh
+                  4-10 p: rppwqpppppp
+                  2-6 q: qqmwmqq
+                  10-19 t: dhjttjkspttxzbtxjmx
+                  10-11 r: rrhtjkdrrjl
+                  3-4 w: wwxwf
+                  4-17 n: ncsnlnnnnqnnnjnnqbc
+                  3-10 b: bnknbwbbbbb
+                  10-13 v: vvsfvjltvbwvvvnzv
+                  12-18 w: wwwwwwwnwwwfwwwwwww
+                  2-14 w: dwbmkgmqbqlcpwv
+                  1-9 r: rrrrrrrrkr
+                  1-5 f: ffflffffffff
+                  11-13 f: ftffffffffffgfff
+                  1-7 r: rwrrrrrrrr
+                  7-13 x: jthgxdmdxrbmvf
+                  5-6 r: wqdtqzrt
+                  4-13 d: kccfgmvknwbddrxmx
+                  9-18 x: xxxxxxxxcxxxxxxxxxx
+                  9-10 h: hhhhhhhvhhh
+                  8-16 v: gpblbxmvzhdrnjbrv
+                  6-10 t: ttttttttttttttttt
+                  5-9 k: slkkdtvhk
+                  4-5 f: ffpjq
+                  7-16 t: tktttttttttgtttttt
+                  4-7 k: kkkjkkdb
+                  3-4 q: qmvq
+                  2-7 b: whmfplbb
+                  16-17 p: pppppppppppppppppp
+                  5-7 h: hwphhngh
+                  4-5 w: kfjwlwcbhgz
+                  5-6 p: pxhppps
+                  17-18 k: pkmgdkdkckkvlrtnzj
+                  12-14 z: dkzzzzzztkmjzh
+                  6-9 d: ddddddddddjddddd
+                  1-6 v: vvvmvznvvbv
+                  1-8 b: bltbdzjb
+                  8-9 v: vvxvhvbvl
+                  8-15 m: mmmmmmmmmmmmmmvmm
+                  12-14 k: kkkkzkkkkkkkkk
+                  13-15 j: jjjjjjjjjjjjjsnj
+                  3-6 r: rrmrrrrr
+                  4-13 q: pqdrqqqqfhcqq
+                  2-7 b: lbzbkpbgvb
+                  5-9 h: hhmhrhhhhhhh
+                  4-5 h: hhfhb
+                  1-2 f: rfcjf
+                  4-12 f: gcffrbpvcnhvcrrj
+                  5-6 q: qcqrgs
+                  10-14 l: xcflwdwgbrqjwl
+                  13-16 v: qkvxzcltfsvmzgxqvt
+                  7-9 g: gggggggggg
+                  17-18 c: ccbqmccwcccfccgccc
+                  2-6 k: lkkkkwkk
+                  3-12 v: rqvqkhwxsrvv
+                  9-10 s: ssssqsksssss
+                  5-6 j: jjjjzj
+                  6-7 m: jnvpssgqtczz
+                  2-15 d: hdjhrksnlsbxdjdwvf
+                  11-18 m: mmmmmmmmmmzmmmmmmmmm
+                  5-6 m: mrdjgl
+                  3-10 h: xthspkwhjhltlcrds
+                  2-15 p: pbpppppdpppppppppkpp
+                  1-5 n: nznwn
+                  8-14 h: zghhhhghkzhllj
+                  15-19 v: vvvvvvvvhvvvxvvvvvg
+                  3-5 p: ppzpsbpp
+                  2-5 b: bwkdrdpkrtjdv
+                  8-12 x: qlxxxxvxxxsxgx
+                  2-10 z: zzzzzzzzzz
+                  2-13 w: bfvwhwwwpwbwwm
+                  8-10 p: pppppxpppc
+                  13-14 h: hthhhhhhthhhhzh
+                  5-7 l: llllccw
+                  3-4 w: wwww
+                  2-14 m: mnmmmmmmmmmmmgm
+                  2-5 j: jjjzbjj
+                  1-4 r: xrrwr
+                  6-12 f: fphbffwmffnzf
+                  1-5 z: pzkszsjzkdqxgzknrd
+                  5-10 b: bbbbbkbbkb
+                  9-11 d: dxrpkjhrddl
+                  5-11 n: bnlnnhqjbbn
+                  10-15 g: gggggggggwggggbggg
+                  4-9 q: jqqmqdqxfq
+                  6-9 q: lfcbxpqgqc
+                  7-13 j: jdcjjmjwfrjnnr
+                  1-13 g: xgggggggggggcggg
+                  10-11 d: ddvdxdmdddk
+                  4-6 n: nnnxnt
+                  5-7 n: hnjnnfnfpnrdntrh
+                  3-8 b: bgbrffxlbrbbb
+                  9-13 z: fdhdzzznzxzgj
+                  2-7 r: rqrgblk
+                  10-14 j: jxkjpjbjjjjjjsggjpp
+                  3-4 m: mmmm
+                  5-6 m: mmmmmmmm
+                  3-8 k: lvkvqcgkzkdcptc
+                  7-13 g: glbnggkbzkghgmg
+                  5-8 d: dddddddcd
+                  4-5 l: llllh
+                  5-15 w: wrwwwwwwwwwwwwwwqwww
+                  14-16 p: ppzppppptdpppsppppp
+                  8-12 p: ppxpppvppppkk
+                  15-17 x: xxkxxrkxxxxfpxxxx
+                  12-15 s: ssssscsssvssssgcs
+                  4-6 p: pppppp
+                  3-4 j: gjjjjwwj
+                  3-5 f: mfwhfpk
+                  16-18 p: pppppppppppppppxpmp
+                  1-2 m: mnmcrmq
+                  10-19 t: bttttttbtttttttttttt
+                  1-13 z: qzzzzzzzzzzzzz
+                  11-17 w: zpdsdfmhgmvcvzkdwpw
+                  5-7 z: zzzlfzgzz
+                  8-15 d: dddddddpddrdqgt
+                  2-3 k: nkjkk
+                  11-12 q: qmqqqqqqqgnnfqkqc
+                  1-2 p: pgpp
+                  5-6 b: fnbzbb
+                  11-12 z: zpzzczkzzrpszzzzt
+                  13-14 t: ttttttttttwttqtt
+                  4-6 p: phpfpp
+                  2-3 f: fvfws
+                  6-7 f: fffflfdff
+                  8-9 q: cwpqcqzqpf
+                  5-7 p: spppjpkpc
+                  4-11 s: sgsssdbbhpkssd
+                  1-6 s: wsssspsfsss
+                  1-3 m: mdmmmmmm
+                  4-6 d: dtdtmdg
+                  1-3 w: wwzwpww
+                  10-11 l: tlmhlllnqllb
+                  12-17 m: mmmmmmmmzmmtwmmmg
+                  3-4 c: cctkcc
+                  13-14 b: bsbbbbbbbbbbglb
+                  6-7 w: wwwwwxd
+                  1-11 j: kjjjxkjjrqj
+                  5-8 z: zbvjzzzz
+                  1-5 k: gkbktk
+                  11-13 k: kkkkkzpmkkkkm
+                  10-11 z: wtpfvmmpqhg
+                  2-3 s: bssc
+                  8-17 h: hhhhhhhxhhhhhhhjhh
+                  6-9 l: lllllmllll
+                  5-9 l: llllllglll
+                  2-7 q: qkqdsqm
+                  6-8 s: ssssssjtds
+                  7-8 c: ctfdfmccjhvrc
+                  4-5 w: gqcdwcwktmm
+                  4-13 b: wwjbnmghbjkwzbbj
+                  1-9 r: qbprwrrmsrr
+                  3-4 c: kcscl
+                  3-4 d: jdqd
+                  2-7 p: xpzmbfpvpjg
+                  2-4 f: fnfq
+                  7-8 b: wjdqkbbb
+                  13-15 m: mmmmmmpmmfmmgmxmmmm
+                  4-5 c: mpclj
+                  9-10 x: txxxxdpxql
+                  1-5 c: gccjcc
+                  2-8 k: xzkqkhvk
+                  9-11 k: kkkkckkkgkkpkvk
+                  10-14 x: mxzxrkdxgpxcxhxl
+                  5-6 z: hzzztz
+                  10-13 g: wzgggggvgggkl
+                  2-5 p: mmpvk
+                  2-4 b: stbsbbbbbb
+                  9-10 r: rrrgrrrrwqr
+                  1-6 z: xzzfzzv
+                  3-5 l: ljvlw
+                  2-8 f: lfqvjghd
+                  4-5 n: nnznn
+                  5-16 r: csmxrkrqnwnzzpprvr
+                  2-15 h: qhtmxhbgzzsbnjwwsqfl
+                  4-5 s: sfqps
+                  4-5 c: cqcgc
+                  12-13 d: dmcddddddddcdd
+                  3-4 s: xsqs
+                  14-15 j: jjjjjjjhjjjjjjj
+                  12-13 r: rcrsrrrrrrrrrrrr
+                  9-10 h: hhhfxjzvhxhbf
+                  3-5 w: qwvww
+                  4-9 b: bbbfbbbblbb
+                  15-17 b: kdlqpsrbrbbmbbbzbtz
+                  9-10 p: ppqppjppwjpp
+                  11-14 x: mbchwxxxxxxxxf
+                  2-3 t: stdnsv
+                  2-4 s: sbss
+                  7-9 k: kvkfkkqjk
+                  5-6 d: ddddldd
+                  1-12 g: cggggggggggqgggg
+                  8-10 b: bcvxgdzbbbbclbddmcpq
+                  1-3 p: qpppp
+                  3-10 g: mbggbzlwjgrqncddkbjz
+                  3-6 n: nnnnnnnnnnnn
+                  5-14 t: fdtqxdpztgrtzl
+                  7-9 p: ndppppzpppnb
+                  6-9 l: llxlmlldltllll
+                  2-8 p: pwvmbccpvhbqg
+                  2-5 q: bqccqlpj
+                  1-12 j: jjpddhjrjkjb
+                  2-16 j: hnmrxjcspnnrqhcj
+                  2-4 s: scrb
+                  3-11 j: jjjjjjjwjjc
+                  6-9 h: bhlsnhkfhnqhprpdm
+                  2-4 k: skcn
+                  10-15 r: prrbrrnrrrrrrvlrhr
+                  1-2 p: pppp
+                  3-5 t: ttqtttc
+                  1-2 k: kwkp
+                  6-7 g: gggggggfxgmgggggwg
+                  6-17 g: lvgggggnrwqnsggrgg
+                  2-8 v: qvmnvvvzn
+                  5-6 r: rrcmgrvrhrf
+                  6-7 w: cwwhwwq
+                  1-16 l: rllllllllllllllll
+                  14-16 v: vvvvvvvmvvvvvqvvvhv
+                  13-16 m: qmmmmmmmmmdmmmghmmmm
+                  10-13 x: xgxxbtbxgxxxdx
+                  6-7 k: kkvkqkwkkkkvkkkh
+                  16-18 g: ggggggggggggggggggg
+                  1-12 f: ffffffffffsmffn
+                  11-14 c: kmltgplwdccvzchtfs
+                  1-2 l: whll
+                  3-10 r: tchrjqrwnrnhlrzssdr
+                  1-4 b: jbxbrb
+                  9-10 d: dddddddddldd
+                  4-6 r: rwrrrrrlrchnqxv
+                  1-5 z: sjznb
+                  3-4 p: wqtp
+                  3-13 n: zncsfbdxpnpzn
+                  6-8 b: ppbzbvjhmfnq
+                  2-4 h: hhhr
+                  5-6 w: lwrgll
+                  10-15 l: lllllllllllllllll
+                  5-6 l: hltlllbwlr
+                  8-9 q: tpzqmqqssqqqqq
+                  12-17 v: bmxhqtvmrgvvgqzvp
+                  7-8 t: ttttttvtt
+                  11-12 r: rrbrrvrrnsrr
+                  2-5 f: wzrnlcxfhnchsrzjxl
+                  12-17 l: lllllllllrllllldl
+                  9-10 h: phhhhhhhrzhq
+                  5-17 q: chqkqpjqnqjlcvbxlqkq
+                  1-2 m: hbmm
+                  4-10 f: vtfffsbvsff
+                  5-10 h: hhhhhhhphnhhh
+                  2-3 x: xlxxxnxltdxbxdbxpg
+                  4-12 x: nlxxtcbbbknh
+                  2-3 l: llfll
+                  6-9 p: ppppppppp
+                  2-4 v: grwdv
+                  5-8 c: fkpkccdcvdvck
+                  2-8 l: khzlpwdcddk
+                  2-7 v: vlbvvbl
+                  7-8 h: zhhhhhnh
+                  12-14 p: phpxppkprhbpvpp
+                  5-6 j: jjjjcsj
+                  5-12 m: srctztgnwtrmmmwkjk
+                  5-6 s: ssslss
+                  2-3 m: mxmm
+                  10-13 c: ccccdcdcccchzlcw
+                  11-12 k: kkkwkkkkkkkkkk
+                  9-11 g: rfggsgphdhg
+                  8-13 w: wwxwwwzwfwwwtlww
+                  5-6 f: qvpfmt
+                  12-13 n: mlnntnnzblnnvnd
+                  7-8 q: qqqqqqbqqq
+                  4-7 p: hpnvfpmpgqp
+                  14-16 b: bbbxbbbbbbbbbtbdbvb
+                  16-19 g: gwgggcsgggpggjgjggj
+                  3-6 k: kkkptkkdrk
+                  1-7 l: slsrxllllw
+                  3-12 d: dddddddddddqdd
+                  5-6 m: vcwtmdmmmmxzm
+                  4-6 r: rtcfcz
+                  7-12 x: xxswxxhjxnxxxx
+                  6-7 t: ttswtkztt
+                  15-18 g: nggckgdmsvdrqlgcqz
+                  6-9 t: tttttstttlt
+                  16-20 f: fffffffffffffffffffl
+                  7-10 l: bcbdhwlslwlqx
+                  8-11 k: kkkmkkvksmktkskkxkmk
+                  9-15 h: rptgwtvxjgzqjrtqqc
+                  4-6 j: jjjjjjjjjj
+                  12-15 w: wwwwwwxwwwfwwxrw
+                  13-15 d: ddddddddmdcdcddddd
+                  13-14 v: vvvvvvvvvvvtxv
+                  10-12 f: fffffffffffvf
+                  7-10 j: jjlftzjmjz
+                  9-10 w: cwwzwwllwfwktqkwxr
+                  1-8 b: bbbbbbbvb
+                  11-14 d: dlsmbgcdxhxfnqdhzd
+                  17-18 k: kkkkkkkkkkkkktkkbq
+                  7-8 k: kfkpkkkkkk
+                  4-9 w: zbwwwrckwntbdqfd
+                  7-8 m: mmmwmmgm
+                  7-11 v: cvxllpvgdnh
+                  5-13 c: cmccqccjcccjc
+                  12-14 m: mmmmmmmmmmmmmvmmmp
+                  4-11 x: dgvxxptdgkxpxl
+                  4-5 f: pfclfffk
+                  7-14 l: lllwlwlqqsnmllllll
+                  10-11 l: pcqllllvlqlll
+                  2-5 k: kkbkk
+                  3-6 d: ddddddd
+                  8-9 d: dddddddld
+                  1-11 d: tddddddcddmdddd
+                  5-8 b: pljtbkwkxb
+                  11-12 t: tttttttktttgttt
+                  6-7 q: qtqqqqgq
+                  7-8 v: vvvbvpxp
+                  4-13 v: vvvpvrzvvvvvvvvvv
+                  8-11 r: rrrrrrrnrrr
+                  14-15 b: bbbbbbbbbbbbbzr
+                  13-16 p: ppppppppppppfpppp
+                  7-10 g: gfgqgglggg
+                  4-7 s: ssdsshc
+                  8-11 t: zttctgtvttfttcrxd
+                  11-12 j: jjjjjjjjjqwx
+                  1-6 w: wwwwwl
+                  4-7 l: zlbmrll
+                  2-10 k: kkkkkkkkkm
+                  8-10 x: xxxxxxxjxfx
+                  4-13 r: blrrkqjczlbnrfbbkd
+                  8-10 z: zzzzlzzzhj
+                  9-11 s: vsmsszsssvsqss
+                  3-6 m: mvkrmmwpzbtmmm
+                  1-5 r: smlrbr
+                  5-6 k: rlkklkkkkh
+                  2-5 d: dkddddddpd
+                  13-14 g: ggxtggfvgggdgggggcgg
+                  7-9 x: xxxxxxbxgxxx
+                  3-16 x: xxxxxxxxxxxxxxxlxx
+                  11-15 c: chvcccccccqccdm
+                  3-4 j: kjjjj
+                  9-10 d: ddddmddddd
+                  13-14 q: lqqbrqzbqqpcpt
+                  2-5 w: xgjsxww
+                  12-14 w: lwtxgwwzwlwbwwc
+                  3-4 r: hffl
+                  11-15 b: bbbbbbbbbbfbbbwb
+                  3-7 f: lffnkpfm
+                  6-13 v: vvvvvcvvvvvvvv
+                  7-11 v: vvvhmvvvjvvvvvvvh
+                  18-19 z: bzqtbfvfkxgzzxkftzz
+                  8-14 l: gptlllllllxgll
+                  7-10 w: dwmwrfwkkghf
+                  2-4 f: fffshfffff
+                  1-3 n: rnsfgn
+                  7-20 w: wwwwwwhwwwwwwwwwwwwg
+                  11-14 g: ggggggggggwggggkgg
+                  2-8 x: xtxxlxxmmcxllxtxwxx
+                  2-8 b: jbfclqjbkszckpkxnbn
+                  1-3 d: dhdhffmd
+                  14-19 b: bbbbbbbbbbbbbbbjbbbb
+                  6-8 d: dtjbzdsddddf
+                  14-16 n: rfmszmgztspnnncqj
+                  9-10 v: vvvvrvvvvnv
+                  5-6 r: rrsrrrrrrr
+                  6-7 v: vvjvvjrv
+                  6-8 q: tvqsqqvqqd
+                  1-3 q: qwtdqbgmmck
+                  8-15 p: ppppqppzjpppplpppppp
+                  6-12 m: mwmhmsjxgcmmcrzlmmkc
+                  2-8 j: sjwjljqjjjcdlmgxkjj
+                  12-15 j: sjjjjjjqjjjjjjkjjj
+                  14-15 t: vtttttttttttttt
+                  17-18 r: rrrrrrrrrrrrrprrhd
+                  10-15 c: sxspsvqkfvqjjccxbbv
+                  7-8 g: ggggggxg
+                  2-12 t: tbtttttttntmttttt
+                  3-6 m: ztjrds
+                  2-4 h: gdzk
+                  4-5 p: rtlkkfwntpxw
+                  8-14 k: kkkkkckkkkkkkgkkk
+                  3-8 l: rqltzlflljsqmk
+                  9-10 s: smssswksjsssss
+                  12-13 z: zzzzzzzzzzzzr
+                  12-14 h: zhhhqvhhhhxhhh
+                  13-14 x: xxxxxxxfsxqqsxxxx
+                  2-3 k: kffk
+                  1-5 z: jzzzzzzz
+                  10-15 n: nngnnhnjnnknndnvtbsd
+                  12-13 k: dkkkkkkkkkkkn
+                  6-8 h: qhfnrpfh
+                  7-11 c: ccccccqccccc
+                  19-20 m: cjbpwtmdfbllvvdrmmmt
+                  5-6 l: lmrbhtbl
+                  3-6 j: hjjkjm
+                  9-10 j: jjjjjjjjtljxjj
+                  3-5 t: ttbtcttt
+                  5-8 r: rrrrrwhfrrf
+                  3-5 d: dqvknd
+                  5-7 j: jtjjgjm
+                  5-7 v: vdjrlwv
+                  8-9 s: ssssqsssssssxssssss
+                  12-16 q: qxkjsjlsggcqhplq
+                  16-17 j: jbftlzjjhjjjjvhjjj
+                  3-14 v: gppvmdbvfwvgnd
+                  1-8 b: bbbbbbbdb
+                  2-6 z: pzwhjdzpxwt
+                  5-9 v: qvrvmdvhwv
+                  2-3 b: bbhlpxtbxzx
+                  4-5 z: zzhpzz
+                  15-20 f: fgzfnbcgtbnmflffqfrv
+                  4-5 t: ztxttc
+                  6-11 p: mjppkpcrdflpwqjrwprp
+                  4-7 h: khdwwhhrhhnchs
+                  10-11 b: mprbbblmcbbxqbbbbc
+                  4-6 c: cccjcccx
+                  1-4 r: nrrhrrr
+                  1-2 d: dddlk
+                  19-20 f: bfffffffffffffffffkb
+                  4-6 w: wlswkwwrdsjtwbww
+                  2-3 d: ddld
+                  9-14 r: rrrrrrrrmrgrrjrrr
+                  10-11 k: kkqkkkkkkjk
+                  2-5 k: rkkkkxkkkvsd
+                  16-17 b: bbbjbbbbbbbblbbbrbb
+                  6-7 k: kkkkkkk
+                  7-11 v: lfpjgrrvchvjfdt
+                  12-13 g: fgxqnkgstgpggvrqdl
+                  11-13 d: ddmmdtdddddhddd
+                  6-7 g: mpstgwggbx
+                  11-14 h: hhhhhhhhhhqhhbh
+                  18-20 d: dddddmdddddddddddddh
+                  10-12 m: mmmmqmmmmmrxwmmq
+                  2-13 d: rxnxstxxrjvbdd
+                  3-4 z: drzlrz
+                  5-6 d: qddddb
+                  3-7 d: ddzjcmvtkfdjplhllfn
+                  10-15 m: wdxhmwbnmmmtrxpcj
+                  7-8 b: bbkjbbgnbbswd
+                  2-3 b: bbbhz
+                  1-10 p: gpppqpppgppppppp
+                  10-11 w: zwwfbwdqzww
+                  10-11 n: nnnnnnncnknn
+                  9-13 n: nnnnnnnnnnnnnndnnn
+                  6-10 f: fffffbfffhf
+                  3-5 h: cmhtc
+                  1-2 p: gzpsj
+                  4-10 w: wjwhwwwwwvwww
+                  2-13 g: kwpjkxkjmhgnpsmjsmd
+                  3-4 c: cctpj
+                  13-15 k: kvkzkkskqkkkmkdkkkk
+                  8-9 x: qnxxxfbdx
+                  10-15 k: rkkbkvckkknxlmb
+                  7-8 l: llcqslvlljgll
+                  2-4 b: dtgbb
+                  9-11 j: sjrkthwqjjq
+                  1-4 z: bpzxzvjzrwhtpccm
+                  8-9 n: nnvnnwwnnlnnnznnnn
+                  5-7 j: sthpjjpwrt
+                  12-13 s: ssssssssssssn
+                  3-4 m: mnmgf
+                  7-13 p: pppppprppppppfppppp
+                  6-8 h: zhhbwhht
+                  13-16 t: ttdtttttttttctkt
+                  8-9 l: lllnhlllzpjlqllzld
+                  7-15 x: fpkxzbbnxlcxxlxvx
+                  3-10 b: bbbbbbbbbk
+                  3-4 z: zzrg
+                  1-4 w: wxww
+                  5-6 b: dbbbwbb
+                  2-3 r: frrhnh
+                  1-11 d: qqsrfdddxdzdg
+                  5-7 z: zzzhzzxz
+                  5-6 b: slsbbb
+                  1-2 b: jsbbg
+                  2-10 t: tzttmtpwttttttm
+                  4-5 n: kngxn
+                  5-8 d: tpndxhvd
+                  4-5 z: zgzbzzg
+                  5-15 s: ssssssssssssssls
+                  2-10 g: ggjgcglgggt
+                  15-16 w: wwwwwwwwrwwwwwvzwwg
+                  1-4 s: mksm
+                  1-3 q: qqjqq
+                  4-5 p: kwpkg
+                  7-19 z: pkqkkzzzqccnlpzgzzz
+                  4-6 k: kkkfkc
+                  3-11 h: khshhhnnzphc
+                  3-9 h: tkhghdhkhbhgx
+                  4-8 n: kzntlxwn
+                  1-2 v: xvkmv
+                  3-5 m: mmmmkm
+                  2-7 q: qqbwwctqbqs
+                  2-3 m: mmmm
+                  1-5 k: kkkkk
+                  5-10 t: tttttttttbtxttt
+                  1-4 l: lllblllllllllllll
+                  11-12 c: cccccccccccwc
+                  7-12 f: bfvpqzgwjxrnffjzm
+                  1-13 k: kkkkkrkkkkkkkhk
+                  1-2 w: pcwwwb
+                  6-11 j: jjqjjnbznjt
+                  3-4 d: vzdn
+                  3-5 f: ffhkc
+                  6-9 t: fbttjbtttlzdktf
+                  1-8 k: rrkkkkkb
+                  4-7 f: kbvdphfjgkdthtvffh
+                  1-5 c: hgtcjnjqf
+                  7-11 f: zfffffljfffffffg
+                  3-6 j: jrjjjsjjj
+                  7-14 r: rrrzrrrpjxrtrrrrrr
+                  2-6 d: tdvbjdzqj
+                  11-12 l: zbfnlfzlllls
+                  2-5 c: cjccnf
+                  6-8 v: vvvvfvvvv
+                  9-10 b: bbbbbbbbbbbbt
+                  10-12 l: llllllldlllh
+                  8-13 g: sggzgggjggggjgggqz
+                  8-12 m: mmsmmrmmgmmgmmmfhmmz
+                  2-4 m: mqsmhnm
+                  2-3 j: jjljjj
+                  6-15 w: wrwwwkwfwzwnjcwwwjhh
+                  5-6 p: cbppwb
+                  1-10 h: xhhhhhhhhvhhk
+                  6-14 c: dccccvfcmlcxgcccc
+                  2-7 r: cmxrrrcmrr
+                  13-16 f: ffffffffffffcfft
+                  4-5 s: rsbzssssp
+                  8-10 j: jjzjjjjxjpj
+                  3-12 n: nnnnnnnnnjnnn
+                  13-14 g: gggggggghggggjg
+                  10-11 s: tzssqhxrsss
+                  2-12 l: lllllwdlltvlblxlln
+                  11-18 n: wwnnnnvnhnvnnnntnpn
+                  5-6 h: khkhhhhhzfhdxkqmk
+                  1-4 z: czqrzzzzz
+                  11-13 f: ffffffffffffcf
+                  1-3 x: pxxx
+                  2-5 t: tttttttt
+                  4-5 d: ddddld
+                  1-3 c: chcsck
+                  8-11 d: dddddddkddzd
+                  9-14 n: nnnwwnnnnnnnntn
+                  1-2 t: tftqt
+                  6-7 d: hdtncds
+                  3-9 r: lbrrkmrmrw
+                  9-10 w: wgwwwwwwww
+                  2-3 j: jjgcqjjj
+                  7-8 q: cqqqqqqq
+                  4-12 x: xsvxsxsvlxxrqxx
+                  7-14 l: sldglzflqgddxwlvlc
+                  6-8 l: lllggcqlllll
+                  3-8 b: bfbqdlgbwjldng
+                  1-4 g: kgggggg
+                  3-8 n: lpnxplmnz
+                  11-17 g: ggggggggggpgggggmgg
+                  18-19 t: ttttgtttttttttttwrtt
+                  8-10 x: fxjxxwdsfqxwnpmvxf
+                  11-12 d: ddddddddddvj
+                  4-7 n: qpnbgnnw
+                  5-7 x: xfkrxfxk
+                  6-13 r: rrrstrrgvdvrrrnm
+                  4-5 m: zfmmr
+                  5-12 r: rbrrcrrrrrrrrrrrm
+                  12-13 l: lllllllllxllzl
+                  6-9 x: xxxxxrxxsx
+                  5-6 v: vxtdvvgvwlqfwtbsvnvv
+                  1-2 j: qdtcpqrltjgppjvc
+                  3-5 v: vvjvcv
+                  1-5 f: ffffsfff
+                  2-3 k: xkkgmnnpkq
+                  12-19 m: gmmcwcmmnrfqmpmbmmr
+                  4-11 z: knzzmztfnnzzjszzjfz
+                  7-8 k: xkczkkkckk
+                  15-17 m: mmmmmvmmgmmmmmrmm
+                  5-7 s: xssssss
+                  12-16 n: nnnnnnnnnnnnnnnvn
+                  4-16 b: vbjbmgbplwltlcbw
+                  8-11 b: bgbbbbbdbbrb
+                  3-10 d: ddddddddddd
+                  8-14 k: kxpkkkkvvkkkzk
+                  3-6 l: llzllll
+                  16-17 d: tnjdmnddkddbdvvddddm
+                  5-9 h: bbchxhnhqk
+                  3-6 d: wpqdfl
+                  8-13 z: zzzqfkzhzzcmz
+                  3-13 q: qkrwstgphfrtq
+                  9-10 b: bbqtrtsbbb
+                  19-20 q: bbmkgtnsgzmqzqsrwcqd
+                  3-11 q: dtvgqqnwmgzs
+                  12-16 x: xxxxnxxxxxxqxxxxxxx
+                  10-16 p: vpmpppprxppmgppppqcq
+                  3-6 l: mxxlbllpwblzlllnl
+                  12-13 v: hvfvnjvgvvpvvjkvvj
+                  2-12 v: scqjdrlkfzrl
+                  5-6 l: lllllp
+                  4-5 g: pgsgg
+                  5-6 k: nkktsjgknkbz
+                  4-8 v: vfvvvvvvvvv
+                  6-11 k: ddcqknhhkck
+                  6-10 w: gwqpwwwwtfwv
+                  2-9 q: qlkqkkqqqlchq
+                  8-15 n: ghsnnndhlxpjwnqsnnp
+                  6-7 l: lllllllll
+                  2-5 x: xxtcx
+                  6-10 x: lwtcqxjxvxxhxpxxxsx
+                  2-4 t: lvglqt
+                  2-3 d: tfsq
+                  7-17 m: dxnmnwggnmdmrmhjh
+                  6-7 g: tgsvggdkmlpstg
+                  1-8 n: nbnzflml
+                  6-8 c: clccpclsp
+                  6-8 r: rrrrckrdkrrwzrr
+                  3-12 p: pplpppfppppppp
+                  2-4 c: fccc
+                  10-16 r: rgrrrrrrrdrrrrrrrqr
+                  2-6 x: xwxqxqx
+                  7-11 h: hwhhvhvrghrhnh
+                  7-11 z: mjjxrfhftbbbklzkv
+                  4-5 c: ccpcc
+                  9-17 z: qznzzcvzzjczzzjzzz
+                  18-19 z: zzzzzzzzzzzzzzzzzrz
+                  2-3 r: bdvzlrkjhjvqp
+                  16-19 d: dddddfdddqdddddddddq
+                  14-18 b: bbmbbbjbpbqtbdwbbb
+                  8-9 f: mfddqvlff
+                  7-10 x: xxxxtxkxxb
+                  4-5 r: hbvxthrwllx
+                  3-4 t: tltstng
+                  2-4 f: tfnrcgqf
+                  1-6 g: fgvbwg
+                  7-10 z: vzznzzbzzklzzzlzz
+                  10-13 j: jrwjqgjjzjmbklqxwjn
+                  1-5 s: sssssss
+                  8-11 v: xfpwhwvntgvht
+                  8-9 l: lllvsglzltllwhl
+                  7-20 n: jnnsnnknnncknnnrnjnn
+                  7-11 c: cvblgfxdzcccxjdclt
+                  8-12 t: tthstttktfttzmdtpk
+                  9-12 g: rggvkgnggggm
+                  5-8 f: jrfppdsnpjkwjrdhddf
+                  5-6 n: nnnnnwnn
+                  7-12 j: jjjjjjjjjcmkjj
+                  2-5 g: gbggkg
+                  5-16 p: ppgpnpppppppppprpp
+                  1-6 d: ddgddvdd
+                  3-11 s: sscsksssssldssss
+                  5-13 j: jjjjjjcjjjjkjjjjj
+                  9-13 m: mfmmmtvdcnwmmmmm
+                  2-3 f: fffrjn
+                  7-9 z: zzzzzzzzfzzqnzzz
+                  3-6 b: bbbbbbb
+                  6-8 v: dvxvqzvv
+                  4-5 h: hhhwhh
+                  1-2 w: wwwwwwwwwww
+                  6-11 h: shqlvhbqhbh
+                  6-7 d: dddrddtdd
+                  11-17 z: zzzzzzzzzzzzzzzzl
+                  6-7 t: ttttttttt
+                  2-3 j: zjstccxb
+                  11-13 q: qqqqfqqqqqqqsqp
+                  2-7 p: sppznwpjptppdppp
+                  3-4 m: mmml
+                  3-12 g: phkfggggkzgxbsxr
+                  1-2 c: ppcbvncvck
+                  12-18 h: kjmmtxkrjthtsphgsb
+                  13-16 n: nnnnnnnnnnnnwnnn
+                  11-16 s: xstpxfxtkgscbgws
+                  14-15 h: hkktqhhszldhhkh
+                  8-12 j: jjjjjjjjjjjdjjj
+                  13-14 k: phkkkmkkkkqkkrkkk
+                  4-5 h: hhhqqhhhn
+                  4-12 k: kkkkkkkkkrkkkk
+                  7-10 q: qqqqqqqqqbq
+                  5-7 s: szssqsgs
+                  8-11 l: lllllllllll
+                  10-11 w: tfbwwxwwmkp
+                  10-11 s: blkkznbrtss
+                  2-4 t: dtxt
+                  12-13 x: xxxxxlxtxxxfxxn
+                  9-15 v: mvvhvwnvgvvvvzc
+                  6-17 g: gbggfxvmlfjmgdmshfzq
+                  9-12 n: lqmsxjnnnwrqphn
+                  6-17 b: bbpljfjbsbgfzxgsn
+                  13-15 f: fjgfdsffphbcsltw
+                  3-8 g: kxjlsggg
+                  2-10 n: nfnhnnnnnknn
+                  2-6 x: xzxxxpx
+                  4-5 f: zddjhfknqffsbbf
+                  3-5 r: skxgqcrrrx
+                  1-2 x: rxcddx
+                  8-12 g: gggggggggggmgg
+                  1-6 j: jjjjddjj
+                  8-11 z: zzszznzfzzz
+                  3-14 s: hwjszphhcwjmhsssc
+                  5-7 m: lpcnpsr
+                  5-6 f: frffplfffff
+                  4-7 m: msmkrmw
+                  4-10 s: vhlztshrspskv
+                  13-14 q: mqqgqmcpqpdrqn
+                  5-9 h: hhhmrhhhh
+                  4-6 r: lbqhmw
+                  5-6 b: mbzhbsbbhthll
+                  13-16 v: vvvvvvvvvvvvhvvdvvvf
+                  10-12 w: wwmwgwwzwpwv
+                  2-12 b: kpxbpfbfbcjfbkcfxmbb
+                  14-17 n: nngnnnnfnqnnnnnnrn
+                  6-10 h: hchhhhqhhxhhzj
+                  5-6 h: hzvnwb
+                  7-8 p: pnhxqpls
+                  4-5 z: zzztzz
+                  11-12 c: fclcctjcfdqrcps
+                  6-15 v: jgclvvsqkqgjkvvcl
+                  1-13 j: wjjjjjjjjjjjgj
+                  6-7 f: fffffmfzpf
+                  6-12 p: kppppgppzpptphxp
+                  13-14 b: bbbbbbbbbbbbbbbb
+                  18-20 f: ffffffffffffffmxftfv
+                  6-11 k: gfkkkctxmkrkp
+                  1-9 r: rrwvbwdtr
+                  8-18 b: bbbbbbbtbbbbbbbbbbb
+                  3-10 t: ftqgcktpthttztm
+                  5-8 j: jjzjjjtjlbhj
+                  2-6 w: hwkljw
+                  10-14 g: kggggggfrrgggxgg
+                  7-13 z: zjszqzxzdzzzkjzf
+                  1-6 p: ppppppppp
+                  8-9 p: pppppdpgqpppp
+                  13-15 g: gggggpsggggtggbg
+                  4-5 g: gpmsg
+                  2-5 z: vzfhzzhphh
+                  2-4 g: jgzq
+                  8-9 g: pgjggbbgf
+                  3-4 r: ljsnp
+                  7-13 x: xxxxxgxxxkxxxxvxkkxm
+                  2-6 g: nggfgw
+                  9-10 m: mmmmmmmmldm
+                  15-16 w: wwwwhwkwjnwwwwdn
+                  10-18 r: rrrrrrrrrrrrrrrrrkr
+                  2-3 q: qplq
+                  1-7 m: tmmmmsq
+                  2-5 w: swwmwk
+                  2-3 l: slgkdtjznfxdml
+                  10-12 q: qxmmqjqqqqqw
+                  12-14 c: bhlhjcwkcndchwc
+                  10-11 d: dddddsddddl
+                  13-14 g: mxdxkmvcgrsqgn
+                  3-4 t: qtttpmt
+                  14-16 b: bbbbbbbbbbbbbbbqbbb
+                  2-11 w: zdggnxfnzpwnf
+                  6-7 r: rfrcrrf
+                  9-10 h: hhhhhhhhfg
+                  7-8 r: rrrrrrvl
+                  8-9 n: rnsnvlrqdq
+                  4-7 f: ffwnzdf
+                  15-18 x: ngxxvqwxzlhxwpxxxz
+                  13-15 w: nwwwwwqwwwwwtww`,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          let valid = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.ckpw(a[i])) valid++;
+          }
+          writeOutput("The answer is:" + valid);
+        },
+        unitTest: function (ut) {
+          const s = " T-d2p1.";
+          let x = this.parseRow("3-4 j: tjjj");
+          x.min == 3 ? ut.p++ : (ut.f += s + "1");
+          x.max == 4 ? ut.p++ : (ut.f += s + "2");
+          x.char == "j" ? ut.p++ : (ut.f += s + "3");
+          x.pw == "tjjj" ? ut.p++ : (ut.f += s + "4");
+          this.countchar("tjjj", "t") == 1 ? ut.p++ : (ut.f += s + "5");
+          this.countchar("tjjj", "j") == 3 ? ut.p++ : (ut.f += s + "6");
+          this.countchar("t dd jjddj", "d") == 4 ? ut.p++ : (ut.f += s + "7");
+
+          this.ckpw("1-3 a: abcde") ? ut.p++ : (ut.f += s + "8");
+          !this.ckpw("1-3 b: cdefg") ? ut.p++ : (ut.f += s + "9");
+          this.ckpw("2-9 c: ccccccccc") ? ut.p++ : (ut.f += s + "10");
+        },
+        parseRow: function (r) {
+          let x = {};
+          let hyphen = r.indexOf("-");
+          let colon = r.indexOf(":");
+          x.min = parseInt(r);
+          x.max = parseInt(r.substr(hyphen + 1).trim());
+          x.char = r.substr(colon - 1, 1);
+          x.pw = r.substr(colon + 1).trim();
+          return x;
+        },
+        countchar(s, c) {
+          let count = 0;
+          for (let i = 0; i < s.length; i++) {
+            if (s[i] === c) count++;
+          }
+          return count;
+        },
+        ckpw(s) {
+          let x = this.parseRow(s);
+          let cc = this.countchar(x.pw, x.char);
+          return cc >= x.min && cc <= x.max;
+        },
+      };
+
+      problems.d2p2 = {
+        givenInputData: problems.d2p1.givenInputData,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          let valid = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.ckpw(a[i])) valid++;
+          }
+          writeOutput("The answer is:" + valid);
+        },
+        unitTest: function (ut) {
+          const s = " T-d2p2.";
+
+          this.ckpw("1-3 a: abcde") ? ut.p++ : (ut.f += s + "8");
+          !this.ckpw("1-3 b: cdefg") ? ut.p++ : (ut.f += s + "9");
+          !this.ckpw("2-9 c: ccccccccc") ? ut.p++ : (ut.f += s + "10");
+        },
+        ckpw(s) {
+          let x = problems.d2p1.parseRow(s);
+          let count = 0;
+          if (x.pw[x.min - 1] == x.char) count++;
+          if (x.pw[x.max - 1] == x.char) count++;
+          return count == 1;
+        },
+      };
+
+      problems.d3p1 = {
+        givenInputData: `.#.#....##.......#..........#..
+            ...#...........##...#..#.......
+            #.####......##.#...#......#.#..
+            ##.....#.#.#..#.#............#.
+            ##.....#....#.........#...##...
+            ###..#.....#....#..............
+            ..........#..#.#..#.#....#.....
+            ##.....#....#.#...#.##.........
+            #...#......#....##....#..#.#...
+            .##.##...#....##..#.#.....#...#
+            .....#.#..........##.#........#
+            .##..................#..#..##.#
+            #.#..........##....#.####......
+            .#......#.#......#.........#...
+            #....#..##.##..##........#.#...
+            ##..#.##..#...#..####.#..#.....
+            ###....#.###.##...........##..#
+            .....#.##.....##.#..#####....##
+            ....#.###....#..##....##...#...
+            ..###.#...##.....#.##..#..#.#..
+            #...#..#..#.........#..#.......
+            ##..#.#.....#.#.#.......#...#.#
+            ...#...##.#........#...#.......
+            ..#..#.#..#...#...#...........#
+            ........#.....#......#...##....
+            #........##.##.#.#...#...#.....
+            ####.......#.##.###.#....#.....
+            ...#...........#...#......#...#
+            ##...#...#............#.......#
+            ....#...........##.......#.....
+            ###......#.....#....#...#.#...#
+            .....##..........#.......#.#...
+            ##.##.##...#......#....#.......
+            ##..#.#..#......#...#..#.......
+            ....#....##.##............####.
+            ..#.###..#.##.###..#.##.......#
+            #.##..#.#.....#..#.....##......
+            ..##..#.....##.#.##........#...
+            .#..#.#......#..#............#.
+            .....#..#.#...#....#.##.#......
+            .#...##.#..#.#...##...##..##...
+            ###............#.#..#..#...#...
+            ..#..##.####.#.....#.....##.###
+            #....#.##..##....#..#...#.##.#.
+            .....#.##.........##...##......
+            .........####.#....#.#......#.#
+            .........#.#..#...#.#..#.#....#
+            .#.....#..##.##..##....#.......
+            ..........##......#.##.###....#
+            .##...###..##.#...#........##..
+            ..............#.#....#.#.###.##
+            ..##.##.......#.#......##...#..
+            .#.....#..##..#.###...#..#.##.#
+            #.....#.#..#...#........#...#..
+            .#......#....#.#.....###...#..#
+            ..##.#....#..##......#.....#...
+            ..#.#.##..#.....#.####..###....
+            .........#......#..#...........
+            ..#........#.##.#.....##.##..#.
+            .......#.........#....#...#.#..
+            .##.....#.#....#.#.......#.....
+            ..........#.##........##...##..
+            ###..###.#.#..#..#####.##.#.##.
+            ..##..##.#.#...#..#.#.#......#.
+            #..#..#..#..##..#.....#......#.
+            ..#....#.##..#......##.........
+            ..#.##......#...##.#......#....
+            .......#..#.##.#.....#.........
+            .......#.#.#.###...##......#...
+            .....#.#..........#..#...#.....
+            ....##..........#..........##..
+            ..#......#.....#.##.#..#...#.#.
+            ....#.....#..#...#..#.#.##..###
+            .####....#........#...#........
+            ...##.#.##.#..#...##...#.##....
+            ....#...#...#.#.#.#...#..#.....
+            .....#...#.#.....#.#........##.
+            ..#.#.......###.#.....##.......
+            ......#.........##....#....#..#
+            .............##.....##.........
+            .........##...##.......#.....#.
+            ##.........#..........#.###..##
+            ...#.....#......#....#..##.....
+            ##..#...#...##.#.....#.#......#
+            ..#...##.#.......#.#......#.##.
+            ......#.......#.#...........#..
+            ..........#.....##............#
+            #........#...#..#.......###.##.
+            .##...........#.#........#.#.#.
+            ...#..##...#.#....#####.#......
+            .....##...###...#..#.##...####.
+            ...#....#.....#..#.......#.....
+            #....#....#...#..#..#.######..#
+            #.###...........#......#...#..#
+            .#.#.#.#..#....#....#...##.#...
+            .#..#.........#.#....###...#...
+            ......#..##.##..........#....##
+            .....#......##....##.....#...#.
+            .#...#.#.#....##....#..#....#.#
+            ..................#..###.#..##.
+            ..#.........#......#....#..###.
+            #.#.....#..#..#....###..###....
+            ..##..##.#..##........##...##..
+            ##..#........##..###..#.....#.#
+            ..#..###..#......#....#...#...#
+            #..#.#..............##.#..#.#..
+            .....####....#...####.....#.#..
+            .....#....##.#......###........
+            ##.##...#.#.#.#.......#....##..
+            .#......#...#.#....#..##.#.##.#
+            #.#.##.#.#......#..##........##
+            ...##.....#.....#...#..###...#.
+            ........###.....#.....#...##..#
+            .....#.##.##......#.#....#...#.
+            .#....##.......#..#.####.......
+            .#..#....#..........#......#.#.
+            .#.##.##.....###.#.#...........
+            .........#......#..##..........
+            ....#...##.#.#.#..#.#.........#
+            ..#.....#.##...#..#..#.###....#
+            ...#.##......#.....##....#.....
+            ###............#.#....#...#....
+            .......#.....#..#.#.#....#..#.#
+            ...#......#.#..##..#....#...#.#
+            ............##........##..##...
+            ..#..#.##..#......###..#.......
+            ........#.........#............
+            ..#...#.#########.#...##..###..
+            #....#......#.......#.#.....#..
+            #.#..#....###.###....#...#.#...
+            #...###.#.#.......#.##......#..
+            .................#...#.#.#.....
+            ##....#...#........#....#.#..#.
+            ......#.....#...#..........#.#.
+            ##..........#...#..........#.##
+            ..#.#.##.#....#.#......#...##..
+            .....#.......#..#.....#........
+            #.##.#..##..#.......##.........
+            ....#......#..#..#.#...#.......
+            ...#....#................###...
+            .##.....#.#....#.#..........##.
+            ...#..#....#.##.##......#......
+            ..#.#....#.......#.#..##.......
+            ....#.....#..........##.#.#####
+            #.....................##..#..#.
+            .###..#.##.......##.#...#..#...
+            ...###.......#..#...#......#..#
+            #..#...#.#..#.#..#..#.##.......
+            #...##.......#..#..#.##..###...
+            ......#....#.#.#........#.##..#
+            ..##..#....#....#..#.#..#......
+            ..##.#...#.#######..#...#.....#
+            ..#....#..#.........#..##......
+            ...#....#.#......#..#..#.#.....
+            #..#....#........#.#..##....###
+            #....#..##......##.##.....#.###
+            ...#.#..........#..#.#.#.#.##..
+            ......##..#.#..#.#....#....#...
+            ##....#....#..#..#.##......#...
+            ....#.#..##.#.#...###....##.#..
+            ...#.......##..#.......#...#...
+            ......##.......#..##.....#...#.
+            ...#.#...#...........#...#.....
+            .#....#...#......##.##..###..#.
+            .#..........#...#...#...##.##..
+            .....###..#.....#..##....#.####
+            ..#.###..#..##..##.....#.#.....
+            .............#.###...##.#.....#
+            ....###.......###.#.....#..#.#.
+            ........##.#.........#.....###.
+            .....###.#..#.....#...#..#.....
+            .#....#..##.#..#.#....#.......#
+            ........#......#.#..#.#..#...##
+            ...#.##.##......#..............
+            .#.....##.#.....#..#......##...
+            #..#..#.....#.....#.....###....
+            .##...........#..#.##.....#....
+            ..#.#......#.#...#.##.#..#...##
+            ...#..........#.....#..........
+            #.#.#.#.#...#....#...#.....##..
+            #......##...#...#..........#.#.
+            ....##........#.#..............
+            #..#.#.#..#........##......#.##
+            ........####...##.#.....#......
+            ....#........#.#..#..##..#.#...
+            .#.....#..###...#..#.....#..#..
+            #......###.#..#....#..#.#......
+            ....#.....##.##..#...#.#..##.#.
+            ..##..#...#.#......#....#...#.#
+            #..##...##..#...###...#..#.....
+            .......#.....#...........##....
+            #..##....#........#....##..#.#.
+            .#........#..##...###.#..#.....
+            .#.#....#..##...#...##.#..###..
+            #.........#.......#.....#.#....
+            #..#.....#.#.###.#..#......#...
+            ....#..#.#....#..##..###....###
+            ###.##.#.#..#...........#.#.#..
+            ..##.#.......#......#..##....#.
+            .....#.#.#.......##.......#...#
+            ...........#.##....##.##....#.#
+            ...#.......#..#.##..#......#..#
+            #.#.#...#......##.#...........#
+            ##........#...........###.#..#.
+            ..........#.#.#....#.#..##.#.#.
+            ...#.#.#....#..........#..#....
+            #.#....###.#.#..#.......###...#
+            .#....#......#.#.#..#..#.......
+            ......##.............#....#.#.#
+            .#..........#.........#.##.....
+            ##....#....##....#..#.......#..
+            #.##.##.#..#..#.....#..#.##.#..
+            .#..#.......##..#.....##.##....
+            .......#..........#.#.##..#.##.
+            ....#.....#.#...##....##.......
+            .......#.........#...##....##.#
+            #.....#......#..........#...#..
+            ...#.#.......#.#..#....###..#..
+            .....#.#.#.........#...........
+            .#..###.#.#........#.#.........
+            .........#..#......##...##....#
+            ...###..#.....##.....#.###....#
+            .##...#...#........###.#..#....
+            .##........#..#.###.######.##.#
+            ##.#...#.#....#..##.#....##....
+            .......##.....##.#..###.#......
+            ..##...##........#.......#....#
+            #..##...#.####...###......#...#
+            .##.....#.##.#.#.....###.#..##.
+            ..###....#.#.###.#....#........
+            ....#..###..#...#....#..#..#.#.
+            #.#.##....##...##.......#......
+            .........#...#....#..#.........
+            .............#...#..##.#.......
+            ...#.##.......#...#.#..##.##...
+            .####.#.##..#.#......#.##...#.#
+            .#..#.#.....#.................#
+            ..#.##..###....#...#......####.
+            ..##..##...........#....#...#..
+            ....#...#...#...#.......#....#.
+            #.#...###...#...#.#...#....##.#
+            ......#...#.#.......#.....#...#
+            ....##...#.#.#....#....#.#....#
+            .....#.....#...##..#...#....##.
+            #.....#....#......##.##....#...
+            ...#.#....#...#....#.#....##..#
+            ...#.#..#...##....###..#.......
+            ...##......###...###.#...#..#..
+            ##.......#.......###.......#..#
+            ..##.##..###.#............#...#
+            #.....##..#..##....##..#.......
+            ......#.#...#......#.....#.....
+            #...........#....#..##.##.#....
+            .......#..#......#...#....#...#
+            .#...##...........#......#...#.
+            #........#....##...###.#....#..
+            .....#.......##.........#.##...
+            .#.###..#....#..##.#..#.#..#...
+            #.......#.##.#.#....#.#..#....#
+            ###.....#.#.......#..#......#.#
+            #..#.#.......#.#..##..##.#.#...
+            #..#.#.#.###........#.....#...#
+            #.#.#..#..##.....#...........#.
+            ..#.#..#.....#...#...#...##....
+            ...#.##......#...##.#...#.#.#.#
+            #..#.#.#.#.......####..........
+            ..#......#.#......##.###.....##
+            ..#...##..#.........##....#.##.
+            ##.##.##.#.#.....#..........##.
+            .#.....###.#..#....#..#.###...#
+            #...##.......###....#.#..#.....
+            ..#....##.........##.........##
+            ......#....#.##.......#........
+            ..#.#.#..#...#...#...##.#...#..
+            ......#..##.#.#.#...##...#.#.##
+            #..#...##.#.....#...#.##.......
+            ..#..#.........##.#...#.##...##
+            ##.##.#....#.......#.##..#.....
+            .....##...##.##...##.........##
+            #......#...#.......#...#...#...
+            ...##...........#...#..#.......
+            .#.##.#..#........#....#.......
+            #.#...#..#......##...#.#.##....
+            ##........####..#.#...#.#.##.##
+            #..#.#.##......##.#.#..#.......
+            .....#.........#..#.####....#..
+            ......##..#....#...#.#....#....
+            #...##........#.........#.....#
+            .#.#...#.#.#..#............##.#
+            .#..#....#....#.....#...#.....#
+            ..###...#..#.....#.##.###...#.#
+            .#.###..#..#...#.#...#.#......#
+            #...#####......###........##...
+            .....#.....#..#.#....#..##.....
+            ....##...#.#.##.#####...#....#.
+            .#.#.........##.#.......#..##..
+            .#...#.#...#...#....#.#...##.#.
+            .##...#..#.#..#......#.#.#..##.
+            ..#.....#..#.....##.....#......
+            ..#........#..##...#.......###.
+            .#....#.......#....#....#..#...
+            ....#......#.#.#.........#.....
+            ..##...#.#.#...#.#........#....
+            .#.....####...##.#..#...##.....
+            ...#.....#...#...#....#....#...
+            .........#..#.#.....#..#.#..#..
+            .........##...........#.......#
+            ......#..#.....##...#.##.#.....
+            .#......##........##...#.#.##..
+            .....#.#..##...........#..#..#.
+            ...#.......#...#.#..#.##..#.##.
+            ...#.......#.....#.#...#.##.#..
+            #.....#.............##.#..####.
+            .#...#......#...##.#....#.#....
+            .##..##.##....#.#.....#.......#
+            ...#...#....#....##.#..#....##.
+            ..............##....#.......#.#
+            .#.#.#...##..#..#...###.#..#...
+            .#.#...#.#..#.#..#...######..#.
+            ........#......#.#..#.#....#...
+            ..###.....###.#.##....#...##...
+            .##.#.....#.......##.......#...
+            ..#..##...#..........#.#....#.#`,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          let hits = 0;
+          let x = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.treeHit(a[i], x)) hits++;
+            x += 3;
+          }
+
+          writeOutput("The answer is: " + hits);
+        },
+        unitTest: function (ut) {
+          const s = " T-d3p1.";
+
+          this.treeHit("..#...#", 2) ? ut.p++ : (ut.f += s + "1");
+          this.treeHit("..#...#", 6) ? ut.p++ : (ut.f += s + "2");
+          this.treeHit("..#...#", 9) ? ut.p++ : (ut.f += s + "3");
+          !this.treeHit("..#...#", 1) ? ut.p++ : (ut.f += s + "4");
+        },
+        treeHit: function (row, x) {
+          return "#" == row[x % row.length];
+        },
+      };
+
+      problems.d3p2 = {
+        givenInputData: problems.d3p1.givenInputData,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          let hits = 0;
+          let m = 1;
+          let x = 0;
+          //Right 1, down 1.
+          for (let i = 0; i < a.length; i++) {
+            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            x += 1;
+          }
+          m = m * hits;
+          log("hits=" + hits + ". m=" + m);
+
+          //Right 3, down 1.
+          x = 0;
+          hits = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            x += 3;
+          }
+          m = m * hits;
+          log("hits=" + hits + ". m=" + m);
+
+          //Right 5, down 1.
+          x = 0;
+          hits = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            x += 5;
+          }
+          m = m * hits;
+          log("hits=" + hits + ". m=" + m);
+
+          //Right 7, down 1.
+          x = 0;
+          hits = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            x += 7;
+          }
+          m = m * hits;
+          log("hits=" + hits + ". m=" + m);
+
+          //Right 1, down 2.
+          x = 0;
+          hits = 0;
+          for (let i = 0; i < a.length; i += 2) {
+            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            x += 1;
+          }
+          m = m * hits;
+          log("hits=" + hits + ". m=" + m);
+
+          writeOutput("The answer is: " + m);
+        },
+        unitTest: function (ut) {
+          const s = " T-d3p2.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "10");
+        },
+      };
+
+      problems.d4p1 = {
+        givenInputData: `byr:1937
+            eyr:2030 pid:154364481
+            hgt:158cm iyr:2015 ecl:brn hcl:#c0946f cid:155
+
+            cid:279
+            eyr:2029
+            pid:675014709 ecl:amb
+            byr:1985 hgt:179in hcl:z iyr:2025
+
+            iyr:2011 hgt:181cm hcl:#341e13 pid:282499883 byr:1953
+            eyr:2023
+            ecl:brn
+
+            eyr:2040 iyr:1984 pid:2371396209 byr:1951 cid:283 hgt:164cm
+            hcl:#623a2f
+
+            iyr:2014 byr:1966 hgt:153cm pid:900693718 eyr:2020 ecl:gry hcl:#866857
+
+            eyr:2020 hgt:162cm
+            byr:1939 pid:900852891 iyr:2020
+            ecl:oth hcl:#b6652a
+
+            iyr:1956
+            hcl:2385ac
+            hgt:167in
+            ecl:#9b82e8
+            eyr:2003
+            cid:214 byr:2012 pid:483285062
+
+            cid:146 byr:1938 hcl:#c0946f pid:136823471
+            hgt:180cm iyr:2011
+            eyr:2020 ecl:gry
+
+            cid:100 hgt:187cm
+            byr:1973 ecl:blu
+            iyr:2020
+            hcl:#888785 eyr:2030
+            pid:386799181
+
+            ecl:#dbba4f
+            hcl:z iyr:2028 pid:193cm
+            byr:2029
+            eyr:1962 hgt:113
+
+            cid:269 byr:1928 pid:604152679
+            iyr:2017 eyr:2027
+            hcl:#c0946f
+            hgt:189cm
+            ecl:blu
+
+            pid:653548437 hcl:z cid:166 iyr:2011 eyr:1967
+            hgt:162 ecl:xry byr:2019
+
+            byr:1979 ecl:hzl iyr:2018 hcl:#7d3b0c
+            eyr:2026
+            pid:981366150 hgt:151cm
+
+            pid:055334062 cid:272 eyr:2025 ecl:grn iyr:2016 hgt:159cm hcl:#a97842 byr:1989
+
+            eyr:2033
+            hgt:170cm ecl:brn pid:#299cf2 hcl:#602927 byr:2004 iyr:2023
+
+            iyr:2020 cid:273
+            pid:038972962
+            hcl:#c0946f hgt:152cm
+            eyr:2021 ecl:blu byr:1986
+
+            pid:015622106 hgt:154cm iyr:2012 byr:1922
+            eyr:2028 hcl:#9dc667 ecl:blu
+
+            iyr:2017 eyr:2025 hgt:179cm cid:324
+            pid:579870519 byr:1934
+
+            hcl:#6b5442 eyr:2021
+            pid:104071480 ecl:brn
+            hgt:162cm cid:89 byr:1949
+            iyr:2017
+
+            pid:388871409 cid:163 hgt:190cm ecl:amb eyr:2022 iyr:2019 byr:1963 hcl:#fffffd
+
+            cid:190 byr:1968 iyr:2018
+            hgt:155cm hcl:#6b5442 ecl:grn
+            pid:891458997 eyr:2030
+
+            hcl:z
+            cid:103 iyr:2026 hgt:171 byr:1979
+            pid:076174078
+            eyr:2031 ecl:#fc4638
+
+            hcl:#f8063e pid:684921958 ecl:gry eyr:2020 iyr:2011
+            byr:1958 hgt:189cm
+            cid:131
+
+            ecl:gry cid:90 iyr:2010 hgt:165cm
+            pid:683095019 byr:1953
+            hcl:#341e13
+            eyr:2030
+
+            pid:000303662
+            ecl:amb iyr:2014 hcl:#733820 byr:1964 hgt:184cm cid:149
+            eyr:2027
+
+            hcl:#341e13 hgt:150cm byr:1999 eyr:2022 pid:950260967 cid:72
+            ecl:grn iyr:2012
+
+            cid:159 byr:1987
+            hcl:#623a2f pid:144877169 eyr:2021 ecl:brn hgt:164cm
+
+            pid:759578668
+            cid:235 ecl:amb hgt:154cm
+            eyr:2023 byr:1941 hcl:#fffffd
+            iyr:2023
+
+            pid:18101245 hcl:z hgt:172in iyr:1947 byr:1956 ecl:grn eyr:1964
+
+            eyr:1980 pid:#8d62b1 ecl:#3e8868 cid:235
+            iyr:1978 hcl:#efcc98
+            byr:2025 hgt:181in
+
+            hgt:64cm hcl:3bc533 iyr:2019 byr:2015 pid:158cm eyr:2027 ecl:#1abbd7
+
+            eyr:2020 iyr:2011
+            pid:739854643 byr:1941 hgt:179cm hcl:#602927 ecl:gry cid:330
+
+            hcl:#a97842 iyr:2011 hgt:167cm pid:527353688 byr:1927 cid:256 eyr:2026 ecl:grn
+
+            iyr:2011 pid:350783151 hgt:168cm
+            byr:1961 ecl:amb hcl:#341e13
+            cid:181
+
+            eyr:2025 hgt:160cm
+            ecl:brn hcl:#cfa07d pid:136929481
+            iyr:2017
+
+            ecl:oth byr:1994 iyr:2020 hgt:162cm pid:578918570 eyr:2027 hcl:#fffffd
+            cid:325
+
+            hgt:63in byr:1925
+            ecl:amb iyr:2014 cid:224
+            hcl:#341e13 pid:208286938
+
+            ecl:#76434f hgt:97
+            hcl:z eyr:1968 pid:#871dc8 iyr:1955
+            byr:2007
+
+            byr:2011
+            eyr:1962 hcl:9ac7b8 pid:6836105558
+            ecl:#d7084f
+            iyr:2023 hgt:76cm
+
+            eyr:2016 iyr:2030 hgt:107 pid:948192703 byr:2013
+            hcl:b80af7 ecl:#d47439
+
+            eyr:2027 iyr:2017
+            pid:#27d2a6 byr:1921 ecl:brn hcl:#c0946f hgt:59in
+
+            byr:1982 hcl:#ceb3a1 ecl:brn eyr:2020 hgt:63in
+            iyr:2017
+
+            ecl:brn hgt:152cm byr:1962
+            iyr:2013
+            pid:381950515 hcl:#2afabd eyr:2020
+
+            hgt:158cm ecl:gry pid:252068098
+            cid:281 eyr:2023 byr:1950 iyr:2016
+            hcl:#ceb3a1
+
+            byr:1922
+            hgt:187cm cid:74
+            hcl:#a97842
+            ecl:amb
+            pid:045338811
+            eyr:2025 iyr:2019
+
+            hgt:176cm eyr:2022 iyr:2019 byr:1938 ecl:blu pid:610286298
+            hcl:#a97842
+
+            iyr:2028 byr:2025
+            eyr:2039 pid:72530856 ecl:#a819ad hgt:69 hcl:z
+
+            iyr:2018 eyr:2030
+            hcl:#8b1e1f ecl:hzl byr:1971
+            pid:189005628
+
+            pid:531154383 eyr:2020 hcl:#733820 ecl:oth
+            hgt:72in
+            iyr:2016
+            byr:1983
+
+            hgt:178cm hcl:#623a2f pid:562756202
+            eyr:2020
+            byr:1929 ecl:oth
+            iyr:2013
+
+            iyr:2013 byr:1983 pid:510998389 ecl:gry
+            cid:99 hcl:#a97842
+
+            ecl:gry eyr:2026
+            cid:202 hgt:191cm byr:1981
+            pid:414853225
+            hcl:#7d3b0c
+
+            hcl:#866857 byr:1951 eyr:2020 hgt:169cm pid:844496997
+            iyr:2016 ecl:brn
+
+            pid:083641628 iyr:2019 eyr:2030
+            byr:1938 ecl:hzl hcl:#b6652a hgt:68in
+
+            hcl:#18171d
+            byr:1981
+            pid:425911593 cid:309 eyr:2026 ecl:brn hgt:168cm
+
+            hcl:c84fda pid:#80d5e6 byr:1925 hgt:162cm iyr:2026
+            eyr:2036 ecl:#62c166
+
+            pid:461660733 eyr:2028
+            hgt:167cm ecl:hzl hcl:#cfa07d iyr:2010
+            cid:183
+
+            eyr:1930 byr:2021 iyr:2016 pid:163cm
+            hcl:79428f cid:136
+            ecl:amb
+
+            hcl:#efcc98 hgt:176cm eyr:2022 ecl:brn iyr:2013 pid:541033681 byr:1952
+
+            hgt:59cm
+            ecl:#d9b0bc pid:#3ab4b4 hcl:7aa29f
+            eyr:2034
+            byr:2011 cid:266 iyr:2004
+
+            byr:1991 hcl:#cfa07d cid:259 hgt:67cm eyr:2024 pid:631601343 ecl:brn iyr:2011
+
+            byr:2020
+            ecl:gry iyr:1944
+            pid:421649652 hgt:107
+            hcl:6d8593 eyr:2026
+
+            ecl:blu
+            byr:1953 hgt:66in hcl:#888785 eyr:2021 pid:174284708
+
+            ecl:#8f2c20
+            pid:27713962 iyr:2010 cid:149 byr:1952 hcl:#866857 eyr:2030
+            hgt:186cm
+
+            eyr:2023 byr:1989 ecl:blu
+            hcl:#18171d pid:480641 iyr:2020
+            hgt:74in
+
+            hcl:#efcc98
+            eyr:2023 hgt:157cm byr:1968
+            iyr:2013
+            ecl:amb pid:436599087
+
+            eyr:2021
+            hgt:175cm hcl:#efcc98 ecl:hzl pid:701245439
+            byr:1943 iyr:2015
+
+            hgt:164cm pid:310546869
+            eyr:2021 hcl:#b6652a ecl:oth iyr:2011 cid:181
+            byr:2001
+
+            byr:2016 hcl:94f4b9 eyr:1922 hgt:155cm ecl:hzl iyr:2009 pid:83440078
+
+            iyr:2014 hgt:60in
+            eyr:2031
+            hcl:#c0946f
+            byr:1948 ecl:grt pid:117909137
+
+            byr:1965 hgt:186cm iyr:2010 cid:117 hcl:#602927 pid:806868279
+            eyr:2029
+            ecl:grn
+
+            ecl:amb hgt:187cm hcl:#c0946f byr:1935
+            cid:139 iyr:2019 eyr:2023
+
+            pid:925865182
+            byr:1952 hgt:158cm hcl:#619e03 ecl:gry eyr:2026
+            iyr:2016
+
+            iyr:2012 hgt:73in
+            cid:199
+            byr:1959
+            ecl:hzl hcl:#fcd2f7 pid:268810283
+
+            eyr:2025
+            pid:317239854 ecl:brn byr:1955 hcl:#fffffd cid:220 hgt:175cm
+            iyr:2015
+
+            ecl:blu
+            byr:1939 hcl:#3332c0
+            iyr:2019 pid:832588457 eyr:2030 hgt:192cm
+
+            hgt:64cm cid:326 ecl:oth byr:2025 eyr:2025 hcl:z iyr:2012 pid:0394683801
+
+            ecl:amb byr:1966
+            pid:734257450 hgt:65in hcl:#fffffd iyr:2018 eyr:2025
+            cid:287
+
+            cid:249
+            eyr:2034 ecl:#7b7bf5 byr:2009 pid:171cm hcl:709fe4
+
+            hcl:d7c488 ecl:#b9bbb2
+            pid:55277333
+            cid:90 byr:2022 iyr:1978
+            hgt:69cm eyr:1981
+
+            hcl:z
+            byr:1949 pid:057966198 eyr:1941
+            iyr:2025
+
+            hgt:168cm ecl:hzl hcl:#866857 iyr:2011 pid:052204052 eyr:2030
+            byr:1970
+
+            pid:318707043 eyr:2029 ecl:hzl hcl:#888785
+            byr:1932 iyr:2010
+            hgt:166cm
+
+            hcl:z iyr:2010 ecl:oth byr:2006 cid:120 pid:#15d5ef eyr:2039 hgt:73cm
+
+            hcl:96c534 hgt:193in eyr:2036 byr:2008 ecl:#090691 cid:109 pid:603339169 iyr:2027
+
+            iyr:2029
+            ecl:utc
+            pid:5845500732 hcl:2a32b8
+            byr:2009 eyr:2040
+            cid:305 hgt:71cm
+
+            byr:1994 iyr:2015
+            eyr:2026
+            hcl:#623a2f pid:678627790
+            hgt:176cm ecl:blu
+
+            byr:2005 hcl:z
+            ecl:zzz pid:#47729a eyr:2039 hgt:62cm iyr:1983
+
+            hcl:#cfa07d ecl:blu
+            iyr:2014 eyr:2025 pid:824483836 hgt:174cm byr:1933
+
+            hgt:70in
+            iyr:2010 cid:53 eyr:2023 pid:093704222 ecl:amb hcl:#a97842 byr:1945
+
+            ecl:brn hcl:#602927 byr:1986 eyr:2029
+            pid:422160398
+            cid:134
+            hgt:156cm
+            iyr:2020
+
+            iyr:2014 hgt:187cm byr:1921 eyr:2022 ecl:amb
+
+            pid:765750572 eyr:2021
+            ecl:hzl
+            iyr:1997 hgt:66
+
+            iyr:2016
+            ecl:blu
+            cid:335
+            hgt:175cm pid:297297703 hcl:#b6652a
+            eyr:2030
+
+            hgt:64in hcl:#866857 pid:159cm byr:1972
+            cid:321 eyr:2021 ecl:brn
+            iyr:2017
+
+            pid:884038003
+            iyr:2016 hgt:188cm ecl:grn
+            byr:1928 eyr:2027 hcl:#341e13
+
+            pid:020315021 hgt:60in ecl:amb iyr:2018
+            hcl:#602927
+            eyr:2028
+            byr:1935
+
+            byr:1946 eyr:2021 hcl:#efcc98 iyr:2015
+            cid:52
+            hgt:177cm
+            pid:841348804
+
+            ecl:gry eyr:2027
+            byr:1959 pid:482204272
+            hcl:#888785
+            iyr:2013
+
+            hcl:#623a2f
+            eyr:2027 iyr:2011 hgt:189cm pid:767923916 ecl:hzl
+            byr:1987
+
+            hgt:152in hcl:#efcc98 ecl:hzl eyr:2030 byr:1971 iyr:1978 pid:499148724
+            cid:194
+
+            pid:#87513f hcl:e2a5de byr:2015 iyr:2016 hgt:155cm eyr:2024
+            ecl:gry cid:123
+
+            byr:1977
+            iyr:2028
+            hcl:#888785 pid:69801913 eyr:2026 hgt:165in ecl:brn
+
+            byr:1938 hcl:#efcc98 hgt:154cm pid:621714851 eyr:1972 ecl:gry iyr:2014 cid:161
+
+            hcl:#a97842
+            hgt:184cm ecl:oth pid:009682326
+            cid:233 eyr:2023 iyr:2019 byr:1982
+
+            hcl:#ceb3a1 pid:700761574 eyr:2020 byr:1940 iyr:2017
+            ecl:gry hgt:76in
+
+            iyr:2017 cid:73
+            ecl:hzl
+            hcl:#efcc98 pid:363441284
+            hgt:177cm byr:1924 eyr:2028
+
+            hcl:#a97842 eyr:2023 byr:1989 pid:589573553
+            ecl:oth
+            iyr:2017 hgt:162cm
+
+            ecl:oth
+            byr:2001 hgt:167cm hcl:#18171d eyr:2028 iyr:2015 pid:253666913
+
+            byr:1943 ecl:amb
+            hcl:#888785 pid:163cm iyr:2025 hgt:76 eyr:2026
+
+            byr:1963 eyr:2030
+            hgt:158in iyr:2023 pid:399153486 hcl:#733820
+
+            pid:43290252 hgt:167cm cid:302 iyr:2016 hcl:f81436
+            byr:1992 ecl:gry
+            eyr:1922
+
+            pid:487300118 hgt:167cm hcl:#888785
+            iyr:2018 ecl:oth cid:286 byr:1971 eyr:2021
+
+            eyr:2036
+            hgt:94
+            byr:2013
+            cid:162 hcl:37408d pid:527721797 ecl:dne
+            iyr:2022
+
+            hcl:5e67df byr:1973 pid:48217944 hgt:65in eyr:2023
+            iyr:2001 ecl:gry
+
+            hcl:717ef8 eyr:1996 pid:154cm ecl:#e2c90e
+            iyr:2028
+            byr:2009 hgt:184cm
+
+            iyr:2015 pid:549968053 hcl:#efcc98
+            hgt:151cm eyr:2025
+            byr:1993
+            ecl:gry
+
+            hgt:165cm ecl:gry
+            iyr:2020
+            byr:1927 hcl:#602927 pid:278946330
+            eyr:2027
+
+            eyr:2031
+            ecl:#b01aae pid:151cm
+            cid:188 iyr:2025
+            hgt:60cm byr:2015
+
+            eyr:2028 pid:928740840
+            byr:1931
+            hgt:191cm iyr:2014 cid:305
+            hcl:#6b5442
+            ecl:oth
+
+            hcl:#7d3b0c cid:283 byr:1923 ecl:amb
+            pid:781290431 iyr:2019
+            eyr:2021
+            hgt:191cm
+
+            byr:2027
+            pid:51702036
+            iyr:2028 hgt:165in ecl:gry hcl:z
+            eyr:2036
+
+            byr:1971
+            ecl:blu iyr:2012 pid:986042111
+            eyr:2021 hcl:#888785
+            hgt:68in
+
+            hgt:183cm byr:2030
+            iyr:2013
+            cid:209 pid:989002507
+            ecl:hzl eyr:2028 hcl:59c2ce
+
+            ecl:gry iyr:2020 pid:895856989 hcl:#888785
+            hgt:185cm byr:1964 eyr:2025
+
+            ecl:gry
+            hgt:183cm cid:97 hcl:#93be9b eyr:2021
+            byr:1995 pid:668647173
+
+            hcl:#733820 eyr:2027
+            byr:1977 pid:242773849 hgt:184cm iyr:2017
+            cid:76 ecl:brn
+
+            hgt:167 hcl:z byr:2012 eyr:2027
+            pid:590438786 ecl:hzl
+            cid:101 iyr:1994
+
+            iyr:2015
+            hcl:#888785 eyr:2024
+            ecl:blu pid:279218875 cid:178 byr:1944 hgt:74in
+
+            ecl:oth cid:334 pid:169599381
+            hcl:#7d3b0c eyr:2028 hgt:172cm iyr:2010
+
+            eyr:2033 byr:1973 cid:333 iyr:2019 hcl:z ecl:utc
+            hgt:178cm pid:#e7abc0
+
+            eyr:2026 ecl:blu cid:264 byr:1998 hgt:177cm hcl:#602927
+            pid:770052780
+            iyr:2019
+
+            ecl:blu
+            iyr:2016 cid:232 eyr:2023
+            pid:643597545 hgt:167cm byr:1986 hcl:#cfa07d
+
+            pid:017818204
+            iyr:2017 eyr:2028 hgt:168cm hcl:#602927 byr:1931 ecl:oth
+
+            byr:1984 ecl:grn hgt:191cm hcl:#efcc98 pid:408382086
+            iyr:2010 eyr:2025
+
+            hgt:158cm ecl:#25e195 byr:1929 pid:0367744553 eyr:1957 iyr:2017
+            hcl:z
+
+            hgt:168cm byr:1977 pid:006609828
+            eyr:2024
+            iyr:2015
+            ecl:amb hcl:#b6652a
+
+            pid:635167847 iyr:2010 hcl:#18171d hgt:163cm ecl:grn
+            eyr:2026
+
+            pid:423029177 byr:1995
+            iyr:2014 ecl:hzl
+            hgt:185cm hcl:#c0946f eyr:2024 cid:230
+
+            pid:#3e3109 ecl:#a8a0aa iyr:2020 hcl:#733820 eyr:2021 byr:2010 hgt:179in
+
+            iyr:2017 byr:1938 eyr:2022 hcl:#733820 ecl:amb hgt:157cm pid:162425330
+
+            hgt:160cm
+            cid:339 byr:1938
+            hcl:#341e13
+            eyr:2025 iyr:2015
+            pid:562755634
+
+            cid:283 byr:1954 ecl:blu hcl:#ceb3a1 hgt:169cm iyr:2013 pid:616439723
+
+            pid:830940520 eyr:2022
+            byr:1981 hgt:193cm hcl:#18171d iyr:2013
+            cid:117
+
+            hcl:#866857 iyr:2019 ecl:hzl byr:1962 hgt:72in eyr:2020
+
+            byr:2015 pid:4530685490 ecl:#c7604e hcl:z
+            hgt:151 eyr:1972 iyr:1948
+
+            pid:0800674852 hcl:z
+            ecl:#2a275e hgt:61cm
+            iyr:1950 eyr:1938
+
+            iyr:2028
+            eyr:1998
+            pid:#c604ca
+            hgt:122 hcl:z
+            ecl:dne cid:160 byr:2018
+
+            hcl:z
+            cid:67 iyr:2029
+            byr:1973
+            ecl:amb eyr:2030
+            hgt:66
+
+            ecl:hzl
+            pid:483557353 eyr:2021
+            hgt:172cm iyr:2011
+            hcl:#888785
+            byr:1963
+
+            eyr:2030 ecl:brn hcl:#fffffd byr:1969
+            hgt:161cm pid:632930895
+            iyr:2017
+
+            iyr:2015 byr:2000
+            pid:525557240 hgt:156cm eyr:2029
+            ecl:brn hcl:#64bf85
+
+            byr:2007
+            iyr:2012 eyr:2029 ecl:#7c1d6f pid:612320497 hgt:165in
+
+            eyr:2026 ecl:grn cid:93
+            hcl:#888785 hgt:134 pid:745552484 iyr:2019 byr:1999
+
+            byr:2001 pid:984678649 hgt:173cm ecl:oth iyr:2012 cid:345 hcl:#fffffd
+            eyr:2028
+
+            hcl:#341e13 pid:308853935
+            byr:1972 hgt:160cm iyr:2012 eyr:2026
+            ecl:amb cid:97
+
+            hcl:z hgt:151
+            ecl:grn pid:132866718
+            iyr:2021 byr:1932
+            eyr:2024
+
+            eyr:2027 byr:1923
+            ecl:oth hgt:174cm hcl:#733820
+            pid:099185839
+            iyr:2017
+
+            iyr:2017 ecl:gry byr:1941
+            hgt:74in
+            pid:540930352
+            hcl:#888785 eyr:2023
+
+            hgt:161cm cid:277
+            hcl:#866857
+            byr:1928
+            eyr:2030 ecl:blu
+            iyr:2020 pid:358953579
+
+            hgt:155cm eyr:1930
+            iyr:2015 ecl:utc
+            pid:163cm
+            byr:2008 hcl:#733820 cid:156
+
+            byr:1946 hgt:164cm
+            cid:234 iyr:2015
+            pid:168804387 eyr:2025
+            ecl:hzl hcl:#a97842
+
+            hgt:184cm
+            hcl:#7d3b0c byr:1996 cid:193 iyr:2011 ecl:amb eyr:2030 pid:940497049
+
+            hcl:#733820 iyr:2016 hgt:168
+            eyr:2020
+            cid:118 pid:9871436 ecl:gry
+
+            pid:416683862
+            hgt:162in
+            hcl:#602927 byr:2027
+            eyr:2027 ecl:gmt
+
+            ecl:#771e11
+            iyr:2024
+            cid:81 pid:741843390
+            hcl:#866857 byr:2012 eyr:1964
+            hgt:157in
+
+            pid:720946735
+            byr:2002 hcl:#18171d iyr:2026 hgt:70cm
+            ecl:brn eyr:2025
+
+            byr:1987 hcl:#623a2f
+            hgt:165cm pid:087526326 ecl:grn
+            iyr:2017 eyr:2021
+
+            byr:2014 hgt:193cm
+            iyr:2018 hcl:z
+            eyr:2027 pid:792398819
+
+            cid:233
+            hcl:z ecl:#18002d hgt:174cm iyr:2027 eyr:1944
+
+            pid:142615460 ecl:blu eyr:2021
+            hcl:#c88693 iyr:2017 cid:182 hgt:152cm byr:1966
+
+            hcl:z hgt:65cm
+            eyr:1944 ecl:dne byr:2029 pid:1066768764
+            iyr:2015
+            cid:149
+
+            hcl:z pid:25144284 hgt:152in
+            byr:2009
+            cid:276 eyr:2037
+            iyr:2010 ecl:gmt
+
+            cid:88 hcl:ed6b8a ecl:xry hgt:178in pid:36832491 byr:2020 iyr:2012 eyr:1993
+
+            byr:1972 iyr:2009 pid:324213657 hgt:160 hcl:z cid:259 eyr:2021 ecl:grn
+
+            hcl:#7d3b0c pid:164496070 eyr:2024 ecl:brn hgt:165cm
+
+            pid:955035528
+            byr:1967 eyr:2021 iyr:2015 hcl:#fffffd hgt:156cm
+            cid:237
+            ecl:blu
+
+            hcl:z
+            eyr:2038 iyr:1973 ecl:grt hgt:193in
+            pid:41385449 byr:2011
+            cid:119
+
+            byr:1934 pid:713339056 hgt:157cm cid:250 iyr:2016 ecl:blu hcl:#866857 eyr:2026
+
+            hgt:186cm byr:2012
+            eyr:2022
+            iyr:2013 hcl:#733820 pid:226693031 ecl:hzl
+
+            cid:118 pid:56750275 hcl:#cfa07d iyr:2028 eyr:2033 byr:1933 hgt:166cm
+
+            byr:1973
+            ecl:hzl hgt:167 hcl:z
+            iyr:2015 pid:70648423
+
+            byr:1929
+            iyr:2012 pid:083005744 ecl:brn hgt:162cm
+            eyr:2024
+            hcl:#cfa07d
+
+            hcl:#623a2f hgt:174cm
+            eyr:2026 iyr:2020
+            ecl:grn
+            byr:1981
+
+            cid:236 byr:1979 iyr:2013 ecl:amb eyr:2030 hcl:#6b5442 pid:768869830
+
+            hcl:#341e13 byr:1998 iyr:2020
+            pid:857980686
+            ecl:hzl hgt:175cm eyr:2028
+
+            hgt:169in
+            cid:305 eyr:2023
+            ecl:gry pid:833031763 hcl:#ceb3a1 iyr:2015 byr:1974
+
+            pid:370671195 hgt:162cm
+            iyr:2018 ecl:oth byr:2001 hcl:#7d3b0c
+            eyr:2021
+
+            eyr:2026
+            ecl:brn
+            cid:288
+            hcl:#866857 iyr:2010 byr:1922
+            pid:309109383
+
+            byr:1949 iyr:2015 pid:832774982 eyr:2029
+            hgt:182cm
+            hcl:#b7144c ecl:amb
+
+            eyr:2029 iyr:2020
+            hcl:#c0946f
+            pid:953788134
+            byr:1954 hgt:167cm
+
+            pid:981508704 eyr:2023 iyr:2013 hgt:66in cid:68 hcl:#fffffd byr:1996 ecl:oth
+
+            iyr:2011 byr:1932 cid:232 eyr:2030
+            hcl:#c0946f
+            hgt:169cm pid:994763987
+            ecl:hzl
+
+            ecl:gmt eyr:2031 hcl:z
+            byr:2006 cid:86 hgt:59cm iyr:1998 pid:#349a7f
+
+            hcl:#7d3b0c iyr:2013 pid:549500594 eyr:2024 byr:1971 ecl:oth
+            hgt:153cm
+
+            iyr:2015
+            byr:1940 pid:798926275 eyr:2027
+            hcl:#cfa07d
+            hgt:158cm ecl:amb
+
+            ecl:brn pid:077141823
+            eyr:1945 iyr:2023 hcl:#602927 byr:1956
+            hgt:152
+
+            iyr:2022
+            byr:2007
+            hcl:f87f81 pid:8404831740 eyr:2033 hgt:170cm
+            ecl:gmt
+
+            iyr:1958
+            ecl:dne hcl:840fbe
+            cid:55 eyr:2032 pid:19403738 hgt:170cm
+            byr:2029
+
+            ecl:brn pid:864743117
+            eyr:2025
+            hgt:188cm byr:1934 hcl:#623a2f
+            iyr:2011
+
+            iyr:2010 pid:877675472 hcl:#7d3b0c eyr:2027 byr:1954 hgt:182cm
+            ecl:oth
+
+            iyr:2015 hcl:#a97842 pid:719192774 ecl:brn
+            byr:1993
+            hgt:186cm
+
+            eyr:2021 hgt:176cm pid:395161956 hcl:#602927
+            ecl:grn iyr:2020 byr:1972
+
+            hcl:#fffffd hgt:167cm byr:1945 ecl:grn iyr:2017 eyr:2026
+
+            hcl:#6b5442 ecl:gry cid:208 hgt:155cm iyr:2010 byr:1933 pid:040244553
+            eyr:2029
+
+            iyr:1960 cid:281 ecl:#8f7c45 hcl:z pid:11609858 eyr:1955 hgt:150in
+            byr:1985
+
+            hgt:150cm byr:2002 hcl:#fffffd
+            pid:337375886 iyr:2011 ecl:amb
+            eyr:2037
+
+            iyr:2014 ecl:oth hgt:155cm hcl:#866857 eyr:2025 pid:614859979 cid:338
+            byr:1952
+
+            hcl:#623a2f hgt:156cm
+            iyr:2010 ecl:amb byr:1997
+            cid:285
+            pid:225568504 eyr:2020
+
+            iyr:2021 hcl:#ceb3a1 ecl:#d6db5a pid:185cm eyr:2020 cid:130 byr:2009
+
+            byr:1956
+            cid:245 iyr:1954 ecl:dne hcl:#341e13 eyr:2040 hgt:71cm pid:838134394
+
+            eyr:2027
+            byr:1994 ecl:amb iyr:2014 hgt:168cm
+            cid:278
+            hcl:#602927 pid:758176176
+
+            hcl:#941519 ecl:gry eyr:2030 byr:1921
+            pid:9477831046
+            iyr:2018 hgt:189cm
+
+            cid:339 hcl:#6b5442
+            byr:1972
+            ecl:oth
+            iyr:2014 hgt:183cm eyr:2020
+
+            cid:165
+            eyr:1926 hcl:#6b5442 iyr:1956 hgt:65cm byr:2029
+            pid:9240052093 ecl:xry
+
+            ecl:grn
+            eyr:2027
+            hcl:#fffffd byr:1975 iyr:2011 hgt:177cm pid:825090410 cid:121
+
+            byr:1934
+            hcl:#733820 pid:133141914 eyr:2027
+            hgt:66in
+            ecl:amb
+            iyr:2010 cid:262
+
+            iyr:1951
+            ecl:#bb9733 hcl:89fcbf
+            byr:2018 pid:#13265f hgt:85
+            eyr:1977
+
+            hcl:#324bed ecl:hzl hgt:155cm
+            iyr:2013 byr:1942 eyr:2021
+            pid:758516520
+
+            ecl:gry
+            pid:#567782 iyr:2015 hcl:276a6d eyr:2028
+            hgt:60cm
+            byr:2005
+
+            hcl:#18171d hgt:191cm eyr:2030
+            ecl:grn pid:748729106 byr:1922 iyr:2017
+
+            byr:1984 hcl:#733820 eyr:2020 iyr:2013 hgt:64in pid:444446114
+            ecl:hzl
+
+            byr:2006 ecl:dne iyr:2029 hcl:z
+            eyr:2023 hgt:68cm
+            pid:131910019
+
+            iyr:1976 hcl:45191a eyr:2017 hgt:68cm
+            ecl:oth pid:153cm byr:1968
+
+            ecl:gry byr:1959 eyr:2023 pid:781945569
+            iyr:2015 hcl:#ceb3a1 hgt:167cm
+
+            hgt:151cm
+            byr:1959 hcl:#7d3b0c
+            cid:76 pid:069205247 ecl:gry eyr:2029
+            iyr:2013
+
+            pid:055193304
+            hcl:#fffffd
+            hgt:67in ecl:grn iyr:2011
+
+            eyr:2026
+            byr:1975
+            pid:681437369
+            hgt:173cm hcl:#a97842
+            iyr:2017 ecl:brn
+
+            pid:298214774 hgt:158cm ecl:hzl
+            hcl:#866857 byr:1993 iyr:2013
+            eyr:2028
+
+            hcl:#b6652a eyr:2023 pid:879418046 hgt:193cm
+            iyr:2014
+            ecl:brn
+
+            hgt:164cm
+            eyr:2028 hcl:fbd462 ecl:gry
+            iyr:2011 byr:1938 pid:029003659
+
+            byr:1999 hgt:171cm eyr:2024 cid:195 pid:041799326 ecl:gry iyr:2012 hcl:#a97842
+
+            byr:1963 pid:7471206322 iyr:2015 ecl:brn hcl:#623a2f hgt:72cm
+            cid:63
+
+            byr:1961
+            ecl:hzl hcl:#efcc98
+            pid:617022365
+            eyr:2020 hgt:155cm iyr:2018
+
+            pid:385763432 byr:1977 cid:228 hcl:#733820 eyr:2020
+            hgt:163cm ecl:grt
+            iyr:2015
+
+            byr:1979 hgt:186in eyr:2037
+            ecl:dne
+            iyr:2025 hcl:d93e3e
+            pid:187cm
+
+            iyr:2018
+            cid:158 eyr:2020
+            byr:1929
+            pid:334374178 hgt:181cm hcl:z ecl:grn
+
+            cid:135 ecl:oth hcl:#623a2f
+            iyr:2017
+            eyr:2024 byr:1940
+            hgt:66in
+
+            cid:92 eyr:2026 hcl:#888785 pid:827526879 byr:1990
+            hgt:186cm ecl:amb iyr:2014
+
+            pid:575519103
+            iyr:2016 byr:1964 hcl:#7d3b0c cid:252 hgt:172cm
+
+            hcl:#c0946f
+            ecl:grn hgt:75in
+            eyr:2021 pid:426544544
+
+            cid:171 byr:2004
+            hcl:z
+            hgt:191cm eyr:2028 pid:#292b3b ecl:brn
+
+            iyr:2016 ecl:hzl
+            byr:2007
+            hgt:167cm hcl:#653b4c cid:124 eyr:2022
+            pid:#27024c
+
+            hgt:177cm byr:2025
+            hcl:z cid:303 iyr:2016 eyr:2000 ecl:dne
+            pid:345555418
+
+            eyr:2040
+            hcl:70fbf6 cid:318
+            byr:2027 iyr:2022
+            ecl:#3a037c pid:644624005
+            hgt:62cm
+
+            ecl:brn iyr:2016 hgt:150cm pid:680594195 cid:324 hcl:#602927
+            byr:1944
+
+            hcl:z eyr:2022 byr:2020 cid:112 ecl:dne iyr:2029
+            pid:#3a3560 hgt:153in
+
+            cid:86
+            ecl:gry byr:1972 hcl:#866857 pid:758976621 hgt:188cm
+
+            pid:#850e8b eyr:2025 hgt:163in
+            ecl:#71e9e2
+            hcl:#623a2f
+
+            ecl:amb byr:1958 hgt:193cm
+            pid:343803154 iyr:2010 eyr:2029 cid:86 hcl:#602927
+
+            hgt:178cm byr:1987 ecl:blu hcl:#866857 iyr:2017
+            pid:222443921 eyr:2027
+
+            byr:1964 iyr:2001
+            hgt:180cm eyr:1945
+            hcl:#fffffd pid:305189916 ecl:#ac3c49
+            cid:142
+
+            byr:1979 hgt:166cm ecl:brn
+            cid:202 hcl:#5311ca eyr:2028 pid:874418818 iyr:2014
+
+            hgt:161cm byr:1987 ecl:grn hcl:#6b5442 pid:986096798
+            cid:74
+            eyr:2027 iyr:2019
+
+            byr:1964 iyr:1979 eyr:2022 ecl:#77ada3
+            hcl:#733820
+            cid:56
+
+            hgt:185cm iyr:2010 pid:214991920 eyr:2023 cid:236 hcl:#866857 ecl:brn byr:1965
+
+            pid:885169578 iyr:2010 byr:1948 ecl:hzl hcl:#18171d
+            eyr:2025 hgt:175cm
+
+            ecl:oth pid:34655368
+            hgt:186
+            byr:1968
+            hcl:2653c9
+            eyr:2030 iyr:2024
+
+            eyr:2022 iyr:2015 ecl:gry hgt:65in byr:1994
+            pid:766704860
+
+            hcl:#c0946f cid:104 iyr:2015
+            pid:739274357
+            ecl:#ef45c8
+            byr:1960 hgt:61in eyr:2026
+
+            pid:849044092 eyr:2020 hgt:186cm iyr:2014
+            byr:1991 hcl:#866857
+
+            hgt:159cm iyr:1950
+            eyr:2021 pid:325442644 hcl:#888785
+            ecl:gry byr:1986
+
+            eyr:2023 hgt:188cm
+            iyr:2014
+            pid:945115479 byr:1979 ecl:blu hcl:#b6652a
+
+            eyr:2024
+            cid:274 pid:390115952 byr:1934 hgt:161cm iyr:2017 hcl:#b95b0d
+
+            ecl:#a16ec8 pid:187cm hcl:z iyr:2029 hgt:170
+            byr:2008`,
+        solve: function () {
+          let s = readInput();
+          let a = this.recsToArray(s);
+
+          writeOutput("The answer is: " + this.totalValid(a));
+        },
+        unitTest: function (ut) {
+          const s = " T-d4p1.";
+
+          let a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+            byr:1937 iyr:2017 cid:147 hgt:183cm`);
+
+          a[0].ecl == "gry" ? ut.p++ : (ut.f += s + "1");
+          a[0].hgt == "183cm" ? ut.p++ : (ut.f += s + "2");
+
+          a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+      byr:1937 iyr:2017 cid:147 hgt:183cm
+
+      iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+      hcl:#cfa07d byr:1929
+
+      hcl:#ae17e1 iyr:2013
+      eyr:2024
+      ecl:brn pid:760753108 byr:1931
+      hgt:179cm
+
+      hcl:#cfa07d eyr:2025 pid:166559648
+      iyr:2011 ecl:brn hgt:59in`);
+
+          a[0].ecl == "gry" ? ut.p++ : (ut.f += s + "3");
+          a[0].hgt == "183cm" ? ut.p++ : (ut.f += s + "4");
+          a[1].ecl == "amb" ? ut.p++ : (ut.f += s + "5");
+          a[2].hcl == "#ae17e1" ? ut.p++ : (ut.f += s + "6");
+          a[2].ecl == "brn" ? ut.p++ : (ut.f += s + "7");
+          a[3].hgt == "59in" ? ut.p++ : (ut.f += s + "8");
+          this.isValid(a[0]) ? ut.p++ : (ut.f += s + "9");
+          !this.isValid(a[1]) ? ut.p++ : (ut.f += s + "10");
+          this.isValid(a[2]) ? ut.p++ : (ut.f += s + "11");
+          !this.isValid(a[3]) ? ut.p++ : (ut.f += s + "12");
+          this.totalValid(a) == 2 ? ut.p++ : (ut.f += s + "13");
+        },
+        totalValid: function (a) {
+          let t = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.isValid(a[i])) t++;
+          }
+          return t;
+        },
+        isValid: function (r) {
+          //FORMAT
+          // byr (Birth Year)
+          if (!r.hasOwnProperty("byr")) return false;
+          // iyr (Issue Year)
+          if (!r.hasOwnProperty("iyr")) return false;
+          // eyr (Expiration Year)
+          if (!r.hasOwnProperty("eyr")) return false;
+          // hgt (Height)
+          if (!r.hasOwnProperty("hgt")) return false;
+          // hcl (Hair Color)
+          if (!r.hasOwnProperty("hcl")) return false;
+          // ecl (Eye Color)
+          if (!r.hasOwnProperty("ecl")) return false;
+          // pid (Passport ID)
+          if (!r.hasOwnProperty("pid")) return false;
+          // cid (Country ID)
+          //Don't check.
+          return true;
+        },
+        recsToArray: function (s) {
+          // log("pre s=" + s);
+          s = s.trim();
+          //Replace all blank lines (\n\n) with "},{"
+          s = s.replaceAll("\n\n", '"},{"');
+          //Replace all doublspaces with one space
+          s = s.replaceAll(/ +/g, " ");
+          //Delete all blankspaces from the beginning of the lines.
+          s = s.replaceAll(/^ +/gm, "");
+          //Replace all spaces with ","
+          s = s.replaceAll(" ", '","');
+          //Replace all colons with ":"
+          s = s.replaceAll(":", '":"');
+          //Replace all end-of-lines (\n) with ","
+          s = s.replaceAll("\n", '","');
+          //Add [{ to the beginning and }] to the end.
+          s = '[{"' + s + '"}]';
+
+          //KLUDGE BECAUSE I CAN'T FIGURE OUT WHERE THESE ARE COMING FROM.
+          s = s.replaceAll('{"",', "{");
+          // log("post s=" + s);
+          return JSON.parse(s);
+        },
+      };
+
+      problems.d4p2 = {
+        givenInputData: problems.d4p1.givenInputData,
+        solve: function () {
+          let s = readInput();
+          let a = problems.d4p1.recsToArray(s);
+
+          // for (let i = 0; i < a.length; i++) {
+          //   log(this.recToString(a[i]));
+          // }
+
+          writeOutput("The answer is: " + this.totalValid(a));
+        },
+        unitTest: function (ut) {
+          const s = " T-d4p2.";
+          let x = `eyr:1972 cid:100
+      hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+
+      iyr:2019
+      hcl:#602927 eyr:1967 hgt:170cm
+      ecl:grn pid:012533040 byr:1946
+
+      hcl:dab227 iyr:2012
+      ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
+
+      hgt:59cm ecl:zzz
+      eyr:2038 hcl:74454a iyr:2023
+      pid:3556412378 byr:2007`;
+          let a = problems.d4p1.recsToArray(x);
+          !this.isValid(a[0]) ? ut.p++ : (ut.f += s + "1");
+          !this.isValid(a[1]) ? ut.p++ : (ut.f += s + "2");
+          !this.isValid(a[2]) ? ut.p++ : (ut.f += s + "3");
+          !this.isValid(a[3]) ? ut.p++ : (ut.f += s + "4");
+
+          x = `pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+      hcl:#623a2f
+
+      eyr:2029 ecl:blu cid:129 byr:1989
+      iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm
+
+      hcl:#888785
+      hgt:164cm byr:2001 iyr:2015 cid:88
+      pid:545766238 ecl:hzl
+      eyr:2022
+
+      iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
+          a = problems.d4p1.recsToArray(x);
+
+          this.isValid(a[0]) ? ut.p++ : (ut.f += s + "v1");
+          this.isValid(a[1]) ? ut.p++ : (ut.f += s + "v2");
+          this.isValid(a[2]) ? ut.p++ : (ut.f += s + "v3");
+          this.isValid(a[3]) ? ut.p++ : (ut.f += s + "v4");
+        },
+        recToString: function (r) {
+          let s = "";
+          if (!this.isValid(r)) return "";
+          // s +=
+          //   "" +
+          // (this.isValid(r)
+          //   ? "<div style='color:white'>V"
+          //   : "<div style='color:red'>I");
+          s += " byr=" + (r.hasOwnProperty("byr") ? r.byr : "ABSENT");
+          s += " iyr=" + (r.hasOwnProperty("iyr") ? r.iyr : "ABSENT");
+          s += " eyr=" + (r.hasOwnProperty("eyr") ? r.eyr : "ABSENT");
+          s += " hgt=" + (r.hasOwnProperty("hgt") ? r.hgt : "ABSENT");
+          s += " hcl=" + (r.hasOwnProperty("hcl") ? r.hcl : "ABSENT");
+          s += " ecl=" + (r.hasOwnProperty("ecl") ? r.ecl : "ABSENT");
+          s += " pid=" + (r.hasOwnProperty("pid") ? r.pid : "ABSENT");
+          return s; //+ "</div>";
+        },
+        totalValid: function (a) {
+          let t = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.isValid(a[i])) t++;
+          }
+          return t;
+        },
+        isValid: function (r) {
+          //FORMAT
+          // byr (Birth Year) four digits; at least 1920 and at most 2002.
+          if (!r.hasOwnProperty("byr")) return false;
+          if (r.byr.length != 4) return false;
+          if (!isBetween(parseInt(r.byr, 10), 1920, 2002)) return false;
+          // log("byr ok");
+
+          // iyr (Issue Year) four digits; at least 2010 and at most 2020.
+          if (!r.hasOwnProperty("iyr")) return false;
+          if (r.iyr.length != 4) return false;
+          if (!isBetween(parseInt(r.iyr, 10), 2010, 2020)) return false;
+          // log("iyr ok");
+
+          // eyr (Expiration Year) four digits; at least 2020 and at most 2030.
+          if (!r.hasOwnProperty("eyr")) return false;
+          if (r.eyr.length != 4) return false;
+          if (!isBetween(parseInt(r.eyr, 10), 2020, 2030)) return false;
+          // log("eyr ok");
+
+          // hgt (Height) a number followed by either cm or in:
+          //If cm, the number must be at least 150 and at most 193.
+          //If in, the number must be at least 59 and at most 76.
+          if (!r.hasOwnProperty("hgt")) return false;
+          let noUnit = true;
+          if (r.hgt.substr(-2) == "cm") {
+            if (!isBetween(parseInt(r.hgt, 10), 150, 193)) return false;
+            noUnit = false;
+          } else if (r.hgt.substr(-2) == "in") {
+            if (!isBetween(parseInt(r.hgt, 10), 59, 76)) return false;
+            noUnit = false;
+          }
+          if (noUnit) return false;
+          // log("hgt ok");
+
+          // hcl (Hair Color) a # followed by exactly six characters 0-9 or a-f.
+          if (!r.hasOwnProperty("hcl")) return false;
+          if (r.hcl.match(/#[0-9,a-f]{6}/) === null) return false;
+          // log("hcl ok");
+
+          // ecl (Eye Color) exactly one of: amb blu brn gry grn hzl oth.
+          if (!r.hasOwnProperty("ecl")) return false;
+          if (
+            ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].indexOf(r.ecl) < 0
+          ) {
+            return false;
+          }
+          // log("ecl ok");
+
+          // pid (Passport ID) a nine-digit number, including leading zeroes.
+          if (!r.hasOwnProperty("pid")) return false;
+          if (r.pid.match(/[0-9]{9}/) === null) return false;
+          // log("pid ok");
+
+          // cid (Country ID)
+          //Don't check.
+          return true;
+        },
+      };
+
+      problems.d5p1 = {
+        givenInputData: `FBFBFBFRRR
+BBFBFBFRRR
+BFFFFFBRRR
+BFFFFBBLRR
+BBFFBBFLRR
+BBFFFFBRLL
+BBFBFFBLLL
+FBFFBFBRLR
+FBFFBFBLLR
+FBFBBFFLLR
+BFBFBBFLLL
+FFFBFFBRLR
+FFFBBBFRRR
+BBFFFFFLRL
+FFFFBBFRLR
+BBBFFFFRLL
+BBFFBFFRLL
+BFBFFFBLRR
+FFBBBFFRRL
+FBFFFFFLRL
+FBFFBBBRRR
+BFFFBFFLRR
+FFFBBBBLLR
+BFFBFFFLLL
+BFFBBBFLRR
+FBFBBFFRRR
+BBBFFBFRRL
+BFBBBFFRRR
+FFFBFBBLRL
+BBFFFBBRRR
+FFFBBFFRLR
+BFFFFFBRRL
+BFFFBBFRLR
+FBBBBBBLLR
+BFFBBBBLLL
+FFFFBBFLRL
+FBFBBFBLRR
+FBBBBFBLRL
+FBBBFFFRLL
+BBFBFBBLRL
+FBFFBFFRLL
+FFBFBFFLRL
+BFBFBBBLRR
+FFBFFBFLRR
+BFBFFBFLRR
+BFFBFFFLLR
+BBBFFFBLRR
+FBFBBBFRRL
+FBBFFFFLRR
+FFBBBBFLRL
+FFFFBBBLRL
+FBBFFFBRRR
+FBBBFFFRRR
+FBFBBFFRLL
+FFBBBBFLLR
+FBBFFBBRRL
+BBFBFFBLLR
+FFBBBBFRLR
+BBFBFFFLRR
+FFFBFBFRLR
+BFBBFBFLLR
+BFBBBFFRRL
+FFBBBFBRLR
+BFBFFFFLRL
+FBBFBFFRRR
+BBFBFBBLLR
+BFFBFBBRRL
+FFFBFFFRRL
+BFFFBFFRRR
+FFBBFBBLLL
+FBBFFBFLLR
+BFBBBBFLRL
+BFBFFFFRRL
+BBBFBFFRRL
+FFBFBFBLLL
+FBBBBFBRRR
+BFFFBBBLRR
+FBFFFBFRLR
+BFFBFFFRLL
+BBBFBBFLLR
+BFBBBFBLLL
+BFBFFBFRLR
+BBFFFFFRRR
+FBBBBFBLLR
+BFBFFBBLLR
+FBFBFFFLLR
+BBFFFBBRRL
+BBFBFBFLLL
+BFFFBBBLLR
+BFBBFFBRLL
+FBFBBBFLRR
+FBFBBFFLRR
+FBBFBFBRRL
+BFFBBBFLRL
+BFFFBFBRRR
+FBFBFFBLLR
+BFBFFBFLLR
+FFFBFBBRLL
+BBFFFFFRRL
+FBBFBBBRRR
+FBBBFFFLLL
+FFFBBBFLRL
+BBBFFBBLLR
+BFFFFBBRLR
+FFFBFBBLLL
+BBFFFFBLLR
+BBFBFFFRLR
+BBFBFFFRLL
+FBBFBBFLLR
+BBBFBFFLLL
+FBFFFBBRLL
+BFBBFFBLRR
+FFBBFFBLRL
+FFFBBFBLRL
+BFBFFFFLLL
+BBFBFBFRRL
+BFBFBBBLLR
+BBFFFBFRRL
+FBBBFFFRLR
+FFFBFFBLLR
+BFFBBBBLRL
+BFBBFFBLRL
+FFBBFFBRLL
+BBFBBFBRRL
+FFBFFBBRRL
+FBBBBFBLLL
+BBBFFBFLRR
+FFBBFFBLLR
+BFBFBFFLRL
+BBFFFBFLRL
+FBFFBFFRRL
+FBBBBBFRLR
+FFFBFBBLLR
+FBBFBFFRRL
+BBFFBBBLLR
+BFFBBFFRLR
+BFBFBFFLLL
+FBFFBBBRLR
+FFBFFBFRLR
+BFBFBBBRRL
+FFBFBFFLLL
+BBFFFBBLLL
+FFFFBFBRRR
+BFFBFFBLRL
+BBFBBBFLRL
+FFBFFBFLLR
+FFBBFBBLLR
+FBBFBFBRLL
+BFBBFFFRLL
+BFBBBFBLLR
+BFBFFFBLLL
+FFFFBBBLLR
+FBFFBBFRLL
+FFFBBFBRLL
+BFFBBFFLRL
+BFFBBFFLLL
+FFBFBBFRRR
+BFBFFBBLRL
+FBBBBFFRLL
+BBFFFFBLRR
+FBFFBBBRRL
+FBBFBFBRRR
+FBBFBBBRRL
+BFFBFFFRRL
+BBBFFBBRRR
+BFFFFFBLRR
+FBBBFBBLLR
+BFFFBFFRRL
+FFFFBBBRRL
+FFFBFFBLRL
+BFFFFFFRRR
+FBBFFFFLRL
+BFFFFBBLLL
+FBFFFFFLRR
+BFBBFBBLLR
+FBFFFFFRLL
+FBBBBFBRRL
+BBFFFFFLRR
+BFFBFBFLLR
+BFBFBFBRLR
+FBFBBFBRLR
+BBFFBFFRRL
+FFBFBBBLLR
+FFBFBFBLRL
+BFBBFBFLLL
+BFBBBBFRLL
+FFFBBFBLLR
+FFBBBFBRRL
+BFBFBBBRRR
+FBFBFFFRLL
+FBFFBFFLLL
+FBFFFFFLLL
+FBFBFBFLLL
+BFFBFFBRLL
+FBBFBBFRRR
+FBFFBFBRRL
+BFFBFFBLRR
+FBFBBBFLLR
+BFBFBBFLRR
+FBBFBBBLLR
+BBFBBFBLLL
+BBFBBBFLLL
+BFBFFFBLLR
+BFFFFBFLRR
+BFFFBBBLLL
+FFFBFBBRRR
+FFBFFFFRRL
+BBFBBBFRRL
+BBBFFBBLRR
+BFBBBFFLLL
+FFBBFFBLRR
+FBFFBBBRLL
+BFBFFFFRLL
+BBFBBBBLLL
+BBFFBBBLRR
+FFFBBFBRRR
+FFFBFBBRRL
+FBFFFBBLLL
+FFBFFFBRLR
+BFFBBBFRLL
+FFBBBBBLLR
+FBBBFBBRLL
+BFBBFFFLLR
+FFFBFBFLRL
+BFBFBBBRLR
+BBFFFFBRRL
+FBFFBFFRLR
+FBFBFBFRRL
+BFBBFBBRRL
+FBBFFFFLLR
+FBFFBBFRRR
+FBBFBFFLLR
+FFBFFFFRLR
+BFFFBBBLRL
+BFFFFBFRRL
+FBBFBFBLLR
+FBFBBBFRRR
+FFBFBBFLLR
+FFBBBBFLLL
+FBFBBBBRLL
+FFBBBBFLRR
+FBBBFFFLRL
+BBBFBBFLRL
+FBBFBBFRRL
+FBBFFBBRLR
+BBBFFFFLLR
+BFFBBFFRLL
+FFBBBFFRRR
+FBBBFBBLRL
+FBBBBFFLLL
+BBBFFBFRLR
+FBFFBBFLLR
+FBBFBBFRLR
+FBFBFFBLRR
+BBBFFFBRRL
+BBFBFFBRRL
+FFFBBBBRRL
+FFBBFBFLRL
+BFBBFBBRLR
+FFBFBFFRLR
+FBFBFBBLLL
+BBFFFBFLLL
+BBFBFBBRLR
+FBBBFFBRRR
+FBFBBBBLRR
+FBFBBBBLRL
+BBFFFFBRLR
+BFBFBFFRLR
+BFBBBBBLRR
+BFBBFBBRLL
+FBFFBBBLLL
+FBBFFBFRRL
+FFFBFBFRRL
+FBFBBBBLLR
+BBFBBFFRLL
+BBBFFFFLLL
+FBBFBFFLRL
+BBBFFFFRLR
+FFBBBBBLLL
+FBFFFBBRLR
+FFFBBBBLRR
+FBFBBBFRLL
+BFBBFBFLRL
+BFFFFBFLLR
+BBFFBBFLLL
+FFBBFBBRLR
+BFFBBFBLLL
+FFBFBFFRRR
+BBFBFBBRLL
+FFFBBFBRRL
+FFBFFFBLRR
+FFBFFBBLRR
+FFFBFFFRRR
+FFFBFFFLLR
+FFBBBBBRRL
+FFBBFBBLRR
+BBFBBBFLLR
+FBFBFBFRLR
+FBBBFFBLRL
+BBFFBFBRRL
+BFBBBFFLRR
+FFFFBBFLLR
+BFBFFFFRRR
+FBFFFBBRRR
+BBFBFFFLLR
+BBFBBFBRLR
+FBBFBBFRLL
+BBFFFFBLRL
+BFBFBFBLRR
+FBFFBBFLRR
+BBFBFFBRLL
+BFBFBBFRLR
+FBFBBFBRLL
+FFFBFFFRLL
+FBBBFBFLLL
+BBBFBFFLRL
+BFFBBBFRRL
+FFBBFFBRLR
+FBFFFFBLLL
+BBBFBBFLLL
+BFFFBBBRRL
+BFFBBFBLRL
+BBBFFBFRRR
+BFBBBBFRLR
+BFFBBFBRRR
+FBFFBBFLLL
+BBBFFFFRRL
+BFFFBFBRLL
+FFBBFFFLLL
+FBBBBBFLRR
+FFFBBFFLRR
+BBBFBBFRLL
+FFBBBFFLRR
+BBFBFFFRRR
+BFBFBFFLLR
+BFBFBFFRRR
+FBBBFBFLLR
+BBFFBFBLLR
+BBBFBFBLRR
+BFBFBFFRRL
+FBBBFBFLRL
+FBBBBBFLRL
+FBFFFFBRLL
+FBFBBFFLLL
+FFBBBFFRLL
+FFBBFFBRRR
+FFFBBFBLLL
+BBFFFBBLRL
+FBFFFFFLLR
+BFBFFBBRRL
+FFFBFBFRRR
+BFBFFBFRLL
+BFFBBBBLRR
+FBBFBBBLRL
+FBBFFBFRRR
+FFBFFFFRLL
+BBFFBFBLRR
+BFBFFBBRLR
+BBFBBBBLLR
+BFBFFBBRRR
+BFFBFBBLLR
+FBBFBFBLRL
+BBFFFBFRLL
+BBBFFFBRLR
+FFFBBBFRLR
+FBFFFFFRLR
+FBBBFBFRLR
+BBFBFFBLRR
+FBFFBBBLLR
+BBBFBBBLLR
+BBBFFFFLRR
+BFFBBFFRRL
+FBFFFFBRRR
+FBBBFFFLRR
+FBBFBBBLRR
+FBFFBFBLRR
+FBFBBBFLLL
+BFBBFFBRRR
+BFBBBBBLLL
+FBFBBBBRRL
+BFFBFBFRRR
+FFBBBFBLLR
+FFBFBBBLRR
+FFBFBBBLLL
+FBBFBBFLLL
+BFFFFBFRRR
+FBFBBFFRRL
+BBFFFFBRRR
+BFBBBFBRRL
+FBBFFBBLLR
+BBBFBFBLLR
+BFBBFBFRRL
+FFBBFFBRRL
+FBFBBBBRRR
+BFFBBFBLLR
+FFBFFBBRRR
+FBBBBBFLLR
+BFBBBFBRLR
+FBFFBFFLRR
+BFBBBFBLRR
+FFBFFBFRRR
+BFBBBFFRLR
+FFBBFFFLRL
+FBBBBBBLRR
+BBFFBBBRRL
+FBBBBBBRRR
+BFBBFBBRRR
+BBBFFFBLLL
+BBFFBFBLLL
+FBFFBBFLRL
+FBFFBBBLRR
+BBFFFBFRRR
+BBFBBBFLRR
+FFFBBBFLLR
+BFFFBFBLRL
+BFBBFFBLLR
+BFBBBBBRRL
+BBBFFBFRLL
+BFBBFBBLRL
+BFFFBFFLRL
+FFBBFBBRRR
+FBFBBFFRLR
+FBFBFFFRRR
+FBFBBFBRRL
+BFBBBBBRLL
+FBBBFBFRRR
+FBFBFFFRRL
+BBBFBFFLLR
+FFBBBFBLLL
+BBFFBFFRLR
+FBBFBFBLLL
+BFFFFBBRRR
+FFFBBBBRRR
+FBBFBFBLRR
+FBBFFFFRRR
+BBFFBFFLRL
+BFBBFFFRRR
+FFBBFBFLRR
+FFFBBBBLRL
+FBFFBFBLRL
+FBFFFBFRLL
+BBFBFBFRLL
+FFBFFFFLRL
+BBFBBBBRRR
+FFBFBFFRLL
+FFBFBFBLLR
+FFFBBFFRLL
+FBFBBFBRRR
+FBBFFBFLRR
+FBBFBFFLLL
+BFFBBBBRRL
+FBFFBFFLLR
+FBBFFFBRLL
+BFFFFBBRLL
+FFBBFBFRRR
+BFBBBBFLLR
+FBBFBFFRLR
+BBFBFFFRRL
+BFBBFFBRRL
+BBFFBBBLRL
+BFFBFBBRLL
+BFFFBFFRLL
+FFBFBFFLLR
+BBFBBFBLRR
+FFBFFBFRRL
+FBBFFFFRLR
+FBBFFFBLLR
+BFBFFFFLRR
+BFFBFBFRLL
+FBFFFBFRRL
+FFFBBFFLRL
+BFFBFBBRLR
+FBBBFFBRRL
+FFFBFFBRRL
+FFFBFFFLRL
+FBFBFBFLLR
+FFFBFFBLLL
+FFBBBBFRRR
+FBBBBFFLRL
+FBBBFBFLRR
+FBBBBFFLRR
+FFBFBFFLRR
+BBFBFFBLRL
+FBBBFFFRRL
+FBFBFFFLLL
+FFFBFFFRLR
+BBFFBFFLLR
+FBFFBBFRLR
+BFFBBBBRLL
+FFFFBBFRRL
+FFBBBFFRLR
+FBFFFFFRRR
+BBFBBBBLRL
+BFFBBFBLRR
+BFFBFFFRLR
+FFBBFBBLRL
+FFBFFFFLLL
+BBBFBFFRRR
+BFFBBFBRRL
+FBBFBBBRLL
+FFBFBBFRLR
+BFFFFFBRLL
+BBFFFFFLLL
+BFBFBBFLLR
+BBFBBFFRRL
+BBBFBFFLRR
+FBFBFBBLRL
+FBFBFBBRRR
+BBFFFFFLLR
+BBFBBBFRLL
+BFBFBBFLRL
+BFBBBFBRLL
+BBFBBBFRRR
+BFBFFFBRRR
+BFFFFBBRRL
+FFBBFBBRLL
+BFFBBFFLLR
+BFFFBBFLLR
+BBFBBBBRLL
+BBFFFFFRLR
+BBFFBBBRRR
+BFFFFBFRLL
+FBFFBFFRRR
+FFBBBFFLLR
+FBBBBFFRRR
+BFBFBFFRLL
+BFBFFBFRRR
+BBBFBBFLRR
+BBFBFFBRLR
+FFFBFFFLRR
+FFBBBBBRLR
+BFBFBFBRRR
+BFBBFFFLLL
+FFBBBBBRRR
+FBFBFBBRLR
+FBBBBBBRLR
+BFBFFFFRLR
+FBFBBBFLRL
+FFBBFFFRRR
+BFBFBFBLLR
+BBFFBBBLLL
+BFBBFFFRLR
+BFFFFFFLLL
+FBBBBFBLRR
+BFBFBFFLRR
+FFBBBFBRRR
+BBBFBFBRRR
+BFFFBFBLLR
+FFFFBBBRLL
+BBFBFBBLRR
+FFBBBFBRLL
+BBFBBBFRLR
+BFFFBFBRRL
+BBBFBFFRLR
+FFBFFFBRLL
+BBBFBBBLLL
+FBFBFFBRLL
+BFFBFFFLRR
+BBFFFFBLLL
+BBBFFFBRRR
+BFFFBBFRRL
+FBFBBBBRLR
+BFFBFBBLRR
+FFFBFFFLLL
+BFBFBBFRLL
+BBBFBBFRRL
+FFBBFBFLLL
+FBBFFBBRLL
+FBBFFFFRRL
+FBBFFFBLRR
+FBFBFFFLRL
+FFFBBBFRRL
+FFBBFBFRRL
+BFBBBBFRRR
+FFBBBBFRRL
+BFFFBBBRRR
+FBBFBBBLLL
+BFBBBFFLLR
+BFFBFFBLLR
+BFFBBBBRRR
+FFBBBBBLRR
+FBFBBBBLLL
+BBBFFBBLRL
+BFFFFFBRLR
+FBFBFBFLRR
+FBBBFBFRRL
+BFFBBFBRLL
+FBFBFFBRRR
+BFFFBBFLLL
+BFBFBFBRLL
+FFFBFFBRRR
+FBBBBBFLLL
+BFBFFFBRLR
+FBFBFBBRLL
+BBBFBFBRRL
+FBFFBFFLRL
+FBFFFBFRRR
+FFFFBBBRRR
+FFFBBBFLLL
+FFBFFFBRRL
+BFBFBBFRRR
+FFBBBBBLRL
+BFBBBFBRRR
+BFFFFFFLRR
+FBBBFFBRLR
+BFFFBBFLRL
+BFBBFFFLRR
+BFBFBFBLLL
+BFFBBFFLRR
+BFBFFFFLLR
+BBFFFBFLRR
+BFFFBFFLLL
+BFBBBBFLLL
+BBFFBFFRRR
+BFFBFFBRRL
+FBFBFFBRLR
+FFBBBFBLRR
+FFFBBBBRLL
+FFBBFFBLLL
+FBFFFFBLRR
+FFBFBBFRRL
+BFFBFFBRLR
+BFBBBBBLLR
+BFFFFBFLRL
+FFFBFBFRLL
+FBFFFBFLLR
+FBFFFBBRRL
+BBBFBFBRLL
+BBBFBFBRLR
+BFFFFFFLLR
+FFBFBBFLRR
+FBBBBBBLRL
+FFFFBBBRLR
+FFBFFBFRLL
+BFBBFBBLLL
+BBBFFFFLRL
+FFBBFFFRLL
+FBFFFBFLRR
+BFBFBBBRLL
+BFBBFBBLRR
+BFBBFFFRRL
+BBFBFFFLLL
+FBBFBBBRLR
+FBFBFBFLRL
+BBFFBBBRLL
+FFBBFFFRLR
+BBFFFBBLRR
+FFFBFBFLRR
+FFFBBFFLLR
+FFBFFBBLRL
+FBFFBBFRRL
+FFFFBBFRRR
+FFBBFFFLLR
+FFBFBFBRRR
+BFBFBFBRRL
+FFBFBBFLLL
+BFBBBFFRLL
+FBBBBBBRRL
+FBBFFFFLLL
+BFFFFFFRLL
+FBFBFBBRRL
+BFFBBBFRRR
+FBFBBBFRLR
+FBFBFFBLRL
+BFBBBBFRRL
+FFFFBBFLLL
+BBFFBBFRRR
+BFFBFBFRLR
+BFFBFBFLLL
+FBBFFBBLRL
+FFFBFFBRLL
+BBFFBFBRRR
+FFFFBBFLRR
+FFBFBBBRLR
+BFBFBFBLRL
+FFBFFFFRRR
+BFFFBBBRLR
+BFFFBBFLRR
+BFBBFFFLRL
+BFFBBBFRLR
+FBFBFBBLRR
+FFBFBFBRLL
+BBFFFBFRLR
+BFBFFBFLLL
+BBFBBFFRLR
+FFBFFBBRLR
+BFFFFBBLRL
+BFFBBFBRLR
+BBFBBFBLLR
+FFBBBBFRLL
+FFBBBFFLLL
+BFFBFFBLLL
+BFBFFFBRRL
+FBBBFFFLLR
+FBFFFBBLRR
+BFBFFBFLRL
+FBBFFFBLRL
+FBFBBFBLLR
+FBBBFFBLRR
+FBBBBBBLLL
+FFBBFBFRLL
+BBFFFBBRLL
+BFFBFBBLLL
+FFFBBBBLLL
+BBFFBBFLLR
+FFBFFFFLRR
+BFBFFBBLLL
+FFFBBFFRRL
+FBFFBFBRLL
+FFBFFFBRRR
+BBFBFFFLRL
+FBFBBFBLLL
+FFBFBBFLRL
+BFFFFFBLLL
+BBBFBFBLRL
+BBFFFBBLLR
+FBBFFBBRRR
+FBBFFBFLRL
+FFFBFBBLRR
+BFBBBFBLRL
+BBFFBFBLRL
+FFBFFFBLRL
+FBFFFFBRLR
+BBFBFBFLRL
+BBFBBBBLRR
+FFBFFBFLLL
+FBBFFBFRLR
+BBFFBBFRLR
+FBBBFBBRRR
+FBBBFFBRLL
+FBBFFFBLLL
+BBFBFBFLLR
+FBFFFBBLLR
+BFFBFFBRRR
+BBFFFBFLLR
+BBBFFBBRRL
+BFBBFBFRLL
+BBFBBFFLLR
+FBBBBFFRLR
+BBFBFBFRLR
+BBFBBFFLRR
+BBFFBBBRLR
+FFFBBBFLRR
+BBFFBFBRLR
+BFFFFBFRLR
+BBFFBBFLRL
+FBBFBFFRLL
+BFBFFBBLRR
+FBFBFBFRLL
+BBBFFBFLRL
+FFBBFBFRLR
+BFFFFFFLRL
+BBFBFBBRRR
+BFBBFFBLLL
+FFBFBFFRRL
+BFFFFFBLRL
+FFBBFFFRRL
+BBFBBFBRLL
+FBBBFBBLLL
+FBBBFBFRLL
+FFFBFBFLLR
+BFBBFBFLRR
+FFBFBBFRLL
+BFFFFFFRLR
+FFFBFFBLRR
+BFBFFFBLRL
+FBFFBFBRRR
+BFFFBFBLLL
+FFFBBFFRRR
+FBBBFFBLLR
+FBBBBBFRRR
+FBFFFFFRRL
+FFBFBBBLRL
+FBFFBBBLRL
+FFBFFBBRLL
+FBBBBFBRLL
+BFFBBBBLLR
+FBFBFFBLLL
+FBFBBFBLRL
+FBBBFFBLLL
+BFFBBBBRLR
+FBBBBFFRRL
+BBBFFFBLLR
+FBBFBBFLRR
+BFFBFFFLRL
+FFFBFBFLLL
+BBFFFFFRLL
+BFFFBFFLLR
+FBFBFFBRRL
+BBBFFFBRLL
+BFFBFBBLRL
+FFFBBBFRLL
+BFFBFFFRRR
+FFBFFFBLLR
+BFBBBBBRLR
+FBFFFFBLLR
+FFBFBBBRRR
+BBFBBFBLRL
+BFFFBBFRLL
+BFFBFBFRRL
+BFBFFFBRLL
+BFFFFFBLLR
+FBFFFFBLRL
+BBFBBFFLRL
+BBBFFFBLRL
+FBBBBBBRLL
+BBFBBFBRRR
+FBBFFBFLLL
+FFFBBFBLRR
+FFBFBFBRRL
+FFBFBFBRLR
+FFBFBBBRRL
+FBBFFFBRLR
+BBFBFBBRRL
+BFBFFBBRLL
+FFBBFFFLRR
+FBBBFBBRRL
+BBBFFBBLLL
+FFFBBBBRLR
+BFBBFBFRLR
+BBFFFBBRLR
+BBFBFFBRRR
+BBFFBFBRLL
+BBBFBBFRLR
+BFBBFFBRLR
+FFFFBBFRLL
+FBBFBFBRLR
+BBBFFFFRRR
+FFBFFFBLLL
+FFBBFBFLLR
+BFBFBBFRRL
+BBFBFBBLLL
+FFBBBBBRLL
+BBFFBFFLRR
+BBBFBBFRRR
+FBBBFBBRLR
+FFFFBFBRLR
+FFFFBBBLRR
+FBFBFFFRLR
+BBFFBBFRRL
+BFFFBBFRRR
+FFBBFBBRRL
+FFFBBFFLLL
+BBBFFBBRLL
+FBBBBBFRLL
+BFFBFBFLRL
+BBFBBBBRLR
+FFFBBFBRLR
+FBFBFFFLRR
+BFFFFBBLLR
+BBBFFBFLLR
+BBFBBFFRRR
+BFFBFBFLRR
+FBFFFBFLLL
+BFFFFBFLLL
+BBBFBFFRLL
+BBFFBFFLLL
+BBFBBFFLLL
+BFFFBFFRLR
+BFFBBBFLLR
+FFFFBBBLLL
+BFFFBFBLRR
+BBBFBFBLLL
+FBFFBFBLLL
+FBBFBBFLRL
+FBBBBFBRLR
+BBFBBBBRRL
+BFBBBFFLRL
+FFBFFBFLRL
+FFBFFBBLLL
+BFBFBBBLLL
+FBBFFFBRRL
+BFFBFBBRRR
+BFFFFFFRRL
+FBBFFBBLLL
+BBFBFBFLRR
+FFBFFFFLLR
+FBFBBFFLRL
+FBBFFFFRLL
+FBBBBFFLLR
+BBBFFBBRLR
+FBFFFFBRRL
+FFFFBFBRRL
+BFFFBFBRLR
+BFBBBBFLRR
+BBBFFBFLLL
+FBFBFBBLLR
+FFBFBFBLRR
+BBFFBBFRLL
+BFBFBBBLRL
+BFFFBBBRLL
+FFBBBFBLRL
+FBFFFBBLRL
+FBBFFBFRLL
+FFFBFBBRLR
+FBBBFBBLRR
+FBBFFBBLRR
+BFBBBBBRRR
+BFBBFBFRRR
+BFBFFBFRRL
+FFBFBBBRLL
+BFBBBBBLRL
+BFFBBBFLLL
+FFBBBFFLRL
+FFBFFBBLLR
+FBFFFBFLRL
+FBBFBFFLRR
+FBBBBBFRRL`,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          let hi = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (this.seatId(a[i]) > hi) hi = this.seatId(a[i]);
+          }
+
+          writeOutput("The answer is: " + hi);
+        },
+        unitTest: function (ut) {
+          const s = " T-d5p1.";
+
+          ut.test(s + "1", this.row("BFFFBBF") == 70);
+          ut.test(s + "2", this.col("RRR") == 7);
+          ut.test(s + "3", this.seatId("BFFFBBFRRR") == 567);
+          ut.test(s + "4", this.seatId("FFFBBBFRRR") == 119);
+          ut.test(s + "5", this.seatId("BBFFBBFRLL") == 820);
+        },
+        row: function (r) {
+          r = r.replaceAll("F", "0");
+          r = r.replaceAll("B", "1");
+          return parseInt(r, 2);
+        },
+        col: function (r) {
+          r = r.replaceAll("L", "0");
+          r = r.replaceAll("R", "1");
+          return parseInt(r, 2);
+        },
+        seatId: function (r) {
+          return this.row(r.substr(0, 7)) * 8 + this.col(r.substr(-3));
+        },
+      };
+
+      problems.d5p2 = {
+        givenInputData: problems.d5p1.givenInputData,
+        solve: function () {
+          let a = stringToStringArrayNewline(readInput());
+          a.forEach((v, i, a) => (a[i] = problems.d5p1.seatId(v)));
+          a = a.sort((a, b) => a - b);
+          let hi = 0;
+          for (let i = 0; i < a.length; i++) {
+            // log("" + a[i]);
+            if (a[i] + 1 != a[i + 1]) {
+              hi = a[i] + 1;
+              break;
+            }
+            // if (this.seatId(a[i]) > hi) hi = this.seatId(a[i]);
+          }
+
+          writeOutput("The answer is: " + hi);
+        },
+        unitTest: function (ut) {
+          const s = " T-d5p2.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "10");
+        },
+      };
+
+      problems.d6p1 = {
+        givenInputData: ``,
+        solve: function () {
+          stringToStringArrayNewline(readInput());
+
+          writeOutput("The answer is: TBD");
+        },
+        unitTest: function (ut) {
+          const s = " T-d6p1.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "1");
+        },
+      };
+
+      problems.d6p2 = {
+        givenInputData: problems.d6p1.givenInputData,
+        solve: function () {
+          readInput();
+
+          writeOutput("The answer is: TBD");
+        },
+        unitTest: function (ut) {
+          const s = " T-d6p2.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "10");
+        },
+      };
     </script>
   </body>
 </html>
