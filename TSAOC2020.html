@@ -741,14 +741,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
       <hr />
       <div>
         <div class="processing_buttons"></div>
-        <br />-----INPUT-----<br />
-        <pre id="i_d4p2" class="ita" contenteditable="true">
-          Put input data here.
-        </pre>
-        <br />-----OUTPUT-----<br />
-        <div id="o_d4p2" class="ota">
-          Results appear here after pressing the Solve button.
-        </div>
+        <div class="io"></div>
       </div>
     </article>
     <article id="a_d5p1">
@@ -757,14 +750,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
       <hr />
       <div>
         <div class="processing_buttons"></div>
-        <br />-----INPUT-----<br />
-        <pre id="i_d5p1" class="ita" contenteditable="true">
-          Put input data here.
-        </pre>
-        <br />-----OUTPUT-----<br />
-        <div id="o_d5p1" class="ota">
-          Results appear here after pressing the Solve button.
-        </div>
+        <div class="io"></div>
       </div>
     </article>
     <article id="a_d5p2">
@@ -773,14 +759,25 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
       <hr />
       <div>
         <div class="processing_buttons"></div>
-        <br />-----INPUT-----<br />
-        <pre id="i_d5p2" class="ita" contenteditable="true">
-          Put input data here.
-        </pre>
-        <br />-----OUTPUT-----<br />
-        <div id="o_d5p2" class="ota">
-          Results appear here after pressing the Solve button.
-        </div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d6p1">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description"></div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+      </div>
+    </article>
+    <article id="a_d6p2">
+      -----PROBLEM STATEMENT-----<br />
+      <div class="problem_description"></div>
+      <hr />
+      <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
       </div>
     </article>
 
@@ -798,7 +795,14 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         gi("dblog").innerHTML = "";
       }
       function dbtest() {
-        let ut = { p: 0, f: "Failed test ids:" };
+        let ut = {
+          p: 0,
+          f: "Failed test ids:",
+          test: function (name, test) {
+            if (test) this.p++;
+            else this.f += " " + name;
+          },
+        };
 
         let a1 = [1, 2, 3, 4];
         let a2 = ["1", "2", "3", "4"];
@@ -834,6 +838,8 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib3");
         !isBetween(3, 1, 2) ? ut.p++ : (ut.f += " ib4");
         !isBetween(-1, 1, 2) ? ut.p++ : (ut.f += " ib5");
+        ut.test("ib6", isBetween(7, 1, 12));
+        ut.test("ib7", !isBetween(7, 8, 12));
 
         //Run unitTest function for all problems.
         Object.getOwnPropertyNames(problems).forEach((prb) =>
@@ -912,6 +918,26 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
                           <button onclick="loadCurrentInputData()">Load Given Input Data</button>
                           <button onclick="solveCurrentProblem()">Solve</button>`;
       }
+      function makeIoArea(id) {
+        return `        <br />-----INPUT-----<br />
+        <pre id="i_${id}" class="ita" contenteditable="true">
+          Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+        <div id="o_${id}" class="ota">
+          Results appear here after pressing the Solve button.
+        </div>`;
+      }
+      function findParentArticleBaseId(elem) {
+        while (elem != null) {
+          if (elem.id && elem.id[0] == "a" && elem.id[1] == "_") {
+            return elem.id.substr(2);
+          } else {
+            elem = elem.parentNode;
+          }
+        }
+        return "xxxx";
+      }
       window.addEventListener("load", function () {
         let s = "";
         document
@@ -921,14 +947,17 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         document
           .querySelectorAll(".processing_buttons")
           .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        document
+          .querySelectorAll(".io")
+          .forEach(
+            (div) => (div.innerHTML = makeIoArea(findParentArticleBaseId(div)))
+          );
         showArticle("About");
       });
       //#endregion
 
-      //#region SOLUTIONS ///////////////////////////////////////////
       let problems = {};
 
-      //#region DAY 1 PART 1 ///////////////////////////////////////
       problems.d1p1 = {
         givenInputData: `1768
                   1847
@@ -1149,8 +1178,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return -1;
         },
       };
-      //#endregion
-      //#region DAY 1 PART 2 ///////////////////////////////////////
+
       problems.d1p2 = {
         givenInputData: problems.d1p1.givenInputData,
         solve: function () {
@@ -1179,8 +1207,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return -1;
         },
       };
-      //#endregion
-      //#region DAY 2 PART 1 ///////////////////////////////////////
+
       problems.d2p1 = {
         givenInputData: `3-4 j: tjjj
                   7-10 h: nhhhhhgghphhh
@@ -2228,8 +2255,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return cc >= x.min && cc <= x.max;
         },
       };
-      //#endregion
-      //#region DAY 2 PART 2 ///////////////////////////////////////
+
       problems.d2p2 = {
         givenInputData: problems.d2p1.givenInputData,
         solve: function () {
@@ -2255,8 +2281,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return count == 1;
         },
       };
-      //#endregion
-      //#region DAY 3 PART 1 ///////////////////////////////////////
+
       problems.d3p1 = {
         givenInputData: `.#.#....##.......#..........#..
             ...#...........##...#..#.......
@@ -2604,8 +2629,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return "#" == row[x % row.length];
         },
       };
-      //#endregion
-      //#region DAY 3 PART 2 ///////////////////////////////////////
+
       problems.d3p2 = {
         givenInputData: problems.d3p1.givenInputData,
         solve: function () {
@@ -2669,8 +2693,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           1 == 1 ? ut.p++ : (ut.f += s + "10");
         },
       };
-      //#endregion
-      //#region DAY 4 PART 1 ///////////////////////////////////////
+
       problems.d4p1 = {
         givenInputData: `byr:1937
             eyr:2030 pid:154364481
@@ -3795,17 +3818,16 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return JSON.parse(s);
         },
       };
-      //#endregion
-      //#region DAY 4 PART 2 ///////////////////////////////////////
+
       problems.d4p2 = {
         givenInputData: problems.d4p1.givenInputData,
         solve: function () {
           let s = readInput();
           let a = problems.d4p1.recsToArray(s);
 
-          for (let i = 0; i < a.length; i++) {
-            log(this.recToString(a[i]));
-          }
+          // for (let i = 0; i < a.length; i++) {
+          //   log(this.recToString(a[i]));
+          // }
 
           writeOutput("The answer is: " + this.totalValid(a));
         },
@@ -3932,8 +3954,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           return true;
         },
       };
-      //#endregion
-      //#region DAY 5 PART 1 ///////////////////////////////////////
+
       problems.d5p1 = {
         givenInputData: ``,
         solve: function () {
@@ -3947,8 +3968,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           1 == 1 ? ut.p++ : (ut.f += s + "1");
         },
       };
-      //#endregion
-      //#region DAY 5 PART 2 ///////////////////////////////////////
+
       problems.d5p2 = {
         givenInputData: problems.d5p1.givenInputData,
         solve: function () {
@@ -3962,8 +3982,34 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
           1 == 1 ? ut.p++ : (ut.f += s + "10");
         },
       };
-      //#endregion
-      //#endregion
+
+      problems.d6p1 = {
+        givenInputData: ``,
+        solve: function () {
+          stringToStringArrayNewline(readInput());
+
+          writeOutput("The answer is: TBD");
+        },
+        unitTest: function (ut) {
+          const s = " T-d6p1.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "1");
+        },
+      };
+
+      problems.d6p2 = {
+        givenInputData: problems.d6p1.givenInputData,
+        solve: function () {
+          readInput();
+
+          writeOutput("The answer is: TBD");
+        },
+        unitTest: function (ut) {
+          const s = " T-d6p2.";
+
+          1 == 1 ? ut.p++ : (ut.f += s + "10");
+        },
+      };
     </script>
   </body>
 </html>
