@@ -7540,13 +7540,13 @@ tlqjomu`,
                 }
                 return ni;
             }
-            addEdgeTo(fromNodeName, toNodeName) {
+            addEdgeTo(fromNodeName, toNodeName, weight = 1) {
                 let f = this.addNode(fromNodeName);
                 let t = this.addNode(toNodeName);
                 // if (this.edgesTo[f][t] === undefined) {
                 //     this.edgesTo[f][t] = 0;
                 // }
-                this.edgesTo[f][t] = 1;
+                this.edgesTo[f][t] = weight;
             }
             isEdge(fromNodeId, toNodeId) {
                 // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
@@ -7562,6 +7562,24 @@ tlqjomu`,
                     }
                 }
                 return false;
+            }
+            edgeWeightSum(nodeId) {
+                let sum = 0;
+                for (let i = 0; i < this.nodeNames.length; i++) {
+                    sum += this.edgesTo[nodeId][i];
+                }
+                return sum;
+            }
+            edgeWeightSumRecursive(nodeId) {
+                let sum = 0;
+                for (let i = 0; i < this.nodeNames.length; i++) {
+                    let w = this.edgesTo[nodeId][i];
+                    if (w > 0) {
+                        sum += w;
+                        sum += w * this.edgeWeightSumRecursive(i);
+                    }
+                }
+                return sum;
             }
             toString() {
                 log('START DIGRAPH')
@@ -7586,7 +7604,7 @@ tlqjomu`,
                 for (let i = 0; i < d.nodeNames.length; i++) {
                     if (d.isPath(i, sg)) count++;
                 }
-                writeOutput("The answer is: " + count);
+                writeOutput("The part 1 answer is: " + count + "  The part 2 answer is: " + d.edgeWeightSumRecursive(sg));
             },
             unitTest: function(ut) {
                 const s = " T-d7p1.";
@@ -7614,7 +7632,7 @@ tlqjomu`,
                 ut.test(s + "dd5", dd.edgesTo[2].length === 3);
                 ut.test(s + "dd6", dd.edgesTo[0][0] === 0);
                 ut.test(s + "dd7", dd.edgesTo[0][1] === 1);
-                ut.test(s + "dd8", dd.edgesTo[0][2] === 1);
+                ut.test(s + "dd8", dd.edgesTo[0][2] === 2);
                 ut.test(s + "dd9a", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('bright white')));
                 ut.test(s + "dd9b", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('muted yellow')));
                 ut.test(s + "dd9c", !dd.isEdge(dd.getNodeId('muted yellow'), dd.getNodeId('light red')));
@@ -7628,6 +7646,10 @@ tlqjomu`,
                 ut.test(s + "dd10a", dd.isEdge(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
                 ut.test(s + "dd10b", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
                 ut.test(s + "dd10c", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('bright white')));
+
+                ut.test(s + "ews1a", dd.edgeWeightSum(dd.getNodeId('light red')) === 3);
+                ut.test(s + "ews1b", dd.edgeWeightSum(dd.getNodeId('shit brown')) === 1);
+                ut.test(s + "ews1c", dd.edgeWeightSumRecursive(dd.getNodeId('shit brown')) === 4);
 
 
                 // dd.toString();
@@ -7649,6 +7671,7 @@ dotted black bags contain no other bags.`);
                 ut.test(s + "rd5", d.isEdge(d.getNodeId('vibrant plum'), d.getNodeId('faded blue')));
                 ut.test(s + "rd6", d.isEdge(d.getNodeId('shiny gold'), d.getNodeId('dark olive')));
                 ut.test(s + "rd7", d.isEdge(d.getNodeId('light red'), d.getNodeId('bright white')));
+                ut.test(s + "rde1", d.edgeWeightSumRecursive(d.getNodeId('shiny gold')) === 32);
 
                 // d.toString();
             },
@@ -7664,10 +7687,13 @@ dotted black bags contain no other bags.`);
                 let x = {};
                 x.outerbag = a[0].trim();
                 x.innerbags = [];
+                x.innerqtys = [];
                 for (let i = 1; i < a.length; i++) {
                     let ib = a[i].trim().substring(2).trim();
+                    let qty = parseInt(a[i].trim());
                     if (ib.length > 0) {
                         x.innerbags[i - 1] = ib;
+                        x.innerqtys[i - 1] = qty;
                         // log('ib=' + ib);
                     }
                 }
@@ -7685,7 +7711,7 @@ dotted black bags contain no other bags.`);
                     let x = this.parseRule(a[i]);
                     d.addNode(x.outerbag);
                     for (let j = 0; j < x.innerbags.length; j++) {
-                        d.addEdgeTo(x.outerbag, x.innerbags[j]);
+                        d.addEdgeTo(x.outerbag, x.innerbags[j], x.innerqtys[j]);
                     }
                 }
                 return d;
