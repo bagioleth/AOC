@@ -854,7 +854,34 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
     </article>
     <article id="a_d7p1">
         -----PROBLEM STATEMENT-----<br />
-        <div class="problem_description"></div>
+        <div class="problem_description">
+            <h2>--- Day 7: Handy Haversacks ---</h2>
+            <p>You land at the regional airport in time for your next flight. In fact, it looks like you'll even have time to grab some food: all flights are currently delayed due to <em>issues in luggage processing</em>.</p>
+            <p>Due to recent aviation regulations, many rules (your puzzle input) are being enforced about bags and their contents; bags must be color-coded and must contain specific quantities of other color-coded bags. Apparently, nobody responsible for these regulations considered how long they would take to enforce!</p>
+            <p>For example, consider the following rules:</p>
+            <pre><code>light red bags contain 1 bright white bag, 2 muted yellow bags.
+dark orange bags contain 3 bright white bags, 4 muted yellow bags.
+bright white bags contain 1 shiny gold bag.
+muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
+shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
+dark olive bags contain 3 faded blue bags, 4 dotted black bags.
+vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
+faded blue bags contain no other bags.
+dotted black bags contain no other bags.
+</code></pre>
+            <p>These rules specify the required contents for 9 bag types. In this example, every <code>faded blue</code> bag is empty, every <code>vibrant plum</code> bag contains 11 bags (5 <code>faded blue</code> and 6 <code>dotted black</code>), and so on.</p>
+            <p>You have a <code><em>shiny gold</em></code> bag. If you wanted to carry it in at least one other bag, how many different bag colors would be valid for the outermost bag? (In other words: how many colors can, eventually, contain at least one <code>shiny gold</code> bag?)</p>
+            <p>In the above rules, the following options would be available to you:</p>
+            <ul>
+                <li>A <code>bright white</code> bag, which can hold your <code>shiny gold</code> bag directly.</li>
+                <li>A <code>muted yellow</code> bag, which can hold your <code>shiny gold</code> bag directly, plus some other bags.</li>
+                <li>A <code>dark orange</code> bag, which can hold <code>bright white</code> and <code>muted yellow</code> bags, either of which could then hold your <code>shiny gold</code> bag.</li>
+                <li>A <code>light red</code> bag, which can hold <code>bright white</code> and <code>muted yellow</code> bags, either of which could then hold your <code>shiny gold</code> bag.</li>
+            </ul>
+            <p>So, in this example, the number of bag colors that can eventually contain at least one <code>shiny gold</code> bag is <code><em>4</em></code>.</p>
+            <p><em>How many bag colors can eventually contain at least one <code>shiny gold</code> bag?</em> (The list of rules is quite long; make sure you get all of it.)</p>
+
+        </div>
         <hr />
         <div>
             <div class="processing_buttons"></div>
@@ -7492,18 +7519,204 @@ tlqjomu`,
             }
         };
 
+        class Digraph {
+            constructor() {
+                this.nodeNames = [];
+                this.edgesTo = [];
+            }
+            getNodeId(name) {
+                return this.nodeNames.indexOf(name);
+            }
+            addNode(name) {
+                let ni = this.getNodeId(name);
+                if (ni < 0) {
+                    ni = this.nodeNames.length;
+                    this.nodeNames[ni] = name;
+                    this.edgesTo[ni] = new Array(ni).fill(0);
+                    for (let i = 0; i < this.nodeNames.length; i++) {
+                        this.edgesTo[i][ni] = 0;
+                        // log('addnode edgeto set to zero for i=' + i + ' ni=' + ni);
+                    }
+                }
+                return ni;
+            }
+            addEdgeTo(fromNodeName, toNodeName, weight = 1) {
+                let f = this.addNode(fromNodeName);
+                let t = this.addNode(toNodeName);
+                // if (this.edgesTo[f][t] === undefined) {
+                //     this.edgesTo[f][t] = 0;
+                // }
+                this.edgesTo[f][t] = weight;
+            }
+            isEdge(fromNodeId, toNodeId) {
+                // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
+                return this.edgesTo[fromNodeId][toNodeId] > 0;
+            }
+            isPath(fromNodeId, toNodeId) {
+                if (this.isEdge(fromNodeId, toNodeId)) return true;
+                else {
+                    for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
+                        if (this.edgesTo[fromNodeId][i] > 0) {
+                            if (this.isPath(i, toNodeId)) return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            edgeWeightSum(nodeId) {
+                let sum = 0;
+                for (let i = 0; i < this.nodeNames.length; i++) {
+                    sum += this.edgesTo[nodeId][i];
+                }
+                return sum;
+            }
+            edgeWeightSumRecursive(nodeId) {
+                let sum = 0;
+                for (let i = 0; i < this.nodeNames.length; i++) {
+                    let w = this.edgesTo[nodeId][i];
+                    if (w > 0) {
+                        sum += w;
+                        sum += w * this.edgeWeightSumRecursive(i);
+                    }
+                }
+                return sum;
+            }
+            toString() {
+                log('START DIGRAPH')
+                for (let i = 0; i < this.nodeNames.length; i++) {
+                    log(this.nodeNames[i] + '(' + i + ')');
+                    for (let t = 0; t < this.edgesTo[i].length; t++) {
+                        if (this.edgesTo[i][t] === undefined) log('-> UNDEFINED!' + t);
+                        if (this.edgesTo[i][t] === null) log('-> NULL!' + t);
+                        if (this.edgesTo[i][t] > 0) log('->' + this.edgesTo[i][t] + ':' + this.nodeNames[t] + '(' + t + ')');
+                    }
+                }
+            }
+        }
+
         problems.d7p1 = {
             givenInputData: ``,
             solve: function() {
-                stringToStringArrayNewline(readInput());
-
-                writeOutput("The answer is: TBD");
+                let s = readInput();
+                let d = this.rulesToDigraph(s);
+                let count = 0;
+                let sg = d.getNodeId('shiny gold');
+                for (let i = 0; i < d.nodeNames.length; i++) {
+                    if (d.isPath(i, sg)) count++;
+                }
+                writeOutput("The part 1 answer is: " + count + "  The part 2 answer is: " + d.edgeWeightSumRecursive(sg));
             },
             unitTest: function(ut) {
                 const s = " T-d7p1.";
 
-                1 == 1 ? ut.p++ : (ut.f += s + "1");
+                //let d = new Digraph();
+
+                let x = this.parseRule("light red bags contain 1 bright white bag, 2 muted yellow bags");
+                ut.test(s + "pr11", x.outerbag === "light red");
+                ut.test(s + "pr12", x.innerbags.length === 2);
+                ut.test(s + "pr13", x.innerbags[0] === "bright white");
+                ut.test(s + "pr14", x.innerbags[1] === "muted yellow");
+                x = this.parseRule("bright white bags contain 1 shiny gold bag");
+                ut.test(s + "pr21", x.outerbag === "bright white");
+                ut.test(s + "pr22", x.innerbags.length === 1);
+                ut.test(s + "pr23", x.innerbags[0] === "shiny gold");
+                x = this.parseRule("shiny tomato bags contain no other bags");
+                ut.test(s + "pr31", x.outerbag === "shiny tomato");
+                ut.test(s + "pr32", x.innerbags.length === 0);
+
+                let dd = this.rulesToDigraph(`light red bags contain 1 bright white bag, 2 muted yellow bags.`);
+                ut.test(s + "dd1", dd.nodeNames.length === 3);
+                ut.test(s + "dd2", dd.edgesTo.length === 3);
+                ut.test(s + "dd3", dd.edgesTo[0].length === 3);
+                ut.test(s + "dd4", dd.edgesTo[1].length === 3);
+                ut.test(s + "dd5", dd.edgesTo[2].length === 3);
+                ut.test(s + "dd6", dd.edgesTo[0][0] === 0);
+                ut.test(s + "dd7", dd.edgesTo[0][1] === 1);
+                ut.test(s + "dd8", dd.edgesTo[0][2] === 2);
+                ut.test(s + "dd9a", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9b", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('muted yellow')));
+                ut.test(s + "dd9c", !dd.isEdge(dd.getNodeId('muted yellow'), dd.getNodeId('light red')));
+                ut.test(s + "dd9d", !dd.isEdge(dd.getNodeId('muted yellow'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9e", dd.isPath(dd.getNodeId('light red'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9f", dd.isPath(dd.getNodeId('light red'), dd.getNodeId('muted yellow')));
+                ut.test(s + "dd9g", !dd.isPath(dd.getNodeId('muted yellow'), dd.getNodeId('light red')));
+                ut.test(s + "dd9h", !dd.isPath(dd.getNodeId('muted yellow'), dd.getNodeId('bright white')));
+
+                dd.addEdgeTo("shit brown", "light red");
+                ut.test(s + "dd10a", dd.isEdge(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
+                ut.test(s + "dd10b", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
+                ut.test(s + "dd10c", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('bright white')));
+
+                ut.test(s + "ews1a", dd.edgeWeightSum(dd.getNodeId('light red')) === 3);
+                ut.test(s + "ews1b", dd.edgeWeightSum(dd.getNodeId('shit brown')) === 1);
+                ut.test(s + "ews1c", dd.edgeWeightSumRecursive(dd.getNodeId('shit brown')) === 4);
+
+
+                // dd.toString();
+
+
+                let d = this.rulesToDigraph(`light red bags contain 1 bright white bag, 2 muted yellow bags.
+dark orange bags contain 3 bright white bags, 4 muted yellow bags.
+bright white bags contain 1 shiny gold bag.
+muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.
+shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.
+dark olive bags contain 3 faded blue bags, 4 dotted black bags.
+vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
+faded blue bags contain no other bags.
+dotted black bags contain no other bags.`);
+                ut.test(s + "rd1", d.isEdge(d.getNodeId('bright white'), d.getNodeId('shiny gold')));
+                ut.test(s + "rd2", d.isEdge(d.getNodeId('dark olive'), d.getNodeId('faded blue')));
+                ut.test(s + "rd3", d.isEdge(d.getNodeId('dark olive'), d.getNodeId('dotted black')));
+                ut.test(s + "rd4", d.isEdge(d.getNodeId('muted yellow'), d.getNodeId('faded blue')));
+                ut.test(s + "rd5", d.isEdge(d.getNodeId('vibrant plum'), d.getNodeId('faded blue')));
+                ut.test(s + "rd6", d.isEdge(d.getNodeId('shiny gold'), d.getNodeId('dark olive')));
+                ut.test(s + "rd7", d.isEdge(d.getNodeId('light red'), d.getNodeId('bright white')));
+                ut.test(s + "rde1", d.edgeWeightSumRecursive(d.getNodeId('shiny gold')) === 32);
+
+                // d.toString();
             },
+            parseRule: function(s) {
+                s = s.trim();
+                s = s.replaceAll('bags', 'bag');
+                s = s.replaceAll('bag,', 'bag');
+                s = s.replaceAll('contain', '');
+                s = s.replaceAll('no other bag', '');
+                s = s.trim();
+                // log("trimmed down s=" + s);
+                let a = s.split('bag');
+                let x = {};
+                x.outerbag = a[0].trim();
+                x.innerbags = [];
+                x.innerqtys = [];
+                for (let i = 1; i < a.length; i++) {
+                    let ib = a[i].trim().substring(2).trim();
+                    let qty = parseInt(a[i].trim());
+                    if (ib.length > 0) {
+                        x.innerbags[i - 1] = ib;
+                        x.innerqtys[i - 1] = qty;
+                        // log('ib=' + ib);
+                    }
+                }
+                // log('x.outerbag=' + x.outerbag);
+                return x;
+            },
+            rulesToDigraph: function(rules) {
+                rules = rules.replaceAll('\n', '');
+                rules = rules.replaceAll('\r', '');
+                rules = rules.trim();
+                let a = rules.trim().split('.');
+                let d = new Digraph();
+                for (let i = 0; i < a.length; i++) {
+                    if (a[i].trim().length === 0) continue;
+                    let x = this.parseRule(a[i]);
+                    d.addNode(x.outerbag);
+                    for (let j = 0; j < x.innerbags.length; j++) {
+                        d.addEdgeTo(x.outerbag, x.innerbags[j], x.innerqtys[j]);
+                    }
+                }
+                return d;
+            }
+
         };
 
         problems.d7p2 = {
