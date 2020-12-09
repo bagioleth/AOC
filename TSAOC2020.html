@@ -7532,23 +7532,33 @@ tlqjomu`,
                 if (ni < 0) {
                     ni = this.nodeNames.length;
                     this.nodeNames[ni] = name;
-                    this.edgesTo[ni] = new Set();
+                    this.edgesTo[ni] = new Array(ni).fill(0);
+                    for (let i = 0; i < this.nodeNames.length; i++) {
+                        this.edgesTo[i][ni] = 0;
+                        // log('addnode edgeto set to zero for i=' + i + ' ni=' + ni);
+                    }
                 }
                 return ni;
             }
             addEdgeTo(fromNodeName, toNodeName) {
                 let f = this.addNode(fromNodeName);
                 let t = this.addNode(toNodeName);
-                this.edgesTo[f].add(t);
+                // if (this.edgesTo[f][t] === undefined) {
+                //     this.edgesTo[f][t] = 0;
+                // }
+                this.edgesTo[f][t] = 1;
             }
             isEdge(fromNodeId, toNodeId) {
-                return this.edgesTo[fromNodeId].has(toNodeId);
+                // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
+                return this.edgesTo[fromNodeId][toNodeId] > 0;
             }
             isPath(fromNodeId, toNodeId) {
                 if (this.isEdge(fromNodeId, toNodeId)) return true;
                 else {
-                    for (let f of this.edgesTo[fromNodeId]) {
-                        if (this.isPath(f, toNodeId)) return true;
+                    for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
+                        if (this.edgesTo[fromNodeId][i] > 0) {
+                            if (this.isPath(i, toNodeId)) return true;
+                        }
                     }
                 }
                 return false;
@@ -7556,9 +7566,11 @@ tlqjomu`,
             toString() {
                 log('START DIGRAPH')
                 for (let i = 0; i < this.nodeNames.length; i++) {
-                    log(this.nodeNames[i]);
-                    for (let t of this.edgesTo[i]) {
-                        log('->' + this.nodeNames[t]);
+                    log(this.nodeNames[i] + '(' + i + ')');
+                    for (let t = 0; t < this.edgesTo[i].length; t++) {
+                        if (this.edgesTo[i][t] === undefined) log('-> UNDEFINED!' + t);
+                        if (this.edgesTo[i][t] === null) log('-> NULL!' + t);
+                        if (this.edgesTo[i][t] > 0) log('->' + this.edgesTo[i][t] + ':' + this.nodeNames[t] + '(' + t + ')');
                     }
                 }
             }
@@ -7594,6 +7606,33 @@ tlqjomu`,
                 ut.test(s + "pr31", x.outerbag === "shiny tomato");
                 ut.test(s + "pr32", x.innerbags.length === 0);
 
+                let dd = this.rulesToDigraph(`light red bags contain 1 bright white bag, 2 muted yellow bags.`);
+                ut.test(s + "dd1", dd.nodeNames.length === 3);
+                ut.test(s + "dd2", dd.edgesTo.length === 3);
+                ut.test(s + "dd3", dd.edgesTo[0].length === 3);
+                ut.test(s + "dd4", dd.edgesTo[1].length === 3);
+                ut.test(s + "dd5", dd.edgesTo[2].length === 3);
+                ut.test(s + "dd6", dd.edgesTo[0][0] === 0);
+                ut.test(s + "dd7", dd.edgesTo[0][1] === 1);
+                ut.test(s + "dd8", dd.edgesTo[0][2] === 1);
+                ut.test(s + "dd9a", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9b", dd.isEdge(dd.getNodeId('light red'), dd.getNodeId('muted yellow')));
+                ut.test(s + "dd9c", !dd.isEdge(dd.getNodeId('muted yellow'), dd.getNodeId('light red')));
+                ut.test(s + "dd9d", !dd.isEdge(dd.getNodeId('muted yellow'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9e", dd.isPath(dd.getNodeId('light red'), dd.getNodeId('bright white')));
+                ut.test(s + "dd9f", dd.isPath(dd.getNodeId('light red'), dd.getNodeId('muted yellow')));
+                ut.test(s + "dd9g", !dd.isPath(dd.getNodeId('muted yellow'), dd.getNodeId('light red')));
+                ut.test(s + "dd9h", !dd.isPath(dd.getNodeId('muted yellow'), dd.getNodeId('bright white')));
+
+                dd.addEdgeTo("shit brown", "light red");
+                ut.test(s + "dd10a", dd.isEdge(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
+                ut.test(s + "dd10b", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('light red')));
+                ut.test(s + "dd10c", dd.isPath(dd.getNodeId('shit brown'), dd.getNodeId('bright white')));
+
+
+                // dd.toString();
+
+
                 let d = this.rulesToDigraph(`light red bags contain 1 bright white bag, 2 muted yellow bags.
 dark orange bags contain 3 bright white bags, 4 muted yellow bags.
 bright white bags contain 1 shiny gold bag.
@@ -7611,7 +7650,7 @@ dotted black bags contain no other bags.`);
                 ut.test(s + "rd6", d.isEdge(d.getNodeId('shiny gold'), d.getNodeId('dark olive')));
                 ut.test(s + "rd7", d.isEdge(d.getNodeId('light red'), d.getNodeId('bright white')));
 
-                d.toString();
+                // d.toString();
             },
             parseRule: function(s) {
                 s = s.trim();
@@ -7620,7 +7659,7 @@ dotted black bags contain no other bags.`);
                 s = s.replaceAll('contain', '');
                 s = s.replaceAll('no other bag', '');
                 s = s.trim();
-                log("trimmed dow s=" + s);
+                // log("trimmed down s=" + s);
                 let a = s.split('bag');
                 let x = {};
                 x.outerbag = a[0].trim();
@@ -7629,10 +7668,10 @@ dotted black bags contain no other bags.`);
                     let ib = a[i].trim().substring(2).trim();
                     if (ib.length > 0) {
                         x.innerbags[i - 1] = ib;
-                        log('ib=' + ib);
+                        // log('ib=' + ib);
                     }
                 }
-                log('x.outerbag=' + x.outerbag);
+                // log('x.outerbag=' + x.outerbag);
                 return x;
             },
             rulesToDigraph: function(rules) {
