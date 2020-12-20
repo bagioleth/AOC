@@ -43,7 +43,7 @@ def adder(subList):
 myInput.append(0)
 myInput.append(endJoltage)
 myInput = sorted(myInput)
-print(myInput)
+#print(myInput)
 
 isPresent = [0] * (endJoltage + 1)
 
@@ -65,6 +65,6 @@ for i in range(3, len(isPresent) + 1):
         isPresent[-i] += isPresent[(-i)+3]
         #print(isPresent[-i])
 
-print(isPresent)
+#print(isPresent)
 totalPossibilities = isPresent[0]
 print("Part 2: " + str(totalPossibilities))      
