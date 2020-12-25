@@ -1,0 +1,235 @@
+//#region UTILITY AND UNIT TEST /////////////////////////////////
+function gi(id) {
+    return document.getElementById(id);
+}
+
+function log(t) {
+    gi("dblog").innerHTML += "<br/>" + t;
+}
+
+function dbclear() {
+    gi("dblog").innerHTML = "";
+}
+
+function dbtest() {
+    let ut = {
+        p: 0,
+        f: "Failed test ids:",
+        test: function(name, test) {
+            if (test) this.p++;
+            else this.f += " " + name;
+        },
+    };
+
+    let a1 = [1, 2, 3, 4];
+    let a2 = ["1", "2", "3", "4"];
+
+    arraysEqual(a1, [1, 2, 3, 4]) ? ut.p++ : (ut.f += " dbt1");
+    arraysEqual(a1, stringToIntArrayNewline("1\n2\n3\n4")) ?
+        ut.p++
+        :
+        (ut.f += " dbt2");
+    arraysEqual(a1, stringToIntArrayNewline(" 1\n 2\n 3 \n4\n ")) ?
+        ut.p++
+        :
+        (ut.f += " dbt3");
+    arraysEqual(a1, stringToIntArrayNewline("\n\r1\n\r2\r\n3\n4")) ?
+        ut.p++
+        :
+        (ut.f += " dbt4");
+    // arraysEqual(a1, stringToIntArrayNewline("1\r2\r 3\n4"))
+    //   ? ut.p++
+    //   : (ut.f += " dbt5");
+    arraysEqual(a1, stringToIntArrayComma("1,2,3,4")) ?
+        ut.p++
+        :
+        (ut.f += " dbt6");
+    arraysEqual(a1, stringToIntArrayComma(" 1, 2, 3, 4")) ?
+        ut.p++
+        :
+        (ut.f += " dbt7");
+    arraysEqual(a1, stringToIntArrayComma("1,  2 , 3   ,4   ")) ?
+        ut.p++
+        :
+        (ut.f += " dbt8");
+    arraysEqual(a2, stringToStringArrayNewline("1\n2\n3\n4")) ?
+        ut.p++
+        :
+        (ut.f += " dbt9");
+
+    isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib1");
+    isBetween(1, 1, 3) ? ut.p++ : (ut.f += " ib2");
+    isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib3");
+    !isBetween(3, 1, 2) ? ut.p++ : (ut.f += " ib4");
+    !isBetween(-1, 1, 2) ? ut.p++ : (ut.f += " ib5");
+    ut.test("ib6", isBetween(7, 1, 12));
+    ut.test("ib7", !isBetween(7, 8, 12));
+    ut.test("ib8", isBetween(-7, -12, -6));
+    ut.test("ib9", isBetween(-7, -12, -7));
+    ut.test("ib10", isBetween(-12, -12, -7));
+    ut.test("ib11", !isBetween(-13, -12, -6));
+    ut.test("ib12", !isBetween(-5, -12, -6));
+    ut.test("ib13", isBetween(3, 1, 3));
+
+    let set1 = new Set('abc');
+    let set2 = new Set('cde');
+    let setU = setUnion(set1, set2);
+    let setI = setIntersection(set1, set2);
+    ut.test("s", setU.has('a'));
+    ut.test("s", setU.has('b'));
+    ut.test("s", setU.has('c'));
+    ut.test("s", setU.has('d'));
+    ut.test("s", setU.has('e'));
+    ut.test("s", setU.size == 5);
+    ut.test("s", setI.has('c'));
+    ut.test("s", setI.size == 1);
+
+    (new Matrix2d()).unitTest(ut);
+
+    //Run unitTest function for all problems.
+    Object.getOwnPropertyNames(problems).forEach((prb) =>
+        problems[prb].unitTest(ut)
+    );
+
+    log(`${ut.p} tests passed. ${ut.f}.`);
+}
+
+function isBetween(x, min, max) {
+    return x >= min && x <= max;
+}
+
+function arraysEqual(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+
+function stringToIntArrayNewline(x) {
+    let a = x.trim().split(/\r?\n/);
+    a.forEach(function(e, i, a) {
+        a[i] = parseInt(e.trim());
+    });
+    return a;
+}
+
+function stringToStringArrayNewline(x) {
+    let a = x.trim().split(/\r?\n/);
+    a.forEach(function(e, i, a) {
+        a[i] = e.trim();
+    });
+    return a;
+}
+
+function stringToIntArrayComma(x) {
+    let a = x.trim().split(",");
+    a.forEach(function(e, i, a) {
+        a[i] = parseInt(e.trim());
+    });
+    return a;
+}
+
+function setUnion(a, b) {
+    let x = new Set(a);
+    for (let e of b) {
+        x.add(e);
+    }
+    return x;
+}
+
+function setIntersection(a, b) {
+    let x = new Set();
+    for (let e of b) {
+        if (a.has(e)) {
+            x.add(e);
+        }
+    }
+    return x;
+}
+//#endregion
+//#region DISPLAY CONTROL/////////////////////////////////
+let currentBaseId = "About";
+
+function readInput() {
+    return gi("i_" + currentBaseId).textContent;
+}
+
+function writeInput(x) {
+    gi("i_" + currentBaseId).innerHTML = x;
+}
+
+function writeOutput(x) {
+    gi("o_" + currentBaseId).innerHTML = x;
+}
+
+function clearCurrentData() {
+    writeInput("");
+    writeOutput(
+        "Load Input data then press Solve button for result appears here."
+    );
+}
+
+function loadCurrentInputData() {
+    clearCurrentData();
+    writeInput(problems[currentBaseId].givenInputData);
+}
+
+function solveCurrentProblem() {
+    problems[currentBaseId].solve();
+}
+
+function showArticle(baseId) {
+    //Turn off current article and button.
+    gi("a_" + currentBaseId).style.display = "none";
+    gi("b_" + currentBaseId).style.backgroundColor = "gray";
+    //Turn on new article and button.
+    gi("a_" + baseId).style.display = "block";
+    gi("b_" + baseId).style.backgroundColor = "#0f0f23";
+    currentBaseId = baseId;
+}
+//Auto-create the nav button-tabs, one for each "a_*" element.
+function makeNavButton(id) {
+    return `<button class="tab" id="b_${id}" onclick="showArticle('${id}')"><span class="tabspan">${id}</span></button>`;
+}
+
+function makeProcessingButtons() {
+    return `<button onclick="clearCurrentData()">Clear Data</button>
+<button onclick="loadCurrentInputData()">Load Given Input Data</button>
+<button onclick="solveCurrentProblem()">Solve</button>`;
+}
+
+function makeIoArea(id) {
+    return `<br />-----INPUT-----<br />
+<pre id="i_${id}" class="ita" contenteditable="true">
+Put input data here.
+</pre>
+<br />-----OUTPUT-----<br />
+<div id="o_${id}" class="ota">
+Results appear here after pressing the Solve button.
+</div>`;
+}
+
+function findParentArticleBaseId(elem) {
+    while (elem != null) {
+        if (elem.id && elem.id[0] == "a" && elem.id[1] == "_") {
+            return elem.id.substr(2);
+        } else {
+            elem = elem.parentNode;
+        }
+    }
+    return "xxxx";
+}
+window.addEventListener("load", function() {
+    let s = "";
+    document
+        .querySelectorAll('[id^="a_"]')
+        .forEach((a) => (s += makeNavButton(a.id.substr(2))));
+    gi("nav-button-tabs").innerHTML = s;
+    document
+        .querySelectorAll(".processing_buttons")
+        .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+    document
+        .querySelectorAll(".io")
+        .forEach(
+            (div) => (div.innerHTML = makeIoArea(findParentArticleBaseId(div)))
+        );
+    showArticle("About");
+});
+//#endregion

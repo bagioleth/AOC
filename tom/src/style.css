@@ -1,0 +1,57 @@
+body {
+    display: grid;
+    grid-template-rows: 2em 1em 1fr 1em;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    background-color: #0f0f23;
+    color: #cccccc;
+}
+
+header {
+    grid-row: 1/2;
+}
+
+nav {
+    grid-row: 2/3;
+    _overflow: scroll;
+    _scrollbar-width: none;
+}
+
+footer {
+    grid-row: end;
+}
+
+.tab {
+    background-color: gray;
+    color: white;
+    float: left;
+    border: none;
+    outline: 1px solid white;
+    cursor: pointer;
+}
+
+.tabspan {
+    _writing-mode: vertical-rl;
+    _text-orientation: mixed;
+}
+
+article {
+    display: none;
+    padding: 5px;
+    outline: 1px solid white;
+}
+
+.ita {
+    height: 90px;
+    border: 3px solid rgb(14, 177, 115);
+    background-color: rgb(200, 170, 130);
+    color: black;
+    overflow: scroll;
+}
+
+.ota {
+    height: 50px;
+    border: 3px solid rgb(52, 111, 160);
+    background-color: rgb(200, 170, 130);
+    color: black;
+}
