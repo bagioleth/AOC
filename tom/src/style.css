@@ -1,8 +1,18 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
 body {
     display: grid;
-    grid-template-rows: 2em 1em 1fr 1em;
+    border-collapse: collapse;
+    grid-template-rows: 2em auto 1fr 1em;
     grid-template-columns: 1fr;
-    gap: 2px;
     background-color: #0f0f23;
     color: #cccccc;
 }
@@ -13,32 +23,61 @@ header {
 
 nav {
     grid-row: 2/3;
-    _overflow: scroll;
-    _scrollbar-width: none;
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 footer {
     grid-row: end;
 }
 
+#navlabel {
+    padding: 10px;
+    border: 1px solid white;
+}
+
 .tab {
-    background-color: gray;
     color: white;
-    float: left;
-    border: none;
-    outline: 1px solid white;
+    background-color: #0f0f23;
+    border: 1px solid white;
     cursor: pointer;
 }
 
-.tabspan {
-    _writing-mode: vertical-rl;
-    _text-orientation: mixed;
+.tabsel {
+    background-color: #0f0f23;
+}
+
+.tabnotsel {
+    background-color: rgb(104, 102, 102);
+}
+
+.tab:hover {
+    background-color: darkgreen;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: blue;
+    box-shadow: 10px 10px black;
+    z-index: 1;
+}
+
+.dcshow {
+    display: grid;
+    grid-gap: 0 0;
+}
+
+.dchide {
+    display: none;
 }
 
 article {
     display: none;
     padding: 5px;
-    outline: 1px solid white;
+    border: 1px solid white;
 }
 
 .ita {
@@ -54,4 +93,10 @@ article {
     border: 3px solid rgb(52, 111, 160);
     background-color: rgb(200, 170, 130);
     color: black;
+}
+
+.aoca {
+    border: 1px solid white;
+    padding: 2px;
+    background-color: lightgray;
 }

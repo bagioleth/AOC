@@ -1,3 +1,0 @@
-This is a test
-##-INCLUDE t1.txt-##
-end of test.

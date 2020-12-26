@@ -735,163 +735,6 @@ problems.d6p2 = {
     }
 };
 
-class Matrix2d {
-    constructor() {
-        this.matrix = [];
-    }
-    get(x, y) {
-        if (this.matrix[x] === undefined) this.matrix[x] = [];
-        if (this.matrix[x] === null) this.matrix[x] = [];
-        if (this.matrix[x][y] === undefined) this.matrix[x][y] = null;
-        return this.matrix[x][y];
-    }
-    set(x, y, value) {
-        this.get(x, y); //used to ensure slot is alotted.
-        this.matrix[x][y] = value;
-    }
-    unitTest(ut) {
-        let m = new Matrix2d();
-        ut.test('T-Matrix2d1', m.get(0, 0) === null);
-        m.set(0, 0, 2);
-        ut.test('T-Matrix2d2', m.get(0, 0) === 2);
-        m.set(10, 100, 3);
-        ut.test('T-Matrix2d3', m.get(10, 100) === 3);
-        ut.test('T-Matrix2d4', m.get(4, 4) === null);
-    }
-}
-
-class Digraph {
-    constructor() {
-        this.nodeNames = [];
-        this.edgesTo = [];
-    }
-    getNodeId(name) {
-        return this.nodeNames.indexOf(name);
-    }
-    addNode(name) {
-        let ni = this.getNodeId(name);
-        if (ni < 0) {
-            ni = this.nodeNames.length;
-            this.nodeNames[ni] = name;
-            this.edgesTo[ni] = new Array(ni).fill(0);
-            for (let i = 0; i < this.nodeNames.length; i++) {
-                this.edgesTo[i][ni] = 0;
-                // log('addnode edgeto set to zero for i=' + i + ' ni=' + ni);
-            }
-        }
-        return ni;
-    }
-    addEdgeTo(fromNodeName, toNodeName, weight = 1) {
-        let f = this.addNode(fromNodeName);
-        let t = this.addNode(toNodeName);
-        // if (this.edgesTo[f][t] === undefined) {
-        //     this.edgesTo[f][t] = 0;
-        // }
-        this.edgesTo[f][t] = weight;
-    }
-    isEdge(fromNodeId, toNodeId) {
-        // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
-        return this.edgesTo[fromNodeId][toNodeId] > 0;
-    }
-    isPath(fromNodeId, toNodeId) {
-        if (this.isEdge(fromNodeId, toNodeId)) return true;
-        else {
-            for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
-                if (this.isEdge(fromNodeId, i)) {
-                    if (this.isPath(i, toNodeId)) return true;
-                }
-            }
-        }
-        return false;
-    }
-    numPathsMem = new Matrix2d(); //used for memoization.
-    numPaths(fromNodeId, toNodeId) {
-        // if (fromNodeId === toNodeId) return 1;
-        let paths = this.numPathsMem.get(fromNodeId, toNodeId);
-        if (paths !== null) return paths;
-        paths = 0;
-        if (this.isEdge(fromNodeId, toNodeId)) paths++;
-        // log("paths=" + paths);
-        //Add up number of paths from children.
-        for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
-            if (this.isEdge(fromNodeId, i)) {
-                paths += this.numPaths(i, toNodeId);
-            }
-        }
-        this.numPathsMem.set(fromNodeId, toNodeId, paths);
-        return paths;
-    }
-
-    numberOfPaths(fromNodeName, toNodeName) {
-        // log("fromNodeName=" + fromNodeName);
-        let fid = this.getNodeId(fromNodeName);
-        // log("fid=" + fid);
-        if (fid == -1) return 0;
-
-        // log("toNodeName=" + toNodeName);
-        let tid = this.getNodeId(toNodeName);
-        // log("tid=" + tid);
-        if (tid == -1) return 0;
-
-        return this.numPaths(fid, tid);
-    }
-
-    edgeWeightSum(nodeId) {
-        let sum = 0;
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            sum += this.edgesTo[nodeId][i];
-        }
-        return sum;
-    }
-    edgeWeightSumRecursive(nodeId) {
-        let sum = 0;
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            let w = this.edgesTo[nodeId][i];
-            if (w > 0) {
-                sum += w;
-                sum += w * this.edgeWeightSumRecursive(i);
-            }
-        }
-        return sum;
-    }
-    toString() {
-        let s = '<pre><code>START DIGRAPH\n';
-        // log('START DIGRAPH');
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            s += (this.nodeNames[i] + '(' + i + ')\n');
-            for (let t = 0; t < this.edgesTo[i].length; t++) {
-                if (this.edgesTo[i][t] === undefined) s += ('-> UNDEFINED!' + t + "\n");
-                if (this.edgesTo[i][t] === null) s += ('-> NULL!' + t + "\n");
-                if (this.edgesTo[i][t] > 0) s += ('->' + this.edgesTo[i][t] + ':' + this.nodeNames[t] + '(' + t + ')' + "\n");
-            }
-        }
-        return s + '</code><pre>';
-    }
-    unitTest(ut) {
-        let dg = new Digraph();
-        dg.addEdgeTo('a', 'b');
-        ut.test('T-Digraph1a', dg.isEdge(0, 1));
-        ut.test('T-Digraph1b1', !dg.isEdge(0, 0));
-        ut.test('T-Digraph1b2', !dg.isPath(0, 0));
-        ut.test('T-Digraph1c', dg.isPath(0, 1));
-        ut.test('T-Digraph2a', dg.numPaths(0, 0) === 0);
-        ut.test('T-Digraph2b', dg.numPaths(0, 1) === 1);
-        ut.test('T-Digraph3', dg.numberOfPaths('a', 'b') === 1);
-        dg.addEdgeTo('a', 'c');
-        dg.addEdgeTo('c', 'd');
-        ut.test('T-Digraph4a', dg.numberOfPaths('a', 'd') === 1);
-        dg.addEdgeTo('b', 'd');
-        ut.test('T-Digraph4b', dg.numberOfPaths('a', 'd') === 2);
-        dg.addEdgeTo('a', 'd');
-        ut.test('T-Digraph4c', dg.numberOfPaths('a', 'd') === 3);
-        dg.addEdgeTo('b', 'c');
-        ut.test('T-Digraph4d', dg.numberOfPaths('a', 'd') === 4);
-        //Currently Digraph cannot handle cycles, 
-        //so following would result in infinite recursion.
-        // dg.addEdgeTo('c', 'b');
-        // ut.test('T-Digraph4e', dg.numberOfPaths('a', 'd') === 5);
-    }
-}
 
 problems.d7p1 = {
     givenInputData: AOC_Input_Data.d7p1,
@@ -1269,89 +1112,89 @@ class AdChain {
         }
         return diff1 * diff3;
     }
-    //Calc the max number of paths for sequence frm 0 to n.
-    maxPathsData = [1, 1, 2]; //Used for memoization.
-    maxPaths(n) {
-        // if (n === 0) return 1;
-        // if (n === 1) return 1;
-        // if (n === 2) return 2;
-        if (this.maxPathsData[n]) return this.maxPathsData[n];
-        let mp = this.maxPaths(n - 1) + this.maxPaths(n - 2) + this.maxPaths(n - 3);
-        this.maxPathsData[n] = mp;
-        return mp;
-    }
-    numHoles() {
-        if (this.nums.length <= 1) return 0;
-        let current = this.nums[0];
-        let missing = 0;
-        for (let i = 1; i < this.nums.length; i++) {
-            missing += this.nums[i] - (current + 1);
-            current = this.nums[i];
-        }
-        return missing;
-    }
-    calcPaths6() {
-        let contiguousSizes = [];
-        let holeSizes = [];
-        let wasAdapter = true;
-        let runSize = 0;
-        for (let n = 0; n <= this.nums[this.nums.length - 1]; n++) {
-            let isAdapter = this.nums.includes(n);
-            if (isAdapter !== wasAdapter) {
-                if (wasAdapter) {
-                    contiguousSizes.push(runSize);
-                } else {
-                    holeSizes.push(runSize);
-                }
-                runSize = 1;
-                wasAdapter = isAdapter;
-            } else {
-                runSize++;
-            }
-        }
-        contiguousSizes.push(runSize - 1);
-        // log("holeSizes.length=" + holeSizes.length);
-        // for (let x = 0; x < holeSizes.length; x++) {
-        //     log("x=" + x + " hs=" + holeSizes[x]);
-        // }
-        // log("contiguousSizes.length=" + contiguousSizes.length);
-        // for (let x = 0; x < contiguousSizes.length; x++) {
-        //     log("x=" + x + " cs=" + contiguousSizes[x]);
-        // }
-        let currentRegion = 0;
-        let p = this.maxPaths(contiguousSizes[0]);
-        for (let i = 1; i < contiguousSizes.length; i++) {
-            if (holeSizes[i - 1] > 2) return 0; //no paths possible thru a gap this size.
-            if (holeSizes[i - 1] === 1) {
-                if (contiguousSizes[i - 1] > 1 && contiguousSizes[i] > 1) {
-                    p *= 3;
-                } else if (contiguousSizes[i - 1] > 1 || contiguousSizes[i] > 1) {
-                    p *= 2;
-                }
-            }
-            p *= this.maxPaths(contiguousSizes[i]);
+    // //Calc the max number of paths for sequence frm 0 to n.
+    // maxPathsData = [1, 1, 2]; //Used for memoization.
+    // maxPaths(n) {
+    //     // if (n === 0) return 1;
+    //     // if (n === 1) return 1;
+    //     // if (n === 2) return 2;
+    //     if (this.maxPathsData[n]) return this.maxPathsData[n];
+    //     let mp = this.maxPaths(n - 1) + this.maxPaths(n - 2) + this.maxPaths(n - 3);
+    //     this.maxPathsData[n] = mp;
+    //     return mp;
+    // }
+    // numHoles() {
+    //     if (this.nums.length <= 1) return 0;
+    //     let current = this.nums[0];
+    //     let missing = 0;
+    //     for (let i = 1; i < this.nums.length; i++) {
+    //         missing += this.nums[i] - (current + 1);
+    //         current = this.nums[i];
+    //     }
+    //     return missing;
+    // }
+    // calcPaths6() {
+    //     let contiguousSizes = [];
+    //     let holeSizes = [];
+    //     let wasAdapter = true;
+    //     let runSize = 0;
+    //     for (let n = 0; n <= this.nums[this.nums.length - 1]; n++) {
+    //         let isAdapter = this.nums.includes(n);
+    //         if (isAdapter !== wasAdapter) {
+    //             if (wasAdapter) {
+    //                 contiguousSizes.push(runSize);
+    //             } else {
+    //                 holeSizes.push(runSize);
+    //             }
+    //             runSize = 1;
+    //             wasAdapter = isAdapter;
+    //         } else {
+    //             runSize++;
+    //         }
+    //     }
+    //     contiguousSizes.push(runSize - 1);
+    //     // log("holeSizes.length=" + holeSizes.length);
+    //     // for (let x = 0; x < holeSizes.length; x++) {
+    //     //     log("x=" + x + " hs=" + holeSizes[x]);
+    //     // }
+    //     // log("contiguousSizes.length=" + contiguousSizes.length);
+    //     // for (let x = 0; x < contiguousSizes.length; x++) {
+    //     //     log("x=" + x + " cs=" + contiguousSizes[x]);
+    //     // }
+    //     let currentRegion = 0;
+    //     let p = this.maxPaths(contiguousSizes[0]);
+    //     for (let i = 1; i < contiguousSizes.length; i++) {
+    //         if (holeSizes[i - 1] > 2) return 0; //no paths possible thru a gap this size.
+    //         if (holeSizes[i - 1] === 1) {
+    //             if (contiguousSizes[i - 1] > 1 && contiguousSizes[i] > 1) {
+    //                 p *= 3;
+    //             } else if (contiguousSizes[i - 1] > 1 || contiguousSizes[i] > 1) {
+    //                 p *= 2;
+    //             }
+    //         }
+    //         p *= this.maxPaths(contiguousSizes[i]);
 
-        }
-        return p;
-    }
-    calcPaths5() {
-        let max = this.nums[this.nums.length - 1];
-        return this.maxPaths(max);
-    }
-    calcPaths2() {
-        let max = this.nums[this.nums.length - 1];
-        return this.maxPaths(max) / Math.pow(2, this.numHoles());
-    }
-    calcPaths3() {
-        return Math.pow(2, this.nums[this.nums.length - 1] - this.numHoles() - 1);
-    }
-    calcPaths4(n) {
-        return -603;
-        if (n === 0) return 1;
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        return this.calcPaths4(n - 1) + this.calcPaths4(n - 2) + this.calcPaths4(n - 3);
-    }
+    //     }
+    //     return p;
+    // }
+    // calcPaths5() {
+    //     let max = this.nums[this.nums.length - 1];
+    //     return this.maxPaths(max);
+    // }
+    // calcPaths2() {
+    //     let max = this.nums[this.nums.length - 1];
+    //     return this.maxPaths(max) / Math.pow(2, this.numHoles());
+    // }
+    // calcPaths3() {
+    //     return Math.pow(2, this.nums[this.nums.length - 1] - this.numHoles() - 1);
+    // }
+    // calcPaths4(n) {
+    //     return -603;
+    //     if (n === 0) return 1;
+    //     if (n === 1) return 1;
+    //     if (n === 2) return 2;
+    //     return this.calcPaths4(n - 1) + this.calcPaths4(n - 2) + this.calcPaths4(n - 3);
+    // }
     calcPaths() {
         //Build a digraph of all possible connections.
         let dg = new Digraph();
@@ -1443,19 +1286,19 @@ problems.d10p2 = {
         let ac = new AdChain();
         ac.load(problems.d10p1.td1);
         ut.test(s + "1b", ac.calcPaths() === 8);
-        ut.test(s + "1b6", ac.calcPaths6() === 8);
+        // ut.test(s + "1b6", ac.calcPaths6() === 8);
         // ut.test(s + "1b2", ac.calcPaths2() === 8);
         // ut.test(s + "1b3", ac.calcPaths3() === 8);
         // ut.test(s + "1b4", ac.numHoles() === 10);
-        log('1b ac.calcPaths()=' + ac.calcPaths());
-        log('1b6 ac.calcPaths6()=' + ac.calcPaths6());
+        // log('1b ac.calcPaths()=' + ac.calcPaths());
+        // log('1b6 ac.calcPaths6()=' + ac.calcPaths6());
         // log('1b2 ac.calcPaths2()=' + ac.calcPaths2());
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b3 ac.calcPaths4()=' + ac.calcPaths4());
         // log('1b4 ac.numHoles()=' + ac.numHoles());
         ac.load(problems.d10p1.td2);
-        log('2b ac.calcPaths()=' + ac.calcPaths());
+        // log('2b ac.calcPaths()=' + ac.calcPaths());
         ut.test(s + "2b", ac.calcPaths() === 19208);
         // ut.test(s + "2b2", ac.calcPaths2() === 19208);
 
@@ -1465,65 +1308,881 @@ problems.d10p2 = {
         for (let i = 0; i <= 50; i++) {
             ac2.nums.push(i);
             // log("i=" + i + " paths=" + ac2.calcPaths() + " paths2=" + ac2.calcPaths2());
-            log("i=" + i + " paths=" + ac2.calcPaths() + " paths6=" + ac2.calcPaths6());
+            // log("i=" + i + " paths=" + ac2.calcPaths() + " paths6=" + ac2.calcPaths6());
             // log("i=" + i + " paths6=" + ac2.calcPaths6());
         }
 
         let td = "1";
         ac.loadX(td);
-        log("***maxa=1 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=1 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n2";
         ac.loadX(td);
-        log("***maxa=2 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=2 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n4";
         ac.loadX(td);
-        log("***maxa=3 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=3 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n5";
         ac.loadX(td);
-        log("***maxa=4 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=4 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n6";
         ac.loadX(td);
-        log("***maxa=5 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=5 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n7";
         ac.loadX(td);
-        log("***maxa=6 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=6 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n10";
         ac.loadX(td);
-        log("***maxa=7 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=7 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
     },
 };
+
+class AOC_gol {
+    constructor() {
+        this.matrix = new Matrix2d();
+        this.stable = false;
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        for (let y = a.length - 1; y >= 0; y--) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set(x, y, a[y].charAt(x));
+            }
+        }
+    }
+    isEmptySeat(x, y) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y);
+        return (c === 'L');
+    }
+    isOccupiedSeat(x, y) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y);
+        return (c === '#');
+    }
+    adjacentSeatsOccupied(x, y) {
+        let n = 0;
+        if (this.isOccupiedSeat(x - 1, y - 1)) n++;
+        if (this.isOccupiedSeat(x, y - 1)) n++;
+        if (this.isOccupiedSeat(x + 1, y - 1)) n++;
+        if (this.isOccupiedSeat(x - 1, y)) n++;
+        if (this.isOccupiedSeat(x + 1, y)) n++;
+        if (this.isOccupiedSeat(x - 1, y + 1)) n++;
+        if (this.isOccupiedSeat(x, y + 1)) n++;
+        if (this.isOccupiedSeat(x + 1, y + 1)) n++;
+        return n;
+    }
+    isLosSeatOccupied(x, y, dx, dy) {
+        let nx = x;
+        let ny = y;
+        while (true) {
+            nx += dx;
+            ny += dy;
+            if (this.matrix.isOutOfBounds(nx, ny)) return false;
+            if (this.isOccupiedSeat(nx, ny)) return true;
+            if (this.isEmptySeat(nx, ny)) return false;
+        }
+    }
+    visibleSeatsOccupied(x, y) {
+        let n = 0;
+        if (this.isLosSeatOccupied(x, y, 1, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, 1, 0)) n++;
+        if (this.isLosSeatOccupied(x, y, 1, -1)) n++;
+        if (this.isLosSeatOccupied(x, y, 0, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, 0, -1)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, 0)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, -1)) n++;
+        return n;
+    }
+    toLog() {
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                log("x=" + x + " y=" + y + " val=" + this.matrix.get(x, y));
+            }
+        }
+    }
+    stepP1() {
+        let m = new Matrix2d();
+        let change = false;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                m.set(x, y, this.matrix.get(x, y));
+                if (this.isEmptySeat(x, y)) {
+                    if (this.adjacentSeatsOccupied(x, y) == 0) {
+                        m.set(x, y, '#');
+                        change = true;
+                    }
+                } else if (this.isOccupiedSeat(x, y)) {
+                    if (this.adjacentSeatsOccupied(x, y) >= 4) {
+                        m.set(x, y, 'L');
+                        change = true;
+                    }
+                }
+            }
+        }
+        if (change) {
+            this.matrix = m;
+        } else {
+            this.stable = true;
+        }
+    }
+    stepP2() {
+        let m = new Matrix2d();
+        let change = false;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                m.set(x, y, this.matrix.get(x, y));
+                if (this.isEmptySeat(x, y)) {
+                    if (this.visibleSeatsOccupied(x, y) == 0) {
+                        m.set(x, y, '#');
+                        change = true;
+                    }
+                } else if (this.isOccupiedSeat(x, y)) {
+                    if (this.visibleSeatsOccupied(x, y) >= 5) {
+                        m.set(x, y, 'L');
+                        change = true;
+                    }
+                }
+            }
+        }
+        if (change) {
+            this.matrix = m;
+        } else {
+            this.stable = true;
+        }
+    }
+    totalSeatsOcupied() {
+        let n = 0;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                if (this.isOccupiedSeat(x, y)) {
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+}
 
 problems.d11p1 = {
     givenInputData: ``,
     solve: function() {
-        stringToStringArrayNewline(readInput());
+        let ag = new AOC_gol();
+        ag.load(readInput());
+        log("ag.maxX=" + ag.maxX + " ag.maxY=" + ag.maxY);
+        // ag.toLog();
+        while (!ag.stable) ag.stepP1();
 
-        writeOutput("The answer is: TBD");
+        writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
         const s = " T-d11p1.";
-
-        1 == 1 ? ut.p++ : (ut.f += s + "1");
+        ut.test(s + "1", 1 === 1);
     },
 };
 
 problems.d11p2 = {
-    givenInputData: problems.d9p1.givenInputData,
+    givenInputData: problems.d11p1.givenInputData,
+    solve: function() {
+        let ag = new AOC_gol();
+        ag.load(readInput());
+        log("ag.maxX=" + ag.maxX + " ag.maxY=" + ag.maxY);
+        // ag.toLog();
+        while (!ag.stable) ag.stepP2();
+
+        writeOutput("The answer is: " + ag.totalSeatsOcupied());
+    },
+    unitTest: function(ut) {
+        const s = " T-d11p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+class Boat {
+    constructor(x, y) {
+        this.startX = x;
+        this.startY = y;
+        this.currentX = x;
+        this.currentY = y;
+        this.facing = 0;
+    }
+    direction(d) {
+        switch (d) {
+            case 'N':
+                return 90;
+            case 'S':
+                return 270;
+            case 'E':
+                return 0;
+            case 'W':
+                return 180;
+            case 'F':
+                return this.facing;
+            default:
+                return 'T';
+        }
+    }
+    manhattanDistance() {
+        log("startX=" + this.startX + " currentX=" + this.currentX + " startY=" + this.startY + " currentY=" + this.currentY);
+        return Math.abs(this.startX - this.currentX) + Math.abs(this.startY - this.currentY);
+    }
+    normalize(deg) {
+        while (deg < 0) deg += 360;
+        while (deg >= 360) deg -= 360;
+        return deg;
+    }
+    move(s) {
+        let cmd = s.charAt(0);
+        let val = parseInt(s.substr(1));
+        log("cmd=" + cmd + " val=" + val + " dir=" + this.direction(cmd));
+        switch (this.direction(cmd)) {
+            case 0:
+                this.currentX += val;
+                break;
+            case 180:
+                this.currentX -= val;
+                break;
+            case 90:
+                this.currentY += val;
+                break;
+            case 270:
+                this.currentY -= val;
+                break;
+            default:
+                if (cmd === 'L') {
+                    this.facing = this.normalize(this.facing + val);
+                } else if (cmd === 'R') {
+                    this.facing = this.normalize(this.facing - val);
+                }
+        }
+    }
+    run(a) {
+        for (let i = 0; i < a.length; i++) {
+            // log("i=" + i + " a[i]=" + a[i]);
+            this.move(a[i]);
+        }
+    }
+};
+
+class Boat2 extends Boat {
+    constructor(x, y) {
+        super(x, y);
+        this.waypointdX = x + 10;
+        this.waypointdY = y + 1;
+        // this.dlog();
+        // log("---");
+    }
+    dlog() {
+        log("currentX=" + this.currentX + " currentY=" + this.currentY);
+        log("waypointdX=" + this.waypointdX + " waypointdY=" + this.waypointdY);
+    }
+    move(s) {
+        let cmd = s.charAt(0);
+        let val = parseInt(s.substr(1));
+        log("cmd=" + cmd + " val=" + val);
+        if (cmd === 'F') {
+            //move toward waypoint.
+            this.currentX += this.waypointdX * val;
+            this.currentY += this.waypointdY * val;
+        } else if ((cmd === 'R') || (cmd === 'L')) {
+            if (cmd === 'R') val = -val;
+            val = this.normalize(val);
+            if (val === 90) {
+                let temp = this.waypointdX;
+                this.waypointdX = -this.waypointdY;
+                this.waypointdY = temp;
+            } else if (val === 180) {
+                this.waypointdX = -this.waypointdX;
+                this.waypointdY = -this.waypointdY;
+            } else if (val === 270) {
+                let temp = this.waypointdX;
+                this.waypointdX = this.waypointdY;
+                this.waypointdY = -temp;
+            }
+        } else if (cmd === 'N') {
+            this.waypointdY += val;
+
+        } else if (cmd === 'S') {
+            this.waypointdY -= val;
+
+        } else if (cmd === 'E') {
+            this.waypointdX += val;
+
+        } else if (cmd === 'W') {
+            this.waypointdX -= val;
+        }
+        // this.dlog();
+    }
+};
+
+problems.d12p1 = {
+    givenInputData: AOC_Input_Data.d12p1,
+    solve: function() {
+        let a = stringToStringArrayNewline(readInput());
+        let b = new Boat(0, 0);
+        b.run(a);
+
+        writeOutput("The answer is: " + b.manhattanDistance());
+    },
+    unitTest: function(ut) {
+        const s = " T-d12p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d12p2 = {
+    givenInputData: problems.d12p1.givenInputData,
+    solve: function() {
+        let a = stringToStringArrayNewline(readInput());
+        let b = new Boat2(0, 0);
+        b.run(a);
+
+        writeOutput("The answer is: " + b.manhattanDistance());
+    },
+    unitTest: function(ut) {
+        const s = " T-d12p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d13p1 = {
+    givenInputData: AOC_Input_Data.d13p1,
+    departure_ready: 0,
+    departure_time: -1,
+    departure_bus: -1,
+    busses: [],
+    reset: function() {
+        this.departure_ready = 0;
+        this.departure_time = -1;
+        this.departure_bus = -1;
+        this.busses = [];
+    },
+    parse: function(s) {
+        let a = stringToStringArrayNewline(s);
+        this.departure_ready = parseInt(a[0], 10);
+
+        let b = stringToIntArrayComma(a[1]);
+        for (let i = 0; i < b.length; i++) {
+            // if (b[i].trim() === 'x') continue;
+            let bus = parseInt(b[i], 10);
+            if (!isNaN(bus)) this.busses.push(bus);
+        }
+        // this.dlog();
+    },
+    dlog: function() {
+        log("departure_ready=" + this.departure_ready);
+        log("departure_time=" + this.departure_time);
+        log("departure_bus=" + this.departure_bus);
+        for (let i = 0; i < this.busses.length; i++) {
+            log("busses[" + i + "]=" + this.busses[i]);
+        }
+    },
+    findTime: function() {
+        let waitTime = 0;
+        while (true) {
+            let t = this.departure_ready + waitTime;
+            for (let i = 0; i < this.busses.length; i++) {
+                if (t % this.busses[i] === 0) {
+                    this.departure_time = t;
+                    this.departure_bus = this.busses[i];
+                    return;
+                }
+            }
+            waitTime++;
+        }
+    },
+    solve: function() {
+        this.reset();
+        this.parse(readInput());
+        this.findTime();
+
+        writeOutput("The answer is: " +
+            (this.departure_time - this.departure_ready) * this.departure_bus +
+            ".  Take bus #" + this.departure_bus + " at time " + this.departure_time + ".");
+        // this.dlog();
+    },
+    unitTest: function(ut) {
+        const s = " T-d13p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d13p2 = {
+    givenInputData: problems.d13p1.givenInputData,
+    earliestTime: 0,
+    busses: [],
+    largestBusnum: -1,
+    largestBusnumOffset: -1,
+    reset: function() {
+        this.earliestTime = 0;
+        this.busses = [];
+        this.largestBusnum = -1;
+        this.largestBusnumOffset = -1;
+    },
+    dlog: function() {
+        log("earliestTime=" + this.earliestTime);
+        log("largestBusnum=" + this.largestBusnum);
+        log("largestBusnumOffset=" + this.largestBusnumOffset);
+        for (let i = 0; i < this.busses.length; i++) {
+            log("busses[" + i + "].busnum=" + this.busses[i].busnum +
+                " offset=" + this.busses[i].offset);
+        }
+    },
+    parse: function(s) {
+        let a = stringToStringArrayNewline(s);
+        let b = a[1].split(",");
+        for (let i = 0; i < b.length; i++) {
+            // log("b[i]=" + b[i]);
+            let bus = parseInt(b[i], 10);
+            if (!isNaN(bus)) {
+                if (bus > this.largestBusnum) {
+                    this.largestBusnum = bus;
+                    this.largestBusnumOffset = i;
+                }
+                this.busses.push({
+                    offset: i,
+                    busnum: bus
+                });
+            }
+        }
+        // this.dlog();
+    },
+    findTime: function() {
+        this.earliestTime = this.largestBusnum - this.largestBusnumOffset;
+        let step = this.largestBusnum;
+        let bs = this.busses.filter(x => x.busnum != this.largestBusnum);
+        while (true) {
+            let ok = true;
+            for (let i = 0; i < bs.length; i++) {
+                let b = bs[i];
+                if ((this.earliestTime + b.offset) % b.busnum !== 0) {
+                    ok = false;
+                    break;
+                } else {
+                    //found a match; increase the cycle length.
+                    step = Tmath.lcm(b.busnum, step);
+                }
+            }
+            if (ok) return;
+            this.earliestTime += step;
+        }
+        // this.dlog();
+    },
+    oldfindTime: function() {
+        this.earliestTime = this.largestBusnum - this.largestBusnumOffset;
+        while (true) {
+            let ok = true;
+            for (let i = 0; i < this.busses.length; i++) {
+                let b = this.busses[i];
+                if ((this.earliestTime + b.offset) % b.busnum !== 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return;
+            this.earliestTime += this.largestBusnum;
+        }
+        // this.dlog();
+    },
+    eval: function(s) {
+        this.reset();
+        this.parse(s);
+        this.findTime();
+        // log("eval done");
+        // this.dlog();
+        return this.earliestTime;
+    },
+    solve: function() {
+        this.eval(readInput());
+
+        writeOutput("The answer is: " + this.earliestTime);
+    },
+    unitTest: function(ut) {
+        const s = " T-d13p2.";
+        ut.test(s + "1", this.eval("939\n7,13,x,x,59,x,31,19") === 1068781);
+        ut.test(s + "2", this.eval("939\n17,x,13,19") === 3417);
+        ut.test(s + "3", this.eval("939\n67,7,59,61") === 754018);
+        ut.test(s + "4", this.eval("939\n67,x,7,59,61") === 779210);
+        ut.test(s + "5", this.eval("939\n67,7,x,59,61") === 1261476);
+        ut.test(s + "6", this.eval("939\n1789,37,47,1889") === 1202161486);
+    },
+};
+
+
+problems.d14p1 = {
+    givenInputData: AOC_Input_Data.d14p1,
+    mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    mask0s: 0,
+    mask1s: 0,
+    mem: {},
+    opcount: 0,
+    reset: function() {
+        this.mem = [];
+        this.opcount = 0;
+    },
+    store: function(loc, val) {
+        this.mem[loc] = (val & this.mask0s) | this.mask1s;
+    },
+    calcSum: function() {
+        let sum = Object.values(this.mem)
+            .reduce((accumulator, currentValue) => accumulator + currentValue);
+        return sum;
+    },
+    exec(instruction) {
+        let op = instruction.substr(0, 3);
+        let eq = instruction.indexOf("=");
+        if (op === 'mem') {
+            let loc = parseInt(instruction.substr(4), 10);
+            let val = instruction.substr(eq + 1).trim();
+            this.store(loc, val);
+        } else {
+            let m = instruction.substr(eq + 1).trim();
+            this.mask = m;
+            this.mask0s = parseInt(m.replaceAll('X', '1'), 2);
+            this.mask1s = parseInt(m.replaceAll('X', '0'), 2);
+        }
+        this.opcount++;
+    },
+    run: function(instructions) {
+        this.reset();
+        let a = stringToStringArrayNewline(instructions);
+        for (let i = 0; i < a.length; i++) {
+            this.exec(a[i]);
+        }
+    },
+    solve: function() {
+        this.run(readInput());
+
+        writeOutput("The answer is: " + this.calcSum() +
+            ".  There were " + this.opcount + " instructions.");
+    },
+    unitTest: function(ut) {
+        const s = " T-d14p1.";
+        let td = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+        mem[8] = 11
+        mem[7] = 101
+        mem[8] = 0`;
+        this.run(td);
+        ut.test(s + "1", this.calcSum() === 165);
+        ut.test(s + "2", this.opcount === 4);
+    },
+};
+
+
+problems.d14p2 = {
+    givenInputData: problems.d14p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d11p2.";
+        const s = " T-d14p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+problems.d15p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
 
-        ut.test(s + "11", 1 == 1);
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d15p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d15p2 = {
+    givenInputData: problems.d15p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d15p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d16p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d16p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d16p2 = {
+    givenInputData: problems.d16p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d16p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d17p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d17p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d17p2 = {
+    givenInputData: problems.d17p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d17p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d18p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d18p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d18p2 = {
+    givenInputData: problems.d18p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d18p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d19p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d19p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d19p2 = {
+    givenInputData: problems.d19p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d19p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d20p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d20p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d20p2 = {
+    givenInputData: problems.d20p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d20p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d21p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d21p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d21p2 = {
+    givenInputData: problems.d21p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d21p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d22p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d22p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d22p2 = {
+    givenInputData: problems.d22p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d22p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d23p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d23p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d23p2 = {
+    givenInputData: problems.d23p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d23p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d24p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d24p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d24p2 = {
+    givenInputData: problems.d24p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d24p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d25p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d25p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d25p2 = {
+    givenInputData: problems.d25p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d25p2.";
+        ut.test(s + "1", 1 === 1);
     },
 };

@@ -171,28 +171,113 @@ function loadCurrentInputData() {
     writeInput(problems[currentBaseId].givenInputData);
 }
 
+function fetchData3(pageId) {
+    log("fetchData3:" + pageId);
+    const templink = document.createElement("a");
+    const textblob = new Blob([], {
+        type: "text/plain"
+    });
+    const fileurl = window.URL.createObjectURL(textblob);
+    templink.href = fileurl;
+    templink.download = pageId;
+    document.body.appendChild(templink);
+    templink.click();
+    setTimeout(function() {
+        document.body.removeChild(templink);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+}
+
+function fetchData2(pageId) {
+    log("fetching2:" + pageId);
+    let req = new XMLHttpRequest();
+    req.withCredentials = true;
+    //req.addEventListener("load", reqListener);
+    req.open("GET", pageId, false);
+    req.send();
+    log("fetching2 responseText=" + req.responseText);
+}
+
+function fetchData(pageId) {
+    log("fetching:" + pageId);
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'text/plain');
+
+    let myInit = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'no-cors',
+        cache: 'default',
+        credentials: 'include'
+    };
+
+    var myRequest = new Request(pageId);
+
+    fetch(myRequest, myInit)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error("HTTP error, status = " + response.status);
+            }
+            return response.text();
+        })
+        .then(function(text) {
+            log("Fetched text:" + text);
+        })
+        .catch(function(error) {
+            log('Fetch Error: ' + error.message);
+
+        });
+}
+
+function fetchCurrentInputData() {
+    clearCurrentData();
+    let day = currentBaseId.substring(currentBaseId.indexOf("d") + 1, currentBaseId.indexOf("p"));
+    log("day=" + day);
+    fetchData3(`https://adventofcode.com/2020/day/${day}/input`);
+    writeInput("NOT IMPLEMENTED");
+}
+
 function solveCurrentProblem() {
     problems[currentBaseId].solve();
+}
+
+function showTabDiv(x) {
+    let t = gi("tabdiv");
+    if (x) {
+        t.className = 'dropdown-content dcshow';
+    } else {
+        t.className = 'dropdown-content dchide';
+    }
 }
 
 function showArticle(baseId) {
     //Turn off current article and button.
     gi("a_" + currentBaseId).style.display = "none";
-    gi("b_" + currentBaseId).style.backgroundColor = "gray";
+    gi("b_" + currentBaseId).className = "tab tabnotsel";
+
     //Turn on new article and button.
     gi("a_" + baseId).style.display = "block";
-    gi("b_" + baseId).style.backgroundColor = "#0f0f23";
+    gi("b_" + baseId).className = "tab tabsel";
+
     currentBaseId = baseId;
+    gi("navlabel").innerHTML = baseId;
+    showTabDiv(false);
 }
 //Auto-create the nav button-tabs, one for each "a_*" element.
 function makeNavButton(id) {
-    return `<button class="tab" id="b_${id}" onclick="showArticle('${id}')"><span class="tabspan">${id}</span></button>`;
+    return `<button class="tab tabnotsel" id="b_${id}" onclick="showArticle('${id}')">${id}</button>`;
 }
 
-function makeProcessingButtons() {
+function makeProcessingButtons(baseId) {
+    let day = baseId.substring(baseId.indexOf("d") + 1, baseId.indexOf("p"));
+    // log("mpb: day=" + day);
+    let url = `https://adventofcode.com/2020/day/${day}/input`;
+
     return `<button onclick="clearCurrentData()">Clear Data</button>
 <button onclick="loadCurrentInputData()">Load Given Input Data</button>
-<button onclick="solveCurrentProblem()">Solve</button>`;
+<button onclick="solveCurrentProblem()">Solve</button>
+<a class="aoca" href="${url}">AOC Input Data</a>`;
 }
 
 function makeIoArea(id) {
@@ -217,14 +302,14 @@ function findParentArticleBaseId(elem) {
     return "xxxx";
 }
 window.addEventListener("load", function() {
-    let s = "";
+    let s = "<button class='tab' onclick='showTabDiv(true)'>Menu</button><span id='navlabel'>XXX</span><div id='tabdiv' class='dropdown-content dchide'>";
     document
         .querySelectorAll('[id^="a_"]')
         .forEach((a) => (s += makeNavButton(a.id.substr(2))));
-    gi("nav-button-tabs").innerHTML = s;
+    gi("nav-button-tabs").innerHTML = s + '</div></span>';
     document
         .querySelectorAll(".processing_buttons")
-        .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        .forEach((div) => (div.innerHTML = makeProcessingButtons(findParentArticleBaseId(div))));
     document
         .querySelectorAll(".io")
         .forEach(

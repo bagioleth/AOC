@@ -100,6 +100,8 @@ function makeScript(co) {
     }
     co.text += "};";
 
+    let classes = readFile(`src/classes.js`);
+    co.text += "\n" + `${classes}`;
     let tool = readFile(`src/tool.js`);
     co.text += "\n" + `${tool}`;
     let problems = readFile(`src/problems.js`);

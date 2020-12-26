@@ -30,11 +30,21 @@ See article below, where id="a_About", for program description.
     <head>
     <title>Advent of Code 2020 -- Tom's Solutions</title>
     <style>
-        body {
+        html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
     display: grid;
-    grid-template-rows: 2em 1em 1fr 1em;
+    border-collapse: collapse;
+    grid-template-rows: 2em auto 1fr 1em;
     grid-template-columns: 1fr;
-    gap: 2px;
     background-color: #0f0f23;
     color: #cccccc;
 }
@@ -45,32 +55,61 @@ header {
 
 nav {
     grid-row: 2/3;
-    _overflow: scroll;
-    _scrollbar-width: none;
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
 
 footer {
     grid-row: end;
 }
 
+#navlabel {
+    padding: 10px;
+    border: 1px solid white;
+}
+
 .tab {
-    background-color: gray;
     color: white;
-    float: left;
-    border: none;
-    outline: 1px solid white;
+    background-color: #0f0f23;
+    border: 1px solid white;
     cursor: pointer;
 }
 
-.tabspan {
-    _writing-mode: vertical-rl;
-    _text-orientation: mixed;
+.tabsel {
+    background-color: #0f0f23;
+}
+
+.tabnotsel {
+    background-color: rgb(104, 102, 102);
+}
+
+.tab:hover {
+    background-color: darkgreen;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: blue;
+    box-shadow: 10px 10px black;
+    z-index: 1;
+}
+
+.dcshow {
+    display: grid;
+    grid-gap: 0 0;
+}
+
+.dchide {
+    display: none;
 }
 
 article {
     display: none;
     padding: 5px;
-    outline: 1px solid white;
+    border: 1px solid white;
 }
 
 .ita {
@@ -86,6 +125,12 @@ article {
     border: 3px solid rgb(52, 111, 160);
     background-color: rgb(200, 170, 130);
     color: black;
+}
+
+.aoca {
+    border: 1px solid white;
+    padding: 2px;
+    background-color: lightgray;
 }
     </style>
     </head><body>
@@ -973,6 +1018,430 @@ acc +6  | 6
 <p>In total, this set of adapters can connect the charging outlet to your device in <em><code>19208</code></em> distinct arrangements.</p>
 <p>You glance back down at your bag and try to remember why you brought so many adapters; there must be <em>more than a trillion</em> valid ways to arrange them! Surely, there must be <span title="Definitely itertools.">an efficient way</span> to count the arrangements.</p>
 <p><em>What is the total number of distinct ways you can arrange the adapters to connect the charging outlet to your device?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d11p1">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2>--- Day 11: Seating System ---</h2>
+<p>Your plane lands with plenty of time to spare. The final leg of your journey is a ferry that goes directly to the tropical island where you can finally start your vacation. As you reach the waiting area to board the ferry, you realize you're so early, nobody else has even arrived yet!</p>
+<p>By modeling the process people use to choose (or abandon) their seat in the waiting area, you're pretty sure you can predict the best place to sit. You make a quick map of the seat layout (your puzzle input).</p>
+<p>The seat layout fits neatly on a grid. Each position is either floor (<code>.</code>), an empty seat (<code>L</code>), or an occupied seat (<code>#</code>). For example, the initial seat layout might look like this:</p>
+<pre><code>L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL
+</code></pre>
+<p>Now, you just need to model the people who will be arriving shortly. Fortunately, people are entirely predictable and always follow a simple set of rules. All decisions are based on the <em>number of occupied seats</em> adjacent to a given seat (one of the eight positions immediately up, down, left, right, or diagonal from the seat). The following rules are applied to every seat simultaneously:</p>
+<ul>
+    <li>If a seat is <em>empty</em> (<code>L</code>) and there are <em>no</em> occupied seats adjacent to it, the seat becomes <em>occupied</em>.</li>
+    <li>If a seat is <em>occupied</em> (<code>#</code>) and <em>four or more</em> seats adjacent to it are also occupied, the seat becomes <em>empty</em>.</li>
+    <li>Otherwise, the seat's state does not change.</li>
+</ul>
+<p><span title="Floor... floor never changes.">Floor (<code>.</code>) never changes</span>; seats don't move, and nobody sits on the floor.</p>
+<p>After one round of these rules, every seat in the example layout becomes occupied:</p>
+<pre><code>#.##.##.##
+#######.##
+#.#.#..#..
+####.##.##
+#.##.##.##
+#.#####.##
+..#.#.....
+##########
+#.######.#
+#.#####.##
+</code></pre>
+<p>After a second round, the seats with four or more occupied adjacent seats become empty again:</p>
+<pre><code>#.LL.L#.##
+#LLLLLL.L#
+L.L.L..L..
+#LLL.LL.L#
+#.LL.LL.LL
+#.LLLL#.##
+..L.L.....
+#LLLLLLLL#
+#.LLLLLL.L
+#.#LLLL.##
+</code></pre>
+<p>This process continues for three more rounds:</p>
+<pre><code>#.##.L#.##
+#L###LL.L#
+L.#.#..#..
+#L##.##.L#
+#.##.LL.LL
+#.###L#.##
+..#.#.....
+#L######L#
+#.LL###L.L
+#.#L###.##
+</code></pre>
+<pre><code>#.#L.L#.##
+#LLL#LL.L#
+L.L.L..#..
+#LLL.##.L#
+#.LL.LL.LL
+#.LL#L#.##
+..L.L.....
+#L#LLLL#L#
+#.LLLLLL.L
+#.#L#L#.##
+</code></pre>
+<pre><code>#.#L.L#.##
+#LLL#LL.L#
+L.#.L..#..
+#L##.##.L#
+#.#L.LL.LL
+#.#L#L#.##
+..L.L.....
+#L#L##L#L#
+#.LLLLLL.L
+#.#L#L#.##
+</code></pre>
+<p>At this point, something interesting happens: the chaos stabilizes and further applications of these rules cause no seats to change state! Once people stop moving around, you count <em><code>37</code></em> occupied seats.</p>
+<p>Simulate your seating area by applying the seating rules repeatedly until no seats change state. <em>How many seats end up occupied?</em></p>
+<br />
+<p>Your puzzle answer was <code>TBD</code>.</div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d11p2">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
+<p>As soon as people start to arrive, you realize your mistake. People don't just care about adjacent seats - they care about <em>the first seat they can see</em> in each of those eight directions!</p>
+<p>Now, instead of considering just the eight immediately adjacent seats, consider the <em>first seat</em> in each of those eight directions. For example, the empty seat below would see <em>eight</em> occupied seats:</p>
+<pre><code>.......#.
+...#.....
+.#.......
+.........
+..#L....#
+....#....
+.........
+#........
+...#.....
+</code></pre>
+<p>The leftmost empty seat below would only see <em>one</em> empty seat, but cannot see any of the occupied ones:</p>
+<pre><code>.............
+.L.L.#.#.#.#.
+.............
+</code></pre>
+<p>The empty seat below would see <em>no</em> occupied seats:</p>
+<pre><code>.##.##.
+#.#.#.#
+##...##
+...L...
+##...##
+#.#.#.#
+.##.##.
+</code></pre>
+<p>Also, people seem to be more tolerant than you expected: it now takes <em>five or more</em> visible occupied seats for an occupied seat to become empty (rather than <em>four or more</em> from the previous rules). The other rules still apply: empty seats that see no occupied seats become occupied, seats matching no rule don't change, and floor never changes.</p>
+<p>Given the same starting layout as above, these new rules cause the seating area to shift around as follows:</p>
+<pre><code>L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL
+</code></pre>
+<pre><code>#.##.##.##
+#######.##
+#.#.#..#..
+####.##.##
+#.##.##.##
+#.#####.##
+..#.#.....
+##########
+#.######.#
+#.#####.##
+</code></pre>
+<pre><code>#.LL.LL.L#
+#LLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLL#
+#.LLLLLL.L
+#.LLLLL.L#
+</code></pre>
+<pre><code>#.L#.##.L#
+#L#####.LL
+L.#.#..#..
+##L#.##.##
+#.##.#L.##
+#.#####.#L
+..#.#.....
+LLL####LL#
+#.L#####.L
+#.L####.L#
+</code></pre>
+<pre><code>#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##LL.LL.L#
+L.LL.LL.L#
+#.LLLLL.LL
+..L.L.....
+LLLLLLLLL#
+#.LLLLL#.L
+#.L#LL#.L#
+</code></pre>
+<pre><code>#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##L#.#L.L#
+L.L#.#L.L#
+#.L####.LL
+..#.#.....
+LLL###LLL#
+#.LLLLL#.L
+#.L#LL#.L#
+</code></pre>
+<pre><code>#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##L#.#L.L#
+L.L#.LL.L#
+#.LLLL#.LL
+..#.L.....
+LLL###LLL#
+#.LLLLL#.L
+#.L#LL#.L#
+</code></pre>
+<p>Again, at this point, people stop shifting around and the seating area reaches equilibrium. Once this occurs, you count <em><code>26</code></em> occupied seats.</p>
+<p>Given the new visibility method and the rule change for occupied seats becoming empty, once equilibrium is reached, <em>how many seats end up occupied?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d12p1">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2>--- Day 12: Rain Risk ---</h2>
+<p>Your ferry made decent progress toward the island, but the storm came in <span title="At least it wasn't a Category Six!">faster than anyone expected</span>. The ferry needs to take <em>evasive actions</em>!</p>
+<p>Unfortunately, the ship's navigation computer seems to be malfunctioning; rather than giving a route directly to safety, it produced extremely circuitous instructions. When the captain uses the <a href="https://en.wikipedia.org/wiki/Public_address_system" target="_blank">PA system</a> to ask if anyone can help, you quickly volunteer.</p>
+<p>The navigation instructions (your puzzle input) consists of a sequence of single-character <em>actions</em> paired with integer input <em>values</em>. After staring at them for a few minutes, you work out what they probably mean:</p>
+<ul>
+    <li>Action <em><code>N</code></em> means to move <em>north</em> by the given value.</li>
+    <li>Action <em><code>S</code></em> means to move <em>south</em> by the given value.</li>
+    <li>Action <em><code>E</code></em> means to move <em>east</em> by the given value.</li>
+    <li>Action <em><code>W</code></em> means to move <em>west</em> by the given value.</li>
+    <li>Action <em><code>L</code></em> means to turn <em>left</em> the given number of degrees.</li>
+    <li>Action <em><code>R</code></em> means to turn <em>right</em> the given number of degrees.</li>
+    <li>Action <em><code>F</code></em> means to move <em>forward</em> by the given value in the direction the ship is currently facing.</li>
+</ul>
+<p>The ship starts by facing <em>east</em>. Only the <code>L</code> and <code>R</code> actions change the direction the ship is facing. (That is, if the ship is facing east and the next instruction is <code>N10</code>, the ship would move north 10 units, but would still move east if the following action were <code>F</code>.)</p>
+<p>For example:</p>
+<pre><code>F10
+N3
+F7
+R90
+F11
+</code></pre>
+<p>These instructions would be handled as follows:</p>
+<ul>
+    <li><code>F10</code> would move the ship 10 units east (because the ship starts by facing east) to <em>east 10, north 0</em>.</li>
+    <li><code>N3</code> would move the ship 3 units north to <em>east 10, north 3</em>.</li>
+    <li><code>F7</code> would move the ship another 7 units east (because the ship is still facing east) to <em>east 17, north 3</em>.</li>
+    <li><code>R90</code> would cause the ship to turn right by 90 degrees and face <em>south</em>; it remains at <em>east 17, north 3</em>.</li>
+    <li><code>F11</code> would move the ship 11 units south to <em>east 17, south 8</em>.</li>
+</ul>
+<p>At the end of these instructions, the ship's <a href="https://en.wikipedia.org/wiki/Manhattan_distance" target="_blank">Manhattan distance</a> (sum of the absolute values of its east/west position and its north/south position) from its starting position is <code>17 + 8</code> = <em><code>25</code></em>.</p>
+<p>Figure out where the navigation instructions lead. <em>What is the Manhattan distance between that location and the ship's starting position?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d12p2">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
+<p>Before you can give the destination to the captain, you realize that the actual action meanings were printed on the back of the instructions the whole time.</p>
+<p>Almost all of the actions indicate how to move a <em>waypoint</em> which is relative to the ship's position:</p>
+<ul>
+    <li>Action <em><code>N</code></em> means to move the waypoint <em>north</em> by the given value.</li>
+    <li>Action <em><code>S</code></em> means to move the waypoint <em>south</em> by the given value.</li>
+    <li>Action <em><code>E</code></em> means to move the waypoint <em>east</em> by the given value.</li>
+    <li>Action <em><code>W</code></em> means to move the waypoint <em>west</em> by the given value.</li>
+    <li>Action <em><code>L</code></em> means to rotate the waypoint around the ship <em>left</em> (<em>counter-clockwise</em>) the given number of degrees.</li>
+    <li>Action <em><code>R</code></em> means to rotate the waypoint around the ship <em>right</em> (<em>clockwise</em>) the given number of degrees.</li>
+    <li>Action <em><code>F</code></em> means to move <em>forward</em> to the waypoint a number of times equal to the given value.</li>
+</ul>
+<p>The waypoint starts <em>10 units east and 1 unit north</em> relative to the ship. The waypoint is relative to the ship; that is, if the ship moves, the waypoint moves with it.</p>
+<p>For example, using the same instructions as above:</p>
+<ul>
+    <li><code>F10</code> moves the ship to the waypoint 10 times (a total of <em>100 units east and 10 units north</em>), leaving the ship at <em>east 100, north 10</em>. The waypoint stays 10 units east and 1 unit north of the ship.</li>
+    <li><code>N3</code> moves the waypoint 3 units north to <em>10 units east and 4 units north of the ship</em>. The ship remains at <em>east 100, north 10</em>.</li>
+    <li><code>F7</code> moves the ship to the waypoint 7 times (a total of <em>70 units east and 28 units north</em>), leaving the ship at <em>east 170, north 38</em>. The waypoint stays 10 units east and 4 units north of the ship.</li>
+    <li><code>R90</code> rotates the waypoint around the ship clockwise 90 degrees, moving it to <em>4 units east and 10 units south of the ship</em>. The ship remains at <em>east 170, north 38</em>.</li>
+    <li><code>F11</code> moves the ship to the waypoint 11 times (a total of <em>44 units east and 110 units south</em>), leaving the ship at <em>east 214, south 72</em>. The waypoint stays 4 units east and 10 units south of the ship.</li>
+</ul>
+<p>After these operations, the ship's Manhattan distance from its starting position is <code>214 + 72</code> = <em><code>286</code></em>.</p>
+<p>Figure out where the navigation instructions actually lead. <em>What is the Manhattan distance between that location and the ship's starting position?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d13p1">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2>--- Day 13: Shuttle Search ---</h2>
+<p>Your ferry can make it safely to a nearby port, but it won't get much further. When you call to book another ship, you discover that no ships embark from that port to your vacation island. You'll need to get from the port to the nearest airport.</p>
+<p>Fortunately, a shuttle bus service is available to bring you from the sea port to the airport! Each bus has an ID number that also indicates <em>how often the bus leaves for the airport</em>.</p>
+<p>Bus schedules are defined based on a <em>timestamp</em> that measures the <em>number of minutes</em> since some fixed reference point in the past. At timestamp <code>0</code>, every bus simultaneously departed from the sea port. After that, each bus travels to the airport, then various other locations, and finally returns to the sea port to repeat its journey forever.</p>
+<p>The time this loop takes a particular bus is also its ID number: the bus with ID <code>5</code> departs from the sea port at timestamps <code>0</code>, <code>5</code>, <code>10</code>, <code>15</code>, and so on. The bus with ID <code>11</code> departs at <code>0</code>, <code>11</code>, <code>22</code>, <code>33</code>, and so on. If you are there when the bus departs, you can ride that bus to the airport!</p>
+<p>Your notes (your puzzle input) consist of two lines. The first line is your estimate of the <em>earliest timestamp you could depart on a bus</em>. The second line lists the bus IDs that are in service according to the shuttle company; entries that show <code>x</code> must be out of service, so you decide to ignore them.</p>
+<p>To save time once you arrive, your goal is to figure out <em>the earliest bus you can take to the airport</em>. (There will be exactly one such bus.)</p>
+<p>For example, suppose you have the following notes:</p>
+<pre><code>939
+7,13,x,x,59,x,31,19
+</code></pre>
+<p>Here, the earliest timestamp you could depart is <code>939</code>, and the bus IDs in service are <code>7</code>, <code>13</code>, <code>59</code>, <code>31</code>, and <code>19</code>. Near timestamp <code>939</code>, these bus IDs depart at the times marked <code>D</code>:</p>
+<pre><code>time   bus 7   bus 13  bus 59  bus 31  bus 19
+929      .       .       .       .       .
+930      .       .       .       D       .
+931      D       .       .       .       D
+932      .       .       .       .       .
+933      .       .       .       .       .
+934      .       .       .       .       .
+935      .       .       .       .       .
+936      .       D       .       .       .
+937      .       .       .       .       .
+938      D       .       .       .       .
+<em>939      .       .       .       .       .</em>
+940      .       .       .       .       .
+941      .       .       .       .       .
+942      .       .       .       .       .
+943      .       .       .       .       .
+<em>944      .       .       D       .       .</em>
+945      D       .       .       .       .
+946      .       .       .       .       .
+947      .       .       .       .       .
+948      .       .       .       .       .
+949      .       D       .       .       .
+</code></pre>
+<p>The earliest bus you could take is bus ID <code>59</code>. It doesn't depart until timestamp <code>944</code>, so you would need to wait <code>944 - 939 = 5</code> minutes before it departs. Multiplying the bus ID by the number of minutes you'd need to wait gives <em><code>295</code></em>.</p>
+<p><em>What is the ID of the earliest bus you can take to the airport multiplied by the number of minutes you'll need to wait for that bus?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d13p2">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
+<p>The shuttle company is running a <span title="This is why you should never let me design a contest for a shuttle company.">contest</span>: one gold coin for anyone that can find the earliest timestamp such that the first bus ID departs at that time and each subsequent listed bus ID departs at that subsequent minute. (The first line in your input is no longer relevant.)</p>
+<p>For example, suppose you have the same list of bus IDs as above:</p>
+<pre><code>7,13,x,x,59,x,31,19</code></pre>
+<p>An <code>x</code> in the schedule means there are no constraints on what bus IDs must depart at that time.</p>
+<p>This means you are looking for the earliest timestamp (called <code>t</code>) such that:</p>
+<ul>
+    <li>Bus ID <code>7</code> departs at timestamp <code>t</code>.
+    <li>Bus ID <code>13</code> departs one minute after timestamp <code>t</code>.</li>
+    <li>There are no requirements or restrictions on departures at two or three minutes after timestamp <code>t</code>.</li>
+    <li>Bus ID <code>59</code> departs four minutes after timestamp <code>t</code>.</li>
+    <li>There are no requirements or restrictions on departures at five minutes after timestamp <code>t</code>.</li>
+    <li>Bus ID <code>31</code> departs six minutes after timestamp <code>t</code>.</li>
+    <li>Bus ID <code>19</code> departs seven minutes after timestamp <code>t</code>.</li>
+</ul>
+<p>The only bus departures that matter are the listed bus IDs at their specific offsets from <code>t</code>. Those bus IDs can depart at other times, and other bus IDs can depart at those times. For example, in the list above, because bus ID <code>19</code> must depart seven minutes after the timestamp at which bus ID <code>7</code> departs, bus ID <code>7</code> will always <em>also</em> be departing with bus ID <code>19</code> at seven minutes after timestamp <code>t</code>.</p>
+<p>In this example, the earliest timestamp at which this occurs is <em><code>1068781</code></em>:</p>
+<pre><code>time     bus 7   bus 13  bus 59  bus 31  bus 19
+1068773    .       .       .       .       .
+1068774    D       .       .       .       .
+1068775    .       .       .       .       .
+1068776    .       .       .       .       .
+1068777    .       .       .       .       .
+1068778    .       .       .       .       .
+1068779    .       .       .       .       .
+1068780    .       .       .       .       .
+<em>1068781</em>    <em>D</em>       .       .       .       .
+<em>1068782</em>    .       <em>D</em>       .       .       .
+<em>1068783</em>    .       .       .       .       .
+<em>1068784</em>    .       .       .       .       .
+<em>1068785</em>    .       .       <em>D</em>       .       .
+<em>1068786</em>    .       .       .       .       .
+<em>1068787</em>    .       .       .       <em>D</em>       .
+<em>1068788</em>    D       .       .       .       <em>D</em>
+1068789    .       .       .       .       .
+1068790    .       .       .       .       .
+1068791    .       .       .       .       .
+1068792    .       .       .       .       .
+1068793    .       .       .       .       .
+1068794    .       .       .       .       .
+1068795    D       D       .       .       .
+1068796    .       .       .       .       .
+1068797    .       .       .       .       .
+</code></pre>
+<p>In the above example, bus ID <code>7</code> departs at timestamp <code>1068788</code> (seven minutes after <code>t</code>). This is fine; the only requirement on that minute is that bus ID <code>19</code> departs then, and it does.</p>
+<p>Here are some other examples:</p>
+<ul>
+    <li>The earliest timestamp that matches the list <code>17,x,13,19</code> is <em><code>3417</code></em>.</li>
+    <li><code>67,7,59,61</code> first occurs at timestamp <em><code>754018</code></em>.</li>
+    <li><code>67,x,7,59,61</code> first occurs at timestamp <em><code>779210</code></em>.</li>
+    <li><code>67,7,x,59,61</code> first occurs at timestamp <em><code>1261476</code></em>.</li>
+    <li><code>1789,37,47,1889</code> first occurs at timestamp <em><code>1202161486</code></em>.</li>
+</ul>
+<p>However, with so many bus IDs in your list, surely the actual earliest timestamp will be larger than <code>100000000000000</code>!</p>
+<p><em>What is the earliest timestamp such that all of the listed bus IDs depart at offsets matching their positions in the list?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_d14p1">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2>--- Day 14: Docking Data ---</h2>
+<p>As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.</p>
+<p>After a brief inspection, you discover that the sea port's computer system uses a strange <a href="https://en.wikipedia.org/wiki/Mask_(computing)" target="_blank">bitmask</a> system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!</p>
+<p>The initialization program (your puzzle input) can either update the bitmask or write a value to memory. Values and memory addresses are both 36-bit unsigned integers. For example, ignoring bitmasks for a moment, a line like <code>mem[8] = 11</code> would write the value <code>11</code> to memory address <code>8</code>.</p>
+<p>The bitmask is always given as a string of 36 bits, written with the most significant bit (representing <code>2^35</code>) on the left and the least significant bit (<code>2^0</code>, that is, the <code>1</code>s bit) on the right. The current bitmask is applied to values immediately before they are written to memory: a <code>0</code> or <code>1</code> overwrites the corresponding bit in the value, while an <code>X</code> leaves the bit in the value unchanged.</p>
+<p>For example, consider the following program:</p>
+<pre><code>mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+mem[8] = 11
+mem[7] = 101
+mem[8] = 0
+</code></pre>
+<p>This program starts by specifying a bitmask (<code>mask = ....</code>). The mask it specifies will overwrite two bits in every written value: the <code>2</code>s bit is overwritten with <code>0</code>, and the <code>64</code>s bit is overwritten with <code>1</code>.</p>
+<p>The program then attempts to write the value <code>11</code> to memory address <code>8</code>. By expanding everything out to individual bits, the mask is applied as follows:</p>
+<pre><code>value:  000000000000000000000000000000001011  (decimal 11)
+mask:   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+result: 00000000000000000000000000000<em>1</em>0010<em>0</em>1  (decimal 73)
+</code></pre>
+<p>So, because of the mask, the value <code>73</code> is written to memory address <code>8</code> instead. Then, the program tries to write <code>101</code> to address <code>7</code>:</p>
+<pre><code>value:  000000000000000000000000000001100101  (decimal 101)
+mask:   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+result: 00000000000000000000000000000<em>1</em>1001<em>0</em>1  (decimal 101)
+</code></pre>
+<p>This time, the mask has no effect, as the bits it overwrote were already the values the mask tried to set. Finally, the program tries to write <code>0</code> to address <code>8</code>:</p>
+<pre><code>value:  000000000000000000000000000000000000  (decimal 0)
+mask:   XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+result: 00000000000000000000000000000<em>1</em>0000<em>0</em>0  (decimal 64)
+</code></pre>
+<p><code>64</code> is written to address <code>8</code> instead, overwriting the value that was there previously.</p>
+<p>To initialize your ferry's docking program, you need the sum of all values left in memory after the initialization program completes. (The entire 36-bit address space begins initialized to the value <code>0</code> at every address.) In the above example, only two values in memory are not zero - <code>101</code> (at address <code>7</code>) and <code>64</code> (at address <code>8</code>) - producing a sum of <em><code>165</code></em>.</p>
+<p>Execute the initialization program. <em>What is the sum of all values left in memory after it completes?</em> (Do not truncate the sum to 36 bits.)</p></div>
     <hr />
     <div>
         <div class="processing_buttons"></div>
@@ -7915,7 +8384,1616 @@ jmp +1`,d8p2:``,d9p1:`16
 54
 133
 51
-92`,d10p2:``,d11p1:``,d11p2:``,d12p1:``,d12p2:``,d13p1:``,d13p2:``,d14p1:``,d14p2:``,d15p1:``,d15p2:``,d16p1:``,d16p2:``,d17p1:``,d17p2:``,d18p1:``,d18p2:``,d19p1:``,d19p2:``,d20p1:``,d20p2:``,d21p1:``,d21p2:``,d22p1:``,d22p2:``,d23p1:``,d23p2:``,d24p1:``,d24p2:``,d25p1:``,d25p2:``,};
+92`,d10p2:``,d11p1:`LLLLLLLLL.LLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LL.LLL.LL.L.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLL.LL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLLLLL.L.LLLLLLLLLLLLLL.LLLLLL.LLLL.LLLLLLLLL.LLLL.LLLL.LLLL.LLLLLLLLLLLL
+L....LL.......L..LLLL...LLLLL.L.L.L...L...L.L..L.L.LL..L.L...L.LLLLLL..L..L.........L.L........
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.L.LLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LL.LLLL.LLLLLLLLLLLLLLLLL.LLLLLLLLLLLL.LLLLLLLLLL.LL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLLLLLLL.LLLLLLL.LLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLL.L.LLLLLLLLL.LLLL.LLLLLLL.LLLLLLLLLLLLLLLLLL.L.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.L.LLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.L.LL.LLLLLLLLLLLLLL.LLLLLL.LLLL.LL.LLLLLL.LLLL.LLLLLLLLLLLLLLL.LLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLLLLLLLLLLLLL..LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLLLLL
+.L..LLL....L....L...LLL.LL.....L....L...L....L.......L.L..L.L..L......LL......L.....L..L..L..L.
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LLLLLLL.LLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLL..LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLL.LLLL..LLLLLLLLLLL.LLLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLL.LLL.LLLLL.LLLLLLLLLLLL
+LLLL.LLLLLLLLL..LLLLL.LLL.LL.L.LLLLLLL.LLLLLL.LLLLLL.LLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLL.LLLLL.LLLLLLLLLLLL.LLLLLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLL.LLLL
+LLLLLLL.L.LLLLLLLLLLLLLL..LLLLLLLLLLLL.LLLLLL.LLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLL.LLLLLLLL.L
+LLLLLLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLL.L.L.LLLLLL.LLLLLL.LLLL.LLLLLLLLLLLLLL.LLL.LLLL...LLLLLLLLLLL
+LLLLLLLLLLLLLLLLL.LLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.L.LLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+..L......L.....L...L..L......LLLLL....LLL..LL.L..L.....LLL.....L...LL.LL.LL.....L.....LL.LL.L.L
+LLLLLLL.LLLL.LL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.L.LLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLL.L.LLLLLLLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLL.LL.LL.LLLLLLLL..LLLLLL.LLLLL..LLLLL.LLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.L.LLLLLLLLLLLLLLL.L.LL.LLLLLLLLLLLLLL.L.LLLL.LLLLLLLLLLLLLL.LL.L.L.LLLLLLL.LLLLLLLLLLLL
+.LLLLLL.LLLLLLL.LLLLL.LLLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLL.LL.LLLLLLLLLLLLLLLLLLL
+.LLLL..L.LL.............L.....LL...L...LLL..........L.LL..LL..LLL.............L.L.......L....LL
+LLLLLLL.LLLLLLLLLLLLL.LLLLL.LL.LLLL.LL.LLLLLL.LLLL.LLLLLL.LLLLLLLLL.LL.L.LLLLLL.LLLLLLLLLL.LLLL
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLLLLLL.LLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLL..LL.LLLLLLLLL.LLLLLLLL.LLL.LLLLLL.LLLL.L.LLLL.LLLLLLLLL.LLLL.LLLLLL.LL.LLLLLLLLLLLL
+L.LLLLL.LLLLLLLLLLLLLLLLL.LLLL.LLL.LLL.LLLLLL.LLLL.L.LLLLLLLLLLLLLL.LLLLLLL.LLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLL.LLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+LLL....L..L.L...L...LL......L..L..L...LL.L.LLL..L...L.....L......L...LL.L.L...L......LL.....LL.
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLL.LLLLLLLL.L.LLLL.L.LLLL.L.LL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLL.LL..LLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLLLLLLLLLLLL.LLLL
+LLL.LLLLLLLLLLLLLLLLLLL.L.LLLL.LLL.LLL.LLLLLL.LLLLLL..LLL.LLLLLLLLLLLLLL.LLLLLL.LL.LLLLLLLLLLLL
+LLLLL.L.LLLLLLLLLLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLL..LLLL.L.LLL.LLLLLLLLLLLLLLLL
+L.LLLLL.LLLLLLL.LLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+.LLLL.L.LLLLLLL.LLLLLL.LL.LLLLLLLLLLLL.LLLLLL.LLLL.L.LLLLLLLLLLLLLL.LLLLLLLLLLLLL..LLLLLLLLLLLL
+.L.LL..L.L.L...LL.L..L..LL.L.LL.L.LLL........L....L.L.....L.....LL.L.L...LL..L.L..L.L..LLLL.LL.
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLL..LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL..LLLLLLLL.L.LLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLL
+...LL...LL..L...L..L.....LLL.LL.L....L..L..LLL...L.....L.L..L.LLL.L.L....LLL..L....L..L..LL.L.L
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LL.LLL..LLLLLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL..LLLLLLLLLLLLLLLLLLLLL.LLLLLLL.LLLLLL.LLLLLL.L.LL.LLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLL
+LLLLLLLLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLL.LLLLLLLLLLLLL.LLL.LLLLLLLLLL..LLL.LLLLLLLLLLL.LLLL.LLLLL
+LLLLLLL.LLLL.LLL.LLLLLLL.LLLLL.LLLLLLL..LLLLL.LLLLLLLLLLL.LLLLLLLLL.LL.L.LLLLLLLLL.LLLLLLLLLLLL
+....L.L.L..L.....L...LLL...L.........L...L..........LLL.....L..........L...LL......LL..L.......
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLL..LLL.LL.LLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LLLLLLL.L.LLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLL.LLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLL.L.LLLLLLLLLLLLL.LLLL.LLLLLLLLL.L.LL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLL.LL..LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LL.LLLL.LLLLLLLLL..LLL.LLLLLLL.LLLLLLLLLLLLL.LLLLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+.....LL..L.L..L..LL...L..........L.LL.LLLLL.L...L.L.....L..LL...L..LL......LL...L..L.L.L..LLL..
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLL.LLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLL.LLLL.LLLL.LLLL.LLLLLLLLL.LL
+LLLLL.L.LLLLLLL.LLLLLLLLL.LLLL.LL.LLLL.L.LLLL.LLLLLL.LLLL.LLL.LLLLL.LLLL.LLLLLLLLLLLLLLLLLLLL.L
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLL.L.LLLLL.LLLLLL.LLLLLL.LLLL.LLLLLLLLL.L.LLLLLLLLLLLL.LLLLLLLLLLLL
+L.LLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLL.LLL.LL.LL.L.LL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLL.L.LLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLL.L.LLLLLLLLL.LLLLLLLLLLLL
+LL....L.L..L.L..L...LL..........LL......L..LL....L.LL...L..L.L.L..L..LL....LL..L..L.......L.L..
+LLLLLLL.LLLLLLLLLLLLLLLLL..LLL.LLLLLLL.LLLL.L.LLLLLLLLLL..LLLLLLLLL.LL.L.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLLLL.LL.LLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLL.LLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLLLLLLLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLL..LLLL.LLLLLLLL..LLLLLLLLL.LL
+LLLLLLL.LLLLLLLLLLLLL.LLL.LLLL.LLLLLLL.LLL.LL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLLLLLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLL.LLLLLLLL..LLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+.LL...LL.L....L.L.......LL.......LL...LL....LL.L.LL..L..L...LL........LL..L...L.LL...L..L.L...L
+LLLLLLL.LLLLLLL.LLLLLLLLLLLLLL.L.LLLLL.LLLLLL.LLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLL.L.LL.LLLLLLLLLLLLLL.LLLLLL..LLL.LLLLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLL
+LLLLLLL..LLLLLLLLLLLLLLLLLLLLLLLLLL.LL..LLLLL.LL.LLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLLLL.LLLLLLLLLLLL..LLLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLLLLLLL.L.LLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLLLL.LLL.LLLLLLLL
+L.LLLLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLL.LLLLLL.LLLLLL.LL.LLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLL
+..LL..L.....L..L.....LL.....L.........L.......L..LL.L.LL......LL.L.L.....L...LL.......L......LL
+LLLLLLLLLLLLLLLLLL.LLLLLL.LLL..L.LLLLL.LLLLLL.LLLLLL.LLLL.LLLL.LLLL.LLLLLLLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLL.LLL.LLLL.LLLLLLL.LLLLLL.L.LLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLLL..LLLLLLLLLLLL
+LLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LL.LLL..LLLLLLLLLL.LLLLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLL
+LLLLLLL..LLLLLLLLLLLL.LLLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+LLLLLLL.LLLLLLL.LLL.LLLLL.LLLL.LLLLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLL.LLLLLLLL`,d11p2:``,d12p1:`N2
+S5
+E2
+F35
+N2
+W5
+F83
+S5
+R180
+S3
+L270
+N1
+F35
+N1
+W4
+S3
+L180
+F46
+R180
+S4
+F29
+R90
+S3
+E1
+F65
+E4
+F29
+S4
+E5
+F33
+L90
+F28
+L270
+E3
+S5
+E2
+S5
+F82
+R270
+F81
+S3
+F68
+R180
+W5
+S3
+F70
+W4
+L180
+E2
+L90
+F28
+L270
+S4
+R90
+W2
+F39
+R90
+N5
+W5
+L180
+E3
+F66
+S5
+W3
+N5
+L90
+S2
+W4
+F77
+E1
+L90
+E3
+W1
+S3
+E4
+N4
+W5
+S1
+F55
+S3
+L90
+F20
+W2
+N2
+F23
+W2
+F48
+L90
+N1
+E3
+R90
+N4
+F73
+S4
+F7
+S1
+R90
+R90
+W3
+S3
+F71
+E5
+N1
+W1
+L90
+W3
+R180
+F60
+W2
+S5
+L90
+W2
+F6
+L180
+W4
+S2
+F28
+N4
+F56
+N4
+E4
+L90
+F67
+L90
+N1
+L90
+W3
+F43
+S2
+W4
+S1
+F67
+F72
+E2
+L90
+W2
+L180
+F35
+L90
+N2
+W1
+S5
+F58
+R180
+F68
+E2
+S5
+F61
+W4
+L180
+W2
+S2
+F35
+W4
+F50
+E3
+L90
+E3
+N5
+F16
+E2
+N4
+F87
+W4
+R180
+F25
+N3
+F6
+L90
+F57
+R180
+E2
+R90
+E1
+F99
+W1
+L90
+W4
+F76
+W2
+F48
+S1
+F19
+N1
+F54
+L90
+F66
+E4
+F88
+R90
+S5
+L180
+W2
+R90
+S2
+F54
+L90
+S2
+L180
+S4
+F14
+N2
+F51
+E3
+F83
+N2
+W1
+F61
+S1
+W3
+N2
+F15
+R180
+S3
+E3
+R90
+F50
+R90
+E5
+L90
+F53
+S3
+L90
+S5
+F22
+R90
+S5
+E3
+L90
+E4
+F88
+W1
+F10
+S2
+W4
+F68
+W3
+W2
+S3
+R90
+F1
+S1
+L270
+F51
+S2
+R90
+E3
+F6
+S1
+R90
+W2
+L180
+N1
+W5
+F51
+W1
+N1
+R90
+E1
+S3
+F21
+W3
+R180
+N1
+R180
+N1
+W4
+F21
+R180
+W3
+S5
+E3
+S5
+L180
+F3
+N4
+L90
+W5
+F23
+S3
+N5
+E1
+F88
+L90
+E4
+F18
+E3
+F27
+F51
+E3
+F58
+N5
+R180
+F36
+N4
+E2
+F14
+N4
+L180
+F87
+L180
+E3
+F67
+E4
+L90
+E2
+F62
+E3
+F60
+R90
+W2
+S1
+F47
+S5
+L90
+W2
+F11
+N2
+F29
+S2
+W1
+S1
+W1
+N2
+F73
+N3
+F92
+S2
+F1
+R180
+W4
+R90
+S5
+W4
+F33
+E2
+N2
+F40
+S1
+L180
+S2
+L90
+F95
+E2
+W2
+R180
+F26
+E1
+S3
+S1
+R90
+N4
+W4
+S5
+L90
+N1
+E5
+F9
+W5
+N1
+F89
+R180
+E5
+L90
+N2
+F90
+W4
+F33
+W2
+F62
+E1
+N4
+W4
+S5
+L90
+L90
+F81
+E3
+N5
+F81
+S1
+E3
+F89
+N3
+R90
+N3
+W3
+L90
+N2
+F93
+L90
+F48
+N5
+R180
+F66
+E5
+S1
+F47
+R180
+F61
+L90
+N2
+F74
+N1
+L180
+E2
+S5
+F39
+R180
+N5
+F26
+E5
+F12
+R90
+R90
+S4
+F7
+W5
+L90
+W1
+R90
+W2
+N2
+E2
+N1
+F15
+L90
+W4
+S2
+R90
+E3
+R180
+F86
+N5
+S5
+E2
+R90
+W1
+F64
+S2
+W3
+R180
+S4
+L180
+F58
+L90
+F100
+S2
+E4
+S2
+F52
+W2
+N4
+W4
+R90
+N2
+F45
+E5
+F84
+N3
+W2
+R90
+F36
+R90
+F85
+N5
+L90
+F6
+L90
+S4
+F21
+R90
+E5
+F9
+S4
+F53
+L90
+R90
+E1
+F55
+R90
+F56
+L90
+E4
+L90
+N1
+E1
+L90
+N1
+R90
+F51
+W1
+F39
+S5
+F96
+R90
+S1
+R180
+F72
+E1
+N4
+N3
+F77
+E3
+L90
+W4
+S3
+F53
+F92
+W5
+L90
+E4
+N2
+R180
+R90
+S3
+E2
+S3
+W1
+N1
+F86
+E3
+F46
+W1
+L90
+F97
+W3
+F45
+W4
+F73
+W2
+S2
+R90
+N2
+L180
+N4
+L90
+W1
+N2
+L90
+E1
+F93
+F36
+E2
+F74
+E3
+F49
+W5
+L180
+S3
+F5
+L180
+F53
+S2
+E3
+N1
+F96
+L90
+F44
+S3
+F32
+W1
+S2
+L90
+N2
+E3
+F17
+R90
+F34
+L90
+N4
+F22
+W2
+F58
+S2
+R90
+S2
+R90
+F12
+S5
+W5
+N5
+R90
+N3
+F12
+S4
+E1
+F86
+W3
+F6
+R90
+S5
+L90
+E4
+L180
+N2
+E4
+F50
+S5
+F85
+R90
+F13
+S1
+F69
+S2
+F97
+S1
+F66
+S4
+F86
+N5
+F34
+S2
+W5
+R180
+F42
+W4
+F72
+E3
+R270
+S3
+R90
+E2
+N4
+E5
+R90
+E2
+L180
+S2
+F35
+E4
+S2
+F50
+S1
+R90
+W3
+F100
+N3
+F10
+W4
+L90
+F19
+E2
+F10
+R90
+F27
+S4
+W3
+R90
+F53
+R90
+N3
+L90
+N5
+F46
+R90
+F3
+N1
+S4
+F17
+L270
+E2
+S2
+R90
+N4
+W4
+L180
+E3
+R90
+F86
+N5
+W1
+S4
+R90
+E4
+N4
+E5
+S4
+W1
+L90
+L180
+S1
+F42
+S2
+E2
+S5
+E1
+R90
+W1
+N4
+R90
+N3
+F58
+E3
+S1
+N5
+F65
+N5
+E4
+R180
+N5
+R90
+F90
+N3
+F1
+R180
+S2
+W3
+R90
+W1
+W2
+R180
+S1
+F93
+S2
+F35
+W2
+F62
+L90
+F15
+W3
+F79
+E5
+N4
+R180
+R90
+L90
+E2
+N2
+E5
+L270
+N3
+F31
+W3
+F39
+E5
+N3
+R90
+N2
+E3
+L90
+F50
+L90
+W5
+S3
+F68
+S3
+W3
+F20
+W3
+S2
+F7
+W1
+N1
+R90
+E2
+L180
+W4
+L90
+W4
+N5
+E5
+F19
+F11
+E2
+L90
+S3
+F30
+N2
+E5
+F51`,d12p2:``,d13p1:`1006726
+23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,647,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,13,19,x,x,x,x,x,x,x,x,x,29,x,557,x,x,x,x,x,37,x,x,x,x,x,x,x,x,x,x,17`,d13p2:``,d14p1:`mask = 001X11X1X010X1X1010XX10X100101011000
+mem[43398] = 563312
+mem[51673] = 263978
+mem[18028] = 544304215
+mask = X0100001101XX11100010XX110XX11111000
+mem[24151] = 2013
+mem[15368] = 19793
+mem[45005] = 478
+mem[1842] = 190808161
+mem[36033] = 987
+mem[26874] = 102
+mask = 00X0000110110X000110010101XX0X010001
+mem[9507] = 7
+mem[50019] = 16475608
+mem[4334] = 129799
+mem[37373] = 182640
+mem[28170] = 534617265
+mem[6432] = 354252
+mem[36752] = 834628
+mask = 10100000101101100110X001X0X001100X10
+mem[36664] = 30481
+mem[6532] = 103013119
+mem[45659] = 15629
+mem[19533] = 167227
+mem[40461] = 344193233
+mem[6217] = 26713310
+mask = X0XX010100110101X0001101X11100X100X0
+mem[38530] = 6202
+mem[53032] = 13775
+mem[39333] = 1003152
+mem[3932] = 1240562
+mem[59246] = 12638
+mask = 0X1X010100X001X0011000X10000011X11X1
+mem[51007] = 43736089
+mem[32553] = 977
+mem[5131] = 323347526
+mem[21451] = 176282356
+mem[22857] = 118
+mem[50924] = 217
+mask = 001111X110100X11X100000011110111X100
+mem[3954] = 3854
+mem[19628] = 6778501
+mem[29233] = 104
+mem[18456] = 135287
+mem[10018] = 379
+mem[14384] = 969770374
+mask = 0X1X000110X1X10001100110100X01000001
+mem[25112] = 62086
+mem[22964] = 2379583
+mem[45021] = 1429003
+mask = X010XX11X0110110011XX000011000110001
+mem[17265] = 180092
+mem[36033] = 495818745
+mem[28455] = 7765821
+mask = 01000X0110110001100X01X1111000XXX001
+mem[395] = 37390
+mem[6432] = 962
+mem[10247] = 130364
+mem[10136] = 529
+mem[62469] = 62129
+mask = 00001100X010X110011X0000111X0X100XX1
+mem[8811] = 206575
+mem[37066] = 41
+mem[53499] = 1505104
+mem[22863] = 59636084
+mem[50013] = 45392
+mem[29757] = 1343911
+mask = 001000011010X10X10000001XX011X000010
+mem[23068] = 8829046
+mem[49194] = 614470096
+mask = XX1X000110X101100X101100X01101X00X11
+mem[62870] = 3995829
+mem[61328] = 18642
+mem[50232] = 70531300
+mem[48827] = 17923
+mem[12416] = 530017
+mem[33496] = 181946
+mask = 00100X0110XX00011X00000X101100X10100
+mem[64825] = 5590
+mem[55315] = 3210
+mem[532] = 92226
+mask = 00X0XX0000100110011010X0X00XX101011X
+mem[35112] = 1037772
+mem[46051] = 5636
+mem[32440] = 5415168
+mem[6812] = 64661
+mask = XX1111110010110X010XXX0010X0110XX001
+mem[2313] = 14107547
+mem[57582] = 3420940
+mask = 0X100X01101X011101001001111101110X1X
+mem[1584] = 1309601
+mem[45021] = 142440
+mem[52855] = 22177947
+mask = 001X1X11XX101101010010X01X00X100X000
+mem[51649] = 224687001
+mem[30137] = 16118
+mem[49157] = 1286
+mask = 0011010X001X0101110X01000X11011X0100
+mem[8527] = 483
+mem[23222] = 60397
+mem[47303] = 4597311
+mask = 1010001110X00X0010000X100X0X01011100
+mem[61912] = 65321
+mem[28793] = 217
+mem[3216] = 2226
+mem[15267] = 196
+mem[12210] = 634690438
+mask = XX100001100101011XX000001X0X00X10X10
+mem[52112] = 232196
+mem[5131] = 8215922
+mem[21390] = 97675
+mem[60773] = 295919
+mem[10967] = 188393052
+mem[30137] = 40094772
+mask = 01100X00001X0111X11001011X000X1010X0
+mem[47036] = 8270917
+mem[26111] = 3884
+mem[48992] = 3941
+mem[21396] = 9612429
+mask = X01X01X0100X101001XX00001X1101X00110
+mem[47036] = 785762
+mem[20586] = 91901152
+mem[38530] = 338166139
+mem[29577] = 753085
+mask = X01001010001011100X01XX010010011X000
+mem[50548] = 31352881
+mem[17969] = 264
+mem[12532] = 122897915
+mask = 100X0X011011110001001XX0100110010101
+mem[7092] = 488918089
+mem[5131] = 2146748
+mem[13662] = 1422934
+mem[54353] = 299758672
+mem[17622] = 15998
+mem[12416] = 48024869
+mem[15520] = 925305185
+mask = X010000100X1000X1000X10010X010100010
+mem[49608] = 17989
+mem[5478] = 192384
+mem[7958] = 729
+mask = 0010X001X1100X1X1X000100XX10100X1100
+mem[47164] = 170643
+mem[1049] = 151435402
+mem[24631] = 47998921
+mask = 101001XX0X1X010110011101000110110111
+mem[39780] = 29719
+mem[20606] = 714268
+mem[40889] = 367330023
+mem[6414] = 28304231
+mem[63401] = 1417
+mask = 1X10010X00X10101100X010110X1100X1001
+mem[38445] = 392
+mem[14087] = 19086
+mem[36110] = 7609
+mem[61683] = 24000
+mem[55077] = 2975
+mem[2109] = 446867
+mask = 011000011X010X0X1X100110100001X1XX10
+mem[32849] = 150162
+mem[22563] = 3985
+mem[10602] = 225990962
+mask = 00X00X01X00001X1X0000X00101100100110
+mem[43197] = 134523909
+mem[65396] = 266246531
+mem[54292] = 263069
+mem[7677] = 99022189
+mem[16568] = 15208393
+mask = 1X100X011X1000111000XX1100011X00X0X1
+mem[2877] = 1577
+mem[39731] = 1276
+mem[10602] = 844609393
+mem[13447] = 4710
+mask = 0010X00110XX0101100X00XX100110X10100
+mem[10466] = 93198549
+mem[21290] = 624
+mem[2948] = 51676784
+mem[23734] = 6032
+mem[29894] = 48902591
+mem[271] = 60066
+mask = 1011000110X1011X001X11110100110111X0
+mem[1843] = 1562
+mem[1049] = 9936
+mem[14474] = 305948608
+mem[40634] = 680784423
+mem[9394] = 12344199
+mask = 000011X000100X10011X000X001100X10X10
+mem[37198] = 9587
+mem[40486] = 15533376
+mem[28252] = 1625
+mem[59079] = 166206
+mask = 0010010110110XXXXX0X0001100100000X00
+mem[40119] = 168760390
+mem[63012] = 1016
+mem[6964] = 13134
+mem[6116] = 19700991
+mem[60039] = 492285
+mask = 10X000011X10001X100000111X10000101X0
+mem[532] = 16484832
+mem[48228] = 18188385
+mem[65048] = 14886349
+mem[29631] = 1088356
+mask = 0100X00110110X00XXX010110X11X111100X
+mem[24637] = 561045
+mem[62166] = 62287574
+mem[395] = 1350
+mem[46447] = 15165
+mask = 01101XX100110X1X11001X0X0X0X01011110
+mem[29481] = 88712206
+mem[8052] = 965421
+mask = X0X0010100X1X101101X111010X11010X10X
+mem[27388] = 41257883
+mem[22151] = 2499234
+mem[17067] = 1210879
+mask = 00100001X0X10X0110000000101XX001010X
+mem[148] = 43621
+mem[23734] = 243862817
+mask = 101000XX1010001110000X1X00011X0X0100
+mem[19226] = 7783454
+mem[47036] = 32167689
+mem[54708] = 28465363
+mem[25775] = 13654
+mem[38159] = 226030009
+mem[33886] = 22797977
+mem[47934] = 34738195
+mask = 1010000110110111000101011X0XX1X111X1
+mem[8015] = 1639518
+mem[32888] = 89628061
+mem[19414] = 3293870
+mem[45803] = 3055
+mem[2849] = 517315
+mem[7103] = 1807237
+mask = 0010010X1X110111011010001X010X10X110
+mem[32337] = 14059
+mem[7162] = 22418419
+mem[62068] = 491160015
+mem[52514] = 62411508
+mem[21998] = 16113734
+mem[14899] = 4165873
+mask = 01000101101001100110XX01011XX0X00XX0
+mem[63651] = 706
+mem[27388] = 269141496
+mem[16791] = 90544
+mem[58514] = 2084386
+mem[6512] = 82029923
+mask = XX100X0X1011011X0110X00000011X10XX10
+mem[25492] = 51834825
+mem[39104] = 11018
+mem[31518] = 5721690
+mask = X01001X0101101110X10010111X11X110000
+mem[16817] = 43478591
+mem[49714] = 32182
+mem[7715] = 20391
+mem[36282] = 511726
+mem[2709] = 58604
+mask = 10100001101000XX10001001X110001101X0
+mem[21290] = 96121933
+mem[4581] = 935753770
+mem[10322] = 214308733
+mem[22563] = 955
+mem[21998] = 174320
+mask = 001X010010XXXX10011010010XX01X0X0100
+mem[27908] = 10394
+mem[58731] = 17043901
+mem[12207] = 89277
+mem[50189] = 70951683
+mem[40310] = 1070062397
+mask = X11001X11010X1100110X101X0100X0X01X0
+mem[48661] = 35809
+mem[6512] = 466
+mem[22172] = 9259291
+mask = 001X0001X001010XX001000010X1001X1111
+mem[45021] = 7965
+mem[10414] = 132450
+mask = X11001111X10111001X001010X001X00011X
+mem[22734] = 23954922
+mem[18333] = 522531412
+mem[21084] = 2928539
+mask = 0010000X00110101XX0XX111100100100110
+mem[10793] = 30167743
+mem[54236] = 15119211
+mem[46526] = 34600696
+mask = X010010100X10101X0011X0010000X1XXXX1
+mem[40874] = 107825637
+mem[12207] = 5066
+mem[64061] = 12594443
+mem[14677] = 104815480
+mem[47294] = 27328513
+mem[36871] = 99385
+mem[55732] = 3825863
+mask = 0010X10X101X011101X000011X1100110000
+mem[39282] = 9472566
+mem[19564] = 55941
+mem[8527] = 26084
+mem[10265] = 130187
+mem[6432] = 865842
+mem[20931] = 1702
+mask = 00110X0010X01X1001101X0000XX1XX0110X
+mem[54465] = 11299
+mem[13022] = 487449
+mask = 00100XXX101101101101111010X100100000
+mem[20710] = 1510193
+mem[1742] = 2963920
+mem[15368] = 241191
+mem[48928] = 8865
+mask = 0X10XX0100X10X011000X01101X0X1101110
+mem[33496] = 157963055
+mem[10527] = 1744363
+mem[25912] = 24812738
+mem[53894] = 65229499
+mem[27656] = 195539
+mem[56053] = 84622
+mem[58013] = 503836980
+mask = 00X0000X10X1011X0X10110011111X000011
+mem[21324] = 100568910
+mem[11832] = 25433857
+mem[15696] = 65297
+mask = 00100X010011010110XX01X11XX1001X0111
+mem[1742] = 5701
+mem[50038] = 1734
+mem[3338] = 10181349
+mem[64950] = 715735117
+mem[3094] = 6261
+mask = 01XX01001010X1X101XX000010X111110XX0
+mem[30706] = 34032209
+mem[57669] = 953918
+mem[2368] = 18511
+mem[58246] = 14197924
+mem[12602] = 3821248
+mem[37932] = 73626
+mask = 00X0000110X000011XX0000011100X000000
+mem[44726] = 577645454
+mem[31822] = 2444199
+mask = X0100X01X110001X1X0000X01010X0X00111
+mem[40204] = 167462
+mem[13234] = 334
+mem[55553] = 649450
+mem[18698] = 152213289
+mem[56964] = 1004699
+mem[17434] = 557
+mask = 0X1000011111XX01X01XX10X0100000000X1
+mem[54363] = 171716
+mem[27133] = 813977
+mem[25112] = 478238
+mem[2734] = 2300
+mem[23972] = 7597
+mask = 0110X1X1X011011XX10010X11100X1111X00
+mem[21998] = 2245
+mem[39814] = 10501801
+mem[16186] = 807
+mask = X010000110100001100X0011X11000XX0010
+mem[21976] = 1290104
+mem[45127] = 1447
+mem[19564] = 679
+mem[8927] = 40098844
+mem[43124] = 2060353
+mem[17227] = 11511
+mask = X110X00110X10101111000X0000X10111110
+mem[25530] = 23237
+mem[55910] = 1785756
+mem[38723] = 1821559
+mem[30849] = 4089
+mem[532] = 661
+mask = 0X10010XX01X011X011000011X01X1X001X0
+mem[17212] = 6523
+mem[37424] = 480
+mem[40862] = 449969985
+mem[28474] = 40994780
+mem[21577] = 36128
+mem[39066] = 7501680
+mask = X100X101100X01X001101001X11001111110
+mem[35142] = 186426
+mem[28005] = 1296725
+mem[57552] = 433183
+mem[26566] = 56636
+mem[4581] = 1646680
+mem[35799] = 2658
+mask = 001011010001X00110X00X10000001011X10
+mem[13674] = 62138919
+mem[63552] = 11168
+mem[11669] = 56357099
+mask = 101000XX1010XX0010000X10XX1100010010
+mem[22434] = 34054009
+mem[19261] = 856
+mem[24828] = 7024
+mem[34924] = 648168
+mem[22917] = 9557844
+mask = 10100X0X1011111100X1010000000111100X
+mem[63552] = 11477437
+mem[23072] = 8131648
+mem[19002] = 1064
+mem[23946] = 183
+mem[2440] = 1277
+mask = X0100001101X000X100001001X1X00110110
+mem[55553] = 49381
+mem[25631] = 41125881
+mem[62633] = 590643
+mask = 0X1000011001010001XX11X0010100000000
+mem[10466] = 506832
+mem[23072] = 5583
+mem[45005] = 8337603
+mem[59216] = 7005456
+mask = 0XXX000111111001X0100100001000000100
+mem[19928] = 48311172
+mem[22974] = 815
+mem[34266] = 13786112
+mem[1742] = 9648313
+mem[1094] = 162
+mem[55709] = 31320282
+mask = 0XX0000110100XX1X001001001X001000001
+mem[22346] = 340600
+mem[39104] = 935807
+mem[64441] = 570
+mem[56853] = 3313
+mem[22434] = 1892025
+mask = 01X000X1X0110XXXX1100110000X00101000
+mem[26813] = 23072664
+mem[9142] = 282783543
+mem[29807] = 14754
+mem[56288] = 62827
+mask = 01X0010X1XX001X001X010X011100100X100
+mem[47774] = 352023
+mem[5938] = 132498542
+mem[24828] = 8444211
+mem[55829] = 238313735
+mask = 0010010100X101X10XX0X10X110100XX1X00
+mem[1908] = 30255
+mem[40461] = 1524854
+mem[21752] = 3313
+mem[38177] = 164
+mem[32888] = 20182288
+mem[17656] = 2560835
+mask = 01000101101XX11X0110X10X0000X1XX0000
+mem[18028] = 6424701
+mem[11832] = 73576
+mem[18812] = 15408
+mask = X010X00XXXX1X1100100X1101X1111110010
+mem[31868] = 1008118155
+mem[16970] = 560
+mem[6414] = 659729
+mask = 00100X0110X1010001X0XXX1X00100100X00
+mem[60039] = 1335434
+mem[22051] = 4352989
+mem[23413] = 8881
+mem[5131] = 3574
+mem[31132] = 1822377
+mem[59227] = 3565275
+mem[55044] = 629
+mask = 101001010001X101100X1XX01X01100X1111
+mem[2119] = 6096
+mem[25137] = 4534409
+mem[34466] = 2697336
+mem[24201] = 506176
+mem[25286] = 110343
+mask = 0XX00001101100011000010X101X0X11X100
+mem[29807] = 25323
+mem[12207] = 27513971
+mem[9003] = 1398544
+mem[28341] = 50817018
+mem[30137] = 115
+mem[42114] = 67247621
+mask = 0000X1000010X1X0011010111X0X01X11X10
+mem[48228] = 2010329
+mem[45718] = 71839
+mem[33886] = 136902
+mem[51771] = 2015
+mask = X000000110X101000100000010010X0011X0
+mem[4243] = 33894587
+mem[64857] = 8145
+mem[45718] = 97465094
+mem[53834] = 3359009
+mask = 0010X101000101011X0X01X0101000000001
+mem[24012] = 379049
+mem[39780] = 26758
+mem[59983] = 495835
+mem[37409] = 1160
+mem[52514] = 6321
+mem[27459] = 147
+mem[41942] = 217105
+mask = 00100001100101011X101X0X10111XX10000
+mem[17846] = 10118006
+mem[59737] = 2963
+mem[34644] = 35114650
+mem[13172] = 143244
+mem[5938] = 51096
+mem[44123] = 3352
+mask = 001000X1101101X001X001XX00110101X0X0
+mem[38177] = 2168495
+mem[11075] = 7671
+mem[47735] = 2437651
+mem[57709] = 103925776
+mem[9577] = 253960744
+mem[61912] = 713476954
+mem[10466] = 509335816
+mask = 0X10X00110010100011000001X01001X0001
+mem[46526] = 985771
+mem[63247] = 474051554
+mem[22968] = 581
+mem[29811] = 4967030
+mem[57544] = 438283695
+mem[7042] = 308851
+mask = 001XXX010011X10XX100010X1100X0010100
+mem[22856] = 10167
+mem[25967] = 196716
+mem[17344] = 30111
+mem[3954] = 21193
+mask = 011000XX1101000X00X00101001111000000
+mem[45718] = 22050
+mem[4315] = 28856671
+mem[3954] = 1669054
+mask = XXX000011X11X1000XX011X100X100010101
+mem[25208] = 62883413
+mem[40039] = 460470
+mem[27976] = 317910
+mem[6549] = 3697104
+mem[34078] = 112
+mem[62178] = 479428706
+mask = 0110000111X1X0X1X0100100XXX001XX0010
+mem[532] = 4184102
+mem[25575] = 20376
+mem[59465] = 35723765
+mem[32827] = 2041066
+mem[21963] = 519238
+mem[56441] = 22508
+mask = X0100001101101000100000X0011X01000X0
+mem[34078] = 36026
+mem[12451] = 602257
+mask = 10X0010100X1X10110010010100X0X100011
+mem[52291] = 3349730
+mem[51550] = 12311148
+mem[27235] = 986707194
+mem[7958] = 2162
+mem[36824] = 3705422
+mask = 011X0X0111010000X110000X1X01XX0XX100
+mem[21004] = 1994888
+mem[10900] = 11111
+mem[24854] = 1327
+mem[45320] = 1739644
+mem[29894] = 1918
+mem[62034] = 165719
+mask = 1XX10X10100X1010X1000100X0X10X001X00
+mem[54431] = 68179
+mem[48498] = 269569
+mem[25492] = 53144423
+mem[24130] = 510
+mem[9579] = 22225
+mask = 0X00X101101011X00110X0001001010011X0
+mem[54156] = 597982
+mem[3020] = 27476
+mem[18748] = 105524
+mem[37066] = 28361301
+mem[43484] = 19990814
+mem[18698] = 635178
+mask = X0100001101000X1100X0110XX11111X1000
+mem[44272] = 88008
+mem[11075] = 919
+mem[41491] = 2905
+mem[4898] = 32296
+mem[10607] = 10054
+mem[28252] = 31037`,d14p2:``,d15p1:``,d15p2:``,d16p1:``,d16p2:``,d17p1:``,d17p2:``,d18p1:``,d18p2:``,d19p1:``,d19p2:``,d20p1:``,d20p2:``,d21p1:``,d21p2:``,d22p1:``,d22p2:``,d23p1:``,d23p2:``,d24p1:``,d24p2:``,d25p1:``,d25p2:``,};
+class Tmath {
+    constructor() {
+
+    }
+
+    //Greatest common divisor.
+    static gcd(a, b) {
+        return !b ? a : Tmath.gcd(b, a % b);
+    }
+
+    // Least common multiple.
+    static lcm(a, b) {
+        return a * (b / Tmath.gcd(a, b));
+    }
+
+}
+
+class Matrix2d {
+    constructor() {
+        this.matrix = [];
+        this.maxX = null;
+        this.maxY = null;
+    }
+    get(x, y) {
+        if (this.matrix[x] === undefined) this.matrix[x] = [];
+        if (this.matrix[x] === null) this.matrix[x] = [];
+        if (this.matrix[x][y] === undefined) this.matrix[x][y] = null;
+        if (this.maxX === null) this.maxX = x;
+        if (this.maxY === null) this.maxY = y;
+        if (x > this.maxX) this.maxX = x;
+        if (y > this.maxY) this.maxY = y;
+        return this.matrix[x][y];
+    }
+    set(x, y, value) {
+        this.get(x, y); //used to ensure slot is alotted.
+        this.matrix[x][y] = value;
+    }
+    isOutOfBounds(x, y) {
+        if (this.maxX === null) return true;
+        if (this.maxY === null) return true;
+        if (x < 0) return true;
+        if (y < 0) return true;
+        if (x > this.maxX) return true;
+        if (y > this.maxY) return true;
+        return false;
+    }
+    unitTest(ut) {
+        let m = new Matrix2d();
+        ut.test('T-Matrix2d1', m.get(0, 0) === null);
+        m.set(0, 0, 2);
+        ut.test('T-Matrix2d2', m.get(0, 0) === 2);
+        m.set(10, 100, 3);
+        ut.test('T-Matrix2d3', m.get(10, 100) === 3);
+        ut.test('T-Matrix2d4', m.get(4, 4) === null);
+    }
+}
+
+class Digraph {
+    constructor() {
+        this.nodeNames = [];
+        this.edgesTo = [];
+    }
+    getNodeId(name) {
+        return this.nodeNames.indexOf(name);
+    }
+    addNode(name) {
+        let ni = this.getNodeId(name);
+        if (ni < 0) {
+            ni = this.nodeNames.length;
+            this.nodeNames[ni] = name;
+            this.edgesTo[ni] = new Array(ni).fill(0);
+            for (let i = 0; i < this.nodeNames.length; i++) {
+                this.edgesTo[i][ni] = 0;
+                // log('addnode edgeto set to zero for i=' + i + ' ni=' + ni);
+            }
+        }
+        return ni;
+    }
+    addEdgeTo(fromNodeName, toNodeName, weight = 1) {
+        let f = this.addNode(fromNodeName);
+        let t = this.addNode(toNodeName);
+        // if (this.edgesTo[f][t] === undefined) {
+        //     this.edgesTo[f][t] = 0;
+        // }
+        this.edgesTo[f][t] = weight;
+        this.numPathsMem = new Matrix2d();
+    }
+    isEdge(fromNodeId, toNodeId) {
+        // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
+        return this.edgesTo[fromNodeId][toNodeId] > 0;
+    }
+    isPath(fromNodeId, toNodeId) {
+        if (this.isEdge(fromNodeId, toNodeId)) return true;
+        else {
+            for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
+                if (this.isEdge(fromNodeId, i)) {
+                    if (this.isPath(i, toNodeId)) return true;
+                }
+            }
+        }
+        return false;
+    }
+    numPathsMem = new Matrix2d(); //used for memoization.
+    numPaths(fromNodeId, toNodeId) {
+        // if (fromNodeId === toNodeId) return 1;
+        let paths = this.numPathsMem.get(fromNodeId, toNodeId);
+        if (paths !== null) return paths;
+        paths = 0;
+        if (this.isEdge(fromNodeId, toNodeId)) paths++;
+        // log("paths=" + paths);
+        //Add up number of paths from children.
+        for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
+            if (this.isEdge(fromNodeId, i)) {
+                paths += this.numPaths(i, toNodeId);
+            }
+        }
+        this.numPathsMem.set(fromNodeId, toNodeId, paths);
+        return paths;
+    }
+
+    numberOfPaths(fromNodeName, toNodeName) {
+        // log("fromNodeName=" + fromNodeName);
+        let fid = this.getNodeId(fromNodeName);
+        // log("fid=" + fid);
+        if (fid == -1) return 0;
+
+        // log("toNodeName=" + toNodeName);
+        let tid = this.getNodeId(toNodeName);
+        // log("tid=" + tid);
+        if (tid == -1) return 0;
+
+        return this.numPaths(fid, tid);
+    }
+
+    edgeWeightSum(nodeId) {
+        let sum = 0;
+        for (let i = 0; i < this.nodeNames.length; i++) {
+            sum += this.edgesTo[nodeId][i];
+        }
+        return sum;
+    }
+    edgeWeightSumRecursive(nodeId) {
+        let sum = 0;
+        for (let i = 0; i < this.nodeNames.length; i++) {
+            let w = this.edgesTo[nodeId][i];
+            if (w > 0) {
+                sum += w;
+                sum += w * this.edgeWeightSumRecursive(i);
+            }
+        }
+        return sum;
+    }
+    toString() {
+        let s = '<pre><code>START DIGRAPH\n';
+        // log('START DIGRAPH');
+        for (let i = 0; i < this.nodeNames.length; i++) {
+            s += (this.nodeNames[i] + '(' + i + ')\n');
+            for (let t = 0; t < this.edgesTo[i].length; t++) {
+                if (this.edgesTo[i][t] === undefined) s += ('-> UNDEFINED!' + t + "\n");
+                if (this.edgesTo[i][t] === null) s += ('-> NULL!' + t + "\n");
+                if (this.edgesTo[i][t] > 0) s += ('->' + this.edgesTo[i][t] + ':' + this.nodeNames[t] + '(' + t + ')' + "\n");
+            }
+        }
+        return s + '</code><pre>';
+    }
+    unitTest(ut) {
+        let dg = new Digraph();
+        dg.addEdgeTo('a', 'b');
+        ut.test('T-Digraph1a', dg.isEdge(0, 1));
+        ut.test('T-Digraph1b1', !dg.isEdge(0, 0));
+        ut.test('T-Digraph1b2', !dg.isPath(0, 0));
+        ut.test('T-Digraph1c', dg.isPath(0, 1));
+        ut.test('T-Digraph2a', dg.numPaths(0, 0) === 0);
+        ut.test('T-Digraph2b', dg.numPaths(0, 1) === 1);
+        ut.test('T-Digraph3', dg.numberOfPaths('a', 'b') === 1);
+        dg.addEdgeTo('a', 'c');
+        dg.addEdgeTo('c', 'd');
+        ut.test('T-Digraph4a', dg.numberOfPaths('a', 'd') === 1);
+        dg.addEdgeTo('b', 'd');
+        ut.test('T-Digraph4b', dg.numberOfPaths('a', 'd') === 2);
+        dg.addEdgeTo('a', 'd');
+        ut.test('T-Digraph4c', dg.numberOfPaths('a', 'd') === 3);
+        dg.addEdgeTo('b', 'c');
+        ut.test('T-Digraph4d', dg.numberOfPaths('a', 'd') === 4);
+        //Currently Digraph cannot handle cycles, 
+        //so following would result in infinite recursion.
+        // dg.addEdgeTo('c', 'b');
+        // ut.test('T-Digraph4e', dg.numberOfPaths('a', 'd') === 5);
+    }
+}
 //#region UTILITY AND UNIT TEST /////////////////////////////////
 function gi(id) {
     return document.getElementById(id);
@@ -8089,28 +10167,113 @@ function loadCurrentInputData() {
     writeInput(problems[currentBaseId].givenInputData);
 }
 
+function fetchData3(pageId) {
+    log("fetchData3:" + pageId);
+    const templink = document.createElement("a");
+    const textblob = new Blob([], {
+        type: "text/plain"
+    });
+    const fileurl = window.URL.createObjectURL(textblob);
+    templink.href = fileurl;
+    templink.download = pageId;
+    document.body.appendChild(templink);
+    templink.click();
+    setTimeout(function() {
+        document.body.removeChild(templink);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+}
+
+function fetchData2(pageId) {
+    log("fetching2:" + pageId);
+    let req = new XMLHttpRequest();
+    req.withCredentials = true;
+    //req.addEventListener("load", reqListener);
+    req.open("GET", pageId, false);
+    req.send();
+    log("fetching2 responseText=" + req.responseText);
+}
+
+function fetchData(pageId) {
+    log("fetching:" + pageId);
+
+    let myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'text/plain');
+
+    let myInit = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'no-cors',
+        cache: 'default',
+        credentials: 'include'
+    };
+
+    var myRequest = new Request(pageId);
+
+    fetch(myRequest, myInit)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error("HTTP error, status = " + response.status);
+            }
+            return response.text();
+        })
+        .then(function(text) {
+            log("Fetched text:" + text);
+        })
+        .catch(function(error) {
+            log('Fetch Error: ' + error.message);
+
+        });
+}
+
+function fetchCurrentInputData() {
+    clearCurrentData();
+    let day = currentBaseId.substring(currentBaseId.indexOf("d") + 1, currentBaseId.indexOf("p"));
+    log("day=" + day);
+    fetchData3(`https://adventofcode.com/2020/day/${day}/input`);
+    writeInput("NOT IMPLEMENTED");
+}
+
 function solveCurrentProblem() {
     problems[currentBaseId].solve();
+}
+
+function showTabDiv(x) {
+    let t = gi("tabdiv");
+    if (x) {
+        t.className = 'dropdown-content dcshow';
+    } else {
+        t.className = 'dropdown-content dchide';
+    }
 }
 
 function showArticle(baseId) {
     //Turn off current article and button.
     gi("a_" + currentBaseId).style.display = "none";
-    gi("b_" + currentBaseId).style.backgroundColor = "gray";
+    gi("b_" + currentBaseId).className = "tab tabnotsel";
+
     //Turn on new article and button.
     gi("a_" + baseId).style.display = "block";
-    gi("b_" + baseId).style.backgroundColor = "#0f0f23";
+    gi("b_" + baseId).className = "tab tabsel";
+
     currentBaseId = baseId;
+    gi("navlabel").innerHTML = baseId;
+    showTabDiv(false);
 }
 //Auto-create the nav button-tabs, one for each "a_*" element.
 function makeNavButton(id) {
-    return `<button class="tab" id="b_${id}" onclick="showArticle('${id}')"><span class="tabspan">${id}</span></button>`;
+    return `<button class="tab tabnotsel" id="b_${id}" onclick="showArticle('${id}')">${id}</button>`;
 }
 
-function makeProcessingButtons() {
+function makeProcessingButtons(baseId) {
+    let day = baseId.substring(baseId.indexOf("d") + 1, baseId.indexOf("p"));
+    // log("mpb: day=" + day);
+    let url = `https://adventofcode.com/2020/day/${day}/input`;
+
     return `<button onclick="clearCurrentData()">Clear Data</button>
 <button onclick="loadCurrentInputData()">Load Given Input Data</button>
-<button onclick="solveCurrentProblem()">Solve</button>`;
+<button onclick="solveCurrentProblem()">Solve</button>
+<a class="aoca" href="${url}">AOC Input Data</a>`;
 }
 
 function makeIoArea(id) {
@@ -8135,14 +10298,14 @@ function findParentArticleBaseId(elem) {
     return "xxxx";
 }
 window.addEventListener("load", function() {
-    let s = "";
+    let s = "<button class='tab' onclick='showTabDiv(true)'>Menu</button><span id='navlabel'>XXX</span><div id='tabdiv' class='dropdown-content dchide'>";
     document
         .querySelectorAll('[id^="a_"]')
         .forEach((a) => (s += makeNavButton(a.id.substr(2))));
-    gi("nav-button-tabs").innerHTML = s;
+    gi("nav-button-tabs").innerHTML = s + '</div></span>';
     document
         .querySelectorAll(".processing_buttons")
-        .forEach((div) => (div.innerHTML = makeProcessingButtons()));
+        .forEach((div) => (div.innerHTML = makeProcessingButtons(findParentArticleBaseId(div))));
     document
         .querySelectorAll(".io")
         .forEach(
@@ -8888,163 +11051,6 @@ problems.d6p2 = {
     }
 };
 
-class Matrix2d {
-    constructor() {
-        this.matrix = [];
-    }
-    get(x, y) {
-        if (this.matrix[x] === undefined) this.matrix[x] = [];
-        if (this.matrix[x] === null) this.matrix[x] = [];
-        if (this.matrix[x][y] === undefined) this.matrix[x][y] = null;
-        return this.matrix[x][y];
-    }
-    set(x, y, value) {
-        this.get(x, y); //used to ensure slot is alotted.
-        this.matrix[x][y] = value;
-    }
-    unitTest(ut) {
-        let m = new Matrix2d();
-        ut.test('T-Matrix2d1', m.get(0, 0) === null);
-        m.set(0, 0, 2);
-        ut.test('T-Matrix2d2', m.get(0, 0) === 2);
-        m.set(10, 100, 3);
-        ut.test('T-Matrix2d3', m.get(10, 100) === 3);
-        ut.test('T-Matrix2d4', m.get(4, 4) === null);
-    }
-}
-
-class Digraph {
-    constructor() {
-        this.nodeNames = [];
-        this.edgesTo = [];
-    }
-    getNodeId(name) {
-        return this.nodeNames.indexOf(name);
-    }
-    addNode(name) {
-        let ni = this.getNodeId(name);
-        if (ni < 0) {
-            ni = this.nodeNames.length;
-            this.nodeNames[ni] = name;
-            this.edgesTo[ni] = new Array(ni).fill(0);
-            for (let i = 0; i < this.nodeNames.length; i++) {
-                this.edgesTo[i][ni] = 0;
-                // log('addnode edgeto set to zero for i=' + i + ' ni=' + ni);
-            }
-        }
-        return ni;
-    }
-    addEdgeTo(fromNodeName, toNodeName, weight = 1) {
-        let f = this.addNode(fromNodeName);
-        let t = this.addNode(toNodeName);
-        // if (this.edgesTo[f][t] === undefined) {
-        //     this.edgesTo[f][t] = 0;
-        // }
-        this.edgesTo[f][t] = weight;
-    }
-    isEdge(fromNodeId, toNodeId) {
-        // if (this.edgesTo[fromNodeId][toNodeId] === undefined) return false;
-        return this.edgesTo[fromNodeId][toNodeId] > 0;
-    }
-    isPath(fromNodeId, toNodeId) {
-        if (this.isEdge(fromNodeId, toNodeId)) return true;
-        else {
-            for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
-                if (this.isEdge(fromNodeId, i)) {
-                    if (this.isPath(i, toNodeId)) return true;
-                }
-            }
-        }
-        return false;
-    }
-    numPathsMem = new Matrix2d(); //used for memoization.
-    numPaths(fromNodeId, toNodeId) {
-        // if (fromNodeId === toNodeId) return 1;
-        let paths = this.numPathsMem.get(fromNodeId, toNodeId);
-        if (paths !== null) return paths;
-        paths = 0;
-        if (this.isEdge(fromNodeId, toNodeId)) paths++;
-        // log("paths=" + paths);
-        //Add up number of paths from children.
-        for (let i = 0; i < this.edgesTo[fromNodeId].length; i++) {
-            if (this.isEdge(fromNodeId, i)) {
-                paths += this.numPaths(i, toNodeId);
-            }
-        }
-        this.numPathsMem.set(fromNodeId, toNodeId, paths);
-        return paths;
-    }
-
-    numberOfPaths(fromNodeName, toNodeName) {
-        // log("fromNodeName=" + fromNodeName);
-        let fid = this.getNodeId(fromNodeName);
-        // log("fid=" + fid);
-        if (fid == -1) return 0;
-
-        // log("toNodeName=" + toNodeName);
-        let tid = this.getNodeId(toNodeName);
-        // log("tid=" + tid);
-        if (tid == -1) return 0;
-
-        return this.numPaths(fid, tid);
-    }
-
-    edgeWeightSum(nodeId) {
-        let sum = 0;
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            sum += this.edgesTo[nodeId][i];
-        }
-        return sum;
-    }
-    edgeWeightSumRecursive(nodeId) {
-        let sum = 0;
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            let w = this.edgesTo[nodeId][i];
-            if (w > 0) {
-                sum += w;
-                sum += w * this.edgeWeightSumRecursive(i);
-            }
-        }
-        return sum;
-    }
-    toString() {
-        let s = '<pre><code>START DIGRAPH\n';
-        // log('START DIGRAPH');
-        for (let i = 0; i < this.nodeNames.length; i++) {
-            s += (this.nodeNames[i] + '(' + i + ')\n');
-            for (let t = 0; t < this.edgesTo[i].length; t++) {
-                if (this.edgesTo[i][t] === undefined) s += ('-> UNDEFINED!' + t + "\n");
-                if (this.edgesTo[i][t] === null) s += ('-> NULL!' + t + "\n");
-                if (this.edgesTo[i][t] > 0) s += ('->' + this.edgesTo[i][t] + ':' + this.nodeNames[t] + '(' + t + ')' + "\n");
-            }
-        }
-        return s + '</code><pre>';
-    }
-    unitTest(ut) {
-        let dg = new Digraph();
-        dg.addEdgeTo('a', 'b');
-        ut.test('T-Digraph1a', dg.isEdge(0, 1));
-        ut.test('T-Digraph1b1', !dg.isEdge(0, 0));
-        ut.test('T-Digraph1b2', !dg.isPath(0, 0));
-        ut.test('T-Digraph1c', dg.isPath(0, 1));
-        ut.test('T-Digraph2a', dg.numPaths(0, 0) === 0);
-        ut.test('T-Digraph2b', dg.numPaths(0, 1) === 1);
-        ut.test('T-Digraph3', dg.numberOfPaths('a', 'b') === 1);
-        dg.addEdgeTo('a', 'c');
-        dg.addEdgeTo('c', 'd');
-        ut.test('T-Digraph4a', dg.numberOfPaths('a', 'd') === 1);
-        dg.addEdgeTo('b', 'd');
-        ut.test('T-Digraph4b', dg.numberOfPaths('a', 'd') === 2);
-        dg.addEdgeTo('a', 'd');
-        ut.test('T-Digraph4c', dg.numberOfPaths('a', 'd') === 3);
-        dg.addEdgeTo('b', 'c');
-        ut.test('T-Digraph4d', dg.numberOfPaths('a', 'd') === 4);
-        //Currently Digraph cannot handle cycles, 
-        //so following would result in infinite recursion.
-        // dg.addEdgeTo('c', 'b');
-        // ut.test('T-Digraph4e', dg.numberOfPaths('a', 'd') === 5);
-    }
-}
 
 problems.d7p1 = {
     givenInputData: AOC_Input_Data.d7p1,
@@ -9422,89 +11428,89 @@ class AdChain {
         }
         return diff1 * diff3;
     }
-    //Calc the max number of paths for sequence frm 0 to n.
-    maxPathsData = [1, 1, 2]; //Used for memoization.
-    maxPaths(n) {
-        // if (n === 0) return 1;
-        // if (n === 1) return 1;
-        // if (n === 2) return 2;
-        if (this.maxPathsData[n]) return this.maxPathsData[n];
-        let mp = this.maxPaths(n - 1) + this.maxPaths(n - 2) + this.maxPaths(n - 3);
-        this.maxPathsData[n] = mp;
-        return mp;
-    }
-    numHoles() {
-        if (this.nums.length <= 1) return 0;
-        let current = this.nums[0];
-        let missing = 0;
-        for (let i = 1; i < this.nums.length; i++) {
-            missing += this.nums[i] - (current + 1);
-            current = this.nums[i];
-        }
-        return missing;
-    }
-    calcPaths6() {
-        let contiguousSizes = [];
-        let holeSizes = [];
-        let wasAdapter = true;
-        let runSize = 0;
-        for (let n = 0; n <= this.nums[this.nums.length - 1]; n++) {
-            let isAdapter = this.nums.includes(n);
-            if (isAdapter !== wasAdapter) {
-                if (wasAdapter) {
-                    contiguousSizes.push(runSize);
-                } else {
-                    holeSizes.push(runSize);
-                }
-                runSize = 1;
-                wasAdapter = isAdapter;
-            } else {
-                runSize++;
-            }
-        }
-        contiguousSizes.push(runSize - 1);
-        // log("holeSizes.length=" + holeSizes.length);
-        // for (let x = 0; x < holeSizes.length; x++) {
-        //     log("x=" + x + " hs=" + holeSizes[x]);
-        // }
-        // log("contiguousSizes.length=" + contiguousSizes.length);
-        // for (let x = 0; x < contiguousSizes.length; x++) {
-        //     log("x=" + x + " cs=" + contiguousSizes[x]);
-        // }
-        let currentRegion = 0;
-        let p = this.maxPaths(contiguousSizes[0]);
-        for (let i = 1; i < contiguousSizes.length; i++) {
-            if (holeSizes[i - 1] > 2) return 0; //no paths possible thru a gap this size.
-            if (holeSizes[i - 1] === 1) {
-                if (contiguousSizes[i - 1] > 1 && contiguousSizes[i] > 1) {
-                    p *= 3;
-                } else if (contiguousSizes[i - 1] > 1 || contiguousSizes[i] > 1) {
-                    p *= 2;
-                }
-            }
-            p *= this.maxPaths(contiguousSizes[i]);
+    // //Calc the max number of paths for sequence frm 0 to n.
+    // maxPathsData = [1, 1, 2]; //Used for memoization.
+    // maxPaths(n) {
+    //     // if (n === 0) return 1;
+    //     // if (n === 1) return 1;
+    //     // if (n === 2) return 2;
+    //     if (this.maxPathsData[n]) return this.maxPathsData[n];
+    //     let mp = this.maxPaths(n - 1) + this.maxPaths(n - 2) + this.maxPaths(n - 3);
+    //     this.maxPathsData[n] = mp;
+    //     return mp;
+    // }
+    // numHoles() {
+    //     if (this.nums.length <= 1) return 0;
+    //     let current = this.nums[0];
+    //     let missing = 0;
+    //     for (let i = 1; i < this.nums.length; i++) {
+    //         missing += this.nums[i] - (current + 1);
+    //         current = this.nums[i];
+    //     }
+    //     return missing;
+    // }
+    // calcPaths6() {
+    //     let contiguousSizes = [];
+    //     let holeSizes = [];
+    //     let wasAdapter = true;
+    //     let runSize = 0;
+    //     for (let n = 0; n <= this.nums[this.nums.length - 1]; n++) {
+    //         let isAdapter = this.nums.includes(n);
+    //         if (isAdapter !== wasAdapter) {
+    //             if (wasAdapter) {
+    //                 contiguousSizes.push(runSize);
+    //             } else {
+    //                 holeSizes.push(runSize);
+    //             }
+    //             runSize = 1;
+    //             wasAdapter = isAdapter;
+    //         } else {
+    //             runSize++;
+    //         }
+    //     }
+    //     contiguousSizes.push(runSize - 1);
+    //     // log("holeSizes.length=" + holeSizes.length);
+    //     // for (let x = 0; x < holeSizes.length; x++) {
+    //     //     log("x=" + x + " hs=" + holeSizes[x]);
+    //     // }
+    //     // log("contiguousSizes.length=" + contiguousSizes.length);
+    //     // for (let x = 0; x < contiguousSizes.length; x++) {
+    //     //     log("x=" + x + " cs=" + contiguousSizes[x]);
+    //     // }
+    //     let currentRegion = 0;
+    //     let p = this.maxPaths(contiguousSizes[0]);
+    //     for (let i = 1; i < contiguousSizes.length; i++) {
+    //         if (holeSizes[i - 1] > 2) return 0; //no paths possible thru a gap this size.
+    //         if (holeSizes[i - 1] === 1) {
+    //             if (contiguousSizes[i - 1] > 1 && contiguousSizes[i] > 1) {
+    //                 p *= 3;
+    //             } else if (contiguousSizes[i - 1] > 1 || contiguousSizes[i] > 1) {
+    //                 p *= 2;
+    //             }
+    //         }
+    //         p *= this.maxPaths(contiguousSizes[i]);
 
-        }
-        return p;
-    }
-    calcPaths5() {
-        let max = this.nums[this.nums.length - 1];
-        return this.maxPaths(max);
-    }
-    calcPaths2() {
-        let max = this.nums[this.nums.length - 1];
-        return this.maxPaths(max) / Math.pow(2, this.numHoles());
-    }
-    calcPaths3() {
-        return Math.pow(2, this.nums[this.nums.length - 1] - this.numHoles() - 1);
-    }
-    calcPaths4(n) {
-        return -603;
-        if (n === 0) return 1;
-        if (n === 1) return 1;
-        if (n === 2) return 2;
-        return this.calcPaths4(n - 1) + this.calcPaths4(n - 2) + this.calcPaths4(n - 3);
-    }
+    //     }
+    //     return p;
+    // }
+    // calcPaths5() {
+    //     let max = this.nums[this.nums.length - 1];
+    //     return this.maxPaths(max);
+    // }
+    // calcPaths2() {
+    //     let max = this.nums[this.nums.length - 1];
+    //     return this.maxPaths(max) / Math.pow(2, this.numHoles());
+    // }
+    // calcPaths3() {
+    //     return Math.pow(2, this.nums[this.nums.length - 1] - this.numHoles() - 1);
+    // }
+    // calcPaths4(n) {
+    //     return -603;
+    //     if (n === 0) return 1;
+    //     if (n === 1) return 1;
+    //     if (n === 2) return 2;
+    //     return this.calcPaths4(n - 1) + this.calcPaths4(n - 2) + this.calcPaths4(n - 3);
+    // }
     calcPaths() {
         //Build a digraph of all possible connections.
         let dg = new Digraph();
@@ -9596,19 +11602,19 @@ problems.d10p2 = {
         let ac = new AdChain();
         ac.load(problems.d10p1.td1);
         ut.test(s + "1b", ac.calcPaths() === 8);
-        ut.test(s + "1b6", ac.calcPaths6() === 8);
+        // ut.test(s + "1b6", ac.calcPaths6() === 8);
         // ut.test(s + "1b2", ac.calcPaths2() === 8);
         // ut.test(s + "1b3", ac.calcPaths3() === 8);
         // ut.test(s + "1b4", ac.numHoles() === 10);
-        log('1b ac.calcPaths()=' + ac.calcPaths());
-        log('1b6 ac.calcPaths6()=' + ac.calcPaths6());
+        // log('1b ac.calcPaths()=' + ac.calcPaths());
+        // log('1b6 ac.calcPaths6()=' + ac.calcPaths6());
         // log('1b2 ac.calcPaths2()=' + ac.calcPaths2());
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b3 ac.calcPaths4()=' + ac.calcPaths4());
         // log('1b4 ac.numHoles()=' + ac.numHoles());
         ac.load(problems.d10p1.td2);
-        log('2b ac.calcPaths()=' + ac.calcPaths());
+        // log('2b ac.calcPaths()=' + ac.calcPaths());
         ut.test(s + "2b", ac.calcPaths() === 19208);
         // ut.test(s + "2b2", ac.calcPaths2() === 19208);
 
@@ -9618,65 +11624,881 @@ problems.d10p2 = {
         for (let i = 0; i <= 50; i++) {
             ac2.nums.push(i);
             // log("i=" + i + " paths=" + ac2.calcPaths() + " paths2=" + ac2.calcPaths2());
-            log("i=" + i + " paths=" + ac2.calcPaths() + " paths6=" + ac2.calcPaths6());
+            // log("i=" + i + " paths=" + ac2.calcPaths() + " paths6=" + ac2.calcPaths6());
             // log("i=" + i + " paths6=" + ac2.calcPaths6());
         }
 
         let td = "1";
         ac.loadX(td);
-        log("***maxa=1 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=1 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n2";
         ac.loadX(td);
-        log("***maxa=2 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=2 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n4";
         ac.loadX(td);
-        log("***maxa=3 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=3 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n5";
         ac.loadX(td);
-        log("***maxa=4 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=4 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n6";
         ac.loadX(td);
-        log("***maxa=5 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=5 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n7";
         ac.loadX(td);
-        log("***maxa=6 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=6 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
         td += "\n10";
         ac.loadX(td);
-        log("***maxa=7 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
+        // log("***maxa=7 paths6=" + ac.calcPaths6() + " paths=" + ac.calcPaths());
 
     },
 };
+
+class AOC_gol {
+    constructor() {
+        this.matrix = new Matrix2d();
+        this.stable = false;
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        for (let y = a.length - 1; y >= 0; y--) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set(x, y, a[y].charAt(x));
+            }
+        }
+    }
+    isEmptySeat(x, y) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y);
+        return (c === 'L');
+    }
+    isOccupiedSeat(x, y) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y);
+        return (c === '#');
+    }
+    adjacentSeatsOccupied(x, y) {
+        let n = 0;
+        if (this.isOccupiedSeat(x - 1, y - 1)) n++;
+        if (this.isOccupiedSeat(x, y - 1)) n++;
+        if (this.isOccupiedSeat(x + 1, y - 1)) n++;
+        if (this.isOccupiedSeat(x - 1, y)) n++;
+        if (this.isOccupiedSeat(x + 1, y)) n++;
+        if (this.isOccupiedSeat(x - 1, y + 1)) n++;
+        if (this.isOccupiedSeat(x, y + 1)) n++;
+        if (this.isOccupiedSeat(x + 1, y + 1)) n++;
+        return n;
+    }
+    isLosSeatOccupied(x, y, dx, dy) {
+        let nx = x;
+        let ny = y;
+        while (true) {
+            nx += dx;
+            ny += dy;
+            if (this.matrix.isOutOfBounds(nx, ny)) return false;
+            if (this.isOccupiedSeat(nx, ny)) return true;
+            if (this.isEmptySeat(nx, ny)) return false;
+        }
+    }
+    visibleSeatsOccupied(x, y) {
+        let n = 0;
+        if (this.isLosSeatOccupied(x, y, 1, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, 1, 0)) n++;
+        if (this.isLosSeatOccupied(x, y, 1, -1)) n++;
+        if (this.isLosSeatOccupied(x, y, 0, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, 0, -1)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, 1)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, 0)) n++;
+        if (this.isLosSeatOccupied(x, y, -1, -1)) n++;
+        return n;
+    }
+    toLog() {
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                log("x=" + x + " y=" + y + " val=" + this.matrix.get(x, y));
+            }
+        }
+    }
+    stepP1() {
+        let m = new Matrix2d();
+        let change = false;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                m.set(x, y, this.matrix.get(x, y));
+                if (this.isEmptySeat(x, y)) {
+                    if (this.adjacentSeatsOccupied(x, y) == 0) {
+                        m.set(x, y, '#');
+                        change = true;
+                    }
+                } else if (this.isOccupiedSeat(x, y)) {
+                    if (this.adjacentSeatsOccupied(x, y) >= 4) {
+                        m.set(x, y, 'L');
+                        change = true;
+                    }
+                }
+            }
+        }
+        if (change) {
+            this.matrix = m;
+        } else {
+            this.stable = true;
+        }
+    }
+    stepP2() {
+        let m = new Matrix2d();
+        let change = false;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                m.set(x, y, this.matrix.get(x, y));
+                if (this.isEmptySeat(x, y)) {
+                    if (this.visibleSeatsOccupied(x, y) == 0) {
+                        m.set(x, y, '#');
+                        change = true;
+                    }
+                } else if (this.isOccupiedSeat(x, y)) {
+                    if (this.visibleSeatsOccupied(x, y) >= 5) {
+                        m.set(x, y, 'L');
+                        change = true;
+                    }
+                }
+            }
+        }
+        if (change) {
+            this.matrix = m;
+        } else {
+            this.stable = true;
+        }
+    }
+    totalSeatsOcupied() {
+        let n = 0;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                if (this.isOccupiedSeat(x, y)) {
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+}
 
 problems.d11p1 = {
     givenInputData: ``,
     solve: function() {
-        stringToStringArrayNewline(readInput());
+        let ag = new AOC_gol();
+        ag.load(readInput());
+        log("ag.maxX=" + ag.maxX + " ag.maxY=" + ag.maxY);
+        // ag.toLog();
+        while (!ag.stable) ag.stepP1();
 
-        writeOutput("The answer is: TBD");
+        writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
         const s = " T-d11p1.";
-
-        1 == 1 ? ut.p++ : (ut.f += s + "1");
+        ut.test(s + "1", 1 === 1);
     },
 };
 
 problems.d11p2 = {
-    givenInputData: problems.d9p1.givenInputData,
+    givenInputData: problems.d11p1.givenInputData,
+    solve: function() {
+        let ag = new AOC_gol();
+        ag.load(readInput());
+        log("ag.maxX=" + ag.maxX + " ag.maxY=" + ag.maxY);
+        // ag.toLog();
+        while (!ag.stable) ag.stepP2();
+
+        writeOutput("The answer is: " + ag.totalSeatsOcupied());
+    },
+    unitTest: function(ut) {
+        const s = " T-d11p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+class Boat {
+    constructor(x, y) {
+        this.startX = x;
+        this.startY = y;
+        this.currentX = x;
+        this.currentY = y;
+        this.facing = 0;
+    }
+    direction(d) {
+        switch (d) {
+            case 'N':
+                return 90;
+            case 'S':
+                return 270;
+            case 'E':
+                return 0;
+            case 'W':
+                return 180;
+            case 'F':
+                return this.facing;
+            default:
+                return 'T';
+        }
+    }
+    manhattanDistance() {
+        log("startX=" + this.startX + " currentX=" + this.currentX + " startY=" + this.startY + " currentY=" + this.currentY);
+        return Math.abs(this.startX - this.currentX) + Math.abs(this.startY - this.currentY);
+    }
+    normalize(deg) {
+        while (deg < 0) deg += 360;
+        while (deg >= 360) deg -= 360;
+        return deg;
+    }
+    move(s) {
+        let cmd = s.charAt(0);
+        let val = parseInt(s.substr(1));
+        log("cmd=" + cmd + " val=" + val + " dir=" + this.direction(cmd));
+        switch (this.direction(cmd)) {
+            case 0:
+                this.currentX += val;
+                break;
+            case 180:
+                this.currentX -= val;
+                break;
+            case 90:
+                this.currentY += val;
+                break;
+            case 270:
+                this.currentY -= val;
+                break;
+            default:
+                if (cmd === 'L') {
+                    this.facing = this.normalize(this.facing + val);
+                } else if (cmd === 'R') {
+                    this.facing = this.normalize(this.facing - val);
+                }
+        }
+    }
+    run(a) {
+        for (let i = 0; i < a.length; i++) {
+            // log("i=" + i + " a[i]=" + a[i]);
+            this.move(a[i]);
+        }
+    }
+};
+
+class Boat2 extends Boat {
+    constructor(x, y) {
+        super(x, y);
+        this.waypointdX = x + 10;
+        this.waypointdY = y + 1;
+        // this.dlog();
+        // log("---");
+    }
+    dlog() {
+        log("currentX=" + this.currentX + " currentY=" + this.currentY);
+        log("waypointdX=" + this.waypointdX + " waypointdY=" + this.waypointdY);
+    }
+    move(s) {
+        let cmd = s.charAt(0);
+        let val = parseInt(s.substr(1));
+        log("cmd=" + cmd + " val=" + val);
+        if (cmd === 'F') {
+            //move toward waypoint.
+            this.currentX += this.waypointdX * val;
+            this.currentY += this.waypointdY * val;
+        } else if ((cmd === 'R') || (cmd === 'L')) {
+            if (cmd === 'R') val = -val;
+            val = this.normalize(val);
+            if (val === 90) {
+                let temp = this.waypointdX;
+                this.waypointdX = -this.waypointdY;
+                this.waypointdY = temp;
+            } else if (val === 180) {
+                this.waypointdX = -this.waypointdX;
+                this.waypointdY = -this.waypointdY;
+            } else if (val === 270) {
+                let temp = this.waypointdX;
+                this.waypointdX = this.waypointdY;
+                this.waypointdY = -temp;
+            }
+        } else if (cmd === 'N') {
+            this.waypointdY += val;
+
+        } else if (cmd === 'S') {
+            this.waypointdY -= val;
+
+        } else if (cmd === 'E') {
+            this.waypointdX += val;
+
+        } else if (cmd === 'W') {
+            this.waypointdX -= val;
+        }
+        // this.dlog();
+    }
+};
+
+problems.d12p1 = {
+    givenInputData: AOC_Input_Data.d12p1,
+    solve: function() {
+        let a = stringToStringArrayNewline(readInput());
+        let b = new Boat(0, 0);
+        b.run(a);
+
+        writeOutput("The answer is: " + b.manhattanDistance());
+    },
+    unitTest: function(ut) {
+        const s = " T-d12p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d12p2 = {
+    givenInputData: problems.d12p1.givenInputData,
+    solve: function() {
+        let a = stringToStringArrayNewline(readInput());
+        let b = new Boat2(0, 0);
+        b.run(a);
+
+        writeOutput("The answer is: " + b.manhattanDistance());
+    },
+    unitTest: function(ut) {
+        const s = " T-d12p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d13p1 = {
+    givenInputData: AOC_Input_Data.d13p1,
+    departure_ready: 0,
+    departure_time: -1,
+    departure_bus: -1,
+    busses: [],
+    reset: function() {
+        this.departure_ready = 0;
+        this.departure_time = -1;
+        this.departure_bus = -1;
+        this.busses = [];
+    },
+    parse: function(s) {
+        let a = stringToStringArrayNewline(s);
+        this.departure_ready = parseInt(a[0], 10);
+
+        let b = stringToIntArrayComma(a[1]);
+        for (let i = 0; i < b.length; i++) {
+            // if (b[i].trim() === 'x') continue;
+            let bus = parseInt(b[i], 10);
+            if (!isNaN(bus)) this.busses.push(bus);
+        }
+        // this.dlog();
+    },
+    dlog: function() {
+        log("departure_ready=" + this.departure_ready);
+        log("departure_time=" + this.departure_time);
+        log("departure_bus=" + this.departure_bus);
+        for (let i = 0; i < this.busses.length; i++) {
+            log("busses[" + i + "]=" + this.busses[i]);
+        }
+    },
+    findTime: function() {
+        let waitTime = 0;
+        while (true) {
+            let t = this.departure_ready + waitTime;
+            for (let i = 0; i < this.busses.length; i++) {
+                if (t % this.busses[i] === 0) {
+                    this.departure_time = t;
+                    this.departure_bus = this.busses[i];
+                    return;
+                }
+            }
+            waitTime++;
+        }
+    },
+    solve: function() {
+        this.reset();
+        this.parse(readInput());
+        this.findTime();
+
+        writeOutput("The answer is: " +
+            (this.departure_time - this.departure_ready) * this.departure_bus +
+            ".  Take bus #" + this.departure_bus + " at time " + this.departure_time + ".");
+        // this.dlog();
+    },
+    unitTest: function(ut) {
+        const s = " T-d13p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d13p2 = {
+    givenInputData: problems.d13p1.givenInputData,
+    earliestTime: 0,
+    busses: [],
+    largestBusnum: -1,
+    largestBusnumOffset: -1,
+    reset: function() {
+        this.earliestTime = 0;
+        this.busses = [];
+        this.largestBusnum = -1;
+        this.largestBusnumOffset = -1;
+    },
+    dlog: function() {
+        log("earliestTime=" + this.earliestTime);
+        log("largestBusnum=" + this.largestBusnum);
+        log("largestBusnumOffset=" + this.largestBusnumOffset);
+        for (let i = 0; i < this.busses.length; i++) {
+            log("busses[" + i + "].busnum=" + this.busses[i].busnum +
+                " offset=" + this.busses[i].offset);
+        }
+    },
+    parse: function(s) {
+        let a = stringToStringArrayNewline(s);
+        let b = a[1].split(",");
+        for (let i = 0; i < b.length; i++) {
+            // log("b[i]=" + b[i]);
+            let bus = parseInt(b[i], 10);
+            if (!isNaN(bus)) {
+                if (bus > this.largestBusnum) {
+                    this.largestBusnum = bus;
+                    this.largestBusnumOffset = i;
+                }
+                this.busses.push({
+                    offset: i,
+                    busnum: bus
+                });
+            }
+        }
+        // this.dlog();
+    },
+    findTime: function() {
+        this.earliestTime = this.largestBusnum - this.largestBusnumOffset;
+        let step = this.largestBusnum;
+        let bs = this.busses.filter(x => x.busnum != this.largestBusnum);
+        while (true) {
+            let ok = true;
+            for (let i = 0; i < bs.length; i++) {
+                let b = bs[i];
+                if ((this.earliestTime + b.offset) % b.busnum !== 0) {
+                    ok = false;
+                    break;
+                } else {
+                    //found a match; increase the cycle length.
+                    step = Tmath.lcm(b.busnum, step);
+                }
+            }
+            if (ok) return;
+            this.earliestTime += step;
+        }
+        // this.dlog();
+    },
+    oldfindTime: function() {
+        this.earliestTime = this.largestBusnum - this.largestBusnumOffset;
+        while (true) {
+            let ok = true;
+            for (let i = 0; i < this.busses.length; i++) {
+                let b = this.busses[i];
+                if ((this.earliestTime + b.offset) % b.busnum !== 0) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return;
+            this.earliestTime += this.largestBusnum;
+        }
+        // this.dlog();
+    },
+    eval: function(s) {
+        this.reset();
+        this.parse(s);
+        this.findTime();
+        // log("eval done");
+        // this.dlog();
+        return this.earliestTime;
+    },
+    solve: function() {
+        this.eval(readInput());
+
+        writeOutput("The answer is: " + this.earliestTime);
+    },
+    unitTest: function(ut) {
+        const s = " T-d13p2.";
+        ut.test(s + "1", this.eval("939\n7,13,x,x,59,x,31,19") === 1068781);
+        ut.test(s + "2", this.eval("939\n17,x,13,19") === 3417);
+        ut.test(s + "3", this.eval("939\n67,7,59,61") === 754018);
+        ut.test(s + "4", this.eval("939\n67,x,7,59,61") === 779210);
+        ut.test(s + "5", this.eval("939\n67,7,x,59,61") === 1261476);
+        ut.test(s + "6", this.eval("939\n1789,37,47,1889") === 1202161486);
+    },
+};
+
+
+problems.d14p1 = {
+    givenInputData: AOC_Input_Data.d14p1,
+    mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    mask0s: 0,
+    mask1s: 0,
+    mem: {},
+    opcount: 0,
+    reset: function() {
+        this.mem = [];
+        this.opcount = 0;
+    },
+    store: function(loc, val) {
+        this.mem[loc] = (val & this.mask0s) | this.mask1s;
+    },
+    calcSum: function() {
+        let sum = Object.values(this.mem)
+            .reduce((accumulator, currentValue) => accumulator + currentValue);
+        return sum;
+    },
+    exec(instruction) {
+        let op = instruction.substr(0, 3);
+        let eq = instruction.indexOf("=");
+        if (op === 'mem') {
+            let loc = parseInt(instruction.substr(4), 10);
+            let val = instruction.substr(eq + 1).trim();
+            this.store(loc, val);
+        } else {
+            let m = instruction.substr(eq + 1).trim();
+            this.mask = m;
+            this.mask0s = parseInt(m.replaceAll('X', '1'), 2);
+            this.mask1s = parseInt(m.replaceAll('X', '0'), 2);
+        }
+        this.opcount++;
+    },
+    run: function(instructions) {
+        this.reset();
+        let a = stringToStringArrayNewline(instructions);
+        for (let i = 0; i < a.length; i++) {
+            this.exec(a[i]);
+        }
+    },
+    solve: function() {
+        this.run(readInput());
+
+        writeOutput("The answer is: " + this.calcSum() +
+            ".  There were " + this.opcount + " instructions.");
+    },
+    unitTest: function(ut) {
+        const s = " T-d14p1.";
+        let td = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+        mem[8] = 11
+        mem[7] = 101
+        mem[8] = 0`;
+        this.run(td);
+        ut.test(s + "1", this.calcSum() === 165);
+        ut.test(s + "2", this.opcount === 4);
+    },
+};
+
+
+problems.d14p2 = {
+    givenInputData: problems.d14p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d11p2.";
+        const s = " T-d14p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+problems.d15p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
 
-        ut.test(s + "11", 1 == 1);
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d15p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d15p2 = {
+    givenInputData: problems.d15p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d15p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d16p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d16p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d16p2 = {
+    givenInputData: problems.d16p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d16p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d17p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d17p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d17p2 = {
+    givenInputData: problems.d17p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d17p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d18p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d18p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d18p2 = {
+    givenInputData: problems.d18p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d18p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d19p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d19p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d19p2 = {
+    givenInputData: problems.d19p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d19p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d20p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d20p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d20p2 = {
+    givenInputData: problems.d20p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d20p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d21p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d21p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d21p2 = {
+    givenInputData: problems.d21p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d21p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d22p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d22p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d22p2 = {
+    givenInputData: problems.d22p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d22p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d23p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d23p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d23p2 = {
+    givenInputData: problems.d23p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d23p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d24p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d24p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d24p2 = {
+    givenInputData: problems.d24p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d24p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.d25p1 = {
+    givenInputData: ``,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d25p1.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+
+problems.d25p2 = {
+    givenInputData: problems.d25p1.givenInputData,
+    solve: function() {
+        readInput();
+
+        writeOutput("The answer is: TBD");
+    },
+    unitTest: function(ut) {
+        const s = " T-d25p2.";
+        ut.test(s + "1", 1 === 1);
     },
 };</script></body></html>
