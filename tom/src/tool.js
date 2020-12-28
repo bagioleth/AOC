@@ -13,55 +13,33 @@ function dbclear() {
 
 function dbtest() {
     let ut = {
+        f: 0,
         p: 0,
-        f: "Failed test ids:",
+        fs: "Failed test ids:",
         test: function(name, test) {
             if (test) this.p++;
-            else this.f += " " + name;
+            else this.fs += (this.f++ > 0 ? ", " : " ") + name;
+            // log("this.t=" + this.t + " this.p=" + this.p);
         },
     };
 
     let a1 = [1, 2, 3, 4];
     let a2 = ["1", "2", "3", "4"];
 
-    arraysEqual(a1, [1, 2, 3, 4]) ? ut.p++ : (ut.f += " dbt1");
-    arraysEqual(a1, stringToIntArrayNewline("1\n2\n3\n4")) ?
-        ut.p++
-        :
-        (ut.f += " dbt2");
-    arraysEqual(a1, stringToIntArrayNewline(" 1\n 2\n 3 \n4\n ")) ?
-        ut.p++
-        :
-        (ut.f += " dbt3");
-    arraysEqual(a1, stringToIntArrayNewline("\n\r1\n\r2\r\n3\n4")) ?
-        ut.p++
-        :
-        (ut.f += " dbt4");
-    // arraysEqual(a1, stringToIntArrayNewline("1\r2\r 3\n4"))
-    //   ? ut.p++
-    //   : (ut.f += " dbt5");
-    arraysEqual(a1, stringToIntArrayComma("1,2,3,4")) ?
-        ut.p++
-        :
-        (ut.f += " dbt6");
-    arraysEqual(a1, stringToIntArrayComma(" 1, 2, 3, 4")) ?
-        ut.p++
-        :
-        (ut.f += " dbt7");
-    arraysEqual(a1, stringToIntArrayComma("1,  2 , 3   ,4   ")) ?
-        ut.p++
-        :
-        (ut.f += " dbt8");
-    arraysEqual(a2, stringToStringArrayNewline("1\n2\n3\n4")) ?
-        ut.p++
-        :
-        (ut.f += " dbt9");
+    ut.test("dbt1", arraysEqual(a1, [1, 2, 3, 4]));
+    ut.test("dbt2", arraysEqual(a1, stringToIntArrayNewline("1\n2\n3\n4")));
+    ut.test("dbt3", arraysEqual(a1, stringToIntArrayNewline(" 1\n 2\n 3 \n4\n ")));
+    ut.test("dbt4", arraysEqual(a1, stringToIntArrayNewline("\n\r1\n\r2\r\n3\n4")));
+    ut.test("dbt6", arraysEqual(a1, stringToIntArrayComma("1,2,3,4")));
+    ut.test("dbt7", arraysEqual(a1, stringToIntArrayComma(" 1, 2, 3, 4")));
+    ut.test("dbt8", arraysEqual(a1, stringToIntArrayComma("1,  2 , 3   ,4   ")));
+    ut.test("dbt9", arraysEqual(a2, stringToStringArrayNewline("1\n2\n3\n4")));
 
-    isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib1");
-    isBetween(1, 1, 3) ? ut.p++ : (ut.f += " ib2");
-    isBetween(2, 1, 3) ? ut.p++ : (ut.f += " ib3");
-    !isBetween(3, 1, 2) ? ut.p++ : (ut.f += " ib4");
-    !isBetween(-1, 1, 2) ? ut.p++ : (ut.f += " ib5");
+    ut.test("ib1", isBetween(2, 1, 3));
+    ut.test("ib2", isBetween(1, 1, 3));
+    ut.test("ib3", isBetween(2, 1, 3));
+    ut.test("ib4", !isBetween(3, 1, 2));
+    ut.test("ib5", !isBetween(-1, 1, 2));
     ut.test("ib6", isBetween(7, 1, 12));
     ut.test("ib7", !isBetween(7, 8, 12));
     ut.test("ib8", isBetween(-7, -12, -6));
@@ -91,7 +69,7 @@ function dbtest() {
         problems[prb].unitTest(ut)
     );
 
-    log(`${ut.p} tests passed. ${ut.f}.`);
+    log(`${ut.p} tests passed.  ${ut.f} tests failed.  ${ut.fs}.`);
 }
 
 function isBetween(x, min, max) {

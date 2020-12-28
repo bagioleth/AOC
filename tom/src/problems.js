@@ -9,10 +9,7 @@ problems.d1p1 = {
     },
     unitTest: function(ut) {
         const s = " T-d1p1.";
-        this.docalc([1721, 979, 366, 299, 675, 1456]) == 514579 ?
-            ut.p++
-            :
-            (ut.f += s + "td1");
+        ut.test(s + "td1", this.docalc([1721, 979, 366, 299, 675, 1456]) == 514579);
     },
     docalc: function(arr) {
         for (let i = 0; i < arr.length; i++) {
@@ -36,10 +33,7 @@ problems.d1p2 = {
     },
     unitTest: function(ut) {
         const s = " T-d1p1.";
-        this.docalc([1721, 979, 366, 299, 675, 1456]) == 241861950 ?
-            ut.p++
-            :
-            (ut.f += s + "td2");
+        ut.test(s + "td2", this.docalc([1721, 979, 366, 299, 675, 1456]) == 241861950);
     },
     docalc: function(arr) {
         for (let i = 0; i < arr.length; i++) {
@@ -67,17 +61,16 @@ problems.d2p1 = {
     unitTest: function(ut) {
         const s = " T-d2p1.";
         let x = this.parseRow("3-4 j: tjjj");
-        x.min == 3 ? ut.p++ : (ut.f += s + "1");
-        x.max == 4 ? ut.p++ : (ut.f += s + "2");
-        x.char == "j" ? ut.p++ : (ut.f += s + "3");
-        x.pw == "tjjj" ? ut.p++ : (ut.f += s + "4");
-        this.countchar("tjjj", "t") == 1 ? ut.p++ : (ut.f += s + "5");
-        this.countchar("tjjj", "j") == 3 ? ut.p++ : (ut.f += s + "6");
-        this.countchar("t dd jjddj", "d") == 4 ? ut.p++ : (ut.f += s + "7");
-
-        this.ckpw("1-3 a: abcde") ? ut.p++ : (ut.f += s + "8");
-        !this.ckpw("1-3 b: cdefg") ? ut.p++ : (ut.f += s + "9");
-        this.ckpw("2-9 c: ccccccccc") ? ut.p++ : (ut.f += s + "10");
+        ut.test(s + "1", x.min == 3);
+        ut.test(s + "2", x.max == 4);
+        ut.test(s + "3", x.char == "j");
+        ut.test(s + "4", x.pw == "tjjj");
+        ut.test(s + "5", this.countchar("tjjj", "t") == 1);
+        ut.test(s + "6", this.countchar("tjjj", "j") == 3);
+        ut.test(s + "7", this.countchar("t dd jjddj", "d") == 4);
+        ut.test(s + "8", this.ckpw("1-3 a: abcde"));
+        ut.test(s + "9", !this.ckpw("1-3 b: cdefg"));
+        ut.test(s + "10", this.ckpw("2-9 c: ccccccccc"));
     },
     parseRow: function(r) {
         let x = {};
@@ -116,9 +109,9 @@ problems.d2p2 = {
     unitTest: function(ut) {
         const s = " T-d2p2.";
 
-        this.ckpw("1-3 a: abcde") ? ut.p++ : (ut.f += s + "8");
-        !this.ckpw("1-3 b: cdefg") ? ut.p++ : (ut.f += s + "9");
-        !this.ckpw("2-9 c: ccccccccc") ? ut.p++ : (ut.f += s + "10");
+        ut.test(s + "8", this.ckpw("1-3 a: abcde"));
+        ut.test(s + "9", !this.ckpw("1-3 b: cdefg"));
+        ut.test(s + "10", !this.ckpw("2-9 c: ccccccccc"));
     },
     ckpw(s) {
         let x = problems.d2p1.parseRow(s);
@@ -145,10 +138,10 @@ problems.d3p1 = {
     unitTest: function(ut) {
         const s = " T-d3p1.";
 
-        this.treeHit("..#...#", 2) ? ut.p++ : (ut.f += s + "1");
-        this.treeHit("..#...#", 6) ? ut.p++ : (ut.f += s + "2");
-        this.treeHit("..#...#", 9) ? ut.p++ : (ut.f += s + "3");
-        !this.treeHit("..#...#", 1) ? ut.p++ : (ut.f += s + "4");
+        ut.test(s + "1", this.treeHit("..#...#", 2));
+        ut.test(s + "2", this.treeHit("..#...#", 6));
+        ut.test(s + "3", this.treeHit("..#...#", 9));
+        ut.test(s + "4", !this.treeHit("..#...#", 1));
     },
     treeHit: function(row, x) {
         return "#" == row[x % row.length];
@@ -215,7 +208,6 @@ problems.d3p2 = {
     unitTest: function(ut) {
         const s = " T-d3p2.";
 
-        1 == 1 ? ut.p++ : (ut.f += s + "10");
     },
 };
 
@@ -233,8 +225,8 @@ problems.d4p1 = {
         let a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm`);
 
-        a[0].ecl == "gry" ? ut.p++ : (ut.f += s + "1");
-        a[0].hgt == "183cm" ? ut.p++ : (ut.f += s + "2");
+        ut.test(s + "1", a[0].ecl == "gry");
+        ut.test(s + "2", a[0].hgt == "183cm");
 
         a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm
@@ -250,17 +242,17 @@ hgt:179cm
 hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in`);
 
-        a[0].ecl == "gry" ? ut.p++ : (ut.f += s + "3");
-        a[0].hgt == "183cm" ? ut.p++ : (ut.f += s + "4");
-        a[1].ecl == "amb" ? ut.p++ : (ut.f += s + "5");
-        a[2].hcl == "#ae17e1" ? ut.p++ : (ut.f += s + "6");
-        a[2].ecl == "brn" ? ut.p++ : (ut.f += s + "7");
-        a[3].hgt == "59in" ? ut.p++ : (ut.f += s + "8");
-        this.isValid(a[0]) ? ut.p++ : (ut.f += s + "9");
-        !this.isValid(a[1]) ? ut.p++ : (ut.f += s + "10");
-        this.isValid(a[2]) ? ut.p++ : (ut.f += s + "11");
-        !this.isValid(a[3]) ? ut.p++ : (ut.f += s + "12");
-        this.totalValid(a) == 2 ? ut.p++ : (ut.f += s + "13");
+        ut.test(s + "3", a[0].ecl == "gry");
+        ut.test(s + "4", a[0].hgt == "183cm");
+        ut.test(s + "5", a[1].ecl == "amb");
+        ut.test(s + "6", a[2].hcl == "#ae17e1");
+        ut.test(s + "7", a[2].ecl == "brn");
+        ut.test(s + "8", a[3].hgt == "59in");
+        ut.test(s + "9", this.isValid(a[0]));
+        ut.test(s + "10", !this.isValid(a[1]));
+        ut.test(s + "11", this.isValid(a[2]));
+        ut.test(s + "12", !this.isValid(a[3]));
+        ut.test(s + "13", this.totalValid(a) == 2);
     },
     totalValid: function(a) {
         let t = 0;
@@ -342,10 +334,10 @@ problems.d4p2 = {
                                   eyr:2038 hcl:74454a iyr:2023
                                   pid:3556412378 byr:2007`;
         let a = problems.d4p1.recsToArray(x);
-        !this.isValid(a[0]) ? ut.p++ : (ut.f += s + "1");
-        !this.isValid(a[1]) ? ut.p++ : (ut.f += s + "2");
-        !this.isValid(a[2]) ? ut.p++ : (ut.f += s + "3");
-        !this.isValid(a[3]) ? ut.p++ : (ut.f += s + "4");
+        ut.test(s + "1", !this.isValid(a[0]));
+        ut.test(s + "2", !this.isValid(a[1]));
+        ut.test(s + "3", !this.isValid(a[2]));
+        ut.test(s + "4", !this.isValid(a[3]));
 
         x = `pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
                                   hcl:#623a2f
@@ -361,10 +353,10 @@ problems.d4p2 = {
                                   iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
         a = problems.d4p1.recsToArray(x);
 
-        this.isValid(a[0]) ? ut.p++ : (ut.f += s + "v1");
-        this.isValid(a[1]) ? ut.p++ : (ut.f += s + "v2");
-        this.isValid(a[2]) ? ut.p++ : (ut.f += s + "v3");
-        this.isValid(a[3]) ? ut.p++ : (ut.f += s + "v4");
+        ut.test(s + "v1", this.isValid(a[0]));
+        ut.test(s + "v2", this.isValid(a[1]));
+        ut.test(s + "v3", this.isValid(a[2]));
+        ut.test(s + "v4", this.isValid(a[3]));
 
         ut.test(s + "lfp1", this.hasExtraProperty({
             x: 0
@@ -636,7 +628,6 @@ problems.d5p2 = {
     unitTest: function(ut) {
         const s = " T-d5p2.";
 
-        1 == 1 ? ut.p++ : (ut.f += s + "10");
     },
 };
 
@@ -679,7 +670,6 @@ problems.d6p1 = {
     unitTest: function(ut) {
         const s = " T-d6p1.";
 
-        1 == 1 ? ut.p++ : (ut.f += s + "1");
     },
 };
 
@@ -703,8 +693,6 @@ problems.d6p2 = {
     },
     unitTest: function(ut) {
         const s = " T-d6p2.";
-
-        1 == 1 ? ut.p++ : (ut.f += s + "10");
 
         ut.test(s + 'u1', this.unionCount(['abc']) == 3);
         ut.test(s + 'u2', this.unionCount(['a', 'b', 'c']) == 3);
@@ -871,7 +859,6 @@ problems.d7p2 = {
     unitTest: function(ut) {
         const s = " T-d7p2.";
 
-        ut.test(s + "10", 1 == 1);
     },
 };
 
@@ -959,7 +946,6 @@ problems.d8p1 = {
     unitTest: function(ut) {
         const s = " T-d8p1.";
 
-        1 == 1 ? ut.p++ : (ut.f += s + "1");
     },
 };
 
@@ -986,7 +972,6 @@ problems.d8p2 = {
     unitTest: function(ut) {
         const s = " T-d8p2.";
 
-        ut.test(s + "10", 1 == 1);
     },
 };
 
@@ -1485,7 +1470,6 @@ problems.d11p1 = {
     },
     unitTest: function(ut) {
         const s = " T-d11p1.";
-        ut.test(s + "1", 1 === 1);
     },
 };
 
@@ -1502,7 +1486,6 @@ problems.d11p2 = {
     },
     unitTest: function(ut) {
         const s = " T-d11p2.";
-        ut.test(s + "1", 1 === 1);
     },
 };
 
@@ -1634,7 +1617,6 @@ problems.d12p1 = {
     },
     unitTest: function(ut) {
         const s = " T-d12p1.";
-        ut.test(s + "1", 1 === 1);
     },
 };
 
@@ -1649,7 +1631,6 @@ problems.d12p2 = {
     },
     unitTest: function(ut) {
         const s = " T-d12p2.";
-        ut.test(s + "1", 1 === 1);
     },
 };
 
@@ -1711,7 +1692,6 @@ problems.d13p1 = {
     },
     unitTest: function(ut) {
         const s = " T-d13p1.";
-        ut.test(s + "1", 1 === 1);
     },
 };
 
@@ -1821,8 +1801,12 @@ problems.d13p2 = {
 problems.d14p1 = {
     givenInputData: AOC_Input_Data.d14p1,
     mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    mask0s: 0,
-    mask1s: 0,
+    maskLh: "XXXX",
+    maskRh: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    mask0Lh: 0,
+    mask0Rh: 0,
+    mask1Lh: 0,
+    mask1Rh: 0,
     mem: {},
     opcount: 0,
     reset: function() {
@@ -1830,7 +1814,38 @@ problems.d14p1 = {
         this.opcount = 0;
     },
     store: function(loc, val) {
-        this.mem[loc] = (val & this.mask0s) | this.mask1s;
+        this.mem[loc] = this.masked(val);
+    },
+    masked: function(val) {
+        let newvalstring = "";
+        let valstring = ('000000000000000000000000000000000000' + val.toString(2)).substr(-36);
+        for (let i = 0; i < 36; i++) {
+            let m = this.mask.substr(i, 1);
+            if (m === '1') {
+                newvalstring += '1';
+            } else if (m === '0') {
+                newvalstring += '0';
+            } else {
+                newvalstring += valstring.substr(i, 1);
+            }
+        }
+        return parseInt(newvalstring, 2);
+    },
+    oldmasked: function(val) {
+        //JavaScript bitwise operators work on 32-bit integers.
+        let h = Math.pow(2, 32);
+        let lh = Math.floor(val / h);
+        let rh = val - lh;
+        let newlh = (lh & this.mask0Lh) | this.mask1Lh;
+        let newrh = (rh & this.mask0Rh) | this.mask1Rh;
+        let newval = (lh * h) + rh;
+        log("mask=" + this.mask + " val = " + val.toString(10) + ": " + val.toString(2) +
+            " h = " + h.toString(2) +
+            " lh=" + lh.toString(2) + " rh=" + rh.toString(2) +
+            " newlh=" + newlh.toString(2) + " newrh=" + newrh.toString(2) +
+            " newval=" + newval + ":" + newval.toString(2));
+        return newval;
+        // return (val & this.mask0s) | this.mask1s;
     },
     calcSum: function() {
         let sum = Object.values(this.mem)
@@ -1842,15 +1857,25 @@ problems.d14p1 = {
         let eq = instruction.indexOf("=");
         if (op === 'mem') {
             let loc = parseInt(instruction.substr(4), 10);
-            let val = instruction.substr(eq + 1).trim();
+            let val = parseInt(instruction.substr(eq + 1).trim());
             this.store(loc, val);
         } else {
-            let m = instruction.substr(eq + 1).trim();
-            this.mask = m;
-            this.mask0s = parseInt(m.replaceAll('X', '1'), 2);
-            this.mask1s = parseInt(m.replaceAll('X', '0'), 2);
+            this.setMask(instruction.substr(eq + 1).trim());
         }
         this.opcount++;
+    },
+    setMask(m) {
+        this.mask = m;
+        this.maskLh = m.substr(0, 4);
+        this.maskRh = m.substr(4);
+        this.mask0Lh = parseInt(this.maskLh.replaceAll('X', '1'), 2);
+        this.mask0Rh = parseInt(this.maskRh.replaceAll('X', '1'), 2);
+        this.mask1Lh = parseInt(this.maskLh.replaceAll('X', '0'), 2);
+        this.mask1Rh = parseInt(this.maskRh.replaceAll('X', '0'), 2);
+        // this.mask1s = parseInt(m.replaceAll('X', '0'), 2);
+        // log("mask=" + this.mask);
+        // log("maskLh=" + this.maskLh + " mask0Lh=" + this.mask0Lh.toString(2) + " mask1Lh=" + this.mask1Lh.toString(2));
+        // log("maskRh=" + this.maskRh + " mask0Rh=" + this.mask0Rh.toString(2) + " mask1Rh=" + this.mask1Rh.toString(2));
     },
     run: function(instructions) {
         this.reset();
@@ -1872,34 +1897,190 @@ problems.d14p1 = {
         mem[7] = 101
         mem[8] = 0`;
         this.run(td);
-        ut.test(s + "1", this.calcSum() === 165);
-        ut.test(s + "2", this.opcount === 4);
+        ut.test(s + "a1", this.calcSum() === 165);
+        ut.test(s + "a2", this.opcount === 4);
+
+        this.setMask('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+        ut.test(s + "b1a", this.masked(12) === 12);
+        ut.test(s + "b1b", this.masked(0) === 0);
+        // ut.test(s + "b1c", this.masked(-1) === -1);
+        ut.test(s + "b2a1", this.mask0Lh === Math.pow(2, 4) - 1);
+        // log("b2a this.mask0Lh =" + this.mask0Lh);
+        // log("b2a this.mask0Rh =" + this.mask0Rh);
+        ut.test(s + "b2a2a", this.mask0Rh === Math.pow(2, 32) - 1);
+        ut.test(s + "b2a2b", this.mask0Lh === 15);
+        ut.test(s + "b2b1", this.mask1Lh === 0);
+        ut.test(s + "b2b2", this.mask1Rh === 0);
+        ut.test(s + "b2c1", this.maskLh === 'XXXX');
+        ut.test(s + "b2c2", this.maskRh === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+        //12345678901234567890123456789012
+
+        this.setMask('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1');
+        ut.test(s + "b3a", this.masked(0) === 1);
+        ut.test(s + "b3b", this.masked(1) === 1);
+
+        this.setMask('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX0');
+        ut.test(s + "b4a", this.masked(0) === 0);
+        ut.test(s + "b4b", this.masked(1) === 0);
+
+        this.setMask('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX10');
+        ut.test(s + "b5a", this.masked(0) === 2);
+        ut.test(s + "b5b", this.masked(1) === 2);
+        ut.test(s + "b5c", this.masked(4) === 6);
+        ut.test(s + "b5d", this.masked(5) === 6);
+        ut.test(s + "b5e", this.masked(6) === 6);
+
+        this.setMask('11XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1');
+        ut.test(s + "b6a", this.masked(0) === 51539607553);
+        // log("this.masked(0)=" + this.masked(0));
+
+
     },
 };
 
 
 problems.d14p2 = {
     givenInputData: problems.d14p1.givenInputData,
+    mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    mem: {},
+    opcount: 0,
+    reset: function() {
+        this.mem = {};
+        this.opcount = 0;
+    },
+    store: function(loc, val) {
+        let locs = this.expandX(this.masked(loc));
+        for (let x of locs) this.mem[x] = val;
+    },
+    //Takes a string "s" and returns an array of strings with the 
+    //Xs replaced with a 0 and a 1; or an array with just s if there are no Xs.
+    expandX: function(s) {
+        let a = [];
+        if (s.indexOf('X') < 0) {
+            a.push(s);
+        } else {
+            a.push(...this.expandX(s.replace('X', '0')));
+            a.push(...this.expandX(s.replace('X', '1')));
+        }
+        return a;
+    },
+    //Return a string representation of value.
+    masked: function(val) {
+        let a = [];
+        let newvalstring = "";
+        let valstring = ('000000000000000000000000000000000000' + val.toString(2)).substr(-36);
+        for (let i = 0; i < 36; i++) {
+            let m = this.mask.substr(i, 1);
+            if (m === '1') {
+                newvalstring += '1';
+            } else if (m === '0') {
+                newvalstring += valstring.substr(i, 1);
+            } else {
+                newvalstring += 'X';
+            }
+        }
+        return newvalstring;
+    },
+    calcSum: function() {
+        let sum = Object.values(this.mem)
+            .reduce((accumulator, currentValue) => accumulator + currentValue);
+        return sum;
+    },
+    exec(instruction) {
+        let op = instruction.substr(0, 3);
+        let eq = instruction.indexOf("=");
+        if (op === 'mem') {
+            let loc = parseInt(instruction.substr(4), 10);
+            let val = parseInt(instruction.substr(eq + 1).trim());
+            this.store(loc, val);
+        } else {
+            this.setMask(instruction.substr(eq + 1).trim());
+        }
+        this.opcount++;
+    },
+    setMask(m) {
+        this.mask = m;
+    },
+    run: function(instructions) {
+        this.reset();
+        let a = stringToStringArrayNewline(instructions);
+        for (let i = 0; i < a.length; i++) {
+            this.exec(a[i]);
+        }
+    },
     solve: function() {
-        readInput();
+        this.run(readInput());
 
-        writeOutput("The answer is: TBD");
+        writeOutput("The answer is: " + this.calcSum() +
+            ".  There were " + this.opcount + " instructions.");
     },
     unitTest: function(ut) {
         const s = " T-d14p2.";
-        ut.test(s + "1", 1 === 1);
     },
 };
-problems.d15p1 = {
-    givenInputData: ``,
-    solve: function() {
-        readInput();
 
-        writeOutput("The answer is: TBD");
+problems.d15p1 = {
+    givenInputData: `16,1,0,18,12,14,19`,
+    nums: [],
+    prevs: [],
+    findprev: function(x) {
+        let prev = this.prevs[x];
+        if (prev !== null) {
+            this.prevs[x] = this.nums.length - 1;
+            return prev;
+        }
+        for (let i = this.nums.length - 2; i >= 0; i--) {
+            if (this.nums[i] === x) return i;
+        }
+        return -1;
+    },
+    donum: function() {
+        let n = this.nums[this.nums.length - 1];
+        let p = this.findprev(n);
+        if (p < 0) {
+            this.nums.push(0);
+        } else {
+            this.nums.push((this.nums.length) - (p + 1));
+        }
+    },
+    loadstart: function(ns) {
+        this.nums = stringToIntArrayComma(ns);
+    },
+    num2020: function(ns) {
+        //load inital turns.
+        this.loadstart(ns);
+        while (this.nums.length < 2020) this.donum();
+        return this.nums[this.nums.length - 1];
+    },
+    num30M: function(ns) {
+        this.loadstart(ns);
+        while (this.nums.length < 30000000) this.donum();
+        return this.nums[this.nums.length - 1];
+    },
+    solve: function() {
+        writeOutput("The answer is: " + this.num2020(readInput()));
     },
     unitTest: function(ut) {
         const s = " T-d15p1.";
-        ut.test(s + "1", 1 === 1);
+        this.loadstart("0,1,2");
+        ut.test(s + "a0", this.nums[0] === 0);
+        ut.test(s + "a1", this.nums[1] === 1);
+        ut.test(s + "a2", this.nums[2] === 2);
+        ut.test(s + "a3", this.nums.length === 3);
+
+        this.donum();
+        ut.test(s + "b1", this.nums.length === 4);
+        ut.test(s + "b2", this.nums[3] === 0);
+
+
+        ut.test(s + "g1", this.num2020('0,3,6') === 436);
+        ut.test(s + "g2", this.num2020('1,3,2') === 1);
+        ut.test(s + "g3", this.num2020('2,1,3') === 10);
+        ut.test(s + "g4", this.num2020('1,2,3') === 27);
+        ut.test(s + "g5", this.num2020('2,3,1') === 78);
+        ut.test(s + "g6", this.num2020('3,2,1') === 438);
+        ut.test(s + "g7", this.num2020('3,1,2') === 1836);
+
     },
 };
 
@@ -1913,7 +2094,14 @@ problems.d15p2 = {
     },
     unitTest: function(ut) {
         const s = " T-d15p2.";
-        ut.test(s + "1", 1 === 1);
+
+        ut.test(s + "g1", problems.d15p1.num30M('0,3,6') === 175594);
+        // ut.test(s + "g2", problems.d15p1.num30M('1,3,2') === 2578);
+        // ut.test(s + "g3", problems.d15p1.num30M('2,1,3') === 3544142);
+        // ut.test(s + "g4", problems.d15p1.num30M('1,2,3') === 261214);
+        // ut.test(s + "g5", problems.d15p1.num30M('2,3,1') === 6895259);
+        // ut.test(s + "g6", problems.d15p1.num30M('3,2,1') === 18);
+        // ut.test(s + "g7", problems.d15p1.num30M('3,1,2') === 362);
     },
 };
 
