@@ -15,12 +15,16 @@ function dbtest() {
     let ut = {
         f: 0,
         p: 0,
-        fs: "Failed test ids:",
+        fs: "",
         test: function(name, test) {
             if (test) this.p++;
             else this.fs += (this.f++ > 0 ? ", " : " ") + name;
             // log("this.t=" + this.t + " this.p=" + this.p);
         },
+        report: function() {
+            let flist = (this.f === 0 ? "" : ("Failed test ids:" + this.fs + "."));
+            return `${this.p} tests passed.  ${this.f} tests failed.  ${flist}`
+        }
     };
 
     let a1 = [1, 2, 3, 4];
@@ -69,7 +73,7 @@ function dbtest() {
         problems[prb].unitTest(ut)
     );
 
-    log(`${ut.p} tests passed.  ${ut.f} tests failed.  ${ut.fs}.`);
+    log(ut.report());
 }
 
 function isBetween(x, min, max) {
@@ -104,6 +108,9 @@ function stringToIntArrayComma(x) {
     return a;
 }
 
+// fuction setPickElement(a){
+//     let x=a.values.next();
+// }
 function setUnion(a, b) {
     let x = new Set(a);
     for (let e of b) {

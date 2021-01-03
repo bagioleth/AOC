@@ -101,3 +101,13 @@ article {
     padding: 2px;
     background-color: lightgray;
 }
+
+a {
+    text-decoration: none;
+    color: #11aa22;
+}
+
+a:hover,
+a:focus {
+    color: #11bb55;
+}

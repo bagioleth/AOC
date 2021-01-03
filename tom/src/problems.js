@@ -2021,65 +2021,117 @@ problems.d14p2 = {
 
 problems.d15p1 = {
     givenInputData: `16,1,0,18,12,14,19`,
-    nums: [],
     prevs: [],
-    findprev: function(x) {
-        let prev = this.prevs[x];
-        if (prev !== null) {
-            this.prevs[x] = this.nums.length - 1;
-            return prev;
-        }
-        for (let i = this.nums.length - 2; i >= 0; i--) {
-            if (this.nums[i] === x) return i;
-        }
-        return -1;
-    },
-    donum: function() {
-        let n = this.nums[this.nums.length - 1];
-        let p = this.findprev(n);
-        if (p < 0) {
-            this.nums.push(0);
+    lastturn: -1,
+    lastnum: -1,
+    doturn: function() {
+        //set up current turn.
+        let turn = this.lastturn + 1;
+        let considernum = this.lastnum;
+        let newnum = -1;
+
+        //Check memory for this turn's number.
+        let n = this.prevs[considernum];
+        if ((n === undefined) || (n === null)) {
+            newnum = 0;
         } else {
-            this.nums.push((this.nums.length) - (p + 1));
+            newnum = this.lastturn - n;
         }
+
+        //put lastnum in memory.
+        this.prevs[this.lastnum] = this.lastturn;
+
+        this.lastturn = turn;
+        this.lastnum = newnum;
+
     },
-    loadstart: function(ns) {
-        this.nums = stringToIntArrayComma(ns);
+    loadstart: function(ns, t = 1000) {
+        this.prevs = new Array(t + 10);
+        let a = stringToIntArrayComma(ns);
+        for (let i = 0; i < a.length - 1; i++) {
+            this.prevs[a[i]] = i + 1;
+        }
+        this.lastturn = a.length;
+        this.lastnum = a[a.length - 1];
     },
-    num2020: function(ns) {
-        //load inital turns.
-        this.loadstart(ns);
-        while (this.nums.length < 2020) this.donum();
-        return this.nums[this.nums.length - 1];
-    },
-    num30M: function(ns) {
-        this.loadstart(ns);
-        while (this.nums.length < 30000000) this.donum();
-        return this.nums[this.nums.length - 1];
+    doturns: function(ns, t) {
+        this.loadstart(ns, t);
+        while (this.lastturn < t) this.doturn();
+        return this.lastnum;
     },
     solve: function() {
-        writeOutput("The answer is: " + this.num2020(readInput()));
+        writeOutput("The answer is: " + this.doturns(readInput(), 2020));
     },
     unitTest: function(ut) {
         const s = " T-d15p1.";
         this.loadstart("0,1,2");
-        ut.test(s + "a0", this.nums[0] === 0);
-        ut.test(s + "a1", this.nums[1] === 1);
-        ut.test(s + "a2", this.nums[2] === 2);
-        ut.test(s + "a3", this.nums.length === 3);
+        ut.test(s + "a0", this.prevs[0] === 1);
+        ut.test(s + "a1", this.prevs[1] === 2);
+        // ut.test(s + "a2", this.prevs[2] === 3);
+        // ut.test(s + "a3", this.prevs.length === 2);
+        ut.test(s + "a4", this.lastnum === 2);
+        ut.test(s + "a5", this.lastturn === 3);
 
-        this.donum();
-        ut.test(s + "b1", this.nums.length === 4);
-        ut.test(s + "b2", this.nums[3] === 0);
+        this.doturn();
+        // ut.test(s + "b1", this.prevs.length === 3);
+        ut.test(s + "b2", this.prevs[0] === 1);
+        ut.test(s + "b3", this.lastturn === 4);
+        ut.test(s + "b4", this.lastnum === 0);
+
+        this.doturn();
+        // ut.test(s + "c1", this.prevs.length === 3);
+        ut.test(s + "c2", this.prevs[0] === 4);
+
+        this.loadstart("0,3,6"); //0 3 6
+        ut.test(s + "d0", this.prevs[0] === 1);
+        ut.test(s + "d1", this.prevs[3] === 2);
+        // ut.test(s + "d2", this.prevs.length === 4);
+        ut.test(s + "d3", this.lastnum === 6);
+        ut.test(s + "d4", this.lastturn === 3);
+
+        this.doturn(); //0 3 6 0
+        // ut.test(s + "e1", this.prevs.length === 7);
+        ut.test(s + "e2", this.prevs[0] === 1);
+        ut.test(s + "e3", this.prevs[6] === 3);
+        ut.test(s + "e4", this.lastnum === 0);
+        ut.test(s + "e5", this.lastturn === 4);
+
+        this.doturn(); //0 3 6 0 3
+        // ut.test(s + "f1", this.prevs.length === 7);
+        ut.test(s + "f2", this.prevs[0] === 4);
+        ut.test(s + "f3", this.lastnum === 3);
+        ut.test(s + "f4", this.lastturn === 5);
+
+        this.doturn();
+        ut.test(s + "g1", this.lastnum === 3);
+        ut.test(s + "g2", this.lastturn === 6);
+
+        this.doturn();
+        ut.test(s + "h1", this.lastnum === 1);
+        ut.test(s + "h2", this.lastturn === 7);
+
+        this.doturn();
+        ut.test(s + "i1", this.lastnum === 0);
+        ut.test(s + "i2", this.lastturn === 8);
+
+        this.doturn();
+        ut.test(s + "j1", this.lastnum === 4);
+        ut.test(s + "j2", this.lastturn === 9);
+
+        this.doturn();
+        ut.test(s + "k1", this.lastnum === 0);
+        ut.test(s + "k2", this.lastturn === 10);
 
 
-        ut.test(s + "g1", this.num2020('0,3,6') === 436);
-        ut.test(s + "g2", this.num2020('1,3,2') === 1);
-        ut.test(s + "g3", this.num2020('2,1,3') === 10);
-        ut.test(s + "g4", this.num2020('1,2,3') === 27);
-        ut.test(s + "g5", this.num2020('2,3,1') === 78);
-        ut.test(s + "g6", this.num2020('3,2,1') === 438);
-        ut.test(s + "g7", this.num2020('3,1,2') === 1836);
+
+
+        ut.test(s + "gg1", this.doturns('0,3,6', 2020) === 436);
+        // ut.test(s + "gg2", this.doturns('1,3,2', 2020) === 1);
+        // ut.test(s + "gg3", this.doturns('2,1,3', 2020) === 10);
+        // ut.test(s + "gg4", this.doturns('1,2,3', 2020) === 27);
+        // ut.test(s + "gg5", this.doturns('2,3,1', 2020) === 78);
+        // ut.test(s + "gg6", this.doturns('3,2,1', 2020) === 438);
+        // ut.test(s + "gg7", this.doturns('3,1,2', 2020) === 1836);
 
     },
 };
@@ -2088,33 +2140,251 @@ problems.d15p1 = {
 problems.d15p2 = {
     givenInputData: problems.d15p1.givenInputData,
     solve: function() {
-        readInput();
-
-        writeOutput("The answer is: TBD");
+        writeOutput("The answer is: " + problems.d15p1.doturns(readInput(), 30000000));
     },
     unitTest: function(ut) {
         const s = " T-d15p2.";
 
-        ut.test(s + "g1", problems.d15p1.num30M('0,3,6') === 175594);
-        // ut.test(s + "g2", problems.d15p1.num30M('1,3,2') === 2578);
-        // ut.test(s + "g3", problems.d15p1.num30M('2,1,3') === 3544142);
-        // ut.test(s + "g4", problems.d15p1.num30M('1,2,3') === 261214);
-        // ut.test(s + "g5", problems.d15p1.num30M('2,3,1') === 6895259);
-        // ut.test(s + "g6", problems.d15p1.num30M('3,2,1') === 18);
-        // ut.test(s + "g7", problems.d15p1.num30M('3,1,2') === 362);
+        // ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 3000000) === 175594);
+        ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 30000000) === 175594);
+        // ut.test(s + "gg2", problems.d15p1.doturns('1,3,2', 30000000) === 2578);
+        // ut.test(s + "gg3", problems.d15p1.doturns('2,1,3', 30000000) === 3544142);
+        // ut.test(s + "gg4", problems.d15p1.doturns('1,2,3', 30000000) === 261214);
+        // ut.test(s + "gg5", problems.d15p1.doturns('2,3,1', 30000000) === 6895259);
+        // ut.test(s + "gg6", problems.d15p1.doturns('3,2,1', 30000000) === 18);
+        // ut.test(s + "gg7", problems.d15p1.doturns('3,1,2', 30000000) === 362);
     },
 };
+class Rule {
+    constructor(name, range1min, range1max, range2min, range2max) {
+        this.name = name;
+        this.range1min = range1min;
+        this.range1max = range1max;
+        this.range2min = range2min;
+        this.range2max = range2max;
+        this.canBeField = new Set();
+        this.mustBeFieldName = "";
+        this.mustBeFieldNum = -1;
+        // log("NEW RULE:" + name + ":" +
+        //     range1min + "-" + range1max +
+        //     " " + range2min + "-" + range2max);
+    }
+    match(v) {
+        if (isBetween(v, this.range1min, this.range1max)) return true;
+        if (isBetween(v, this.range2min, this.range2max)) return true;
+        return false;
+    }
+}
+class Ticket {
+    constructor(s) {
+        this.fields = stringToIntArrayComma(s);
+    }
+    toString(names) {
+        for (let i = 0; i < this.fields.length; i++) {
 
+        }
+    }
+}
+class Scanner {
+    constructor() {
+        this.rules = [];
+        this.tickets = [];
+        this.yourticket = null;
+        this.fieldnames = [];
+    }
+    addRule(r) {
+        this.rules.push(r);
+    }
+    isFieldValid(f) {
+        for (let r of this.rules) {
+            if (r.match(f)) return true;
+        }
+        return false;
+    }
+    isTicketValid(t) {
+        for (let f of t.fields) {
+            if (!this.isFieldValid(f)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    sumInvalidFields() {
+        let sum = 0;
+        for (let t of this.tickets) {
+            for (let f of t.fields) {
+                if (!this.isFieldValid(f)) {
+                    // log("INVALID FIELD:" + f);
+                    sum += f;
+                }
+            }
+        }
+        return sum;
+    }
+    parseRule(rs) {
+        let colon = rs.indexOf(":");
+        let or = rs.substr(colon).indexOf("or") + colon;
+        let hyphen1 = rs.indexOf("-");
+        let hyphen2 = rs.substr(hyphen1 + 1).indexOf("-") + hyphen1 + 1;
+        let name = rs.substring(0, colon).trim();
+        let min1 = parseInt(rs.substr(colon + 1).trim());
+        let max1 = parseInt(rs.substr(hyphen1 + 1).trim());
+        let min2 = parseInt(rs.substr(or + 2).trim());
+        let max2 = parseInt(rs.substr(hyphen2 + 1).trim());
+        this.addRule(new Rule(name, min1, max1, min2, max2));
+    }
+    parseRules(rs) {
+        let a = stringToStringArrayNewline(rs);
+        for (let s of a) this.parseRule(s);
+    }
+    parseTicket(t) {
+        this.tickets.push(new Ticket(t));
+    }
+    parseTickets(ts) {
+        let a = stringToStringArrayNewline(ts);
+        for (let s of a) this.parseTicket(s);
+        this.removeInvalidTickets();
+    }
+    parseInput(s) {
+        let yourticket = s.indexOf("your ticket:");
+        let nearbytickets = s.indexOf("nearby tickets:");
+        let rules = s.substring(0, yourticket);
+        let yt = s.substring(yourticket + 12, nearbytickets - 1).trim();
+        let nts = s.substr(nearbytickets + 15).trim();
+        // log("rules=" + rules);
+        // log("yt=" + yt);
+        // log("nts=" + nts);
+        this.parseRules(rules);
+        this.yourticket = new Ticket(yt);
+        this.parseTickets(nts);
+    }
+    removeInvalidTickets() {
+        let valids = [];
+        for (let t of this.tickets) {
+            if (this.isTicketValid(t)) valids.push(t);
+        }
+        this.tickets = valids;
+    }
+    findAllowedFields() {
+        for (let r of this.rules) {
+            //Load all field numbers valid for your ticket.
+            for (let i = 0; i < this.yourticket.fields.length; i++) {
+                if (r.match(this.yourticket.fields[i])) {
+                    // log("BEC YT rulename=" + r.name + " can be " + i);
+                    r.canBeField.add(i);
+                }
+            }
+        }
+        // log("YT EVAL::" + this.toString());
+
+
+        for (let r of this.rules) {
+            // log("checking rulename=" + r.name);
+
+            //Remove impossible field numbers.
+            for (let h = 0; h < this.tickets.length; h++) {
+                let t = this.tickets[h];
+                for (let i = 0; i < t.fields.length; i++) {
+                    // log("checking rulename=" + r.name +
+                    //     " tic" + h + " field=" + i + " val=" + t.fields[i]);
+                    if (!r.match(t.fields[i])) {
+                        // log("BEC TIC" + h + " rulename=" + r.name + " cannot be " + i);
+                        r.canBeField.delete(i);
+                    }
+                }
+            }
+        }
+        // log("NTS EVAL::" + this.toString());
+        return;
+        // If rule can only apply to one field, 
+        // remove that field from all other rule possible fields.
+        let more = true;
+        while (more) {
+            more = false;
+            for (let r of this.rules) {
+                if (r.canBeField.size === 1) {
+                    for (let f of r.canBeField) {
+                        r.mustBeFieldNum = f;
+                        r.mustBeFieldName = this.rules[f].name;
+                        for (let rr of this.rules) {
+                            if (r.name !== rr.name) {
+                                log("deleting " + f + " from " + rr.name + " bec of " + r.name);
+                                if (rr.canBeField.delete(f)) more = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("RULE EVAL::" + this.toString());
+    }
+    calcd() {
+        let m = 1;
+        for (let r of this.rules) {
+            if (r.name.startsWith("departure")) {
+                // log("MULT name=" + r.name +
+                //     " fieldnum=" + r.mustBeFieldNum + " val=" + this.yourticket[r.mustBeFieldNum]);
+                m *= this.yourticket.fields[r.mustBeFieldNum];
+            }
+        }
+        return m;
+    }
+    toString() {
+        let s = "<BR/>SCANNER";
+        for (let r of this.rules) {
+            s += ("<BR/>rule=" + r.name);
+            for (let f of r.canBeField) {
+                s += ("<BR/>--field=" + f);
+            }
+        }
+        return s + "<BR/>";
+    }
+
+    oldfindAllowedFields() {
+        for (let i = 0; i < this.rules; i++) { //For all rules.
+            let matchall = true;
+            for (let j = 0; j < this.tickets; j++) { //For all tickets.
+                for (let k = 0; k < this.tickets[j].length; k++) { //For all fields on the ticket.
+                    //Set it to true if it's never been visited before.
+                    if ((this.rules[i].canBeField[k] === null) ||
+                        (this.rules[i].canBeField[k] === null)) {
+                        this.rules[i].canBeField[k] = true;
+                    }
+                    //Set it to false if one of the fields will not match the rule.
+                    if (!this.rules[i].match(this.tickets[j].fields[k])) {
+                        this.rules[i].canBeField[k] = false;
+                    }
+                }
+            }
+        }
+    }
+}
 problems.d16p1 = {
-    givenInputData: ``,
+    givenInputData: AOC_Input_Data.d16p1,
     solve: function() {
-        readInput();
+        let s = readInput();
+        let sc = new Scanner();
+        sc.parseInput(s);
 
-        writeOutput("The answer is: TBD");
+        writeOutput("The answer is: " + sc.sumInvalidFields());
     },
     unitTest: function(ut) {
         const s = " T-d16p1.";
-        ut.test(s + "1", 1 === 1);
+        let sc = new Scanner();
+        sc.parseInput(`class: 1-3 or 5-7
+        row: 6-11 or 33-44
+        seat: 13-40 or 45-50
+        
+        your ticket:
+        7,1,14
+        
+        nearby tickets:
+        7,3,47
+        40,4,50
+        55,2,20
+        38,6,12`);
+
+        ut.test(s + "1", sc.sumInvalidFields() === 71);
     },
 };
 
@@ -2122,13 +2392,117 @@ problems.d16p1 = {
 problems.d16p2 = {
     givenInputData: problems.d16p1.givenInputData,
     solve: function() {
-        readInput();
+        let s = readInput();
 
-        writeOutput("The answer is: TBD");
+        // showArticle("Debug");
+        let sc = new Scanner();
+        sc.parseInput(s);
+        sc.findAllowedFields();
+        // log(sc.toString());
+        writeOutput("The answer is: " + sc.calcd());
+        /*CORRECT ANSWER CREATED HALF BY HAND  BECAUSE I'M TIRED OF DEBUGGING THIS PROBLEM:
+rule=departure location
+--field=13
+
+rule=departure station
+--field=10
+
+rule=departure platform
+--field=11
+
+rule=departure track
+--field=2
+
+rule=departure date
+--field=3
+
+rule=departure time
+--field=7
+
+rule=arrival location
+--field=18
+
+rule=arrival station
+--field=16
+
+rule=arrival platform
+--field=1
+
+rule=arrival track
+--field=5
+
+rule=class
+--field=4
+
+rule=duration
+--field=17
+
+rule=price
+--field=9
+
+
+rule=route
+--field=14
+
+rule=row
+--field=8
+
+rule=seat
+--field=12
+
+rule=train
+--field=0
+
+rule=type
+--field=15
+
+rule=wagon
+--field=6
+
+rule=zone
+--field=19
+
+---
+
+rule=departure location
+--field=13  val=137
+
+rule=departure station
+--field=10 val=173
+
+rule=departure platform
+--field=11 val=61
+
+rule=departure track
+--field=2 val=59
+
+rule=departure date
+--field=3 val=79
+
+rule=departure time
+--field=7 val=73
+
+137 * 173 * 61 * 59 * 79 * 73 = 491924517533
+
+*/
     },
     unitTest: function(ut) {
         const s = " T-d16p2.";
-        ut.test(s + "1", 1 === 1);
+        let sc = new Scanner();
+        sc.parseInput(`class: 0-1 or 4-19
+        row: 0-5 or 8-19
+        seat: 0-13 or 16-19
+        
+        your ticket:
+        11,12,13
+        
+        nearby tickets:
+        3,9,18
+        15,1,5
+        5,14,9`);
+        sc.findAllowedFields();
+        // log(sc.toString());
+        // ut.test(s + "1", sc.sumInvalidFields() === 71);
     },
 };
 
@@ -2321,16 +2695,177 @@ problems.d23p2 = {
     },
 };
 
-problems.d24p1 = {
-    givenInputData: ``,
-    solve: function() {
-        readInput();
+class Coord {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    toString() {
+        return `${this.x},${this.y}`;
+    }
+    go(d) {
+        // if (d.indexOf('e') >= 0) this.x++;
+        // if (d.indexOf('w') >= 0) this.x--;
+        // if (d.indexOf('n') >= 0) this.y++;
+        // if (d.indexOf('s') >= 0) this.y--;
+        if (d === 'e') this.x++;
+        if (d === 'w') this.x--;
+        if (d === 'n') this.y++;
+        if (d === 's') this.y--;
+    }
+    goAllHex(ds) {
+        ds = ds.replaceAll("e", "_e");
+        ds = ds.replaceAll("w", "_w");
+        ds = ds.replaceAll("n_e", "ne");
+        ds = ds.replaceAll("s_e", "se");
+        ds = ds.replaceAll("n_w", "nw");
+        ds = ds.replaceAll("s_w", "sw");
+        ds = ds.replaceAll("_w", "ww");
+        ds = ds.replaceAll("_e", "ee");
 
-        writeOutput("The answer is: TBD");
+        for (let i = 0; i < ds.length; i++) {
+            this.go(ds[i]);
+        }
+    }
+}
+class Hexgrid extends Matrix2d {
+    constructor() {
+        super(1000, false);
+    }
+    // get(x, y) {
+    //     let key = (new Coord(x, y)).toString();
+    //     log("getting:" + key);
+    //     if (!this.values.get(key)) {
+    //         return false;
+    //     }
+    //     log("get:" + x + "," + y + " val=" + this.values[key]);
+    //     return this.values.get(key);
+    // }
+
+    // set(x, y, v) {
+    //     log("setting " + x + "," + y + " to " + v);
+    //     let k = new Coord(x, y);
+    //     if (x < this.minx) this.minx = x;
+    //     if (y < this.miny) this.miny = y;
+    //     if (x > this.maxx) this.maxx = x;
+    //     if (y > this.maxy) this.maxy = y;
+    //     this.values.set(k.toString(), v);
+    // }
+    flip(coord) {
+        this.set(coord.x, coord.y, !this.get(coord.x, coord.y));
+        // let key = coord.toString();
+        // if (!this.values[key]) {
+        //     this.values[key] = true;
+        // } else {
+        //     this.values[key] = false;
+        // }
+    }
+    countAll(v) {
+        // let vals = Object.values(this.values);
+        let count = 0;
+        this.forEachXY((x, y, matrix) => {
+            if (this.get(x, y)) count++;
+        });
+        // for (let i = 0; i < vals.length; i++) {
+        //     if (vals[i] === v) count++;
+        // }
+        return count;
+    }
+    isValidCoord(x, y) {
+        //Both x and y must be even or odd.
+        return ((x + y) % 2 === 0);
+    }
+    countAdjacent(x, y, v) {
+        let count = 0;
+        if (this.get(x + 2, y) === v) count++;
+        if (this.get(x + 1, y + 1) === v) count++;
+        if (this.get(x + 1, y - 1) === v) count++;
+        if (this.get(x - 2, y) === v) count++;
+        if (this.get(x - 1, y + 1) === v) count++;
+        if (this.get(x - 1, y - 1) === v) count++;
+        // log("adj to " + x + "," + y + " are " + count + " of " + v);
+        return count;
+    }
+    nextVal(x, y) {
+        let t = this.get(x, y);
+        let blacks = this.countAdjacent(x, y, true);
+        if (t === true) { //black tile
+            if ((blacks === 0) || (blacks > 2)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else { //white tile
+            if (blacks === 2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    step() {
+        let hg2 = new Hexgrid();
+        this.forEachXY((x, y, matrix) => {
+            if ( /*this.isValidCoord(x, y)*/ true) {
+                let t = this.get(x, y);
+                let blacks = this.countAdjacent(x, y, true);
+                if (t === true) { //black tile
+                    if ((blacks === 0) || (blacks > 2)) {
+                        hg2.set(x, y, false);
+                    } else {
+                        hg2.set(x, y, t);
+                    }
+                } else { //white tile
+                    if (blacks === 2) {
+                        hg2.set(x, y, true);
+                    } else {
+                        hg2.set(x, y, t);
+                    }
+                }
+            }
+        }, 2);
+        return hg2;
+    }
+    load(flips) {
+        for (let i = 0; i < flips.length; i++) {
+            let c = new Coord(0, 0);
+            c.goAllHex(flips[i]);
+            this.flip(c);
+        }
+    }
+    // logGrid(){
+    //     this.forEachXY((x, y, matrix) => {
+    //         let s="";
+    //         if (this.isValidCoord(x, y)) {
+    // }
+};
+problems.d24p1 = {
+    givenInputData: AOC_Input_Data.d24p1,
+    solve: function() {
+        //Note: for the Hexgrid, black is true and white is false.
+        let hg = new Hexgrid();
+        let flips = stringToStringArrayNewline(readInput());
+        hg.load(flips);
+
+        writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
         const s = " T-d24p1.";
-        ut.test(s + "1", 1 === 1);
+        let c = new Coord(0, 0);
+        ut.test(s + "c1", c.toString() === "0,0");
+        c.goAllHex("w");
+        ut.test(s + "c2", c.toString() === "-2,0");
+        c.goAllHex("wensne");
+        ut.test(s + "c3", c.toString() === "-1,1");
+
+        let hg = new Hexgrid();
+        ut.test(s + "h1", hg.countAll(true) === 0);
+        hg.flip(c);
+        ut.test(s + "h2", hg.countAll(true) === 1);
+        hg.flip(c);
+        ut.test(s + "h3", hg.countAll(true) === 0);
+
+
     },
 };
 
@@ -2338,13 +2873,74 @@ problems.d24p1 = {
 problems.d24p2 = {
     givenInputData: problems.d24p1.givenInputData,
     solve: function() {
-        readInput();
+        //Note: for the Hexgrid, black is true and white is false.
+        let hg = new Hexgrid();
+        let flips = stringToStringArrayNewline(readInput());
+        hg.load(flips);
+        for (let d = 1; d < 101; d++) hg = hg.step();
 
-        writeOutput("The answer is: TBD");
+
+        writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
         const s = " T-d24p2.";
-        ut.test(s + "1", 1 === 1);
+        let c = new Coord(0, 0);
+        let hg = new Hexgrid();
+        ut.test(s + "h1", hg.countAll(true) === 0);
+        hg.flip(c);
+        ut.test(s + "h2", hg.countAll(true) === 1);
+        ut.test(s + "h3", hg.countAdjacent(0, 0, true) === 0);
+        ut.test(s + "h3b", hg.countAdjacent(2, 0, true) === 1);
+        c.goAllHex("e");
+        hg.flip(c);
+        ut.test(s + "h4", hg.get(2, 0) === true);
+        hg.set(-2, 0, true);
+        ut.test(s + "h5", hg.get(-2, 0) === true);
+        ut.test(s + "h6", hg.countAdjacent(0, 0, true) === 2);
+        ut.test(s + "h7", hg.countAll(true) === 3);
+        ut.test(s + "h8", hg.countAdjacent(1, 1, true) === 2);
+        ut.test(s + "h9", hg.countAdjacent(-1, 1, true) === 2);
+        hg.set(1, 1, true);
+        ut.test(s + "h10", hg.countAdjacent(0, 0, true) === 3);
+        hg.set(-1, 1, true);
+        hg.set(1, -1, true);
+        hg.set(-1, -1, true);
+        ut.test(s + "h11", hg.countAdjacent(0, 0, true) === 6);
+        ut.test(s + "h12", hg.countAll(true) === 7);
+        ut.test(s + "h12b", hg.nextVal(0, 0) === false);
+        hg = hg.step();
+        log("h13:" + hg.countAll(true));
+        ut.test(s + "h13", hg.countAll(true) === 6);
+
+
+        let ss = `sesenwnenenewseeswwswswwnenewsewsw
+        neeenesenwnwwswnenewnwwsewnenwseswesw
+        seswneswswsenwwnwse
+        nwnwneseeswswnenewneswwnewseswneseene
+        swweswneswnenwsewnwneneseenw
+        eesenwseswswnenwswnwnwsewwnwsene
+        sewnenenenesenwsewnenwwwse
+        wenwwweseeeweswwwnwwe
+        wsweesenenewnwwnwsenewsenwwsesesenwne
+        neeswseenwwswnwswswnw
+        nenwswwsewswnenenewsenwsenwnesesenew
+        enewnwewneswsewnwswenweswnenwsenwsw
+        sweneswneswneneenwnewenewwneswswnese
+        swwesenesewenwneswnwwneseswwne
+        enesenwswwswneneswsenwnewswseenwsese
+        wnwnesenesenenwwnenwsewesewsesesew
+        nenewswnwewswnenesenwnesewesw
+        eneswnwswnwsenenwnwnwwseeswneewsenese
+        neswnwewnwnwseenwseesewsenwsweewe
+        wseweeenwnesenwwwswnew`;
+        let flips = stringToStringArrayNewline(ss);
+        hg = new Hexgrid();
+        hg.load(flips);
+        ut.test(s + "hh0", hg.countAll(true) === 10);
+        hg = hg.step();
+        ut.test(s + "hh1", hg.countAll(true) === 15);
+        hg = hg.step();
+        ut.test(s + "hh2", hg.countAll(true) === 12);
     },
 };
 

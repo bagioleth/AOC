@@ -16,36 +16,85 @@ class Tmath {
 }
 
 class Matrix2d {
-    constructor() {
-        this.matrix = [];
+    constructor(offset = 0, unsetValue = null) {
+        //offset is the distance the x and y coordinates will be shifted
+        //to allow JavaScript arrays to accompodate negative coordinates.
+        this.matrix = new Array(1000);
+        this.minX = null;
+        this.minY = null;
         this.maxX = null;
         this.maxY = null;
+        this.offset = offset;
+        this.unsetValue = unsetValue;
     }
     get(x, y) {
-        if (this.matrix[x] === undefined) this.matrix[x] = [];
-        if (this.matrix[x] === null) this.matrix[x] = [];
-        if (this.matrix[x][y] === undefined) this.matrix[x][y] = null;
-        if (this.maxX === null) this.maxX = x;
-        if (this.maxY === null) this.maxY = y;
-        if (x > this.maxX) this.maxX = x;
-        if (y > this.maxY) this.maxY = y;
-        return this.matrix[x][y];
+        // log("Matrix2d.get called with " + x + "," + y);
+        if (this.isOutOfBounds(x, y)) return this.unsetValue;
+
+        x += this.offset;
+        y += this.offset;
+        if (this.matrix[x] === undefined) return this.unsetValue;
+        if (this.matrix[x] === null) return this.unsetValue;
+        if (this.matrix[x][y] === undefined) return this.unsetValue;
+
+        let r = this.matrix[x][y];
+        // log("Matrix2d.get returning " + r);
+        return r;
     }
     set(x, y, value) {
-        this.get(x, y); //used to ensure slot is alotted.
+        // log("Matrix2d.set called with " + x + "," + y + " " + value);
+
+        // this.get(x, y); //used to ensure slot is alotted.
+        //Update min/max.  Note min/max are external values.
+        if (this.minX === null) this.minX = x;
+        if (this.minY === null) this.minY = y;
+        if (this.maxX === null) this.maxX = x;
+        if (this.maxY === null) this.maxY = y;
+        if (x < this.minX) this.minX = x;
+        if (y < this.minY) this.minY = y;
+        if (x > this.maxX) this.maxX = x;
+        if (y > this.maxY) this.maxY = y;
+
+        //Convert to internal array coords.
+        x += this.offset;
+        y += this.offset;
+        if (this.matrix[x] === undefined) this.matrix[x] = new Array(1000);
+        if (this.matrix[x] === null) this.matrix[x] = new Array(1000);
+        // if (this.matrix[x][y] === undefined) this.matrix[x][y] = null;
         this.matrix[x][y] = value;
     }
     isOutOfBounds(x, y) {
+        if (this.minX === null) return true;
+        if (this.minY === null) return true;
         if (this.maxX === null) return true;
         if (this.maxY === null) return true;
-        if (x < 0) return true;
-        if (y < 0) return true;
+
+        // x += this.offset;
+        // y += this.offset;
+        if (x < this.minX) return true;
+        if (y < this.minY) return true;
         if (x > this.maxX) return true;
         if (y > this.maxY) return true;
         return false;
     }
+    forEachXY(f, expandedBorder = 0) {
+        if (this.minX === null) return;
+        if (this.minY === null) return;
+        if (this.maxX === null) return;
+        if (this.maxY === null) return;
+        // let c = 0;
+        // log("forEachXY:" + this.minX + "," + this.minY + " to " + this.maxX + "," + this.maxY);
+        for (let x = this.minX - expandedBorder; x <= this.maxX + expandedBorder; x++) {
+            for (let y = this.minY - expandedBorder; y <= this.maxY + expandedBorder; y++) {
+                // c++;
+                // log("forEachXY:" + c + ":" + x + "," + y + " to " + this.maxX + "," + this.maxY);
+                // if (c >= 100) return;
+                f(x, y, this);
+            }
+        }
+    }
     unitTest(ut) {
-        let m = new Matrix2d();
+        let m = new Matrix2d(10);
         ut.test('T-Matrix2d1', m.get(0, 0) === null);
         m.set(0, 0, 2);
         ut.test('T-Matrix2d2', m.get(0, 0) === 2);
