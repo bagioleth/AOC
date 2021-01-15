@@ -2506,16 +2506,94 @@ rule=departure time
     },
 };
 
-problems.d17p1 = {
-    givenInputData: ``,
-    solve: function() {
-        readInput();
+class AOC_gol3d {
+    constructor() {
+        this.matrix = new Matrix3d(1000, ".");
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        for (let y = a.length - 1; y >= 0; y--) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set(x, y, 0, a[y].charAt(x));
+            }
+        }
+    }
+    isCubeActive(x, y, z) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y, z);
+        return (c === '#');
+    }
+    adjacentCubesActive(x, y, z) {
+        let n = 0;
+        for (let xx = x - 1; xx <= x + 1; xx++) {
+            for (let yy = y - 1; yy <= y + 1; yy++) {
+                for (let zz = z - 1; zz <= z + 1; zz++) {
+                    if ((xx === x) && (yy === y) && (zz === z)) continue;
+                    if (this.isCubeActive(xx, yy, zz)) n++;
+                }
+            }
+        }
+        return n;
+    }
+    step() {
+        let mm = new Matrix3d();
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            //     "During a cycle, all cubes simultaneously change their state 
+            // according to the following rules:
+            // If a cube is active and exactly 2 or 3 of its neighbors are also 
+            // active, the cube remains active. Otherwise, the cube becomes inactive.
+            // If a cube is inactive but exactly 3 of its neighbors are active, 
+            // the cube becomes active. Otherwise, the cube remains inactive." -AOC2020
+            let c = m.get(x, y, z);
+            let n = this.adjacentCubesActive(x, y, z);
+            if (c === "#") { //Active
+                if ((n === 2) || (n === 3)) {
+                    mm.set(x, y, z, ".");
+                } else {
+                    mm.set(x, y, z, "#");
+                }
+            } else { //Inactive
+                if (n === 3) {
+                    mm.set(x, y, z, "#");
+                } else {
+                    mm.set(x, y, z, ".");
+                }
+            }
+        }, 1);
+        this.matrix = mm;
+    }
 
-        writeOutput("The answer is: TBD");
+    totalActiveCubes() {
+        let n = 0;
+        for (let x = 0; x <= this.matrix.maxX; x++) {
+            for (let y = 0; y <= this.matrix.maxY; y++) {
+                if (this.isOccupiedSeat(x, y)) {
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+}
+
+problems.d17p1 = {
+    givenInputData: AOC_Input_Data.d17p1,
+    solve: function() {
+        let s = readInput();
+        let gol = new AOC_gol3d();
+        gol.load(s);
+        writeOutput("The answer is: " + gol.totalActiveCubes());
     },
     unitTest: function(ut) {
         const s = " T-d17p1.";
-        ut.test(s + "1", 1 === 1);
+        let d = `.#.
+..#
+###`;
+        let gol = new AOC_gol3d();
+        gol.load(d);
+        for (let i = 0; i < 6; i++) gol.step();
+        ut.test(s + "1", gol.totalActiveCubes === 112);
     },
 };
 
