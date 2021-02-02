@@ -67,6 +67,7 @@ function dbtest() {
     ut.test("s", setI.size == 1);
 
     (new Matrix2d()).unitTest(ut);
+    (new MatrixNdMap()).unitTest(ut);
 
     //Run unitTest function for all problems.
     Object.getOwnPropertyNames(problems).forEach((prb) =>

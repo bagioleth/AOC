@@ -2506,16 +2506,80 @@ rule=departure time
     },
 };
 
+class AOC_gol4d {
+    constructor() {
+        this.clear();
+    }
+    clear() {
+        this.matrix = new MatrixNdMap(4, ".");
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        this.clear();
+        for (let y = 0; y < a.length; y++) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set([x - Math.floor(a[y].length / 2), -(y - Math.floor(a.length / 2)), 0], a[y].charAt(x));
+            }
+        }
+    }
+    isCubeActive(coord) {
+        let c = this.matrix.get(coord);
+        return (c === '#');
+    }
+    adjacentCubesActive(coord) {
+        let n = 0;
+        this.forEachAdjacent(coord, (c) => {
+            if (this.isCubeActive(c)) n++;
+        });
+        return n;
+    }
+    step(n = 1) {
+        for (let i = 0; i < n; i++) this.stepone();
+    }
+    stepone() {
+        let mm = new MatrixNdMap(4, ".");
+        this.matrix.forEachCoordInCurrentRange((coord) => {
+            //     "During a cycle, all cubes simultaneously change their state 
+            // according to the following rules:
+            // If a cube is active and exactly 2 or 3 of its neighbors are also 
+            // active, the cube remains active. Otherwise, the cube becomes inactive.
+            // If a cube is inactive but exactly 3 of its neighbors are active, 
+            // the cube becomes active. Otherwise, the cube remains inactive." -AOC2020
+            let c = this.matrix.get(coord);
+            let n = this.adjacentCubesActive(coord);
+            if (c === "#") { //Active
+                if ((n === 2) || (n === 3)) {
+                    mm.set(coord, "#");
+                } else {
+                    mm.set(coord, ".");
+                }
+            } else { //Inactive
+                if (n === 3) {
+                    mm.set(coord, "#");
+                } else {
+                    mm.set(coord, ".");
+                }
+            }
+        }, 1);
+        this.matrix = mm;
+    }
+    totalActiveCubes() {
+        return this.matrix.totalSetTo("#");
+    }
+}
+
 class AOC_gol3d {
     constructor() {
         this.matrix = new Matrix3d(1000, ".");
     }
     load(s) {
         let a = stringToStringArrayNewline(s);
-        for (let y = a.length - 1; y >= 0; y--) {
+        this.matrix = new Matrix3d(1000, ".");
+        for (let y = 0; y < a.length; y++) {
             for (let x = 0; x < a[y].length; x++) {
                 // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
-                this.matrix.set(x, y, 0, a[y].charAt(x));
+                this.matrix.set(x - Math.floor(a[y].length / 2), -(y - Math.floor(a.length / 2)), 0, a[y].charAt(x));
             }
         }
     }
@@ -2536,7 +2600,10 @@ class AOC_gol3d {
         }
         return n;
     }
-    step() {
+    step(n = 1) {
+        for (let i = 0; i < n; i++) this.stepone();
+    }
+    stepone() {
         let mm = new Matrix3d();
         this.matrix.forEachXYZ((x, y, z, m) => {
             //     "During a cycle, all cubes simultaneously change their state 
@@ -2549,9 +2616,9 @@ class AOC_gol3d {
             let n = this.adjacentCubesActive(x, y, z);
             if (c === "#") { //Active
                 if ((n === 2) || (n === 3)) {
-                    mm.set(x, y, z, ".");
-                } else {
                     mm.set(x, y, z, "#");
+                } else {
+                    mm.set(x, y, z, ".");
                 }
             } else { //Inactive
                 if (n === 3) {
@@ -2566,14 +2633,37 @@ class AOC_gol3d {
 
     totalActiveCubes() {
         let n = 0;
-        for (let x = 0; x <= this.matrix.maxX; x++) {
-            for (let y = 0; y <= this.matrix.maxY; y++) {
-                if (this.isOccupiedSeat(x, y)) {
-                    n++;
-                }
-            }
-        }
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            if (this.isCubeActive(x, y, z)) n++;
+        });
         return n;
+    }
+
+    totalActiveCubesWhereZis(Z) {
+        let n = 0;
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            if ((z === Z) && (this.isCubeActive(x, y, z))) n++;
+        });
+        return n;
+    }
+    logWhereZis(Z, size) {
+        log("z=" + Z);
+        for (let y = size; y >= -size; y--) {
+            let xStr = "";
+            for (let x = -size; x <= size; x++) {
+                let c = this.matrix.get(x, y, Z);
+                if (c === null) c = ".";
+                if ((x === 0) && (y === 0)) {
+                    if (c === ".") {
+                        c = "o";
+                    } else {
+                        c = "*";
+                    }
+                }
+                xStr += c;
+            }
+            log("<code>" + xStr + "</code>");
+        }
     }
 }
 
@@ -2583,6 +2673,7 @@ problems.d17p1 = {
         let s = readInput();
         let gol = new AOC_gol3d();
         gol.load(s);
+        gol.step(6);
         writeOutput("The answer is: " + gol.totalActiveCubes());
     },
     unitTest: function(ut) {
@@ -2591,9 +2682,69 @@ problems.d17p1 = {
 ..#
 ###`;
         let gol = new AOC_gol3d();
+        // log("Test Series a");
+        gol.load(`.`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "a1a", gol.totalActiveCubes() === 0);
+        ut.test(s + "a1b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step();
+        ut.test(s + "a2a", gol.totalActiveCubes() === 0);
+        ut.test(s + "a2b", gol.adjacentCubesActive(0, 0, 0) === 0);
+
+        // log("Test Series b");
+        gol.load(`#`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "b1a", gol.totalActiveCubes() === 1);
+        ut.test(s + "b1b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step();
+        ut.test(s + "b2a", gol.totalActiveCubes() === 0);
+        ut.test(s + "b2b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step(10);
+        ut.test(s + "b3a", gol.totalActiveCubes() === 0);
+        ut.test(s + "b3b", gol.adjacentCubesActive(0, 0, 0) === 0);
+
+        // log("Test Series bb");
+        gol.load(`###\n###\n###`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "bb1a", gol.totalActiveCubes() === 9);
+        ut.test(s + "bb1b", gol.adjacentCubesActive(0, 0, 0) === 8);
+        ut.test(s + "bb1c", gol.adjacentCubesActive(1, 1, 0) === 3);
+        ut.test(s + "bb1d", gol.adjacentCubesActive(0, 1, 0) === 5);
+        ut.test(s + "bb1e", gol.isCubeActive(1, 1, 0));
+        ut.test(s + "bb1f", gol.isCubeActive(0, 1, 0));
+        gol.step();
+        // gol.logWhereZis(0, 3);
+
+        // log("Test Series c");
         gol.load(d);
-        for (let i = 0; i < 6; i++) gol.step();
-        ut.test(s + "1", gol.totalActiveCubes === 112);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "c1a", gol.totalActiveCubes() === 5);
+        ut.test(s + "c1b", gol.totalActiveCubesWhereZis(0) === 5);
+        ut.test(s + "c1c", gol.totalActiveCubesWhereZis(1) === 0);
+        ut.test(s + "c1d", gol.adjacentCubesActive(0, 0, 0) === 5);
+        ut.test(s + "c1e", !gol.isCubeActive(0, 0, 0));
+        ut.test(s + "c1e", gol.isCubeActive(1, 0, 0));
+        ut.test(s + "c1ff1", gol.isCubeActive(0, 1, 0));
+        // log("c1ff2:adjacentCubesActive=" + gol.adjacentCubesActive(0, 1, 0));
+        ut.test(s + "c1ff2", gol.adjacentCubesActive(0, 1, 0) === 1);
+        gol.step();
+        // gol.logWhereZis(-1, 3);
+        // gol.logWhereZis(0, 3);
+        // gol.logWhereZis(1, 3);
+        ut.test(s + "c2a", gol.totalActiveCubes() === 11);
+        ut.test(s + "c2b-1", gol.totalActiveCubesWhereZis(-1) === 3);
+        ut.test(s + "c2b0", gol.totalActiveCubesWhereZis(0) === 5);
+        ut.test(s + "c2b1", gol.totalActiveCubesWhereZis(1) === 3);
+        ut.test(s + "c2ff1", !gol.isCubeActive(0, 1, 0));
+        // log("c2ff2:adjacentCubesActive=" + gol.adjacentCubesActive(0, 1, 0));
+        ut.test(s + "c2ff2", gol.adjacentCubesActive(0, 1, 0) === 4);
+
+
+
+
+        gol.load(d);
+        gol.step(6);
+        ut.test(s + "z1", gol.totalActiveCubes() === 112);
     },
 };
 
@@ -2601,9 +2752,12 @@ problems.d17p1 = {
 problems.d17p2 = {
     givenInputData: problems.d17p1.givenInputData,
     solve: function() {
-        readInput();
+        let s = readInput();
+        let gol = new AOC_gol4d();
+        gol.load(s);
+        gol.step(6);
+        writeOutput("The answer is: " + gol.totalActiveCubes());
 
-        writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
         const s = " T-d17p2.";
@@ -2987,7 +3141,7 @@ problems.d24p2 = {
         ut.test(s + "h12", hg.countAll(true) === 7);
         ut.test(s + "h12b", hg.nextVal(0, 0) === false);
         hg = hg.step();
-        log("h13:" + hg.countAll(true));
+        // log("h13:" + hg.countAll(true));
         ut.test(s + "h13", hg.countAll(true) === 6);
 
 

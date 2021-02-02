@@ -1,3 +1,7 @@
+// const {
+//     timeStamp
+// } = require("console");
+
 class Tmath {
     constructor() {
 
@@ -104,6 +108,122 @@ class Matrix2d {
     }
 }
 
+//Matrix backed by a Map, so the space is unbounded.
+//Coordinates are communicated thru arrays thus:
+//[x,y,z,t...] aka [dim1,dim2,dim3,...dimN].
+//Note that the 0th element is dimension 1.
+class MatrixNdMap {
+    constructor(dimensions = 2, unsetValue = null) {
+        this.map = new Map();
+        this.dimensions = dimensions;
+        this.mins = new Array(dimensions);
+        this.mins.fill(null);
+        this.maxs = new Array(dimensions);
+        this.maxs.fill(null);
+        this.unsetValue = unsetValue;
+    }
+    coordToKey(coord) {
+        let k = "" + coord[0];
+        for (let i = 1; i < this.dimensions; i++) {
+            k += "," + coord[i];
+        }
+        return k;
+    }
+    keyToCoord(key) {
+        let c = stringToStringArrayNewline(key);
+        return c;
+    }
+    /**Takes two coordinates.  Returns -1 if c1<c2, 0 if c1=c2, and 1 if c1>c2. */
+    compareCoords(c1, c2) {
+        for (let d = 0; d < c1.length; d++) {
+            if (c1[d] > c2[d]) return 1;
+            if (c1[d] < c2[d]) return -1;
+        }
+        return 0;
+    }
+    incrementCoord(coord, minCoord, maxCoord) {
+        let carry = 1;
+        let d = coord.length - 1;
+        while ((carry > 0) && (d >= 0)) {
+            if (coord[d] === maxCoord[d]) {
+                coord[d] = minCoord[d];
+                d--;
+            } else {
+                coord[d] += carry;
+                carry = 0;
+            }
+        }
+        return coord;
+    }
+    get(coord) {
+        let v = this.map.get(this.coordToKey(coord));
+        return (v === undefined) ? this.unsetValue : v;
+    }
+    set(coord, val) {
+        this.map.set(this.coordToKey(coord), value);
+        this.forEachDimension((d) => {
+            let r = coord[d - 1];
+            this.maxs[d - 1] = Math.max(this.maxs[d - 1], r);
+            this.mins[d - 1] = Math.min(this.mins[d - 1], r);
+        });
+    }
+    forEachDimension(f) {
+        for (let d = 1; d <= this.dimensions; d++) {
+            f(d);
+        }
+    }
+    forEachCoordInGivenRange(min, max, f) {
+        for (let c = new Array(...min); this.compareCoords(c, max) < 0; this.incrementCoord(c)) {
+            f(c);
+        }
+    }
+    forEachCoordInCurrentRange(f, expandBoundaryBy = 0) {
+        let minCoord = this.mins.map(r => r - expandBoundaryBy);
+        let maxCoord = this.maxs.map(r => r + expandBoundaryBy);
+        forEachCoordInGivenRange(minCoord, maxCoord, f);
+    }
+    forEachAdjacent(coord, f) {
+        let minCoord = coord.map(r => r - 1);
+        let maxCoord = coord.map(r => r + 1);
+        forEachCoordInGivenRange(minCoord, maxCoord, (c) => {
+            if (this.compareCoords(c, coord) !== 0) f(c);
+        });
+    }
+    minRange(dimNumber) {
+        return this.mins[dimNumber];
+    }
+    maxRange(dimNumber) {
+        return this.maxs[dimNumber];
+    }
+    totalSetTo(c) {
+        let n = 0;
+        this.matrix.forEach((value, key, map) => {
+            if (value === c) n++;
+        });
+        return n;
+    }
+    unitTest(ut) {
+        let m = new MatrixNdMap();
+        let c1 = [0, 0, 8, 0];
+        let cmin = [0, 0, 0, 0];
+        let cmax = [9, 9, 9, 9];
+        ut.test('T-MatrixNdMap.IncC.1', m.coordToKey(m.incrementCoord(c1, cmin, cmax)) === "0,0,8,1");
+
+        let k = "1,-2";
+        ut.test('T-MatrixNdMap.1', m.coordToKey(m.keyToCoord(k)) == k);
+        ut.test('T-MatrixNdMap.2a', m.get([0, 0]) === null);
+        ut.test('T-MatrixNdMap.2b', m.minRange(1) === null);
+        ut.test('T-MatrixNdMap.2c', m.minRange(2) === null);
+        ut.test('T-MatrixNdMap.2d', m.maxRange(1) === null);
+        ut.test('T-MatrixNdMap.2e', m.maxRange(2) === null);
+        m.set([0, 0], 1);
+        ut.test('T-MatrixNdMap.3a', m.get([0, 0]) === 1);
+        ut.test('T-MatrixNdMap.3b', m.minRange(1) === 0);
+        ut.test('T-MatrixNdMap.3c', m.minRange(2) === 0);
+        ut.test('T-MatrixNdMap.3d', m.maxRange(1) === 0);
+        ut.test('T-MatrixNdMap.3e', m.maxRange(2) === 0);
+    }
+}
 
 class Matrix3d {
     constructor(offset = 0, unsetValue = null) {
@@ -165,13 +285,16 @@ class Matrix3d {
         if (this.matrix[x][y] === null) this.matrix[x][y] = new Array(1000);
         this.matrix[x][y][z] = value;
     }
-    isOutOfBounds(x, y, z) {
+    checkAnyNull() {
         if (this.minX === null) return true;
         if (this.minY === null) return true;
         if (this.minZ === null) return true;
         if (this.maxX === null) return true;
         if (this.maxY === null) return true;
         if (this.maxZ === null) return true;
+    }
+    isOutOfBounds(x, y, z) {
+        if (this.checkAnyNull()) return true;
 
         if (x < this.minX) return true;
         if (y < this.minY) return true;
@@ -182,12 +305,8 @@ class Matrix3d {
         return false;
     }
     forEachXYZ(f, expandedBorder = 0) {
-        if (this.minX === null) return;
-        if (this.minY === null) return;
-        if (this.minZ === null) return;
-        if (this.maxX === null) return;
-        if (this.maxY === null) return;
-        if (this.maxZ === null) return;
+        if (this.checkAnyNull()) return;
+
         // let c = 0;
         // log("forEachXY:" + this.minX + "," + this.minY + " to " + this.maxX + "," + this.maxY);
         for (let x = this.minX - expandedBorder; x <= this.maxX + expandedBorder; x++) {
