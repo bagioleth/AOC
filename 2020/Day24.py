@@ -51,7 +51,7 @@ while (i < len(instructions)):
 #print(instructions[0])
 #print(sorted(lines[0]))
 
-for l in lines:
+for l in lines:#simplifies each instruction to find matches
     changeMade = True
     while(changeMade):
         changeMade = False
@@ -143,12 +143,12 @@ while(len(lines) > 0):
         while(tempVal in lines):
             lines.remove(tempVal)
 
-    print(numBlack)
+    #print(numBlack)
 
 print("Part 1: " + str(numBlack))
 
 print(tempLines)
-lines = tempLines #sets lines to origional values
+lines = tempLines.copy() #sets lines to origional values
 
 
 
