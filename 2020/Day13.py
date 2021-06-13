@@ -1,4 +1,5 @@
 
+
 f = open("Day13Input.txt", "r")
 instructions = []
 
@@ -46,7 +47,7 @@ while(not isSatisfied):
             isSatisfied = False
             timestamp += int(busses[0])
             break
-        i += 1
+    i += 1
 
 
 print("Part 2: " + str(timestamp))
