@@ -1,3 +1,6 @@
+from os import remove
+
+
 f = open("Day24Input.txt", "r")
 instructions = []
 
@@ -45,8 +48,8 @@ while (i < len(instructions)):
     i += 1
     lines.append(directions)    
 
-print(instructions[0])
-print(sorted(lines[0]))
+#print(instructions[0])
+#print(sorted(lines[0]))
 
 for l in lines:
     changeMade = True
@@ -56,42 +59,98 @@ for l in lines:
             changeMade = True
             l.remove("e")
             l.remove("w")
+            continue
         if (("ne" in l) and ("sw" in l)):
             changeMade = True
             l.remove("ne")
             l.remove("sw")
+            continue
         if (("se" in l) and ("nw" in l)):
             changeMade = True
             l.remove("se")
             l.remove("nw")
+            continue
+        if (("se" in l) and ("ne" in l) and ("w" in l)):
+            changeMade = True
+            l.remove("se")
+            l.remove("ne")
+            l.remove("w")
+            continue
+        if (("sw" in l) and ("nw" in l) and ("e" in l)):
+            changeMade = True
+            l.remove("sw")
+            l.remove("nw")
+            l.remove("e")
+            continue
+        if (("sw" in l) and ("nw" in l)):
+            changeMade = True
+            l.remove("sw")
+            l.remove("nw")
+            l.append("w")
+            continue
+        if (("se" in l) and ("ne" in l)):
+            changeMade = True
+            l.remove("se")
+            l.remove("ne")
+            l.append("e")
+            continue
+        if (("nw" in l) and ("e" in l)):
+            changeMade = True
+            l.remove("nw")
+            l.remove("e")
+            l.append("ne")
+            continue
+        if (("sw" in l) and ("e" in l)):
+            changeMade = True
+            l.remove("sw")
+            l.remove("e")
+            l.append("se")
+            continue
+        if (("ne" in l) and ("w" in l)):
+            changeMade = True
+            l.remove("ne")
+            l.remove("w")
+            l.append("nw")
+            continue
+        if (("se" in l) and ("w" in l)):
+            changeMade = True
+            l.remove("se")
+            l.remove("w")
+            l.append("sw")
+            continue
     #l = sorted(l)
 
 #print(lines[0])
 for i in range(len(lines)):
     lines[i] = sorted(lines[i])
     #print(lines[i])
-print(lines[0])
+#print(lines[0])
 
 sortedLines = sorted(lines)
 for l in sortedLines:
     print(l)
 
+tempLines = lines.copy()#saves origional values of lines
 
 numBlack = 0
-while(lines != []):
-    counter = 1
-    #print("test")
-    #print(lines[0])
-    #print(lines[1:])
-    while(lines[0] in lines[1:] and len(lines) > 1):
-        counter += 1
-        print("removing line")
-        lines[1:].remove(lines[0])
-        if(counter % 2 == 1):
-            numBlack += 1
-    lines.remove(lines[0])
+while(len(lines) > 0):
+    tempVal = lines[0]
+    if (lines.count(tempVal) % 2 == 1):
+        numBlack += 1
+        while(tempVal in lines):
+            lines.remove(tempVal)
+    else:
+        while(tempVal in lines):
+            lines.remove(tempVal)
+
+    print(numBlack)
 
 print("Part 1: " + str(numBlack))
+
+print(tempLines)
+lines = tempLines #sets lines to origional values
+
+
 
 #print(lines[0])
 #print(sorted(lines[0]))
