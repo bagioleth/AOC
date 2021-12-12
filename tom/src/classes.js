@@ -2,6 +2,7 @@
 //     timeStamp
 // } = require("console");
 
+
 class Tmath {
     constructor() {
 
@@ -17,6 +18,21 @@ class Tmath {
         return a * (b / Tmath.gcd(a, b));
     }
 
+}
+
+class Solution {
+    constructor(ydp) {
+        this.ydp = ydp;
+        this.givenInputData = AOC_Input_Data[ydp.tos()];
+    }
+    solve() {
+        readInput();
+        writeOutput("The answer is: TBD");
+    }
+    unitTest(ut) {
+        const s = " T-" + this.ydp.tos() + ".";
+        ut.test(s + "1", 1 === 1);
+    }
 }
 
 class Matrix2d {
@@ -133,7 +149,9 @@ class MatrixNdMap {
         let c = stringToStringArrayNewline(key);
         return c;
     }
-    /**Takes two coordinates.  Returns -1 if c1<c2, 0 if c1=c2, and 1 if c1>c2. */
+    /**Takes two coordinates.  Returns -1 if c1<c2, 0 if c1=c2, and 1 if c1>c2. 
+     * The lower number dimensions are more significant.
+     */
     compareCoords(c1, c2) {
         for (let d = 0; d < c1.length; d++) {
             if (c1[d] > c2[d]) return 1;
@@ -141,6 +159,8 @@ class MatrixNdMap {
         }
         return 0;
     }
+    /**Increment the Coord to then next value.  Coords are treated like numbers.  
+     * Each dimension is treated like a digit.  The   */
     incrementCoord(coord, minCoord, maxCoord) {
         let carry = 1;
         let d = coord.length - 1;

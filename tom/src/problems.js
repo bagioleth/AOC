@@ -1,14 +1,20 @@
 let problems = {};
+//Create a default, empty solution for each problem.
+Ydp.forAllParts((ydp) => {
+    let sol = new Solution(ydp);
+    problems[ydp.tos()] = sol;
+});
 
-problems.d1p1 = {
-    givenInputData: AOC_Input_Data.d1p1,
+
+problems.y2020d1p1 = {
+    givenInputData: AOC_Input_Data.y2020d1p1,
 
     solve: function() {
         let a = stringToIntArrayNewline(readInput());
         writeOutput("The answer is:" + this.docalc(a));
     },
     unitTest: function(ut) {
-        const s = " T-d1p1.";
+        const s = " T-y2020d1p1.";
         ut.test(s + "td1", this.docalc([1721, 979, 366, 299, 675, 1456]) == 514579);
     },
     docalc: function(arr) {
@@ -21,8 +27,8 @@ problems.d1p1 = {
     },
 };
 
-problems.d1p2 = {
-    givenInputData: problems.d1p1.givenInputData,
+problems.y2020d1p2 = {
+    givenInputData: problems.y2020d1p1.givenInputData,
     solve: function() {
         let u = readInput();
         let a = u.split(/\r?\n/);
@@ -32,7 +38,7 @@ problems.d1p2 = {
         writeOutput("The answer is:" + this.docalc(a));
     },
     unitTest: function(ut) {
-        const s = " T-d1p1.";
+        const s = " T-y2020d1p1.";
         ut.test(s + "td2", this.docalc([1721, 979, 366, 299, 675, 1456]) == 241861950);
     },
     docalc: function(arr) {
@@ -48,8 +54,8 @@ problems.d1p2 = {
     },
 };
 
-problems.d2p1 = {
-    givenInputData: AOC_Input_Data.d2p1,
+problems.y2020d2p1 = {
+    givenInputData: AOC_Input_Data.y2020d2p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let valid = 0;
@@ -59,7 +65,7 @@ problems.d2p1 = {
         writeOutput("The answer is:" + valid);
     },
     unitTest: function(ut) {
-        const s = " T-d2p1.";
+        const s = " T-y2020d2p1.";
         let x = this.parseRow("3-4 j: tjjj");
         ut.test(s + "1", x.min == 3);
         ut.test(s + "2", x.max == 4);
@@ -96,8 +102,8 @@ problems.d2p1 = {
     },
 };
 
-problems.d2p2 = {
-    givenInputData: problems.d2p1.givenInputData,
+problems.y2020d2p2 = {
+    givenInputData: problems.y2020d2p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let valid = 0;
@@ -107,14 +113,14 @@ problems.d2p2 = {
         writeOutput("The answer is:" + valid);
     },
     unitTest: function(ut) {
-        const s = " T-d2p2.";
+        const s = " T-y2020d2p2.";
 
         ut.test(s + "8", this.ckpw("1-3 a: abcde"));
         ut.test(s + "9", !this.ckpw("1-3 b: cdefg"));
         ut.test(s + "10", !this.ckpw("2-9 c: ccccccccc"));
     },
     ckpw(s) {
-        let x = problems.d2p1.parseRow(s);
+        let x = problems.y2020d2p1.parseRow(s);
         let count = 0;
         if (x.pw[x.min - 1] == x.char) count++;
         if (x.pw[x.max - 1] == x.char) count++;
@@ -122,8 +128,8 @@ problems.d2p2 = {
     },
 };
 
-problems.d3p1 = {
-    givenInputData: AOC_Input_Data.d3p1,
+problems.y2020d3p1 = {
+    givenInputData: AOC_Input_Data.y2020d3p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hits = 0;
@@ -136,7 +142,7 @@ problems.d3p1 = {
         writeOutput("The answer is: " + hits);
     },
     unitTest: function(ut) {
-        const s = " T-d3p1.";
+        const s = " T-y2020d3p1.";
 
         ut.test(s + "1", this.treeHit("..#...#", 2));
         ut.test(s + "2", this.treeHit("..#...#", 6));
@@ -148,8 +154,8 @@ problems.d3p1 = {
     },
 };
 
-problems.d3p2 = {
-    givenInputData: problems.d3p1.givenInputData,
+problems.y2020d3p2 = {
+    givenInputData: problems.y2020d3p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hits = 0;
@@ -157,7 +163,7 @@ problems.d3p2 = {
         let x = 0;
         //Right 1, down 1.
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 1;
         }
         m = m * hits;
@@ -167,7 +173,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 3;
         }
         m = m * hits;
@@ -177,7 +183,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 5;
         }
         m = m * hits;
@@ -187,7 +193,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 7;
         }
         m = m * hits;
@@ -197,7 +203,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i += 2) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 1;
         }
         m = m * hits;
@@ -206,12 +212,12 @@ problems.d3p2 = {
         writeOutput("The answer is: " + m);
     },
     unitTest: function(ut) {
-        const s = " T-d3p2.";
+        const s = " T-y2020d3p2.";
 
     },
 };
 
-problems.d4p1 = {
+problems.y2020d4p1 = {
     givenInputData: ``,
     solve: function() {
         let s = readInput();
@@ -220,7 +226,7 @@ problems.d4p1 = {
         writeOutput("The answer is: " + this.totalValid(a));
     },
     unitTest: function(ut) {
-        const s = " T-d4p1.";
+        const s = " T-y2020d4p1.";
 
         let a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm`);
@@ -306,11 +312,11 @@ iyr:2011 ecl:brn hgt:59in`);
     },
 };
 
-problems.d4p2 = {
-    givenInputData: problems.d4p1.givenInputData,
+problems.y2020d4p2 = {
+    givenInputData: problems.y2020d4p1.givenInputData,
     solve: function() {
         let s = readInput();
-        let a = problems.d4p1.recsToArray(s);
+        let a = problems.y2020d4p1.recsToArray(s);
 
         // for (let i = 0; i < a.length; i++) {
         //   log(this.recToString(a[i]));
@@ -319,7 +325,7 @@ problems.d4p2 = {
         writeOutput("The answer is: " + this.totalValid(a));
     },
     unitTest: function(ut) {
-        const s = " T-d4p2.";
+        const s = " T-y2020d4p2.";
         let x = `eyr:1972 cid:100
                                   hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
 
@@ -333,7 +339,7 @@ problems.d4p2 = {
                                   hgt:59cm ecl:zzz
                                   eyr:2038 hcl:74454a iyr:2023
                                   pid:3556412378 byr:2007`;
-        let a = problems.d4p1.recsToArray(x);
+        let a = problems.y2020d4p1.recsToArray(x);
         ut.test(s + "1", !this.isValid(a[0]));
         ut.test(s + "2", !this.isValid(a[1]));
         ut.test(s + "3", !this.isValid(a[2]));
@@ -351,7 +357,7 @@ problems.d4p2 = {
                                   eyr:2022
 
                                   iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
-        a = problems.d4p1.recsToArray(x);
+        a = problems.y2020d4p1.recsToArray(x);
 
         ut.test(s + "v1", this.isValid(a[0]));
         ut.test(s + "v2", this.isValid(a[1]));
@@ -365,7 +371,7 @@ problems.d4p2 = {
             byr: 0
         }));
         // let failed = false;
-        // a = problems.d4p1.recsToArray(this.givenInputData);
+        // a = problems.y2020d4p1.recsToArray(this.givenInputData);
         // for (let i = 0; i < a.length; i++) {
         //   if (this.hasExtraProperty(a[i])) {
         //     // log("REC W/ EXTRA PROP:" + this.recToString(a[i]));
@@ -572,8 +578,8 @@ problems.d4p2 = {
     },
 };
 
-problems.d5p1 = {
-    givenInputData: AOC_Input_Data.d5p1,
+problems.y2020d5p1 = {
+    givenInputData: AOC_Input_Data.y2020d5p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hi = 0;
@@ -584,7 +590,7 @@ problems.d5p1 = {
         writeOutput("The answer is: " + hi);
     },
     unitTest: function(ut) {
-        const s = " T-d5p1.";
+        const s = " T-y2020d5p1.";
 
         ut.test(s + "1", this.row("BFFFBBF") == 70);
         ut.test(s + "2", this.col("RRR") == 7);
@@ -607,11 +613,11 @@ problems.d5p1 = {
     },
 };
 
-problems.d5p2 = {
-    givenInputData: problems.d5p1.givenInputData,
+problems.y2020d5p2 = {
+    givenInputData: problems.y2020d5p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
-        a.forEach((v, i, a) => (a[i] = problems.d5p1.seatId(v)));
+        a.forEach((v, i, a) => (a[i] = problems.y2020d5p1.seatId(v)));
         a = a.sort((a, b) => a - b);
         let hi = 0;
         for (let i = 0; i < a.length; i++) {
@@ -626,12 +632,12 @@ problems.d5p2 = {
         writeOutput("The answer is: " + hi);
     },
     unitTest: function(ut) {
-        const s = " T-d5p2.";
+        const s = " T-y2020d5p2.";
 
     },
 };
 
-problems.d6p1 = {
+problems.y2020d6p1 = {
     givenInputData: AOC_Input_Data.p6p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
@@ -668,13 +674,13 @@ problems.d6p1 = {
         }
     },
     unitTest: function(ut) {
-        const s = " T-d6p1.";
+        const s = " T-y2020d6p1.";
 
     },
 };
 
-problems.d6p2 = {
-    givenInputData: problems.d6p1.givenInputData,
+problems.y2020d6p2 = {
+    givenInputData: problems.y2020d6p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         // log(a.length);
@@ -692,7 +698,7 @@ problems.d6p2 = {
         writeOutput("The answer is: " + sum);
     },
     unitTest: function(ut) {
-        const s = " T-d6p2.";
+        const s = " T-y2020d6p2.";
 
         ut.test(s + 'u1', this.unionCount(['abc']) == 3);
         ut.test(s + 'u2', this.unionCount(['a', 'b', 'c']) == 3);
@@ -724,8 +730,8 @@ problems.d6p2 = {
 };
 
 
-problems.d7p1 = {
-    givenInputData: AOC_Input_Data.d7p1,
+problems.y2020d7p1 = {
+    givenInputData: AOC_Input_Data.y2020d7p1,
     solve: function() {
         let s = readInput();
         let d = this.rulesToDigraph(s);
@@ -737,7 +743,7 @@ problems.d7p1 = {
         writeOutput("The part 1 answer is: " + count + "  The part 2 answer is: " + d.edgeWeightSumRecursive(sg));
     },
     unitTest: function(ut) {
-        const s = " T-d7p1.";
+        const s = " T-y2020d7p1.";
 
         (new Digraph()).unitTest(ut);
 
@@ -849,15 +855,15 @@ dotted black bags contain no other bags.`);
 
 };
 
-problems.d7p2 = {
-    givenInputData: problems.d7p1.givenInputData,
+problems.y2020d7p2 = {
+    givenInputData: problems.y2020d7p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d7p2.";
+        const s = " T-y2020d7p2.";
 
     },
 };
@@ -933,7 +939,7 @@ class Puter {
         }
     }
 }
-problems.d8p1 = {
+problems.y2020d8p1 = {
     givenInputData: ``,
     solve: function() {
         let p = new Puter();
@@ -944,13 +950,13 @@ problems.d8p1 = {
         log('pc=' + p.pc + ', accumulator=' + p.accumulator);
     },
     unitTest: function(ut) {
-        const s = " T-d8p1.";
+        const s = " T-y2020d8p1.";
 
     },
 };
 
-problems.d8p2 = {
-    givenInputData: problems.d8p1.givenInputData,
+problems.y2020d8p2 = {
+    givenInputData: problems.y2020d8p1.givenInputData,
     solve: function() {
         let p = new Puter();
         p.loadProgram(readInput());
@@ -970,7 +976,7 @@ problems.d8p2 = {
         writeOutput("There is no solution.");
     },
     unitTest: function(ut) {
-        const s = " T-d8p2.";
+        const s = " T-y2020d8p2.";
 
     },
 };
@@ -1016,7 +1022,7 @@ class XmasNumList {
     }
 }
 
-problems.d9p1 = {
+problems.y2020d9p1 = {
     givenInputData: ``,
     solve: function() {
         let xnl = new XmasNumList(25);
@@ -1025,7 +1031,7 @@ problems.d9p1 = {
         writeOutput("The answer is: " + xnl.nums[fi] + ' and the weakness is ' + xnl.findWeakness(xnl.nums[fi]));
     },
     unitTest: function(ut) {
-        const s = " T-d9p1.";
+        const s = " T-y2020d9p1.";
         let xnl = new XmasNumList(5);
         xnl.load(`35
 20
@@ -1056,15 +1062,15 @@ problems.d9p1 = {
     },
 };
 
-problems.d9p2 = {
-    givenInputData: problems.d9p1.givenInputData,
+problems.y2020d9p2 = {
+    givenInputData: problems.y2020d9p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d9p2.";
+        const s = " T-y2020d9p2.";
 
         ut.test(s + "10", 1 == 1);
     },
@@ -1198,8 +1204,8 @@ class AdChain {
     }
 
 }
-problems.d10p1 = {
-    givenInputData: AOC_Input_Data.d10p1,
+problems.y2020d10p1 = {
+    givenInputData: AOC_Input_Data.y2020d10p1,
     solve: function() {
         let ac = new AdChain();
         ac.load(readInput());
@@ -1249,7 +1255,7 @@ problems.d10p1 = {
     10
     3`,
     unitTest: function(ut) {
-        const s = " T-d10p1.";
+        const s = " T-y2020d10p1.";
         let ac = new AdChain();
         ac.load(this.td1);
         ut.test(s + "1", ac.calc1() === 35);
@@ -1258,8 +1264,8 @@ problems.d10p1 = {
     },
 };
 
-problems.d10p2 = {
-    givenInputData: problems.d10p1.givenInputData,
+problems.y2020d10p2 = {
+    givenInputData: problems.y2020d10p1.givenInputData,
     solve: function() {
         let ac = new AdChain();
         ac.load(readInput());
@@ -1267,9 +1273,9 @@ problems.d10p2 = {
         writeOutput("The answer is: " + ac.calcPaths());
     },
     unitTest: function(ut) {
-        const s = " T-d10p2.";
+        const s = " T-y2020d10p2.";
         let ac = new AdChain();
-        ac.load(problems.d10p1.td1);
+        ac.load(problems.y2020d10p1.td1);
         ut.test(s + "1b", ac.calcPaths() === 8);
         // ut.test(s + "1b6", ac.calcPaths6() === 8);
         // ut.test(s + "1b2", ac.calcPaths2() === 8);
@@ -1282,7 +1288,7 @@ problems.d10p2 = {
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b3 ac.calcPaths4()=' + ac.calcPaths4());
         // log('1b4 ac.numHoles()=' + ac.numHoles());
-        ac.load(problems.d10p1.td2);
+        ac.load(problems.y2020d10p1.td2);
         // log('2b ac.calcPaths()=' + ac.calcPaths());
         ut.test(s + "2b", ac.calcPaths() === 19208);
         // ut.test(s + "2b2", ac.calcPaths2() === 19208);
@@ -1457,7 +1463,7 @@ class AOC_gol {
     }
 }
 
-problems.d11p1 = {
+problems.y2020d11p1 = {
     givenInputData: ``,
     solve: function() {
         let ag = new AOC_gol();
@@ -1469,12 +1475,12 @@ problems.d11p1 = {
         writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
-        const s = " T-d11p1.";
+        const s = " T-y2020d11p1.";
     },
 };
 
-problems.d11p2 = {
-    givenInputData: problems.d11p1.givenInputData,
+problems.y2020d11p2 = {
+    givenInputData: problems.y2020d11p1.givenInputData,
     solve: function() {
         let ag = new AOC_gol();
         ag.load(readInput());
@@ -1485,7 +1491,7 @@ problems.d11p2 = {
         writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
-        const s = " T-d11p2.";
+        const s = " T-y2020d11p2.";
     },
 };
 
@@ -1606,8 +1612,8 @@ class Boat2 extends Boat {
     }
 };
 
-problems.d12p1 = {
-    givenInputData: AOC_Input_Data.d12p1,
+problems.y2020d12p1 = {
+    givenInputData: AOC_Input_Data.y2020d12p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let b = new Boat(0, 0);
@@ -1616,12 +1622,12 @@ problems.d12p1 = {
         writeOutput("The answer is: " + b.manhattanDistance());
     },
     unitTest: function(ut) {
-        const s = " T-d12p1.";
+        const s = " T-y2020d12p1.";
     },
 };
 
-problems.d12p2 = {
-    givenInputData: problems.d12p1.givenInputData,
+problems.y2020d12p2 = {
+    givenInputData: problems.y2020d12p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let b = new Boat2(0, 0);
@@ -1630,12 +1636,12 @@ problems.d12p2 = {
         writeOutput("The answer is: " + b.manhattanDistance());
     },
     unitTest: function(ut) {
-        const s = " T-d12p2.";
+        const s = " T-y2020d12p2.";
     },
 };
 
-problems.d13p1 = {
-    givenInputData: AOC_Input_Data.d13p1,
+problems.y2020d13p1 = {
+    givenInputData: AOC_Input_Data.y2020d13p1,
     departure_ready: 0,
     departure_time: -1,
     departure_bus: -1,
@@ -1691,13 +1697,13 @@ problems.d13p1 = {
         // this.dlog();
     },
     unitTest: function(ut) {
-        const s = " T-d13p1.";
+        const s = " T-y2020d13p1.";
     },
 };
 
 
-problems.d13p2 = {
-    givenInputData: problems.d13p1.givenInputData,
+problems.y2020d13p2 = {
+    givenInputData: problems.y2020d13p1.givenInputData,
     earliestTime: 0,
     busses: [],
     largestBusnum: -1,
@@ -1787,7 +1793,7 @@ problems.d13p2 = {
         writeOutput("The answer is: " + this.earliestTime);
     },
     unitTest: function(ut) {
-        const s = " T-d13p2.";
+        const s = " T-y2020d13p2.";
         ut.test(s + "1", this.eval("939\n7,13,x,x,59,x,31,19") === 1068781);
         ut.test(s + "2", this.eval("939\n17,x,13,19") === 3417);
         ut.test(s + "3", this.eval("939\n67,7,59,61") === 754018);
@@ -1798,8 +1804,8 @@ problems.d13p2 = {
 };
 
 
-problems.d14p1 = {
-    givenInputData: AOC_Input_Data.d14p1,
+problems.y2020d14p1 = {
+    givenInputData: AOC_Input_Data.y2020d14p1,
     mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     maskLh: "XXXX",
     maskRh: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -1891,7 +1897,7 @@ problems.d14p1 = {
             ".  There were " + this.opcount + " instructions.");
     },
     unitTest: function(ut) {
-        const s = " T-d14p1.";
+        const s = " T-y2020d14p1.";
         let td = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
         mem[8] = 11
         mem[7] = 101
@@ -1939,8 +1945,8 @@ problems.d14p1 = {
 };
 
 
-problems.d14p2 = {
-    givenInputData: problems.d14p1.givenInputData,
+problems.y2020d14p2 = {
+    givenInputData: problems.y2020d14p1.givenInputData,
     mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     mem: {},
     opcount: 0,
@@ -2015,11 +2021,11 @@ problems.d14p2 = {
             ".  There were " + this.opcount + " instructions.");
     },
     unitTest: function(ut) {
-        const s = " T-d14p2.";
+        const s = " T-y2020d14p2.";
     },
 };
 
-problems.d15p1 = {
+problems.y2020d15p1 = {
     givenInputData: `16,1,0,18,12,14,19`,
     prevs: [],
     lastturn: -1,
@@ -2063,7 +2069,7 @@ problems.d15p1 = {
         writeOutput("The answer is: " + this.doturns(readInput(), 2020));
     },
     unitTest: function(ut) {
-        const s = " T-d15p1.";
+        const s = " T-y2020d15p1.";
         this.loadstart("0,1,2");
         ut.test(s + "a0", this.prevs[0] === 1);
         ut.test(s + "a1", this.prevs[1] === 2);
@@ -2137,22 +2143,22 @@ problems.d15p1 = {
 };
 
 
-problems.d15p2 = {
-    givenInputData: problems.d15p1.givenInputData,
+problems.y2020d15p2 = {
+    givenInputData: problems.y2020d15p1.givenInputData,
     solve: function() {
-        writeOutput("The answer is: " + problems.d15p1.doturns(readInput(), 30000000));
+        writeOutput("The answer is: " + problems.y2020d15p1.doturns(readInput(), 30000000));
     },
     unitTest: function(ut) {
-        const s = " T-d15p2.";
+        const s = " T-y2020d15p2.";
 
-        // ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 3000000) === 175594);
-        ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 30000000) === 175594);
-        // ut.test(s + "gg2", problems.d15p1.doturns('1,3,2', 30000000) === 2578);
-        // ut.test(s + "gg3", problems.d15p1.doturns('2,1,3', 30000000) === 3544142);
-        // ut.test(s + "gg4", problems.d15p1.doturns('1,2,3', 30000000) === 261214);
-        // ut.test(s + "gg5", problems.d15p1.doturns('2,3,1', 30000000) === 6895259);
-        // ut.test(s + "gg6", problems.d15p1.doturns('3,2,1', 30000000) === 18);
-        // ut.test(s + "gg7", problems.d15p1.doturns('3,1,2', 30000000) === 362);
+        // ut.test(s + "gg1", problems.y2020d15p1.doturns('0,3,6', 3000000) === 175594);
+        ut.test(s + "gg1", problems.y2020d15p1.doturns('0,3,6', 30000000) === 175594);
+        // ut.test(s + "gg2", problems.y2020d15p1.doturns('1,3,2', 30000000) === 2578);
+        // ut.test(s + "gg3", problems.y2020d15p1.doturns('2,1,3', 30000000) === 3544142);
+        // ut.test(s + "gg4", problems.y2020d15p1.doturns('1,2,3', 30000000) === 261214);
+        // ut.test(s + "gg5", problems.y2020d15p1.doturns('2,3,1', 30000000) === 6895259);
+        // ut.test(s + "gg6", problems.y2020d15p1.doturns('3,2,1', 30000000) === 18);
+        // ut.test(s + "gg7", problems.y2020d15p1.doturns('3,1,2', 30000000) === 362);
     },
 };
 class Rule {
@@ -2359,8 +2365,8 @@ class Scanner {
         }
     }
 }
-problems.d16p1 = {
-    givenInputData: AOC_Input_Data.d16p1,
+problems.y2020d16p1 = {
+    givenInputData: AOC_Input_Data.y2020d16p1,
     solve: function() {
         let s = readInput();
         let sc = new Scanner();
@@ -2369,7 +2375,7 @@ problems.d16p1 = {
         writeOutput("The answer is: " + sc.sumInvalidFields());
     },
     unitTest: function(ut) {
-        const s = " T-d16p1.";
+        const s = " T-y2020d16p1.";
         let sc = new Scanner();
         sc.parseInput(`class: 1-3 or 5-7
         row: 6-11 or 33-44
@@ -2389,8 +2395,8 @@ problems.d16p1 = {
 };
 
 
-problems.d16p2 = {
-    givenInputData: problems.d16p1.givenInputData,
+problems.y2020d16p2 = {
+    givenInputData: problems.y2020d16p1.givenInputData,
     solve: function() {
         let s = readInput();
 
@@ -2487,7 +2493,7 @@ rule=departure time
 */
     },
     unitTest: function(ut) {
-        const s = " T-d16p2.";
+        const s = " T-y2020d16p2.";
         let sc = new Scanner();
         sc.parseInput(`class: 0-1 or 4-19
         row: 0-5 or 8-19
@@ -2667,8 +2673,8 @@ class AOC_gol3d {
     }
 }
 
-problems.d17p1 = {
-    givenInputData: AOC_Input_Data.d17p1,
+problems.y2020d17p1 = {
+    givenInputData: AOC_Input_Data.y2020d17p1,
     solve: function() {
         let s = readInput();
         let gol = new AOC_gol3d();
@@ -2677,7 +2683,7 @@ problems.d17p1 = {
         writeOutput("The answer is: " + gol.totalActiveCubes());
     },
     unitTest: function(ut) {
-        const s = " T-d17p1.";
+        const s = " T-y2020d17p1.";
         let d = `.#.
 ..#
 ###`;
@@ -2749,8 +2755,8 @@ problems.d17p1 = {
 };
 
 
-problems.d17p2 = {
-    givenInputData: problems.d17p1.givenInputData,
+problems.y2020d17p2 = {
+    givenInputData: problems.y2020d17p1.givenInputData,
     solve: function() {
         let s = readInput();
         let gol = new AOC_gol4d();
@@ -2760,12 +2766,12 @@ problems.d17p2 = {
 
     },
     unitTest: function(ut) {
-        const s = " T-d17p2.";
+        const s = " T-y2020d17p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d18p1 = {
+problems.y2020d18p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2773,26 +2779,26 @@ problems.d18p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d18p1.";
+        const s = " T-y2020d18p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d18p2 = {
-    givenInputData: problems.d18p1.givenInputData,
+problems.y2020d18p2 = {
+    givenInputData: problems.y2020d18p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d18p2.";
+        const s = " T-y2020d18p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d19p1 = {
+problems.y2020d19p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2800,26 +2806,26 @@ problems.d19p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d19p1.";
+        const s = " T-y2020d19p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d19p2 = {
-    givenInputData: problems.d19p1.givenInputData,
+problems.y2020d19p2 = {
+    givenInputData: problems.y2020d19p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d19p2.";
+        const s = " T-y2020d19p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d20p1 = {
+problems.y2020d20p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2827,26 +2833,26 @@ problems.d20p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d20p1.";
+        const s = " T-y2020d20p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d20p2 = {
-    givenInputData: problems.d20p1.givenInputData,
+problems.y2020d20p2 = {
+    givenInputData: problems.y2020d20p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d20p2.";
+        const s = " T-y2020d20p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d21p1 = {
+problems.y2020d21p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2854,26 +2860,26 @@ problems.d21p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d21p1.";
+        const s = " T-y2020d21p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d21p2 = {
-    givenInputData: problems.d21p1.givenInputData,
+problems.y2020d21p2 = {
+    givenInputData: problems.y2020d21p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d21p2.";
+        const s = " T-y2020d21p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d22p1 = {
+problems.y2020d22p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2881,26 +2887,26 @@ problems.d22p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d22p1.";
+        const s = " T-y2020d22p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d22p2 = {
-    givenInputData: problems.d22p1.givenInputData,
+problems.y2020d22p2 = {
+    givenInputData: problems.y2020d22p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d22p2.";
+        const s = " T-y2020d22p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d23p1 = {
+problems.y2020d23p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -2908,21 +2914,21 @@ problems.d23p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d23p1.";
+        const s = " T-y2020d23p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d23p2 = {
-    givenInputData: problems.d23p1.givenInputData,
+problems.y2020d23p2 = {
+    givenInputData: problems.y2020d23p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d23p2.";
+        const s = " T-y2020d23p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
@@ -3071,8 +3077,8 @@ class Hexgrid extends Matrix2d {
     //         if (this.isValidCoord(x, y)) {
     // }
 };
-problems.d24p1 = {
-    givenInputData: AOC_Input_Data.d24p1,
+problems.y2020d24p1 = {
+    givenInputData: AOC_Input_Data.y2020d24p1,
     solve: function() {
         //Note: for the Hexgrid, black is true and white is false.
         let hg = new Hexgrid();
@@ -3082,7 +3088,7 @@ problems.d24p1 = {
         writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
-        const s = " T-d24p1.";
+        const s = " T-y2020d24p1.";
         let c = new Coord(0, 0);
         ut.test(s + "c1", c.toString() === "0,0");
         c.goAllHex("w");
@@ -3102,8 +3108,8 @@ problems.d24p1 = {
 };
 
 
-problems.d24p2 = {
-    givenInputData: problems.d24p1.givenInputData,
+problems.y2020d24p2 = {
+    givenInputData: problems.y2020d24p1.givenInputData,
     solve: function() {
         //Note: for the Hexgrid, black is true and white is false.
         let hg = new Hexgrid();
@@ -3115,7 +3121,7 @@ problems.d24p2 = {
         writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
-        const s = " T-d24p2.";
+        const s = " T-y2020d24p2.";
         let c = new Coord(0, 0);
         let hg = new Hexgrid();
         ut.test(s + "h1", hg.countAll(true) === 0);
@@ -3176,7 +3182,7 @@ problems.d24p2 = {
     },
 };
 
-problems.d25p1 = {
+problems.y2020d25p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -3184,21 +3190,21 @@ problems.d25p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d25p1.";
+        const s = " T-y2020d25p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d25p2 = {
-    givenInputData: problems.d25p1.givenInputData,
+problems.y2020d25p2 = {
+    givenInputData: problems.y2020d25p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d25p2.";
+        const s = " T-y2020d25p2.";
         ut.test(s + "1", 1 === 1);
     },
 };

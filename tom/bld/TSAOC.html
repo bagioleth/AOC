@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <!--
-    Copyright 2020 T. Angioletti
+    Copyright 2020, 2021 T. Angioletti
 
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software and associated documentation 
@@ -28,7 +28,7 @@ See article below, where id="a_About", for program description.
     -->
     <html>
     <head>
-    <title>Advent of Code 2020 -- Tom's Solutions</title>
+    <title>Advent of Code -- Tom's Solutions</title>
     <style>
         html {
     box-sizing: border-box;
@@ -90,7 +90,7 @@ footer {
     background-color: darkgreen;
 }
 
-.dropdown-content {
+#menudiv {
     position: absolute;
     background-color: blue;
     box-shadow: 10px 10px black;
@@ -145,15 +145,15 @@ a:focus {
 }
     </style>
     </head><body>
-    <header>Tom's Solutions for the Advent of Code 2020</header>
+    <header>Tom's Solutions for the Advent of Code</header>
     <nav id="nav-button-tabs"></nav>
     <footer>
-        (c) 2020 T. Angioletti, except for problem descriptions and input data.
+        (c) 2020, 2021 T. Angioletti, except for problem descriptions and input data, which are copied from the Advent of Code website.
     </footer>
     <article id="a_About">
-    Tom's Solutions for the Advent of Code 2020 <br />
-TSAOC2020 v0.2.0<br /><br />
-This is a simple program for solving the Advent of Code (AOC) 2020. My
+    Tom's Solutions for the Advent of Code<br />
+TSAOC v0.3.0<br /><br />
+This is a simple program for solving the Advent of Code (AOC) 2020 and 2021. My
 main objective is educational: I am learning modern web programming. I
 initially implemented the program as a single file containing CSS, HTML,
 and JavaScript. This obviously would not be a good choice for multi-person
@@ -170,6 +170,7 @@ Link to GitHub repository:
 <a href="https://github.com/tomangioletti/AOC">https://github.com/tomangioletti/AOC</a><br />
 Link to AOC:
 <a href="https://adventofcode.com/2020">https://adventofcode.com/2020</a>
+<a href="https://adventofcode.com/2020">https://adventofcode.com/2021</a>
 (Problem descriptions and input and test data are copied from that web
 site.)<br />
 Private Leader Board Code: 955752-e46ea5dd
@@ -178,6 +179,7 @@ RELEASE NOTES<br />
 <ul>
     <li>20201129: v0.1.0 Initial release.</li>
     <li>20201223: v0.2.0 Restructured build system.</li>
+    <li>20211212: v0.3.0 Restructured to handle multiple years of AOC.</li>
 </ul>
 <hr />
 LEARNING REFERENCES<br />
@@ -192,7 +194,7 @@ LEARNING REFERENCES<br />
     DEBUG AREA
     <div id="dblog"></div>
     </article>
-    <article id="a_d1p1">
+    <article id="a_y2020d1p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 1: Report Repair ---</h2>
 <p>
@@ -256,7 +258,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d1p2">
+    <article id="a_y2020d1p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they had left over from a past vacation. They offer you a second one if you can find <em>three</em> numbers in your expense report that meet the same criteria.</p>
@@ -270,7 +272,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d2p1">
+    <article id="a_y2020d2p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 2: Password Philosophy ---</h2>
 <p>Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via <a href="https://en.wikipedia.org/wiki/Toboggan" target="_blank">toboggan</a>.</p>
@@ -293,7 +295,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d2p2">
+    <article id="a_y2020d2p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.</p>
@@ -314,7 +316,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d3p1">
+    <article id="a_y2020d3p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 3: Toboggan Trajectory ---</h2>
 <p>With the toboggan login problems resolved, you set off toward the airport. While travel by toboggan might be easy, it's certainly not safe: there's <span title="It looks like the toboggan steering system even runs on Intcode! Good thing you don't have to modify it.">very minimal steering</span> and the area is covered in trees. You'll need to see which angles will take you near the fewest trees.</p>
@@ -370,7 +372,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d3p2">
+    <article id="a_y2020d3p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Time to check the rest of the slopes - you need to minimize the probability of a sudden arboreal stop, after all.</p>
@@ -392,7 +394,7 @@ LEARNING REFERENCES<br />
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d4p1">
+    <article id="a_y2020d4p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 4: Passport Processing ---</h2>
 <p>You arrive at the airport only to realize that you grabbed your North Pole Credentials instead of your passport. While these documents are extremely similar, North Pole Credentials aren't issued by a country and therefore aren't actually valid documentation for travel in most of the world.</p>
@@ -438,7 +440,7 @@ iyr:2011 ecl:brn hgt:59in
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d4p2">
+    <article id="a_y2020d4p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The line is moving more quickly now, but you overhear airport security talking about how passports with invalid data are getting through. Better add some data validation, quick!</p>
@@ -515,7 +517,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d5p1">
+    <article id="a_y2020d5p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 5: Binary Boarding ---</h2>
 <p>You board your plane only to discover a new problem: you dropped your boarding pass! You aren't sure which seat is yours, and all of the flight attendants are busy with the flood of people that suddenly made it through passport control.</p>
@@ -558,7 +560,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d5p2">
+    <article id="a_y2020d5p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p><em>Ding!</em> The "fasten seat belt" signs have turned on. Time to find your seat.</p>
@@ -573,7 +575,7 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d6p1">
+    <article id="a_y2020d6p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 6: Custom Customs ---</h2>
 <p>As your flight approaches the regional airport where you'll switch to a much larger plane, <a href="https://en.wikipedia.org/wiki/Customs_declaration" target="_blank">customs declaration forms</a> are distributed to the passengers.</p>
@@ -619,7 +621,7 @@ b
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d6p2">
+    <article id="a_y2020d6p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>As you finish the last group's customs declaration, you notice that <span title="Don't worry, nobody ever misreads just one word in real life.">you misread one word</span> in the instructions:</p>
@@ -659,7 +661,7 @@ b
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d7p1">
+    <article id="a_y2020d7p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 7: Handy Haversacks ---</h2>
 <p>You land at the regional airport in time for your next flight. In fact, it looks like you'll even have time to grab some food: all flights are currently delayed due to <em>issues in luggage processing</em>.</p>
@@ -694,7 +696,7 @@ dotted black bags contain no other bags.
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d7p2">
+    <article id="a_y2020d7p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>It's getting pretty expensive to fly these days - not because of ticket prices, but because of the ridiculous number of bags you need to buy!</p>
@@ -726,7 +728,7 @@ dark violet bags contain no other bags.
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d8p1">
+    <article id="a_y2020d8p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 8: Handheld Halting ---</h2>
 <p>Your flight to the major airline hub reaches cruising altitude without incident. While you consider checking the in-flight menu for one of those drinks that come with a little umbrella, you are interrupted by the kid sitting next to you.</p>
@@ -772,7 +774,7 @@ acc +6  |
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d8p2">
+    <article id="a_y2020d8p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>After some careful analysis, you believe that <em>exactly one instruction is corrupted</em>.</p>
@@ -811,7 +813,7 @@ acc +6  | 6
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d9p1">
+    <article id="a_y2020d9p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 9: Encoding Error ---</h2>
 <p>With your neighbor happily enjoying their video game, you turn your attention to an open data port on the little screen in the seat in front of you.</p>
@@ -863,7 +865,7 @@ acc +6  | 6
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d9p2">
+    <article id="a_y2020d9p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The final step in breaking the XMAS encryption relies on the invalid number you just found: you must <em>find a contiguous set of at least two numbers</em> in your list which sum to the invalid number from step 1.</p>
@@ -900,7 +902,7 @@ acc +6  | 6
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d10p1">
+    <article id="a_y2020d10p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 10: Adapter Array ---</h2>
 <p>Patched into the aircraft's data port, you discover weather forecasts of a massive tropical storm. Before you can figure out whether it will impact your vacation plans, however, your device suddenly turns off!</p>
@@ -980,7 +982,7 @@ acc +6  | 6
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d10p2">
+    <article id="a_y2020d10p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>To completely determine whether you have enough adapters, you'll need to figure out how many different ways they can be arranged. Every arrangement needs to connect the charging outlet to your device. The previous rules about when adapters can successfully connect still apply.</p>
@@ -1035,7 +1037,7 @@ acc +6  | 6
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d11p1">
+    <article id="a_y2020d11p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 11: Seating System ---</h2>
 <p>Your plane lands with plenty of time to spare. The final leg of your journey is a ferry that goes directly to the tropical island where you can finally start your vacation. As you reach the waiting area to board the ferry, you realize you're so early, nobody else has even arrived yet!</p>
@@ -1127,7 +1129,7 @@ L.#.L..#..
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d11p2">
+    <article id="a_y2020d11p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>As soon as people start to arrive, you realize your mistake. People don't just care about adjacent seats - they care about <em>the first seat they can see</em> in each of those eight directions!</p>
@@ -1243,7 +1245,7 @@ LLL###LLL#
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d12p1">
+    <article id="a_y2020d12p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 12: Rain Risk ---</h2>
 <p>Your ferry made decent progress toward the island, but the storm came in <span title="At least it wasn't a Category Six!">faster than anyone expected</span>. The ferry needs to take <em>evasive actions</em>!</p>
@@ -1282,7 +1284,7 @@ F11
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d12p2">
+    <article id="a_y2020d12p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Before you can give the destination to the captain, you realize that the actual action meanings were printed on the back of the instructions the whole time.</p>
@@ -1313,7 +1315,7 @@ F11
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d13p1">
+    <article id="a_y2020d13p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 13: Shuttle Search ---</h2>
 <p>Your ferry can make it safely to a nearby port, but it won't get much further. When you call to book another ship, you discover that no ships embark from that port to your vacation island. You'll need to get from the port to the nearest airport.</p>
@@ -1358,7 +1360,7 @@ F11
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d13p2">
+    <article id="a_y2020d13p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The shuttle company is running a <span title="This is why you should never let me design a contest for a shuttle company.">contest</span>: one gold coin for anyone that can find the earliest timestamp such that the first bus ID departs at that time and each subsequent listed bus ID departs at that subsequent minute. (The first line in your input is no longer relevant.)</p>
@@ -1421,7 +1423,7 @@ F11
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d14p1">
+    <article id="a_y2020d14p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 14: Docking Data ---</h2>
 <p>As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.</p>
@@ -1459,7 +1461,7 @@ result: 00000000000000000000000000000<em>1</em>0000<em>0</em>0  (decimal 64)
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d14p2">
+    <article id="a_y2020d14p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>For some reason, the sea port's computer system still can't communicate with your ferry's docking program. It must be using <em>version 2</em> of the decoder chip!</p>
@@ -1510,7 +1512,7 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d15p1">
+    <article id="a_y2020d15p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 15: Rambunctious Recitation ---</h2>
 <p>You catch the airport shuttle and try to book a new flight to your vacation island. Due to the storm, all direct flights have been cancelled, but a route is available to get around the storm. You take it.</p>
@@ -1552,7 +1554,7 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d15p2">
+    <article id="a_y2020d15p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Impressed, the Elves issue you a challenge: determine the <code>30000000</code>th number spoken. For example, given the same starting numbers as above:</p>
@@ -1572,7 +1574,7 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d16p1">
+    <article id="a_y2020d16p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 16: Ticket Translation ---</h2>
 <p>As you're walking to yet another connecting flight, you realize that one of the legs of your re-routed trip coming up is on a high-speed train. However, the train ticket you were given is in a language you don't understand. You should probably figure out what it says before you get to the train station after the next flight.</p>
@@ -1611,7 +1613,7 @@ nearby tickets:
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d16p2">
+    <article id="a_y2020d16p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Now that you've identified which tickets contain invalid values, <em>discard those tickets entirely</em>. Use the remaining valid tickets to determine which field is which.</p>
@@ -1637,7 +1639,7 @@ nearby tickets:
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d17p1">
+    <article id="a_y2020d17p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 17: Conway Cubes ---</h2><p>As your flight slowly drifts through the sky, the Elves at the Mythical Information Bureau at the North Pole contact you. They'd like some help debugging a malfunctioning experimental energy source aboard one of their super-secret imaging satellites.</p>
 <p>The experimental energy source is based on cutting-edge technology: a set of <span title="Rest in peace, Conway.">Conway</span> Cubes contained in a pocket dimension! When you hear it's having problems, you can't help but agree to take a look.</p>
@@ -1778,7 +1780,257 @@ z=2
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d24p1">
+    <article id="a_y2020d17p2">
+    -----PROBLEM STATEMENT-----<br />
+    <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
+<p>For some reason, your simulated results don't match what the experimental energy source engineers expected. Apparently, the pocket dimension actually has <em>four spatial dimensions</em>, not three.</p>
+<p>The pocket dimension contains an infinite 4-dimensional grid. At every integer 4-dimensional coordinate (<code>x,y,z,w</code>), there exists a single cube (really, a <em>hypercube</em>) which is still either <em>active</em> or <em>inactive</em>.</p>
+<p>Each cube only ever considers its <em>neighbors</em>: any of the 80 other cubes where any of their coordinates differ by at most <code>1</code>. For example, given the cube at <code>x=1,y=2,z=3,w=4</code>, its neighbors include the cube at <code>x=2,y=2,z=3,w=3</code>, the cube at <code>x=0,y=2,z=3,w=4</code>, and so on.</p>
+<p>The initial state of the pocket dimension still consists of a small flat region of cubes. Furthermore, the same rules for cycle updating still apply: during each cycle, consider the <em>number of active neighbors</em> of each cube.</p>
+<p>For example, consider the same initial state as in the example above. Even though the pocket dimension is 4-dimensional, this initial state represents a small 2-dimensional slice of it. (In particular, this initial state defines a 3x3x1x1 region of the 4-dimensional space.)</p>
+<p>Simulating a few cycles from this initial state produces the following configurations, where the result of each cycle is shown layer-by-layer at each given <code>z</code> and <code>w</code> coordinate:</p>
+<pre><code>Before any cycles:
+
+z=0, w=0
+.#.
+..#
+###
+
+
+After 1 cycle:
+
+z=-1, w=-1
+#..
+..#
+.#.
+
+z=0, w=-1
+#..
+..#
+.#.
+
+z=1, w=-1
+#..
+..#
+.#.
+
+z=-1, w=0
+#..
+..#
+.#.
+
+z=0, w=0
+#.#
+.##
+.#.
+
+z=1, w=0
+#..
+..#
+.#.
+
+z=-1, w=1
+#..
+..#
+.#.
+
+z=0, w=1
+#..
+..#
+.#.
+
+z=1, w=1
+#..
+..#
+.#.
+
+
+After 2 cycles:
+
+z=-2, w=-2
+.....
+.....
+..#..
+.....
+.....
+
+z=-1, w=-2
+.....
+.....
+.....
+.....
+.....
+
+z=0, w=-2
+###..
+##.##
+#...#
+.#..#
+.###.
+
+z=1, w=-2
+.....
+.....
+.....
+.....
+.....
+
+z=2, w=-2
+.....
+.....
+..#..
+.....
+.....
+
+z=-2, w=-1
+.....
+.....
+.....
+.....
+.....
+
+z=-1, w=-1
+.....
+.....
+.....
+.....
+.....
+
+z=0, w=-1
+.....
+.....
+.....
+.....
+.....
+
+z=1, w=-1
+.....
+.....
+.....
+.....
+.....
+
+z=2, w=-1
+.....
+.....
+.....
+.....
+.....
+
+z=-2, w=0
+###..
+##.##
+#...#
+.#..#
+.###.
+
+z=-1, w=0
+.....
+.....
+.....
+.....
+.....
+
+z=0, w=0
+.....
+.....
+.....
+.....
+.....
+
+z=1, w=0
+.....
+.....
+.....
+.....
+.....
+
+z=2, w=0
+###..
+##.##
+#...#
+.#..#
+.###.
+
+z=-2, w=1
+.....
+.....
+.....
+.....
+.....
+
+z=-1, w=1
+.....
+.....
+.....
+.....
+.....
+
+z=0, w=1
+.....
+.....
+.....
+.....
+.....
+
+z=1, w=1
+.....
+.....
+.....
+.....
+.....
+
+z=2, w=1
+.....
+.....
+.....
+.....
+.....
+
+z=-2, w=2
+.....
+.....
+..#..
+.....
+.....
+
+z=-1, w=2
+.....
+.....
+.....
+.....
+.....
+
+z=0, w=2
+###..
+##.##
+#...#
+.#..#
+.###.
+
+z=1, w=2
+.....
+.....
+.....
+.....
+.....
+
+z=2, w=2
+.....
+.....
+..#..
+.....
+.....
+</code></pre>
+<p>After the full six-cycle boot process completes, <em><code>848</code></em> cubes are left in the <em>active</em> state.</p>
+<p>Starting with your given initial configuration, simulate six cycles in a 4-dimensional space. <em>How many cubes are left in the active state after the sixth cycle?</em></p></div>
+    <hr />
+    <div>
+        <div class="processing_buttons"></div>
+        <div class="io"></div>
+    </div>
+    </article>
+    <article id="a_y2020d24p1">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 24: Lobby Layout ---</h2>
 <p>Your raft makes it to the tropical island; it turns out that the small crab was an excellent navigator. You make your way to the resort.</p>
@@ -1818,7 +2070,7 @@ wseweeenwnesenwwwswnew
         <div class="io"></div>
     </div>
     </article>
-    <article id="a_d24p2">
+    <article id="a_y2020d24p2">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The tile floor in the lobby is meant to be a <span title="I need one of these!">living art exhibit</span>. Every day, the tiles are all flipped according to the following rules:</p>
@@ -1861,7 +2113,7 @@ Day 100: 2208
     <script>
     "use strict";
     // @ts-check
-const AOC_Input_Data={d1p1:`1768
+const AOC_Input_Data={y2020d1p1:`1768
 1847
 1905
 1713
@@ -2060,7 +2312,7 @@ const AOC_Input_Data={d1p1:`1768
 1928
 1749
 1990
-1705`,d1p2:``,d2p1:`3-4 j: tjjj
+1705`,y2020d1p2:``,y2020d2p1:`3-4 j: tjjj
 7-10 h: nhhhhhgghphhh
 7-13 j: tpscbbstbdjsjbtcpj
 4-13 l: ckllmqzlvcsxpplqg
@@ -3059,7 +3311,7 @@ const AOC_Input_Data={d1p1:`1768
 8-9 n: rnsnvlrqdq
 4-7 f: ffwnzdf
 15-18 x: ngxxvqwxzlhxwpxxxz
-13-15 w: nwwwwwqwwwwwtww`,d2p2:``,d3p1:`.#.#....##.......#..........#..
+13-15 w: nwwwwwqwwwwwtww`,y2020d2p2:``,y2020d3p1:`.#.#....##.......#..........#..
 ...#...........##...#..#.......
 #.####......##.#...#......#.#..
 ##.....#.#.#..#.#............#.
@@ -3381,7 +3633,7 @@ const AOC_Input_Data={d1p1:`1768
 ........#......#.#..#.#....#...
 ..###.....###.#.##....#...##...
 .##.#.....#.......##.......#...
-..#..##...#..........#.#....#.#`,d3p2:``,d4p1:`byr:1937
+..#..##...#..........#.#....#.#`,y2020d3p2:``,y2020d4p1:`byr:1937
 eyr:2030 pid:154364481
 hgt:158cm iyr:2015 ecl:brn hcl:#c0946f cid:155
 
@@ -4411,7 +4663,7 @@ eyr:2024
 cid:274 pid:390115952 byr:1934 hgt:161cm iyr:2017 hcl:#b95b0d
 
 ecl:#a16ec8 pid:187cm hcl:z iyr:2029 hgt:170
-byr:2008`,d4p2:``,d5p1:``,d5p2:``,d6p1:`b
+byr:2008`,y2020d4p2:``,y2020d5p1:``,y2020d5p2:``,y2020d6p1:`b
 b
 b
 b
@@ -6471,7 +6723,7 @@ zcheoaj
 omljut
 olmsuj
 mluhjcnbxkoep
-tlqjomu`,d6p2:``,d7p1:`posh blue bags contain 5 plaid chartreuse bags, 3 plaid lime bags.
+tlqjomu`,y2020d6p2:``,y2020d7p1:`posh blue bags contain 5 plaid chartreuse bags, 3 plaid lime bags.
 clear teal bags contain 2 dotted salmon bags, 2 wavy red bags.
 faded blue bags contain 1 dotted chartreuse bag, 3 dim bronze bags.
 plaid black bags contain 5 muted beige bags, 2 pale gold bags, 3 wavy lavender bags, 5 dull yellow bags.
@@ -7064,7 +7316,7 @@ shiny crimson bags contain 1 muted red bag, 5 shiny bronze bags, 1 plaid green b
 dim purple bags contain 5 striped purple bags, 2 vibrant bronze bags, 2 striped beige bags.
 wavy maroon bags contain 1 faded silver bag, 4 muted black bags.
 dull blue bags contain 2 bright gold bags, 3 pale salmon bags.
-plaid green bags contain 4 dark brown bags, 1 shiny orange bag.`,d7p2:``,d8p1:`acc -8
+plaid green bags contain 4 dark brown bags, 1 shiny orange bag.`,y2020d7p2:``,y2020d8p1:`acc -8
 acc +19
 nop +178
 jmp +493
@@ -7704,7 +7956,7 @@ acc +40
 acc +45
 acc +42
 acc -4
-jmp +1`,d8p2:``,d9p1:`16
+jmp +1`,y2020d8p2:``,y2020d9p1:`16
 45
 42
 47
@@ -8703,7 +8955,7 @@ jmp +1`,d8p2:``,d9p1:`16
 101036824024712
 57387192610381
 54699510342400
-97367744515158`,d9p2:``,d10p1:`47
+97367744515158`,y2020d9p2:``,y2020d10p1:`47
 61
 131
 15
@@ -8794,7 +9046,7 @@ jmp +1`,d8p2:``,d9p1:`16
 54
 133
 51
-92`,d10p2:``,d11p1:`LLLLLLLLL.LLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LL.LLL.LL.L.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
+92`,y2020d10p2:``,y2020d11p1:`LLLLLLLLL.LLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LL.LLL.LL.L.LLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
 LLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
 LLLLLLLLLLLLLLL.LLLLLLLLL.LLLL.LLLLLLLLLLLLLL.LLLLLL.LLLL.LLLL.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
 LLLLLLL.LLLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLL.LLLLLLL
@@ -8884,7 +9136,7 @@ LLLLLLL.LLLLLLL.LLLLL.LLL.LLLL.LLLLLLL.LLLLLL.L.LLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLL
 LLLLLLL.LLLLLLL.LLLLLLLLL.LLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLLLL.LLLL.LLLLLLLL..LLLLLLLLLLLL
 LLLLLLLLLLLLLLL.LLLLLLLLLLLLLL.LLLLLLL.LL.LLL..LLLLLLLLLL.LLLLLLLLL.LLLLLLL.LLLLLLLLLLLLLLLLLLL
 LLLLLLL..LLLLLLLLLLLL.LLLLLLLL.LLLLLLLLLLLLLL.LLLLLL.LLLLLLLLLLLLLLLLLLL.LLLLLLLLL.LLLLLLLLLLLL
-LLLLLLL.LLLLLLL.LLL.LLLLL.LLLL.LLLLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLL.LLLLLLLL`,d11p2:``,d12p1:`N2
+LLLLLLL.LLLLLLL.LLL.LLLLL.LLLL.LLLLLLL.LLLLLLLLLLLLL.LLLL.LLLLLLLLL.LLLLLLLLLLLLLL.LLL.LLLLLLLL`,y2020d11p2:``,y2020d12p1:`N2
 S5
 E2
 F35
@@ -9654,8 +9906,8 @@ S3
 F30
 N2
 E5
-F51`,d12p2:``,d13p1:`1006726
-23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,647,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,13,19,x,x,x,x,x,x,x,x,x,29,x,557,x,x,x,x,x,37,x,x,x,x,x,x,x,x,x,x,17`,d13p2:``,d14p1:`mask = 001X11X1X010X1X1010XX10X100101011000
+F51`,y2020d12p2:``,y2020d13p1:`1006726
+23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,647,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,13,19,x,x,x,x,x,x,x,x,x,29,x,557,x,x,x,x,x,37,x,x,x,x,x,x,x,x,x,x,17`,y2020d13p2:``,y2020d14p1:`mask = 001X11X1X010X1X1010XX10X100101011000
 mem[43398] = 563312
 mem[51673] = 263978
 mem[18028] = 544304215
@@ -10213,7 +10465,7 @@ mem[11075] = 919
 mem[41491] = 2905
 mem[4898] = 32296
 mem[10607] = 10054
-mem[28252] = 31037`,d14p2:``,d15p1:``,d15p2:``,d16p1:`departure location: 47-691 or 713-954
+mem[28252] = 31037`,y2020d14p2:``,y2020d15p1:``,y2020d15p2:``,y2020d16p1:`departure location: 47-691 or 713-954
 departure station: 44-776 or 799-969
 departure platform: 37-603 or 627-953
 departure track: 41-240 or 259-955
@@ -10478,14 +10730,14 @@ nearby tickets:
 137,679,214,222,409,880,419,406,533,925,138,742,408,397,115,917,411,638,572,145
 928,295,468,728,293,338,539,753,83,542,190,227,468,384,737,719,878,860,818,396
 139,532,360,184,436,415,503,423,388,316,989,910,644,180,362,669,641,571,810,238
-327,727,426,729,331,446,372,679,534,899,727,734,335,117,935,923,551,545,627,503`,d16p2:``,d17p1:`##.#####
+327,727,426,729,331,446,372,679,534,899,727,734,335,117,935,923,551,545,627,503`,y2020d16p2:``,y2020d17p1:`##.#####
 #.##..#.
 .##...##
 ###.#...
 .#######
 ##....##
 ###.###.
-.#.#.#..`,d17p2:``,d18p1:``,d18p2:``,d19p1:``,d19p2:``,d20p1:``,d20p2:``,d21p1:``,d21p2:``,d22p1:``,d22p2:``,d23p1:``,d23p2:``,d24p1:`eeenenwneseneneneneswe
+.#.#.#..`,y2020d17p2:``,y2020d18p1:``,y2020d18p2:``,y2020d19p1:``,y2020d19p2:``,y2020d20p1:``,y2020d20p2:``,y2020d21p1:``,y2020d21p2:``,y2020d22p1:``,y2020d22p2:``,y2020d23p1:``,y2020d23p2:``,y2020d24p1:`eeenenwneseneneneneswe
 neeneswswneneneneneseneneneneenenewne
 neneneswnwwsenwwewenwnewnwseneneewe
 neswswswnewweneneenwswenenwesenwe
@@ -10950,7 +11202,62 @@ wwwnwnwwwnwnwseswnwwnwwneenwnwwwne
 wsenwnwewwwenwwswwswwwswwsww
 nwenwsenwswnwnwnwnwnwswnenw
 wnewwwwwwwewsewnwewwwnww
-seswnewneewweneswnenwswnesenwseswnww`,d24p2:``,d25p1:``,d25p2:``,};
+seswnewneewweneswnenwswnesenwseswnww`,y2020d24p2:``,y2020d25p1:``,y2020d25p2:``,y2021d1p1:``,y2021d1p2:``,y2021d2p1:``,y2021d2p2:``,y2021d3p1:``,y2021d3p2:``,y2021d4p1:``,y2021d4p2:``,y2021d5p1:``,y2021d5p2:``,y2021d6p1:``,y2021d6p2:``,y2021d7p1:``,y2021d7p2:``,y2021d8p1:``,y2021d8p2:``,y2021d9p1:``,y2021d9p2:``,y2021d10p1:``,y2021d10p2:``,y2021d11p1:``,y2021d11p2:``,y2021d12p1:``,y2021d12p2:``,y2021d13p1:``,y2021d13p2:``,y2021d14p1:``,y2021d14p2:``,y2021d15p1:``,y2021d15p2:``,y2021d16p1:``,y2021d16p2:``,y2021d17p1:``,y2021d17p2:``,y2021d18p1:``,y2021d18p2:``,y2021d19p1:``,y2021d19p2:``,y2021d20p1:``,y2021d20p2:``,y2021d21p1:``,y2021d21p2:``,y2021d22p1:``,y2021d22p2:``,y2021d23p1:``,y2021d23p2:``,y2021d24p1:``,y2021d24p2:``,y2021d25p1:``,y2021d25p2:``,};
+const exports={};
+//Class to hold and parse AOC problem identifiers consising of "year, day, part".
+class Ydp {
+    constructor(y, d, p) {
+        this.y = y;
+        this.d = d;
+        this.p = p;
+    }
+    tos() {
+        return `y${this.y}d${this.d}p${this.p}`;
+    }
+    frs(s) {
+        this.y = s.substring(s.indexOf("y") + 1, s.indexOf("d"));
+        this.d = s.substring(s.indexOf("d") + 1, s.indexOf("p"));
+        this.p = s.substring(s.indexOf("p") + 1);
+    }
+    static forAllParts(f) {
+        for (let y = 2020; y <= 2021; y++) {
+            for (let d = 1; d <= 25; d++) {
+                for (let p = 1; p <= 2; p++) {
+                    f(new Ydp(y, d, p));
+                }
+            }
+        }
+    }
+    static unitTest(ut) {
+        let x = new Ydp(2020, 11, 1);
+        ut.test('T-Ydp1.1', x.y === 2020);
+        ut.test('T-Ydp1.2', x.d === 11);
+        ut.test('T-Ydp1.3', x.p === 1);
+        ut.test('T-Ydp2.1', x.tos() === "y2020d11p1");
+        x.frs("y2021d22p2");
+        ut.test('T-Ydp3.1', x.y === 2021);
+        ut.test('T-Ydp3.2', x.d === 22);
+        ut.test('T-Ydp3.3', x.p === 2);
+        ut.test('T-Ydp4.1', x.tos() === "y2021d22p2");
+        let c = 0;
+        forAllParts(() => {
+            c++;
+        });
+        ut.test('T-Ydp5.1', c === 2 * 25 * 2);
+
+    }
+}
+//Wish I knew a cleaner way of making this file work as both a node.js require module
+//and a poor man's import so the following lines would not become part of the target
+//html file.
+exports.tos = Ydp.tos;
+exports.frs = Ydp.frs;
+exports.forAllParts = Ydp.forAllParts;
+// const {
+//     timeStamp
+// } = require("console");
+
+
 class Tmath {
     constructor() {
 
@@ -10968,10 +11275,25 @@ class Tmath {
 
 }
 
+class Solution {
+    constructor(ydp) {
+        this.ydp = ydp;
+        this.givenInputData = AOC_Input_Data[ydp.tos()];
+    }
+    solve() {
+        readInput();
+        writeOutput("The answer is: TBD");
+    }
+    unitTest(ut) {
+        const s = " T-" + this.ydp.tos() + ".";
+        ut.test(s + "1", 1 === 1);
+    }
+}
+
 class Matrix2d {
     constructor(offset = 0, unsetValue = null) {
         //offset is the distance the x and y coordinates will be shifted
-        //to allow JavaScript arrays to accompodate negative coordinates.
+        //to allow JavaScript arrays to accommodate negative coordinates.
         this.matrix = new Array(1000);
         this.minX = null;
         this.minY = null;
@@ -11054,6 +11376,233 @@ class Matrix2d {
         m.set(10, 100, 3);
         ut.test('T-Matrix2d3', m.get(10, 100) === 3);
         ut.test('T-Matrix2d4', m.get(4, 4) === null);
+    }
+}
+
+//Matrix backed by a Map, so the space is unbounded.
+//Coordinates are communicated thru arrays thus:
+//[x,y,z,t...] aka [dim1,dim2,dim3,...dimN].
+//Note that the 0th element is dimension 1.
+class MatrixNdMap {
+    constructor(dimensions = 2, unsetValue = null) {
+        this.map = new Map();
+        this.dimensions = dimensions;
+        this.mins = new Array(dimensions);
+        this.mins.fill(null);
+        this.maxs = new Array(dimensions);
+        this.maxs.fill(null);
+        this.unsetValue = unsetValue;
+    }
+    coordToKey(coord) {
+        let k = "" + coord[0];
+        for (let i = 1; i < this.dimensions; i++) {
+            k += "," + coord[i];
+        }
+        return k;
+    }
+    keyToCoord(key) {
+        let c = stringToStringArrayNewline(key);
+        return c;
+    }
+    /**Takes two coordinates.  Returns -1 if c1<c2, 0 if c1=c2, and 1 if c1>c2. 
+     * The lower number dimensions are more significant.
+     */
+    compareCoords(c1, c2) {
+        for (let d = 0; d < c1.length; d++) {
+            if (c1[d] > c2[d]) return 1;
+            if (c1[d] < c2[d]) return -1;
+        }
+        return 0;
+    }
+    /**Increment the Coord to then next value.  Coords are treated like numbers.  
+     * Each dimension is treated like a digit.  The   */
+    incrementCoord(coord, minCoord, maxCoord) {
+        let carry = 1;
+        let d = coord.length - 1;
+        while ((carry > 0) && (d >= 0)) {
+            if (coord[d] === maxCoord[d]) {
+                coord[d] = minCoord[d];
+                d--;
+            } else {
+                coord[d] += carry;
+                carry = 0;
+            }
+        }
+        return coord;
+    }
+    get(coord) {
+        let v = this.map.get(this.coordToKey(coord));
+        return (v === undefined) ? this.unsetValue : v;
+    }
+    set(coord, val) {
+        this.map.set(this.coordToKey(coord), value);
+        this.forEachDimension((d) => {
+            let r = coord[d - 1];
+            this.maxs[d - 1] = Math.max(this.maxs[d - 1], r);
+            this.mins[d - 1] = Math.min(this.mins[d - 1], r);
+        });
+    }
+    forEachDimension(f) {
+        for (let d = 1; d <= this.dimensions; d++) {
+            f(d);
+        }
+    }
+    forEachCoordInGivenRange(min, max, f) {
+        for (let c = new Array(...min); this.compareCoords(c, max) < 0; this.incrementCoord(c)) {
+            f(c);
+        }
+    }
+    forEachCoordInCurrentRange(f, expandBoundaryBy = 0) {
+        let minCoord = this.mins.map(r => r - expandBoundaryBy);
+        let maxCoord = this.maxs.map(r => r + expandBoundaryBy);
+        forEachCoordInGivenRange(minCoord, maxCoord, f);
+    }
+    forEachAdjacent(coord, f) {
+        let minCoord = coord.map(r => r - 1);
+        let maxCoord = coord.map(r => r + 1);
+        forEachCoordInGivenRange(minCoord, maxCoord, (c) => {
+            if (this.compareCoords(c, coord) !== 0) f(c);
+        });
+    }
+    minRange(dimNumber) {
+        return this.mins[dimNumber];
+    }
+    maxRange(dimNumber) {
+        return this.maxs[dimNumber];
+    }
+    totalSetTo(c) {
+        let n = 0;
+        this.matrix.forEach((value, key, map) => {
+            if (value === c) n++;
+        });
+        return n;
+    }
+    unitTest(ut) {
+        let m = new MatrixNdMap();
+        let c1 = [0, 0, 8, 0];
+        let cmin = [0, 0, 0, 0];
+        let cmax = [9, 9, 9, 9];
+        ut.test('T-MatrixNdMap.IncC.1', m.coordToKey(m.incrementCoord(c1, cmin, cmax)) === "0,0,8,1");
+
+        let k = "1,-2";
+        ut.test('T-MatrixNdMap.1', m.coordToKey(m.keyToCoord(k)) == k);
+        ut.test('T-MatrixNdMap.2a', m.get([0, 0]) === null);
+        ut.test('T-MatrixNdMap.2b', m.minRange(1) === null);
+        ut.test('T-MatrixNdMap.2c', m.minRange(2) === null);
+        ut.test('T-MatrixNdMap.2d', m.maxRange(1) === null);
+        ut.test('T-MatrixNdMap.2e', m.maxRange(2) === null);
+        m.set([0, 0], 1);
+        ut.test('T-MatrixNdMap.3a', m.get([0, 0]) === 1);
+        ut.test('T-MatrixNdMap.3b', m.minRange(1) === 0);
+        ut.test('T-MatrixNdMap.3c', m.minRange(2) === 0);
+        ut.test('T-MatrixNdMap.3d', m.maxRange(1) === 0);
+        ut.test('T-MatrixNdMap.3e', m.maxRange(2) === 0);
+    }
+}
+
+class Matrix3d {
+    constructor(offset = 0, unsetValue = null) {
+        //offset is the distance the x and y coordinates will be shifted
+        //to allow JavaScript arrays to accommodate negative coordinates.
+        this.matrix = new Array(1000);
+        this.minX = null;
+        this.minY = null;
+        this.minZ = null;
+        this.maxX = null;
+        this.maxY = null;
+        this.maxZ = null;
+        this.offset = offset;
+        this.unsetValue = unsetValue;
+    }
+    get(x, y, z) {
+        // log("Matrix2d.get called with " + x + "," + y);
+        if (this.isOutOfBounds(x, y, z)) return this.unsetValue;
+
+        x += this.offset;
+        y += this.offset;
+        z += this.offset;
+        if (this.matrix[x] === undefined) return this.unsetValue;
+        if (this.matrix[x] === null) return this.unsetValue;
+        if (this.matrix[x][y] === undefined) return this.unsetValue;
+        if (this.matrix[x][y] === null) return this.unsetValue;
+        if (this.matrix[x][y][z] === undefined) return this.unsetValue;
+        if (this.matrix[x][y][z] === null) return this.unsetValue;
+
+        let r = this.matrix[x][y][z];
+        // log("Matrix2d.get returning " + r);
+        return r;
+    }
+    set(x, y, z, value) {
+        // log("Matrix2d.set called with " + x + "," + y + " " + value);
+
+        // this.get(x, y); //used to ensure slot is alotted.
+        //Update min/max.  Note min/max are external values.
+        if (this.minX === null) this.minX = x;
+        if (this.minY === null) this.minY = y;
+        if (this.minZ === null) this.minZ = z;
+        if (this.maxX === null) this.maxX = x;
+        if (this.maxY === null) this.maxY = y;
+        if (this.maxZ === null) this.maxZ = z;
+        if (x < this.minX) this.minX = x;
+        if (y < this.minY) this.minY = y;
+        if (z < this.minZ) this.minZ = z;
+        if (x > this.maxX) this.maxX = x;
+        if (y > this.maxY) this.maxY = y;
+        if (z > this.maxZ) this.maxZ = z;
+
+        //Convert to internal array coords.
+        x += this.offset;
+        y += this.offset;
+        z += this.offset;
+        if (this.matrix[x] === undefined) this.matrix[x] = new Array(1000);
+        if (this.matrix[x] === null) this.matrix[x] = new Array(1000);
+        if (this.matrix[x][y] === undefined) this.matrix[x][y] = new Array(1000);
+        if (this.matrix[x][y] === null) this.matrix[x][y] = new Array(1000);
+        this.matrix[x][y][z] = value;
+    }
+    checkAnyNull() {
+        if (this.minX === null) return true;
+        if (this.minY === null) return true;
+        if (this.minZ === null) return true;
+        if (this.maxX === null) return true;
+        if (this.maxY === null) return true;
+        if (this.maxZ === null) return true;
+    }
+    isOutOfBounds(x, y, z) {
+        if (this.checkAnyNull()) return true;
+
+        if (x < this.minX) return true;
+        if (y < this.minY) return true;
+        if (z < this.minZ) return true;
+        if (x > this.maxX) return true;
+        if (y > this.maxY) return true;
+        if (z > this.maxZ) return true;
+        return false;
+    }
+    forEachXYZ(f, expandedBorder = 0) {
+        if (this.checkAnyNull()) return;
+
+        // let c = 0;
+        // log("forEachXY:" + this.minX + "," + this.minY + " to " + this.maxX + "," + this.maxY);
+        for (let x = this.minX - expandedBorder; x <= this.maxX + expandedBorder; x++) {
+            for (let y = this.minY - expandedBorder; y <= this.maxY + expandedBorder; y++) {
+                for (let z = this.minZ - expandedBorder; z <= this.maxZ + expandedBorder; z++) {
+                    // c++;
+                    // log("forEachXY:" + c + ":" + x + "," + y + " to " + this.maxX + "," + this.maxY);
+                    // if (c >= 100) return;
+                    f(x, y, z, this);
+                }
+            }
+        }
+    }
+    unitTest(ut) {
+        let m = new Matrix3d(10);
+        ut.test('T-Matrix3d1', m.get(0, 0, 0) === null);
+        m.set(0, 0, 0, 2);
+        ut.test('T-Matrix3d2', m.get(0, 0, 0) === 2);
+        m.set(10, 100, 0, 3);
+        ut.test('T-Matrix3d3', m.get(10, 100, 0) === 3);
+        ut.test('T-Matrix3d4', m.get(4, 4, 0) === null);
     }
 }
 
@@ -11205,9 +11754,9 @@ function dbclear() {
 
 function dbtest() {
     let ut = {
-        f: 0,
-        p: 0,
-        fs: "",
+        f: 0, //Number of failures.
+        p: 0, //Number of passes.
+        fs: "", //Failure statements, ie a list of failed tests.
         test: function(name, test) {
             if (test) this.p++;
             else this.fs += (this.f++ > 0 ? ", " : " ") + name;
@@ -11259,6 +11808,9 @@ function dbtest() {
     ut.test("s", setI.size == 1);
 
     (new Matrix2d()).unitTest(ut);
+    (new MatrixNdMap()).unitTest(ut);
+
+    Ydp.unitTest(ut);
 
     //Run unitTest function for all problems.
     Object.getOwnPropertyNames(problems).forEach((prb) =>
@@ -11419,12 +11971,12 @@ function solveCurrentProblem() {
     problems[currentBaseId].solve();
 }
 
-function showTabDiv(x) {
-    let t = gi("tabdiv");
+function showMenu(x) {
+    let t = gi("menudiv");
     if (x) {
-        t.className = 'dropdown-content dcshow';
+        t.className = 'dcshow';
     } else {
-        t.className = 'dropdown-content dchide';
+        t.className = 'dchide';
     }
 }
 
@@ -11439,7 +11991,7 @@ function showArticle(baseId) {
 
     currentBaseId = baseId;
     gi("navlabel").innerHTML = baseId;
-    showTabDiv(false);
+    showMenu(false);
 }
 //Auto-create the nav button-tabs, one for each "a_*" element.
 function makeNavButton(id) {
@@ -11478,8 +12030,12 @@ function findParentArticleBaseId(elem) {
     }
     return "xxxx";
 }
+/* Build the Menu, 
+add the processing buttons to each article, 
+add the I/O areas to each article, 
+and then display the a_About article.*/
 window.addEventListener("load", function() {
-    let s = "<button class='tab' onclick='showTabDiv(true)'>Menu</button><span id='navlabel'>XXX</span><div id='tabdiv' class='dropdown-content dchide'>";
+    let s = "<button class='tab' onclick='showMenu(true)'>&#9776; Menu</button><span id='navlabel'>XXX</span><div id='menudiv' class='dchide'>";
     document
         .querySelectorAll('[id^="a_"]')
         .forEach((a) => (s += makeNavButton(a.id.substr(2))));
@@ -11496,16 +12052,22 @@ window.addEventListener("load", function() {
 });
 //#endregion
 let problems = {};
+//Create a default, empty solution for each problem.
+Ydp.forAllParts((ydp) => {
+    let sol = new Solution(ydp);
+    problems[ydp.tos()] = sol;
+});
 
-problems.d1p1 = {
-    givenInputData: AOC_Input_Data.d1p1,
+
+problems.y2020d1p1 = {
+    givenInputData: AOC_Input_Data.y2020d1p1,
 
     solve: function() {
         let a = stringToIntArrayNewline(readInput());
         writeOutput("The answer is:" + this.docalc(a));
     },
     unitTest: function(ut) {
-        const s = " T-d1p1.";
+        const s = " T-y2020d1p1.";
         ut.test(s + "td1", this.docalc([1721, 979, 366, 299, 675, 1456]) == 514579);
     },
     docalc: function(arr) {
@@ -11518,8 +12080,8 @@ problems.d1p1 = {
     },
 };
 
-problems.d1p2 = {
-    givenInputData: problems.d1p1.givenInputData,
+problems.y2020d1p2 = {
+    givenInputData: problems.y2020d1p1.givenInputData,
     solve: function() {
         let u = readInput();
         let a = u.split(/\r?\n/);
@@ -11529,7 +12091,7 @@ problems.d1p2 = {
         writeOutput("The answer is:" + this.docalc(a));
     },
     unitTest: function(ut) {
-        const s = " T-d1p1.";
+        const s = " T-y2020d1p1.";
         ut.test(s + "td2", this.docalc([1721, 979, 366, 299, 675, 1456]) == 241861950);
     },
     docalc: function(arr) {
@@ -11545,8 +12107,8 @@ problems.d1p2 = {
     },
 };
 
-problems.d2p1 = {
-    givenInputData: AOC_Input_Data.d2p1,
+problems.y2020d2p1 = {
+    givenInputData: AOC_Input_Data.y2020d2p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let valid = 0;
@@ -11556,7 +12118,7 @@ problems.d2p1 = {
         writeOutput("The answer is:" + valid);
     },
     unitTest: function(ut) {
-        const s = " T-d2p1.";
+        const s = " T-y2020d2p1.";
         let x = this.parseRow("3-4 j: tjjj");
         ut.test(s + "1", x.min == 3);
         ut.test(s + "2", x.max == 4);
@@ -11593,8 +12155,8 @@ problems.d2p1 = {
     },
 };
 
-problems.d2p2 = {
-    givenInputData: problems.d2p1.givenInputData,
+problems.y2020d2p2 = {
+    givenInputData: problems.y2020d2p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let valid = 0;
@@ -11604,14 +12166,14 @@ problems.d2p2 = {
         writeOutput("The answer is:" + valid);
     },
     unitTest: function(ut) {
-        const s = " T-d2p2.";
+        const s = " T-y2020d2p2.";
 
         ut.test(s + "8", this.ckpw("1-3 a: abcde"));
         ut.test(s + "9", !this.ckpw("1-3 b: cdefg"));
         ut.test(s + "10", !this.ckpw("2-9 c: ccccccccc"));
     },
     ckpw(s) {
-        let x = problems.d2p1.parseRow(s);
+        let x = problems.y2020d2p1.parseRow(s);
         let count = 0;
         if (x.pw[x.min - 1] == x.char) count++;
         if (x.pw[x.max - 1] == x.char) count++;
@@ -11619,8 +12181,8 @@ problems.d2p2 = {
     },
 };
 
-problems.d3p1 = {
-    givenInputData: AOC_Input_Data.d3p1,
+problems.y2020d3p1 = {
+    givenInputData: AOC_Input_Data.y2020d3p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hits = 0;
@@ -11633,7 +12195,7 @@ problems.d3p1 = {
         writeOutput("The answer is: " + hits);
     },
     unitTest: function(ut) {
-        const s = " T-d3p1.";
+        const s = " T-y2020d3p1.";
 
         ut.test(s + "1", this.treeHit("..#...#", 2));
         ut.test(s + "2", this.treeHit("..#...#", 6));
@@ -11645,8 +12207,8 @@ problems.d3p1 = {
     },
 };
 
-problems.d3p2 = {
-    givenInputData: problems.d3p1.givenInputData,
+problems.y2020d3p2 = {
+    givenInputData: problems.y2020d3p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hits = 0;
@@ -11654,7 +12216,7 @@ problems.d3p2 = {
         let x = 0;
         //Right 1, down 1.
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 1;
         }
         m = m * hits;
@@ -11664,7 +12226,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 3;
         }
         m = m * hits;
@@ -11674,7 +12236,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 5;
         }
         m = m * hits;
@@ -11684,7 +12246,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i++) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 7;
         }
         m = m * hits;
@@ -11694,7 +12256,7 @@ problems.d3p2 = {
         x = 0;
         hits = 0;
         for (let i = 0; i < a.length; i += 2) {
-            if (problems.d3p1.treeHit(a[i], x)) hits++;
+            if (problems.y2020d3p1.treeHit(a[i], x)) hits++;
             x += 1;
         }
         m = m * hits;
@@ -11703,12 +12265,12 @@ problems.d3p2 = {
         writeOutput("The answer is: " + m);
     },
     unitTest: function(ut) {
-        const s = " T-d3p2.";
+        const s = " T-y2020d3p2.";
 
     },
 };
 
-problems.d4p1 = {
+problems.y2020d4p1 = {
     givenInputData: ``,
     solve: function() {
         let s = readInput();
@@ -11717,7 +12279,7 @@ problems.d4p1 = {
         writeOutput("The answer is: " + this.totalValid(a));
     },
     unitTest: function(ut) {
-        const s = " T-d4p1.";
+        const s = " T-y2020d4p1.";
 
         let a = this.recsToArray(`ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm`);
@@ -11803,11 +12365,11 @@ iyr:2011 ecl:brn hgt:59in`);
     },
 };
 
-problems.d4p2 = {
-    givenInputData: problems.d4p1.givenInputData,
+problems.y2020d4p2 = {
+    givenInputData: problems.y2020d4p1.givenInputData,
     solve: function() {
         let s = readInput();
-        let a = problems.d4p1.recsToArray(s);
+        let a = problems.y2020d4p1.recsToArray(s);
 
         // for (let i = 0; i < a.length; i++) {
         //   log(this.recToString(a[i]));
@@ -11816,7 +12378,7 @@ problems.d4p2 = {
         writeOutput("The answer is: " + this.totalValid(a));
     },
     unitTest: function(ut) {
-        const s = " T-d4p2.";
+        const s = " T-y2020d4p2.";
         let x = `eyr:1972 cid:100
                                   hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
 
@@ -11830,7 +12392,7 @@ problems.d4p2 = {
                                   hgt:59cm ecl:zzz
                                   eyr:2038 hcl:74454a iyr:2023
                                   pid:3556412378 byr:2007`;
-        let a = problems.d4p1.recsToArray(x);
+        let a = problems.y2020d4p1.recsToArray(x);
         ut.test(s + "1", !this.isValid(a[0]));
         ut.test(s + "2", !this.isValid(a[1]));
         ut.test(s + "3", !this.isValid(a[2]));
@@ -11848,7 +12410,7 @@ problems.d4p2 = {
                                   eyr:2022
 
                                   iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719`;
-        a = problems.d4p1.recsToArray(x);
+        a = problems.y2020d4p1.recsToArray(x);
 
         ut.test(s + "v1", this.isValid(a[0]));
         ut.test(s + "v2", this.isValid(a[1]));
@@ -11862,7 +12424,7 @@ problems.d4p2 = {
             byr: 0
         }));
         // let failed = false;
-        // a = problems.d4p1.recsToArray(this.givenInputData);
+        // a = problems.y2020d4p1.recsToArray(this.givenInputData);
         // for (let i = 0; i < a.length; i++) {
         //   if (this.hasExtraProperty(a[i])) {
         //     // log("REC W/ EXTRA PROP:" + this.recToString(a[i]));
@@ -12069,8 +12631,8 @@ problems.d4p2 = {
     },
 };
 
-problems.d5p1 = {
-    givenInputData: AOC_Input_Data.d5p1,
+problems.y2020d5p1 = {
+    givenInputData: AOC_Input_Data.y2020d5p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let hi = 0;
@@ -12081,7 +12643,7 @@ problems.d5p1 = {
         writeOutput("The answer is: " + hi);
     },
     unitTest: function(ut) {
-        const s = " T-d5p1.";
+        const s = " T-y2020d5p1.";
 
         ut.test(s + "1", this.row("BFFFBBF") == 70);
         ut.test(s + "2", this.col("RRR") == 7);
@@ -12104,11 +12666,11 @@ problems.d5p1 = {
     },
 };
 
-problems.d5p2 = {
-    givenInputData: problems.d5p1.givenInputData,
+problems.y2020d5p2 = {
+    givenInputData: problems.y2020d5p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
-        a.forEach((v, i, a) => (a[i] = problems.d5p1.seatId(v)));
+        a.forEach((v, i, a) => (a[i] = problems.y2020d5p1.seatId(v)));
         a = a.sort((a, b) => a - b);
         let hi = 0;
         for (let i = 0; i < a.length; i++) {
@@ -12123,12 +12685,12 @@ problems.d5p2 = {
         writeOutput("The answer is: " + hi);
     },
     unitTest: function(ut) {
-        const s = " T-d5p2.";
+        const s = " T-y2020d5p2.";
 
     },
 };
 
-problems.d6p1 = {
+problems.y2020d6p1 = {
     givenInputData: AOC_Input_Data.p6p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
@@ -12165,13 +12727,13 @@ problems.d6p1 = {
         }
     },
     unitTest: function(ut) {
-        const s = " T-d6p1.";
+        const s = " T-y2020d6p1.";
 
     },
 };
 
-problems.d6p2 = {
-    givenInputData: problems.d6p1.givenInputData,
+problems.y2020d6p2 = {
+    givenInputData: problems.y2020d6p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         // log(a.length);
@@ -12189,7 +12751,7 @@ problems.d6p2 = {
         writeOutput("The answer is: " + sum);
     },
     unitTest: function(ut) {
-        const s = " T-d6p2.";
+        const s = " T-y2020d6p2.";
 
         ut.test(s + 'u1', this.unionCount(['abc']) == 3);
         ut.test(s + 'u2', this.unionCount(['a', 'b', 'c']) == 3);
@@ -12221,8 +12783,8 @@ problems.d6p2 = {
 };
 
 
-problems.d7p1 = {
-    givenInputData: AOC_Input_Data.d7p1,
+problems.y2020d7p1 = {
+    givenInputData: AOC_Input_Data.y2020d7p1,
     solve: function() {
         let s = readInput();
         let d = this.rulesToDigraph(s);
@@ -12234,7 +12796,7 @@ problems.d7p1 = {
         writeOutput("The part 1 answer is: " + count + "  The part 2 answer is: " + d.edgeWeightSumRecursive(sg));
     },
     unitTest: function(ut) {
-        const s = " T-d7p1.";
+        const s = " T-y2020d7p1.";
 
         (new Digraph()).unitTest(ut);
 
@@ -12346,15 +12908,15 @@ dotted black bags contain no other bags.`);
 
 };
 
-problems.d7p2 = {
-    givenInputData: problems.d7p1.givenInputData,
+problems.y2020d7p2 = {
+    givenInputData: problems.y2020d7p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d7p2.";
+        const s = " T-y2020d7p2.";
 
     },
 };
@@ -12430,7 +12992,7 @@ class Puter {
         }
     }
 }
-problems.d8p1 = {
+problems.y2020d8p1 = {
     givenInputData: ``,
     solve: function() {
         let p = new Puter();
@@ -12441,13 +13003,13 @@ problems.d8p1 = {
         log('pc=' + p.pc + ', accumulator=' + p.accumulator);
     },
     unitTest: function(ut) {
-        const s = " T-d8p1.";
+        const s = " T-y2020d8p1.";
 
     },
 };
 
-problems.d8p2 = {
-    givenInputData: problems.d8p1.givenInputData,
+problems.y2020d8p2 = {
+    givenInputData: problems.y2020d8p1.givenInputData,
     solve: function() {
         let p = new Puter();
         p.loadProgram(readInput());
@@ -12467,7 +13029,7 @@ problems.d8p2 = {
         writeOutput("There is no solution.");
     },
     unitTest: function(ut) {
-        const s = " T-d8p2.";
+        const s = " T-y2020d8p2.";
 
     },
 };
@@ -12513,7 +13075,7 @@ class XmasNumList {
     }
 }
 
-problems.d9p1 = {
+problems.y2020d9p1 = {
     givenInputData: ``,
     solve: function() {
         let xnl = new XmasNumList(25);
@@ -12522,7 +13084,7 @@ problems.d9p1 = {
         writeOutput("The answer is: " + xnl.nums[fi] + ' and the weakness is ' + xnl.findWeakness(xnl.nums[fi]));
     },
     unitTest: function(ut) {
-        const s = " T-d9p1.";
+        const s = " T-y2020d9p1.";
         let xnl = new XmasNumList(5);
         xnl.load(`35
 20
@@ -12553,15 +13115,15 @@ problems.d9p1 = {
     },
 };
 
-problems.d9p2 = {
-    givenInputData: problems.d9p1.givenInputData,
+problems.y2020d9p2 = {
+    givenInputData: problems.y2020d9p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d9p2.";
+        const s = " T-y2020d9p2.";
 
         ut.test(s + "10", 1 == 1);
     },
@@ -12695,8 +13257,8 @@ class AdChain {
     }
 
 }
-problems.d10p1 = {
-    givenInputData: AOC_Input_Data.d10p1,
+problems.y2020d10p1 = {
+    givenInputData: AOC_Input_Data.y2020d10p1,
     solve: function() {
         let ac = new AdChain();
         ac.load(readInput());
@@ -12746,7 +13308,7 @@ problems.d10p1 = {
     10
     3`,
     unitTest: function(ut) {
-        const s = " T-d10p1.";
+        const s = " T-y2020d10p1.";
         let ac = new AdChain();
         ac.load(this.td1);
         ut.test(s + "1", ac.calc1() === 35);
@@ -12755,8 +13317,8 @@ problems.d10p1 = {
     },
 };
 
-problems.d10p2 = {
-    givenInputData: problems.d10p1.givenInputData,
+problems.y2020d10p2 = {
+    givenInputData: problems.y2020d10p1.givenInputData,
     solve: function() {
         let ac = new AdChain();
         ac.load(readInput());
@@ -12764,9 +13326,9 @@ problems.d10p2 = {
         writeOutput("The answer is: " + ac.calcPaths());
     },
     unitTest: function(ut) {
-        const s = " T-d10p2.";
+        const s = " T-y2020d10p2.";
         let ac = new AdChain();
-        ac.load(problems.d10p1.td1);
+        ac.load(problems.y2020d10p1.td1);
         ut.test(s + "1b", ac.calcPaths() === 8);
         // ut.test(s + "1b6", ac.calcPaths6() === 8);
         // ut.test(s + "1b2", ac.calcPaths2() === 8);
@@ -12779,7 +13341,7 @@ problems.d10p2 = {
         // log('1b2 ac.calcPaths3()=' + ac.calcPaths3());
         // log('1b3 ac.calcPaths4()=' + ac.calcPaths4());
         // log('1b4 ac.numHoles()=' + ac.numHoles());
-        ac.load(problems.d10p1.td2);
+        ac.load(problems.y2020d10p1.td2);
         // log('2b ac.calcPaths()=' + ac.calcPaths());
         ut.test(s + "2b", ac.calcPaths() === 19208);
         // ut.test(s + "2b2", ac.calcPaths2() === 19208);
@@ -12954,7 +13516,7 @@ class AOC_gol {
     }
 }
 
-problems.d11p1 = {
+problems.y2020d11p1 = {
     givenInputData: ``,
     solve: function() {
         let ag = new AOC_gol();
@@ -12966,12 +13528,12 @@ problems.d11p1 = {
         writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
-        const s = " T-d11p1.";
+        const s = " T-y2020d11p1.";
     },
 };
 
-problems.d11p2 = {
-    givenInputData: problems.d11p1.givenInputData,
+problems.y2020d11p2 = {
+    givenInputData: problems.y2020d11p1.givenInputData,
     solve: function() {
         let ag = new AOC_gol();
         ag.load(readInput());
@@ -12982,7 +13544,7 @@ problems.d11p2 = {
         writeOutput("The answer is: " + ag.totalSeatsOcupied());
     },
     unitTest: function(ut) {
-        const s = " T-d11p2.";
+        const s = " T-y2020d11p2.";
     },
 };
 
@@ -13103,8 +13665,8 @@ class Boat2 extends Boat {
     }
 };
 
-problems.d12p1 = {
-    givenInputData: AOC_Input_Data.d12p1,
+problems.y2020d12p1 = {
+    givenInputData: AOC_Input_Data.y2020d12p1,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let b = new Boat(0, 0);
@@ -13113,12 +13675,12 @@ problems.d12p1 = {
         writeOutput("The answer is: " + b.manhattanDistance());
     },
     unitTest: function(ut) {
-        const s = " T-d12p1.";
+        const s = " T-y2020d12p1.";
     },
 };
 
-problems.d12p2 = {
-    givenInputData: problems.d12p1.givenInputData,
+problems.y2020d12p2 = {
+    givenInputData: problems.y2020d12p1.givenInputData,
     solve: function() {
         let a = stringToStringArrayNewline(readInput());
         let b = new Boat2(0, 0);
@@ -13127,12 +13689,12 @@ problems.d12p2 = {
         writeOutput("The answer is: " + b.manhattanDistance());
     },
     unitTest: function(ut) {
-        const s = " T-d12p2.";
+        const s = " T-y2020d12p2.";
     },
 };
 
-problems.d13p1 = {
-    givenInputData: AOC_Input_Data.d13p1,
+problems.y2020d13p1 = {
+    givenInputData: AOC_Input_Data.y2020d13p1,
     departure_ready: 0,
     departure_time: -1,
     departure_bus: -1,
@@ -13188,13 +13750,13 @@ problems.d13p1 = {
         // this.dlog();
     },
     unitTest: function(ut) {
-        const s = " T-d13p1.";
+        const s = " T-y2020d13p1.";
     },
 };
 
 
-problems.d13p2 = {
-    givenInputData: problems.d13p1.givenInputData,
+problems.y2020d13p2 = {
+    givenInputData: problems.y2020d13p1.givenInputData,
     earliestTime: 0,
     busses: [],
     largestBusnum: -1,
@@ -13284,7 +13846,7 @@ problems.d13p2 = {
         writeOutput("The answer is: " + this.earliestTime);
     },
     unitTest: function(ut) {
-        const s = " T-d13p2.";
+        const s = " T-y2020d13p2.";
         ut.test(s + "1", this.eval("939\n7,13,x,x,59,x,31,19") === 1068781);
         ut.test(s + "2", this.eval("939\n17,x,13,19") === 3417);
         ut.test(s + "3", this.eval("939\n67,7,59,61") === 754018);
@@ -13295,8 +13857,8 @@ problems.d13p2 = {
 };
 
 
-problems.d14p1 = {
-    givenInputData: AOC_Input_Data.d14p1,
+problems.y2020d14p1 = {
+    givenInputData: AOC_Input_Data.y2020d14p1,
     mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     maskLh: "XXXX",
     maskRh: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -13388,7 +13950,7 @@ problems.d14p1 = {
             ".  There were " + this.opcount + " instructions.");
     },
     unitTest: function(ut) {
-        const s = " T-d14p1.";
+        const s = " T-y2020d14p1.";
         let td = `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
         mem[8] = 11
         mem[7] = 101
@@ -13436,8 +13998,8 @@ problems.d14p1 = {
 };
 
 
-problems.d14p2 = {
-    givenInputData: problems.d14p1.givenInputData,
+problems.y2020d14p2 = {
+    givenInputData: problems.y2020d14p1.givenInputData,
     mask: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     mem: {},
     opcount: 0,
@@ -13512,11 +14074,11 @@ problems.d14p2 = {
             ".  There were " + this.opcount + " instructions.");
     },
     unitTest: function(ut) {
-        const s = " T-d14p2.";
+        const s = " T-y2020d14p2.";
     },
 };
 
-problems.d15p1 = {
+problems.y2020d15p1 = {
     givenInputData: `16,1,0,18,12,14,19`,
     prevs: [],
     lastturn: -1,
@@ -13560,7 +14122,7 @@ problems.d15p1 = {
         writeOutput("The answer is: " + this.doturns(readInput(), 2020));
     },
     unitTest: function(ut) {
-        const s = " T-d15p1.";
+        const s = " T-y2020d15p1.";
         this.loadstart("0,1,2");
         ut.test(s + "a0", this.prevs[0] === 1);
         ut.test(s + "a1", this.prevs[1] === 2);
@@ -13634,22 +14196,22 @@ problems.d15p1 = {
 };
 
 
-problems.d15p2 = {
-    givenInputData: problems.d15p1.givenInputData,
+problems.y2020d15p2 = {
+    givenInputData: problems.y2020d15p1.givenInputData,
     solve: function() {
-        writeOutput("The answer is: " + problems.d15p1.doturns(readInput(), 30000000));
+        writeOutput("The answer is: " + problems.y2020d15p1.doturns(readInput(), 30000000));
     },
     unitTest: function(ut) {
-        const s = " T-d15p2.";
+        const s = " T-y2020d15p2.";
 
-        // ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 3000000) === 175594);
-        ut.test(s + "gg1", problems.d15p1.doturns('0,3,6', 30000000) === 175594);
-        // ut.test(s + "gg2", problems.d15p1.doturns('1,3,2', 30000000) === 2578);
-        // ut.test(s + "gg3", problems.d15p1.doturns('2,1,3', 30000000) === 3544142);
-        // ut.test(s + "gg4", problems.d15p1.doturns('1,2,3', 30000000) === 261214);
-        // ut.test(s + "gg5", problems.d15p1.doturns('2,3,1', 30000000) === 6895259);
-        // ut.test(s + "gg6", problems.d15p1.doturns('3,2,1', 30000000) === 18);
-        // ut.test(s + "gg7", problems.d15p1.doturns('3,1,2', 30000000) === 362);
+        // ut.test(s + "gg1", problems.y2020d15p1.doturns('0,3,6', 3000000) === 175594);
+        ut.test(s + "gg1", problems.y2020d15p1.doturns('0,3,6', 30000000) === 175594);
+        // ut.test(s + "gg2", problems.y2020d15p1.doturns('1,3,2', 30000000) === 2578);
+        // ut.test(s + "gg3", problems.y2020d15p1.doturns('2,1,3', 30000000) === 3544142);
+        // ut.test(s + "gg4", problems.y2020d15p1.doturns('1,2,3', 30000000) === 261214);
+        // ut.test(s + "gg5", problems.y2020d15p1.doturns('2,3,1', 30000000) === 6895259);
+        // ut.test(s + "gg6", problems.y2020d15p1.doturns('3,2,1', 30000000) === 18);
+        // ut.test(s + "gg7", problems.y2020d15p1.doturns('3,1,2', 30000000) === 362);
     },
 };
 class Rule {
@@ -13856,8 +14418,8 @@ class Scanner {
         }
     }
 }
-problems.d16p1 = {
-    givenInputData: AOC_Input_Data.d16p1,
+problems.y2020d16p1 = {
+    givenInputData: AOC_Input_Data.y2020d16p1,
     solve: function() {
         let s = readInput();
         let sc = new Scanner();
@@ -13866,7 +14428,7 @@ problems.d16p1 = {
         writeOutput("The answer is: " + sc.sumInvalidFields());
     },
     unitTest: function(ut) {
-        const s = " T-d16p1.";
+        const s = " T-y2020d16p1.";
         let sc = new Scanner();
         sc.parseInput(`class: 1-3 or 5-7
         row: 6-11 or 33-44
@@ -13886,8 +14448,8 @@ problems.d16p1 = {
 };
 
 
-problems.d16p2 = {
-    givenInputData: problems.d16p1.givenInputData,
+problems.y2020d16p2 = {
+    givenInputData: problems.y2020d16p1.givenInputData,
     solve: function() {
         let s = readInput();
 
@@ -13984,7 +14546,7 @@ rule=departure time
 */
     },
     unitTest: function(ut) {
-        const s = " T-d16p2.";
+        const s = " T-y2020d16p2.";
         let sc = new Scanner();
         sc.parseInput(`class: 0-1 or 4-19
         row: 0-5 or 8-19
@@ -14003,7 +14565,266 @@ rule=departure time
     },
 };
 
-problems.d17p1 = {
+class AOC_gol4d {
+    constructor() {
+        this.clear();
+    }
+    clear() {
+        this.matrix = new MatrixNdMap(4, ".");
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        this.clear();
+        for (let y = 0; y < a.length; y++) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set([x - Math.floor(a[y].length / 2), -(y - Math.floor(a.length / 2)), 0], a[y].charAt(x));
+            }
+        }
+    }
+    isCubeActive(coord) {
+        let c = this.matrix.get(coord);
+        return (c === '#');
+    }
+    adjacentCubesActive(coord) {
+        let n = 0;
+        this.forEachAdjacent(coord, (c) => {
+            if (this.isCubeActive(c)) n++;
+        });
+        return n;
+    }
+    step(n = 1) {
+        for (let i = 0; i < n; i++) this.stepone();
+    }
+    stepone() {
+        let mm = new MatrixNdMap(4, ".");
+        this.matrix.forEachCoordInCurrentRange((coord) => {
+            //     "During a cycle, all cubes simultaneously change their state 
+            // according to the following rules:
+            // If a cube is active and exactly 2 or 3 of its neighbors are also 
+            // active, the cube remains active. Otherwise, the cube becomes inactive.
+            // If a cube is inactive but exactly 3 of its neighbors are active, 
+            // the cube becomes active. Otherwise, the cube remains inactive." -AOC2020
+            let c = this.matrix.get(coord);
+            let n = this.adjacentCubesActive(coord);
+            if (c === "#") { //Active
+                if ((n === 2) || (n === 3)) {
+                    mm.set(coord, "#");
+                } else {
+                    mm.set(coord, ".");
+                }
+            } else { //Inactive
+                if (n === 3) {
+                    mm.set(coord, "#");
+                } else {
+                    mm.set(coord, ".");
+                }
+            }
+        }, 1);
+        this.matrix = mm;
+    }
+    totalActiveCubes() {
+        return this.matrix.totalSetTo("#");
+    }
+}
+
+class AOC_gol3d {
+    constructor() {
+        this.matrix = new Matrix3d(1000, ".");
+    }
+    load(s) {
+        let a = stringToStringArrayNewline(s);
+        this.matrix = new Matrix3d(1000, ".");
+        for (let y = 0; y < a.length; y++) {
+            for (let x = 0; x < a[y].length; x++) {
+                // log("x=" + x + " y=" + y + " char=" + a[y].charAt(x));
+                this.matrix.set(x - Math.floor(a[y].length / 2), -(y - Math.floor(a.length / 2)), 0, a[y].charAt(x));
+            }
+        }
+    }
+    isCubeActive(x, y, z) {
+        if (this.matrix.isOutOfBounds(x, y)) return false;
+        let c = this.matrix.get(x, y, z);
+        return (c === '#');
+    }
+    adjacentCubesActive(x, y, z) {
+        let n = 0;
+        for (let xx = x - 1; xx <= x + 1; xx++) {
+            for (let yy = y - 1; yy <= y + 1; yy++) {
+                for (let zz = z - 1; zz <= z + 1; zz++) {
+                    if ((xx === x) && (yy === y) && (zz === z)) continue;
+                    if (this.isCubeActive(xx, yy, zz)) n++;
+                }
+            }
+        }
+        return n;
+    }
+    step(n = 1) {
+        for (let i = 0; i < n; i++) this.stepone();
+    }
+    stepone() {
+        let mm = new Matrix3d();
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            //     "During a cycle, all cubes simultaneously change their state 
+            // according to the following rules:
+            // If a cube is active and exactly 2 or 3 of its neighbors are also 
+            // active, the cube remains active. Otherwise, the cube becomes inactive.
+            // If a cube is inactive but exactly 3 of its neighbors are active, 
+            // the cube becomes active. Otherwise, the cube remains inactive." -AOC2020
+            let c = m.get(x, y, z);
+            let n = this.adjacentCubesActive(x, y, z);
+            if (c === "#") { //Active
+                if ((n === 2) || (n === 3)) {
+                    mm.set(x, y, z, "#");
+                } else {
+                    mm.set(x, y, z, ".");
+                }
+            } else { //Inactive
+                if (n === 3) {
+                    mm.set(x, y, z, "#");
+                } else {
+                    mm.set(x, y, z, ".");
+                }
+            }
+        }, 1);
+        this.matrix = mm;
+    }
+
+    totalActiveCubes() {
+        let n = 0;
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            if (this.isCubeActive(x, y, z)) n++;
+        });
+        return n;
+    }
+
+    totalActiveCubesWhereZis(Z) {
+        let n = 0;
+        this.matrix.forEachXYZ((x, y, z, m) => {
+            if ((z === Z) && (this.isCubeActive(x, y, z))) n++;
+        });
+        return n;
+    }
+    logWhereZis(Z, size) {
+        log("z=" + Z);
+        for (let y = size; y >= -size; y--) {
+            let xStr = "";
+            for (let x = -size; x <= size; x++) {
+                let c = this.matrix.get(x, y, Z);
+                if (c === null) c = ".";
+                if ((x === 0) && (y === 0)) {
+                    if (c === ".") {
+                        c = "o";
+                    } else {
+                        c = "*";
+                    }
+                }
+                xStr += c;
+            }
+            log("<code>" + xStr + "</code>");
+        }
+    }
+}
+
+problems.y2020d17p1 = {
+    givenInputData: AOC_Input_Data.y2020d17p1,
+    solve: function() {
+        let s = readInput();
+        let gol = new AOC_gol3d();
+        gol.load(s);
+        gol.step(6);
+        writeOutput("The answer is: " + gol.totalActiveCubes());
+    },
+    unitTest: function(ut) {
+        const s = " T-y2020d17p1.";
+        let d = `.#.
+..#
+###`;
+        let gol = new AOC_gol3d();
+        // log("Test Series a");
+        gol.load(`.`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "a1a", gol.totalActiveCubes() === 0);
+        ut.test(s + "a1b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step();
+        ut.test(s + "a2a", gol.totalActiveCubes() === 0);
+        ut.test(s + "a2b", gol.adjacentCubesActive(0, 0, 0) === 0);
+
+        // log("Test Series b");
+        gol.load(`#`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "b1a", gol.totalActiveCubes() === 1);
+        ut.test(s + "b1b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step();
+        ut.test(s + "b2a", gol.totalActiveCubes() === 0);
+        ut.test(s + "b2b", gol.adjacentCubesActive(0, 0, 0) === 0);
+        gol.step(10);
+        ut.test(s + "b3a", gol.totalActiveCubes() === 0);
+        ut.test(s + "b3b", gol.adjacentCubesActive(0, 0, 0) === 0);
+
+        // log("Test Series bb");
+        gol.load(`###\n###\n###`);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "bb1a", gol.totalActiveCubes() === 9);
+        ut.test(s + "bb1b", gol.adjacentCubesActive(0, 0, 0) === 8);
+        ut.test(s + "bb1c", gol.adjacentCubesActive(1, 1, 0) === 3);
+        ut.test(s + "bb1d", gol.adjacentCubesActive(0, 1, 0) === 5);
+        ut.test(s + "bb1e", gol.isCubeActive(1, 1, 0));
+        ut.test(s + "bb1f", gol.isCubeActive(0, 1, 0));
+        gol.step();
+        // gol.logWhereZis(0, 3);
+
+        // log("Test Series c");
+        gol.load(d);
+        // gol.logWhereZis(0, 3);
+        ut.test(s + "c1a", gol.totalActiveCubes() === 5);
+        ut.test(s + "c1b", gol.totalActiveCubesWhereZis(0) === 5);
+        ut.test(s + "c1c", gol.totalActiveCubesWhereZis(1) === 0);
+        ut.test(s + "c1d", gol.adjacentCubesActive(0, 0, 0) === 5);
+        ut.test(s + "c1e", !gol.isCubeActive(0, 0, 0));
+        ut.test(s + "c1e", gol.isCubeActive(1, 0, 0));
+        ut.test(s + "c1ff1", gol.isCubeActive(0, 1, 0));
+        // log("c1ff2:adjacentCubesActive=" + gol.adjacentCubesActive(0, 1, 0));
+        ut.test(s + "c1ff2", gol.adjacentCubesActive(0, 1, 0) === 1);
+        gol.step();
+        // gol.logWhereZis(-1, 3);
+        // gol.logWhereZis(0, 3);
+        // gol.logWhereZis(1, 3);
+        ut.test(s + "c2a", gol.totalActiveCubes() === 11);
+        ut.test(s + "c2b-1", gol.totalActiveCubesWhereZis(-1) === 3);
+        ut.test(s + "c2b0", gol.totalActiveCubesWhereZis(0) === 5);
+        ut.test(s + "c2b1", gol.totalActiveCubesWhereZis(1) === 3);
+        ut.test(s + "c2ff1", !gol.isCubeActive(0, 1, 0));
+        // log("c2ff2:adjacentCubesActive=" + gol.adjacentCubesActive(0, 1, 0));
+        ut.test(s + "c2ff2", gol.adjacentCubesActive(0, 1, 0) === 4);
+
+
+
+
+        gol.load(d);
+        gol.step(6);
+        ut.test(s + "z1", gol.totalActiveCubes() === 112);
+    },
+};
+
+
+problems.y2020d17p2 = {
+    givenInputData: problems.y2020d17p1.givenInputData,
+    solve: function() {
+        let s = readInput();
+        let gol = new AOC_gol4d();
+        gol.load(s);
+        gol.step(6);
+        writeOutput("The answer is: " + gol.totalActiveCubes());
+
+    },
+    unitTest: function(ut) {
+        const s = " T-y2020d17p2.";
+        ut.test(s + "1", 1 === 1);
+    },
+};
+
+problems.y2020d18p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14011,26 +14832,26 @@ problems.d17p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d17p1.";
+        const s = " T-y2020d18p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d17p2 = {
-    givenInputData: problems.d17p1.givenInputData,
+problems.y2020d18p2 = {
+    givenInputData: problems.y2020d18p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d17p2.";
+        const s = " T-y2020d18p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d18p1 = {
+problems.y2020d19p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14038,26 +14859,26 @@ problems.d18p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d18p1.";
+        const s = " T-y2020d19p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d18p2 = {
-    givenInputData: problems.d18p1.givenInputData,
+problems.y2020d19p2 = {
+    givenInputData: problems.y2020d19p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d18p2.";
+        const s = " T-y2020d19p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d19p1 = {
+problems.y2020d20p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14065,26 +14886,26 @@ problems.d19p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d19p1.";
+        const s = " T-y2020d20p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d19p2 = {
-    givenInputData: problems.d19p1.givenInputData,
+problems.y2020d20p2 = {
+    givenInputData: problems.y2020d20p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d19p2.";
+        const s = " T-y2020d20p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d20p1 = {
+problems.y2020d21p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14092,26 +14913,26 @@ problems.d20p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d20p1.";
+        const s = " T-y2020d21p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d20p2 = {
-    givenInputData: problems.d20p1.givenInputData,
+problems.y2020d21p2 = {
+    givenInputData: problems.y2020d21p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d20p2.";
+        const s = " T-y2020d21p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d21p1 = {
+problems.y2020d22p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14119,26 +14940,26 @@ problems.d21p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d21p1.";
+        const s = " T-y2020d22p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d21p2 = {
-    givenInputData: problems.d21p1.givenInputData,
+problems.y2020d22p2 = {
+    givenInputData: problems.y2020d22p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d21p2.";
+        const s = " T-y2020d22p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
-problems.d22p1 = {
+problems.y2020d23p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14146,48 +14967,21 @@ problems.d22p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d22p1.";
+        const s = " T-y2020d23p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d22p2 = {
-    givenInputData: problems.d22p1.givenInputData,
+problems.y2020d23p2 = {
+    givenInputData: problems.y2020d23p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d22p2.";
-        ut.test(s + "1", 1 === 1);
-    },
-};
-
-problems.d23p1 = {
-    givenInputData: ``,
-    solve: function() {
-        readInput();
-
-        writeOutput("The answer is: TBD");
-    },
-    unitTest: function(ut) {
-        const s = " T-d23p1.";
-        ut.test(s + "1", 1 === 1);
-    },
-};
-
-
-problems.d23p2 = {
-    givenInputData: problems.d23p1.givenInputData,
-    solve: function() {
-        readInput();
-
-        writeOutput("The answer is: TBD");
-    },
-    unitTest: function(ut) {
-        const s = " T-d23p2.";
+        const s = " T-y2020d23p2.";
         ut.test(s + "1", 1 === 1);
     },
 };
@@ -14336,8 +15130,8 @@ class Hexgrid extends Matrix2d {
     //         if (this.isValidCoord(x, y)) {
     // }
 };
-problems.d24p1 = {
-    givenInputData: AOC_Input_Data.d24p1,
+problems.y2020d24p1 = {
+    givenInputData: AOC_Input_Data.y2020d24p1,
     solve: function() {
         //Note: for the Hexgrid, black is true and white is false.
         let hg = new Hexgrid();
@@ -14347,7 +15141,7 @@ problems.d24p1 = {
         writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
-        const s = " T-d24p1.";
+        const s = " T-y2020d24p1.";
         let c = new Coord(0, 0);
         ut.test(s + "c1", c.toString() === "0,0");
         c.goAllHex("w");
@@ -14367,8 +15161,8 @@ problems.d24p1 = {
 };
 
 
-problems.d24p2 = {
-    givenInputData: problems.d24p1.givenInputData,
+problems.y2020d24p2 = {
+    givenInputData: problems.y2020d24p1.givenInputData,
     solve: function() {
         //Note: for the Hexgrid, black is true and white is false.
         let hg = new Hexgrid();
@@ -14380,7 +15174,7 @@ problems.d24p2 = {
         writeOutput("The answer is: " + hg.countAll(true));
     },
     unitTest: function(ut) {
-        const s = " T-d24p2.";
+        const s = " T-y2020d24p2.";
         let c = new Coord(0, 0);
         let hg = new Hexgrid();
         ut.test(s + "h1", hg.countAll(true) === 0);
@@ -14406,7 +15200,7 @@ problems.d24p2 = {
         ut.test(s + "h12", hg.countAll(true) === 7);
         ut.test(s + "h12b", hg.nextVal(0, 0) === false);
         hg = hg.step();
-        log("h13:" + hg.countAll(true));
+        // log("h13:" + hg.countAll(true));
         ut.test(s + "h13", hg.countAll(true) === 6);
 
 
@@ -14441,7 +15235,7 @@ problems.d24p2 = {
     },
 };
 
-problems.d25p1 = {
+problems.y2020d25p1 = {
     givenInputData: ``,
     solve: function() {
         readInput();
@@ -14449,21 +15243,221 @@ problems.d25p1 = {
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d25p1.";
+        const s = " T-y2020d25p1.";
         ut.test(s + "1", 1 === 1);
     },
 };
 
 
-problems.d25p2 = {
-    givenInputData: problems.d25p1.givenInputData,
+problems.y2020d25p2 = {
+    givenInputData: problems.y2020d25p1.givenInputData,
     solve: function() {
         readInput();
 
         writeOutput("The answer is: TBD");
     },
     unitTest: function(ut) {
-        const s = " T-d25p2.";
+        const s = " T-y2020d25p2.";
         ut.test(s + "1", 1 === 1);
     },
-};</script></body></html>
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script></body></html>

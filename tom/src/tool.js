@@ -13,9 +13,9 @@ function dbclear() {
 
 function dbtest() {
     let ut = {
-        f: 0,
-        p: 0,
-        fs: "",
+        f: 0, //Number of failures.
+        p: 0, //Number of passes.
+        fs: "", //Failure statements, ie a list of failed tests.
         test: function(name, test) {
             if (test) this.p++;
             else this.fs += (this.f++ > 0 ? ", " : " ") + name;
@@ -68,6 +68,8 @@ function dbtest() {
 
     (new Matrix2d()).unitTest(ut);
     (new MatrixNdMap()).unitTest(ut);
+
+    Ydp.unitTest(ut);
 
     //Run unitTest function for all problems.
     Object.getOwnPropertyNames(problems).forEach((prb) =>
@@ -228,12 +230,12 @@ function solveCurrentProblem() {
     problems[currentBaseId].solve();
 }
 
-function showTabDiv(x) {
-    let t = gi("tabdiv");
+function showMenu(x) {
+    let t = gi("menudiv");
     if (x) {
-        t.className = 'dropdown-content dcshow';
+        t.className = 'dcshow';
     } else {
-        t.className = 'dropdown-content dchide';
+        t.className = 'dchide';
     }
 }
 
@@ -248,7 +250,7 @@ function showArticle(baseId) {
 
     currentBaseId = baseId;
     gi("navlabel").innerHTML = baseId;
-    showTabDiv(false);
+    showMenu(false);
 }
 //Auto-create the nav button-tabs, one for each "a_*" element.
 function makeNavButton(id) {
@@ -287,8 +289,12 @@ function findParentArticleBaseId(elem) {
     }
     return "xxxx";
 }
+/* Build the Menu, 
+add the processing buttons to each article, 
+add the I/O areas to each article, 
+and then display the a_About article.*/
 window.addEventListener("load", function() {
-    let s = "<button class='tab' onclick='showTabDiv(true)'>Menu</button><span id='navlabel'>XXX</span><div id='tabdiv' class='dropdown-content dchide'>";
+    let s = "<button class='tab' onclick='showMenu(true)'>&#9776; Menu</button><span id='navlabel'>XXX</span><div id='menudiv' class='dchide'>";
     document
         .querySelectorAll('[id^="a_"]')
         .forEach((a) => (s += makeNavButton(a.id.substr(2))));
