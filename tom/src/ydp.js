@@ -9,9 +9,9 @@ class Ydp {
         return `y${this.y}d${this.d}p${this.p}`;
     }
     frs(s) {
-        this.y = s.substring(s.indexOf("y") + 1, s.indexOf("d"));
-        this.d = s.substring(s.indexOf("d") + 1, s.indexOf("p"));
-        this.p = s.substring(s.indexOf("p") + 1);
+        this.y = parseInt(s.substring(s.indexOf("y") + 1, s.indexOf("d")));
+        this.d = parseInt(s.substring(s.indexOf("d") + 1, s.indexOf("p")));
+        this.p = parseInt(s.substring(s.indexOf("p") + 1));
     }
     static forAllParts(f) {
         for (let y = 2020; y <= 2021; y++) {
@@ -34,7 +34,7 @@ class Ydp {
         ut.test('T-Ydp3.3', x.p === 2);
         ut.test('T-Ydp4.1', x.tos() === "y2021d22p2");
         let c = 0;
-        forAllParts(() => {
+        Ydp.forAllParts(() => {
             c++;
         });
         ut.test('T-Ydp5.1', c === 2 * 25 * 2);

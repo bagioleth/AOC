@@ -118,10 +118,7 @@ function makeBody(co) {
     <div id="dblog"></div>
     </article>`;
 
-    YDP.forAllParts((ydp) => {
-        let s = ydp.tos();
-        makeArticle(co, `${s}`);
-    });
+    YDP.forAllParts((ydp) => makeArticle(co, ydp));
 
     makeScript(co);
     co.text += `</body></html>`;
@@ -157,26 +154,61 @@ function makeScript(co) {
     //Import solution files if they exist.
     YDP.forAllParts((ydp) => {
         let s = ydp.tos();
-        let sol = readFile(`solution/${s}.js`);
+        let sol = readFile(`src/solutions/${s}.js`);
         if (!sol) sol = "";
         co.text += "\n" + sol + "\n";
     });
     co.text += "</script>";
 }
 
+// function makeProcessingButtons(baseId) {
+//     let day = baseId.substring(baseId.indexOf("d") + 1, baseId.indexOf("p"));
+//     // log("mpb: day=" + day);
+//     let url = `https://adventofcode.com/2020/day/${day}/input`;
 
-function makeArticle(co, base_id) {
+//     return `<button onclick="clearCurrentData()">Clear Data</button>
+// <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+// <button onclick="solveCurrentProblem()">Solve</button>
+// <a class="aoca" href="${url}">AOC Input Data</a>`;
+// }
+
+// function makeIoArea(id) {
+//     return `<br />-----INPUT-----<br />
+// <pre id="i_${id}" class="ita" contenteditable="true">
+// Put input data here.
+// </pre>
+// <br />-----OUTPUT-----<br />
+// <div id="o_${id}" class="ota">
+// Results appear here after pressing the Solve button.
+// </div>`;
+// }
+
+function makeArticle(co, ydp) {
+    let base_id = ydp.tos();
     let article = readFile(`./aoc/${base_id}.html`);
     // console.log("base_id=" + base_id + " article=" + article);
     if (!article) return;
+    let url = `https://adventofcode.com/${ydp.y}/day/${ydp.d}/input`;
     co.text += `
     <article id="a_${base_id}">
     -----PROBLEM STATEMENT-----<br />
     <div class="problem_description">${article}</div>
     <hr />
     <div>
-        <div class="processing_buttons"></div>
-        <div class="io"></div>
+        <div class="processing_buttons"><button onclick="clearCurrentData()">Clear Data</button>
+        <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+        <button onclick="solveCurrentProblem()">Solve</button>
+        <a class="aoca" href="${url}">AOC Input Data</a></div>
+
+        <div class="io"><br />-----INPUT-----<br />
+        <pre id="i_${base_id}" class="ita" contenteditable="true">
+        Put input data here.
+        </pre>
+        <br />-----OUTPUT-----<br />
+            <div id="o_${base_id}" class="ota">
+        Results appear here after pressing the Solve button.
+            </div>
+        </div>
     </div>
     </article>`;
 }
