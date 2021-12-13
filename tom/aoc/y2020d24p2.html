@@ -1,0 +1,32 @@
+<h2 id="part2">--- Part Two ---</h2>
+<p>The tile floor in the lobby is meant to be a <span title="I need one of these!">living art exhibit</span>. Every day, the tiles are all flipped according to the following rules:</p>
+<ul>
+    <li>Any <em>black</em> tile with <em>zero</em> or <em>more than 2</em> black tiles immediately adjacent to it is flipped to <em>white</em>.</li>
+    <li>Any <em>white</em> tile with <em>exactly 2</em> black tiles immediately adjacent to it is flipped to <em>black</em>.</li>
+</ul>
+<p>Here, <em>tiles immediately adjacent</em> means the six tiles directly touching the tile in question.</p>
+<p>The rules are applied <em>simultaneously</em> to every tile; put another way, it is first determined which tiles need to be flipped, then they are all flipped at the same time.</p>
+<p>In the above example, the number of black tiles that are facing up after the given number of days has passed is as follows:</p>
+<pre><code>Day 1: 15
+Day 2: 12
+Day 3: 25
+Day 4: 14
+Day 5: 23
+Day 6: 28
+Day 7: 41
+Day 8: 37
+Day 9: 49
+Day 10: 37
+
+Day 20: 132
+Day 30: 259
+Day 40: 406
+Day 50: 566
+Day 60: 788
+Day 70: 1106
+Day 80: 1373
+Day 90: 1844
+Day 100: 2208
+</code></pre>
+<p>After executing this process a total of 100 times, there would be <em><code>2208</code></em> black tiles facing up.</p>
+<p><em>How many tiles will be black after 100 days?</em></p>

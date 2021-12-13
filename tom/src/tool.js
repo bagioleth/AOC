@@ -13,14 +13,18 @@ function dbclear() {
 
 function dbtest() {
     let ut = {
-        f: 0,
-        p: 0,
-        fs: "Failed test ids:",
+        f: 0, //Number of failures.
+        p: 0, //Number of passes.
+        fs: "", //Failure statements, ie a list of failed tests.
         test: function(name, test) {
             if (test) this.p++;
             else this.fs += (this.f++ > 0 ? ", " : " ") + name;
             // log("this.t=" + this.t + " this.p=" + this.p);
         },
+        report: function() {
+            let flist = (this.f === 0 ? "" : ("Failed test ids:" + this.fs + "."));
+            return `${this.p} tests passed.  ${this.f} tests failed.  ${flist}`
+        }
     };
 
     let a1 = [1, 2, 3, 4];
@@ -62,14 +66,18 @@ function dbtest() {
     ut.test("s", setI.has('c'));
     ut.test("s", setI.size == 1);
 
-    (new Matrix2d()).unitTest(ut);
+    //TODO: Fix the following classes.
+    // (new Matrix2d()).unitTest(ut);
+    // (new MatrixNdMap()).unitTest(ut);
+
+    Ydp.unitTest(ut);
 
     //Run unitTest function for all problems.
     Object.getOwnPropertyNames(problems).forEach((prb) =>
         problems[prb].unitTest(ut)
     );
 
-    log(`${ut.p} tests passed.  ${ut.f} tests failed.  ${ut.fs}.`);
+    log(ut.report());
 }
 
 function isBetween(x, min, max) {
@@ -104,6 +112,9 @@ function stringToIntArrayComma(x) {
     return a;
 }
 
+// fuction setPickElement(a){
+//     let x=a.values.next();
+// }
 function setUnion(a, b) {
     let x = new Set(a);
     for (let e of b) {
@@ -220,12 +231,12 @@ function solveCurrentProblem() {
     problems[currentBaseId].solve();
 }
 
-function showTabDiv(x) {
-    let t = gi("tabdiv");
+function showMenu(x) {
+    let t = gi("menudiv");
     if (x) {
-        t.className = 'dropdown-content dcshow';
+        t.className = 'dcshow';
     } else {
-        t.className = 'dropdown-content dchide';
+        t.className = 'dchide';
     }
 }
 
@@ -240,59 +251,65 @@ function showArticle(baseId) {
 
     currentBaseId = baseId;
     gi("navlabel").innerHTML = baseId;
-    showTabDiv(false);
+    showMenu(false);
 }
 //Auto-create the nav button-tabs, one for each "a_*" element.
 function makeNavButton(id) {
     return `<button class="tab tabnotsel" id="b_${id}" onclick="showArticle('${id}')">${id}</button>`;
 }
 
-function makeProcessingButtons(baseId) {
-    let day = baseId.substring(baseId.indexOf("d") + 1, baseId.indexOf("p"));
-    // log("mpb: day=" + day);
-    let url = `https://adventofcode.com/2020/day/${day}/input`;
+// function makeProcessingButtons(baseId) {
+//     let day = baseId.substring(baseId.indexOf("d") + 1, baseId.indexOf("p"));
+//     // log("mpb: day=" + day);
+//     let url = `https://adventofcode.com/2020/day/${day}/input`;
 
-    return `<button onclick="clearCurrentData()">Clear Data</button>
-<button onclick="loadCurrentInputData()">Load Given Input Data</button>
-<button onclick="solveCurrentProblem()">Solve</button>
-<a class="aoca" href="${url}">AOC Input Data</a>`;
-}
+//     return `<button onclick="clearCurrentData()">Clear Data</button>
+// <button onclick="loadCurrentInputData()">Load Given Input Data</button>
+// <button onclick="solveCurrentProblem()">Solve</button>
+// <a class="aoca" href="${url}">AOC Input Data</a>`;
+// }
 
-function makeIoArea(id) {
-    return `<br />-----INPUT-----<br />
-<pre id="i_${id}" class="ita" contenteditable="true">
-Put input data here.
-</pre>
-<br />-----OUTPUT-----<br />
-<div id="o_${id}" class="ota">
-Results appear here after pressing the Solve button.
-</div>`;
-}
+// function makeIoArea(id) {
+//     return `<br />-----INPUT-----<br />
+// <pre id="i_${id}" class="ita" contenteditable="true">
+// Put input data here.
+// </pre>
+// <br />-----OUTPUT-----<br />
+// <div id="o_${id}" class="ota">
+// Results appear here after pressing the Solve button.
+// </div>`;
+// }
 
-function findParentArticleBaseId(elem) {
-    while (elem != null) {
-        if (elem.id && elem.id[0] == "a" && elem.id[1] == "_") {
-            return elem.id.substr(2);
-        } else {
-            elem = elem.parentNode;
-        }
-    }
-    return "xxxx";
-}
+// function findParentArticleBaseId(elem) {
+//     while (elem != null) {
+//         if (elem.id && elem.id[0] == "a" && elem.id[1] == "_") {
+//             return elem.id.substr(2);
+//         } else {
+//             elem = elem.parentNode;
+//         }
+//     }
+//     return "xxxx";
+// }
+/* Build the Menu, 
+add the processing buttons to each article, 
+add the I/O areas to each article, 
+and then display the a_About article.*/
 window.addEventListener("load", function() {
-    let s = "<button class='tab' onclick='showTabDiv(true)'>Menu</button><span id='navlabel'>XXX</span><div id='tabdiv' class='dropdown-content dchide'>";
+    //Build the menu.
+    let s = "<button class='tab' onclick='showMenu(true)'>&#9776; Menu</button><span id='navlabel'>XXX</span><div id='menudiv' class='dchide'>";
     document
         .querySelectorAll('[id^="a_"]')
         .forEach((a) => (s += makeNavButton(a.id.substr(2))));
     gi("nav-button-tabs").innerHTML = s + '</div></span>';
-    document
-        .querySelectorAll(".processing_buttons")
-        .forEach((div) => (div.innerHTML = makeProcessingButtons(findParentArticleBaseId(div))));
-    document
-        .querySelectorAll(".io")
-        .forEach(
-            (div) => (div.innerHTML = makeIoArea(findParentArticleBaseId(div)))
-        );
+
+    // document
+    //     .querySelectorAll(".processing_buttons")
+    //     .forEach((div) => (div.innerHTML = makeProcessingButtons(findParentArticleBaseId(div))));
+    // document
+    //     .querySelectorAll(".io")
+    //     .forEach(
+    //         (div) => (div.innerHTML = makeIoArea(findParentArticleBaseId(div)))
+    //     );
     showArticle("About");
 });
 //#endregion
