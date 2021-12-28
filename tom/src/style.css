@@ -1,5 +1,7 @@
 html {
     box-sizing: border-box;
+    font-family: "Source Code Pro", monospace;
+    font-size: 12px;
 }
 
 *,
@@ -15,10 +17,14 @@ body {
     grid-template-columns: 1fr;
     background-color: #0f0f23;
     color: #cccccc;
+    
+    min-width: 50em;
 }
 
 header {
     grid-row: 1/2;
+    font-family: "Source Code Pro", monospace;
+    font-size: 22px;
 }
 
 nav {
@@ -28,15 +34,41 @@ nav {
     margin: 0;
     padding: 0;
     text-align: center;
+    font-family: "Source Code Pro", monospace;
+    font-size: 24px;
 }
 
 footer {
     grid-row: end;
+    font-family: "Source Code Pro", monospace;
+    font-size: 16px;
 }
 
+button {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+}
+
+code {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+    color: #ccffcc;
+}
+
+pre {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+    color: #ccffcc;
+}
+    
 #navlabel {
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid #222222;
+    font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  text-shadow: 0 0 10px #ffffff;
 }
 
 .tab {
@@ -44,6 +76,8 @@ footer {
     background-color: #0f0f23;
     border: 1px solid white;
     cursor: pointer;
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
 }
 
 .tabsel {
@@ -79,7 +113,26 @@ article {
     display: none;
     padding: 5px;
     border: 1px solid white;
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
 }
+
+article em {
+  font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+}
+
+
+em {
+  font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  text-shadow: 0 0 5px #ffffff;
+}
+
 
 .ita {
     height: 200px;
