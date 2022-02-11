@@ -10,4 +10,4 @@ for l in f:
         if len(e) in [2,3,4,7]:
             count += 1
 
-print("Part 1: " + str(count))
+print("Part 1: " + str(count))  
