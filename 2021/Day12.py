@@ -59,6 +59,7 @@ while True:
 #    print(l)
 
 print("Part 1: " + str(len(listOfPaths)))
+print("Part 2 takes an hour to compute")
 
 
 
