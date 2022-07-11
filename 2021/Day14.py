@@ -36,29 +36,38 @@ part1 =  sequence.count(max(set(sequence), key = sequence.count)) - sequence.cou
 print("Part 1: " + str(part1))
 
 
-#sequence = ['C','F']
-def sortFunc(r):
+
+def sortFunc(r):#sorts rules so most common is first
     return r.numUsed
 rules.sort(key = sortFunc, reverse=True)
-#for r in rules:
-#    print(r.left + r.right + str(r.numUsed))
 
-print(max(set(sequence), key = sequence.count))
-print(min(set(sequence), key = sequence.count))
+ruleDict = {}#makes a dictionary for all the rules
+for r in rules:
+    ruleDict[(r.left + r.right)] = (r.left + r.middle + r.right)
+
+#print(ruleDict)
+
+#print(max(set(sequence), key = sequence.count))
+#print(min(set(sequence), key = sequence.count))
 
 sequence = ['V','O','K','K','V','S','K','K','P','S','B','V','O','O','K','V','C','F','O','V']
+#sequence = ['V','O']
 numIterations = 40
 for i in range(numIterations):
     print(i)
+    #print("max: " + str(sequence.count(max(set(sequence), key = sequence.count))))
+    #print("min: " + str(sequence.count(min(set(sequence), key = sequence.count))))
     newSequence = [sequence[0]]
     for j in range(1, len(sequence)):
         c1 = sequence[j - 1]
         c2 = sequence[j]
 
-        for r in rules:#goes through rules to find the correct one
-            if c1 == r.left and c2 == r.right:
-                newSequence += [r.middle] + [c2]
-                break
+        newSequence += (ruleDict[c1+c2])[1:]
+
+        #for r in rules:#goes through rules to find the correct one
+        #    if c1 == r.left and c2 == r.right:
+        #        newSequence += [r.middle] + [c2]
+        #        break
 
     sequence = newSequence
 
