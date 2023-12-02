@@ -1,9 +1,4 @@
 function log(s){console.log(s)}
-function isd(c){return((c>='0')&&(c<='9'))} 
-function itf(a,f){let v={val:0}
-  for(let i=0;i<a.length;i++)if(!f(a[i],v))break;
-  return v}
-function ff(a,s){}
 const fa=['0','1','2','3','4','5','6','7','8','9','zero','one','two','three','four','five','six','seven','eight','nine']
 
 const fs=require('node:fs')
@@ -18,7 +13,6 @@ da=da.map((e,i)=>{
     if(i>-1&&i>li){ld=ee;li=i}})
   return fd+ld})
 
-log('da:'+da)
 function d2d(s){
   s=s.replaceAll('zero','0')
   .replaceAll('one','1')
