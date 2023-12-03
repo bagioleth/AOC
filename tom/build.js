@@ -191,7 +191,6 @@ function makeArticle(co, ydp) {
     let url = `https://adventofcode.com/${ydp.y}/day/${ydp.d}/input`;
     co.text += `
     <article id="a_${base_id}">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description">${article}</div>
     <hr />
     <div>

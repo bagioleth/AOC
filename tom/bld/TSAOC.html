@@ -32,6 +32,8 @@ See article below, where id="a_About", for program description.
     <style>
         html {
     box-sizing: border-box;
+    font-family: "Source Code Pro", monospace;
+    font-size: 12px;
 }
 
 *,
@@ -47,10 +49,14 @@ body {
     grid-template-columns: 1fr;
     background-color: #0f0f23;
     color: #cccccc;
+    
+    min-width: 50em;
 }
 
 header {
     grid-row: 1/2;
+    font-family: "Source Code Pro", monospace;
+    font-size: 22px;
 }
 
 nav {
@@ -60,15 +66,41 @@ nav {
     margin: 0;
     padding: 0;
     text-align: center;
+    font-family: "Source Code Pro", monospace;
+    font-size: 24px;
 }
 
 footer {
     grid-row: end;
+    font-family: "Source Code Pro", monospace;
+    font-size: 16px;
 }
 
+button {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+}
+
+code {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+    color: #ccffcc;
+}
+
+pre {
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
+    color: #ccffcc;
+}
+    
 #navlabel {
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid #222222;
+    font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  text-shadow: 0 0 10px #ffffff;
 }
 
 .tab {
@@ -76,6 +108,8 @@ footer {
     background-color: #0f0f23;
     border: 1px solid white;
     cursor: pointer;
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
 }
 
 .tabsel {
@@ -111,7 +145,26 @@ article {
     display: none;
     padding: 5px;
     border: 1px solid white;
+    font-family: "Source Code Pro", monospace;
+    font-size: 20px;
 }
+
+article em {
+  font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+}
+
+
+em {
+  font-style: normal;
+  color: white;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  text-shadow: 0 0 5px #ffffff;
+}
+
 
 .ita {
     height: 200px;
@@ -195,7 +248,6 @@ LEARNING REFERENCES<br />
     <div id="dblog"></div>
     </article>
     <article id="a_y2020d1p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 1: Report Repair ---</h2>
 <p>
     After saving Christmas <a href="/events">five years in a row</a>,
@@ -271,7 +323,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d1p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The Elves in accounting are thankful for your help; one of them even offers you a starfish coin they had left over from a past vacation. They offer you a second one if you can find <em>three</em> numbers in your expense report that meet the same criteria.</p>
 <p>Using the above example again, the three entries that sum to <code>2020</code> are <code>979</code>, <code>366</code>, and <code>675</code>. Multiplying them together produces the answer, <code><em>241861950</em></code>.</p>
@@ -297,7 +348,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d2p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 2: Password Philosophy ---</h2>
 <p>Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via <a href="https://en.wikipedia.org/wiki/Toboggan" target="_blank">toboggan</a>.</p>
 <p>The shopkeeper at the North Pole Toboggan Rental Shop is having a bad day. "Something's wrong with our computers; we can't log in!" You ask if you can take a look.</p>
@@ -332,7 +382,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d2p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.</p>
 <p>The shopkeeper suddenly realizes that he just accidentally explained the password policy rules from his old job at the sled rental place down the street! The Official Toboggan Corporate Policy actually works a little differently.</p>
@@ -365,7 +414,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d3p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 3: Toboggan Trajectory ---</h2>
 <p>With the toboggan login problems resolved, you set off toward the airport. While travel by toboggan might be easy, it's certainly not safe: there's <span title="It looks like the toboggan steering system even runs on Intcode! Good thing you don't have to modify it.">very minimal steering</span> and the area is covered in trees. You'll need to see which angles will take you near the fewest trees.</p>
 <p>Due to the local geology, trees in this area only grow on exact integer coordinates in a grid. You make a map (your puzzle input) of the open squares (<code>.</code>) and trees (<code>#</code>) you can see. For example:</p>
@@ -433,7 +481,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d3p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Time to check the rest of the slopes - you need to minimize the probability of a sudden arboreal stop, after all.</p>
 <p>Determine the number of trees you would encounter if, for each of the following slopes, you start at the top-left corner and traverse the map all the way to the bottom:</p>
@@ -467,7 +514,6 @@ LEARNING REFERENCES<br />
     </div>
     </article>
     <article id="a_y2020d4p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 4: Passport Processing ---</h2>
 <p>You arrive at the airport only to realize that you grabbed your North Pole Credentials instead of your passport. While these documents are extremely similar, North Pole Credentials aren't issued by a country and therefore aren't actually valid documentation for travel in most of the world.</p>
 <p>It seems like you're not the only one having problems, though; a very long line has formed for the automatic passport scanners, and the delay could upset your travel itinerary.</p>
@@ -525,7 +571,6 @@ iyr:2011 ecl:brn hgt:59in
     </div>
     </article>
     <article id="a_y2020d4p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The line is moving more quickly now, but you overhear airport security talking about how passports with invalid data are getting through. Better add some data validation, quick!</p>
 <p>You can continue to ignore the <code>cid</code> field, but each other field has <span title="GLORY TO ARSTOTZKA">strict rules</span> about what values are valid for automatic validation:</p>
@@ -614,7 +659,6 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
     </div>
     </article>
     <article id="a_y2020d5p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 5: Binary Boarding ---</h2>
 <p>You board your plane only to discover a new problem: you dropped your boarding pass! You aren't sure which seat is yours, and all of the flight attendants are busy with the flood of people that suddenly made it through passport control.</p>
 <p>You write a <span title="No problem!">quick program</span> to use your phone's camera to scan all of the nearby boarding passes (your puzzle input); perhaps you can find your seat through process of elimination.</p>
@@ -669,7 +713,6 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
     </div>
     </article>
     <article id="a_y2020d5p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p><em>Ding!</em> The "fasten seat belt" signs have turned on. Time to find your seat.</p>
 <p>It's a completely full flight, so your seat should be the only missing boarding pass in your list. However, there's a catch: some of the seats at the very front and back of the plane don't exist on this aircraft, so they'll be missing from your list as well.</p>
@@ -696,7 +739,6 @@ iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
     </div>
     </article>
     <article id="a_y2020d6p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 6: Custom Customs ---</h2>
 <p>As your flight approaches the regional airport where you'll switch to a much larger plane, <a href="https://en.wikipedia.org/wiki/Customs_declaration" target="_blank">customs declaration forms</a> are distributed to the passengers.</p>
 <p>The form asks a series of 26 yes-or-no questions marked <code>a</code> through <code>z</code>. All you need to do is identify the questions for which <em>anyone in your group</em> answers "yes". Since your group is just you, this doesn't take very long.</p>
@@ -754,7 +796,6 @@ b
     </div>
     </article>
     <article id="a_y2020d6p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>As you finish the last group's customs declaration, you notice that <span title="Don't worry, nobody ever misreads just one word in real life.">you misread one word</span> in the instructions:</p>
 <p>You don't need to identify the questions to which <em>anyone</em> answered "yes"; you need to identify the questions to which <em>everyone</em> answered "yes"!</p>
@@ -806,7 +847,6 @@ b
     </div>
     </article>
     <article id="a_y2020d7p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 7: Handy Haversacks ---</h2>
 <p>You land at the regional airport in time for your next flight. In fact, it looks like you'll even have time to grab some food: all flights are currently delayed due to <em>issues in luggage processing</em>.</p>
 <p>Due to recent aviation regulations, many rules (your puzzle input) are being enforced about bags and their contents; bags must be color-coded and must contain specific quantities of other color-coded bags. Apparently, nobody responsible for these regulations considered how long they would take to enforce!</p>
@@ -853,7 +893,6 @@ dotted black bags contain no other bags.
     </div>
     </article>
     <article id="a_y2020d7p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>It's getting pretty expensive to fly these days - not because of ticket prices, but because of the ridiculous number of bags you need to buy!</p>
 <p>Consider again your <code>shiny gold</code> bag and the rules from the above example:</p>
@@ -897,7 +936,6 @@ dark violet bags contain no other bags.
     </div>
     </article>
     <article id="a_y2020d8p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 8: Handheld Halting ---</h2>
 <p>Your flight to the major airline hub reaches cruising altitude without incident. While you consider checking the in-flight menu for one of those drinks that come with a little umbrella, you are interrupted by the kid sitting next to you.</p>
 <p>Their <a target="_blank" href="https://en.wikipedia.org/wiki/Handheld_game_console">handheld game console</a> won't turn on! They ask if you can take a look.</p>
@@ -955,7 +993,6 @@ acc +6  |
     </div>
     </article>
     <article id="a_y2020d8p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>After some careful analysis, you believe that <em>exactly one instruction is corrupted</em>.</p>
 <p>Somewhere in the program, <em>either</em> a <code>jmp</code> is supposed to be a <code>nop</code>, <em>or</em> a <code>nop</code> is supposed to be a <code>jmp</code>. (No <code>acc</code> instructions were harmed in the corruption of this boot code.)</p>
@@ -1006,7 +1043,6 @@ acc +6  | 6
     </div>
     </article>
     <article id="a_y2020d9p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 9: Encoding Error ---</h2>
 <p>With your neighbor happily enjoying their video game, you turn your attention to an open data port on the little screen in the seat in front of you.</p>
 <p>Though the port is non-standard, you manage to connect it to your computer through the clever use of several paperclips. Upon connection, the port outputs a series of numbers (your puzzle input).</p>
@@ -1070,7 +1106,6 @@ acc +6  | 6
     </div>
     </article>
     <article id="a_y2020d9p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The final step in breaking the XMAS encryption relies on the invalid number you just found: you must <em>find a contiguous set of at least two numbers</em> in your list which sum to the invalid number from step 1.</p>
 <p>Again consider the above example:</p>
@@ -1119,7 +1154,6 @@ acc +6  | 6
     </div>
     </article>
     <article id="a_y2020d10p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 10: Adapter Array ---</h2>
 <p>Patched into the aircraft's data port, you discover weather forecasts of a massive tropical storm. Before you can figure out whether it will impact your vacation plans, however, your device suddenly turns off!</p>
 <p>Its battery is dead.</p>
@@ -1211,7 +1245,6 @@ acc +6  | 6
     </div>
     </article>
     <article id="a_y2020d10p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>To completely determine whether you have enough adapters, you'll need to figure out how many different ways they can be arranged. Every arrangement needs to connect the charging outlet to your device. The previous rules about when adapters can successfully connect still apply.</p>
 <p>The first example above (the one that starts with <code>16</code>, <code>10</code>, <code>15</code>) supports the following arrangements:</p>
@@ -1278,7 +1311,6 @@ acc +6  | 6
     </div>
     </article>
     <article id="a_y2020d11p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 11: Seating System ---</h2>
 <p>Your plane lands with plenty of time to spare. The final leg of your journey is a ferry that goes directly to the tropical island where you can finally start your vacation. As you reach the waiting area to board the ferry, you realize you're so early, nobody else has even arrived yet!</p>
 <p>By modeling the process people use to choose (or abandon) their seat in the waiting area, you're pretty sure you can predict the best place to sit. You make a quick map of the seat layout (your puzzle input).</p>
@@ -1382,7 +1414,6 @@ L.#.L..#..
     </div>
     </article>
     <article id="a_y2020d11p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>As soon as people start to arrive, you realize your mistake. People don't just care about adjacent seats - they care about <em>the first seat they can see</em> in each of those eight directions!</p>
 <p>Now, instead of considering just the eight immediately adjacent seats, consider the <em>first seat</em> in each of those eight directions. For example, the empty seat below would see <em>eight</em> occupied seats:</p>
@@ -1510,7 +1541,6 @@ LLL###LLL#
     </div>
     </article>
     <article id="a_y2020d12p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 12: Rain Risk ---</h2>
 <p>Your ferry made decent progress toward the island, but the storm came in <span title="At least it wasn't a Category Six!">faster than anyone expected</span>. The ferry needs to take <em>evasive actions</em>!</p>
 <p>Unfortunately, the ship's navigation computer seems to be malfunctioning; rather than giving a route directly to safety, it produced extremely circuitous instructions. When the captain uses the <a href="https://en.wikipedia.org/wiki/Public_address_system" target="_blank">PA system</a> to ask if anyone can help, you quickly volunteer.</p>
@@ -1561,7 +1591,6 @@ F11
     </div>
     </article>
     <article id="a_y2020d12p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Before you can give the destination to the captain, you realize that the actual action meanings were printed on the back of the instructions the whole time.</p>
 <p>Almost all of the actions indicate how to move a <em>waypoint</em> which is relative to the ship's position:</p>
@@ -1604,7 +1633,6 @@ F11
     </div>
     </article>
     <article id="a_y2020d13p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 13: Shuttle Search ---</h2>
 <p>Your ferry can make it safely to a nearby port, but it won't get much further. When you call to book another ship, you discover that no ships embark from that port to your vacation island. You'll need to get from the port to the nearest airport.</p>
 <p>Fortunately, a shuttle bus service is available to bring you from the sea port to the airport! Each bus has an ID number that also indicates <em>how often the bus leaves for the airport</em>.</p>
@@ -1661,7 +1689,6 @@ F11
     </div>
     </article>
     <article id="a_y2020d13p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The shuttle company is running a <span title="This is why you should never let me design a contest for a shuttle company.">contest</span>: one gold coin for anyone that can find the earliest timestamp such that the first bus ID departs at that time and each subsequent listed bus ID departs at that subsequent minute. (The first line in your input is no longer relevant.)</p>
 <p>For example, suppose you have the same list of bus IDs as above:</p>
@@ -1736,7 +1763,6 @@ F11
     </div>
     </article>
     <article id="a_y2020d14p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 14: Docking Data ---</h2>
 <p>As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.</p>
 <p>After a brief inspection, you discover that the sea port's computer system uses a strange <a href="https://en.wikipedia.org/wiki/Mask_(computing)" target="_blank">bitmask</a> system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!</p>
@@ -1786,7 +1812,6 @@ result: 00000000000000000000000000000<em>1</em>0000<em>0</em>0  (decimal 64)
     </div>
     </article>
     <article id="a_y2020d14p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>For some reason, the sea port's computer system still can't communicate with your ferry's docking program. It must be using <em>version 2</em> of the decoder chip!</p>
 <p>A version 2 decoder chip doesn't modify the values being written at all. Instead, it acts as a <a href="https://www.youtube.com/watch?v=PvfhANgLrm4" target="_blank">memory address decoder</a>. Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination <em>memory address</em> in the following way:</p>
@@ -1849,7 +1874,6 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
     </div>
     </article>
     <article id="a_y2020d15p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 15: Rambunctious Recitation ---</h2>
 <p>You catch the airport shuttle and try to book a new flight to your vacation island. Due to the storm, all direct flights have been cancelled, but a route is available to get around the storm. You take it.</p>
 <p>While you wait for your flight, you decide to check in with the Elves back at the North Pole. They're playing a <em>memory game</em> and are <span title="Of course they are.">ever so excited</span> to explain the rules!</p>
@@ -1903,7 +1927,6 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
     </div>
     </article>
     <article id="a_y2020d15p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Impressed, the Elves issue you a challenge: determine the <code>30000000</code>th number spoken. For example, given the same starting numbers as above:</p>
 <ul>
@@ -1935,7 +1958,6 @@ result:  00000000000000000000000000000001<em>X</em>0<em>XX</em>
     </div>
     </article>
     <article id="a_y2020d16p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 16: Ticket Translation ---</h2>
 <p>As you're walking to yet another connecting flight, you realize that one of the legs of your re-routed trip coming up is on a high-speed train. However, the train ticket you were given is in a language you don't understand. You should probably figure out what it says before you get to the train station after the next flight.</p>
 <p>Unfortunately, you <span title="This actually happened to me once, but I solved it by just asking someone.">can't actually <em>read</em> the words on the ticket</span>. You can, however, read the numbers, and so you figure out <em>the fields these tickets must have</em> and <em>the valid ranges</em> for values in those fields.</p>
@@ -1986,7 +2008,6 @@ nearby tickets:
     </div>
     </article>
     <article id="a_y2020d16p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>Now that you've identified which tickets contain invalid values, <em>discard those tickets entirely</em>. Use the remaining valid tickets to determine which field is which.</p>
 <p>Using the valid ranges for each field, determine what order the fields appear on the tickets. The order is consistent between all tickets: if <code>seat</code> is the third field, it is the third field on every ticket, including <em>your ticket</em>.</p>
@@ -2024,7 +2045,6 @@ nearby tickets:
     </div>
     </article>
     <article id="a_y2020d17p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 17: Conway Cubes ---</h2><p>As your flight slowly drifts through the sky, the Elves at the Mythical Information Bureau at the North Pole contact you. They'd like some help debugging a malfunctioning experimental energy source aboard one of their super-secret imaging satellites.</p>
 <p>The experimental energy source is based on cutting-edge technology: a set of <span title="Rest in peace, Conway.">Conway</span> Cubes contained in a pocket dimension! When you hear it's having problems, you can't help but agree to take a look.</p>
 <p>The pocket dimension contains an infinite 3-dimensional grid. At every integer 3-dimensional coordinate (<code>x,y,z</code>), there exists a single cube which is either <em>active</em> or <em>inactive</em>.</p>
@@ -2177,7 +2197,6 @@ z=2
     </div>
     </article>
     <article id="a_y2020d17p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>For some reason, your simulated results don't match what the experimental energy source engineers expected. Apparently, the pocket dimension actually has <em>four spatial dimensions</em>, not three.</p>
 <p>The pocket dimension contains an infinite 4-dimensional grid. At every integer 4-dimensional coordinate (<code>x,y,z,w</code>), there exists a single cube (really, a <em>hypercube</em>) which is still either <em>active</em> or <em>inactive</em>.</p>
@@ -2439,7 +2458,6 @@ z=2, w=2
     </div>
     </article>
     <article id="a_y2020d24p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 24: Lobby Layout ---</h2>
 <p>Your raft makes it to the tropical island; it turns out that the small crab was an excellent navigator. You make your way to the resort.</p>
 <p>As you enter the lobby, you discover a small problem: the floor is being renovated. You can't even reach the check-in desk until they've finished installing the <em>new tile floor</em>.</p>
@@ -2491,7 +2509,6 @@ wseweeenwnesenwwwswnew
     </div>
     </article>
     <article id="a_y2020d24p2">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2 id="part2">--- Part Two ---</h2>
 <p>The tile floor in the lobby is meant to be a <span title="I need one of these!">living art exhibit</span>. Every day, the tiles are all flipped according to the following rules:</p>
 <ul>
@@ -2543,7 +2560,6 @@ Day 100: 2208
     </div>
     </article>
     <article id="a_y2021d1p1">
-    -----PROBLEM STATEMENT-----<br />
     <div class="problem_description"><h2>--- Day 1: Sonar Sweep ---</h2>
 <p>You're minding your own business on a ship at sea when the overboard alarm goes off! You rush to see if you can help. Apparently, one of the Elves tripped and accidentally sent the sleigh keys flying into the ocean!</p>
 <p>Before you know it, you're inside a submarine the Elves keep ready for situations like this. It's covered in Christmas lights (because of course it is), and it even has an experimental antenna that should be able to track the keys if you can boost its signal strength high enough; there's a little meter that indicates the antenna's signal strength by displaying 0-50 <em class="star">stars</em>.</p>
