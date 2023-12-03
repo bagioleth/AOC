@@ -1,0 +1,4 @@
+These are Tom's solutions for the Advent of Code 2023 contest.
+
+To calculate the answers, use Nodejs to run the javascript file corresponding to the problem for a particular day and part.  For example, the file "d1p2.js" is the program that solves the problem for day 1 part 2.  There may be input data files for the problems.  These also follow the d#p# naming convention.  Note that "d#p0" files may be present.  They contain sample data given in the problem statement.
+
