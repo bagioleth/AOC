@@ -15,6 +15,6 @@ f.seek(0)
 
 orbiters = [orbiter()] * numOrbiters
 
-for x in f.readline():
-    for y in x.split(")"):
-        orbiters[]
+#for x in f.readline():
+#    for y in x.split(")"):
+        #orbiters[]
